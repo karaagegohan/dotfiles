@@ -377,6 +377,7 @@ set t_Co=256
 set nowrap
 syntax on
 colorscheme hybrid
+set noswapfile
 
 " Don't write backup file if vim is being called by "crontab -e"
 au BufWrite /private/tmp/crontab.* set nowritebackup
