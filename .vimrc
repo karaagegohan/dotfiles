@@ -372,6 +372,13 @@ set showmatch
 set smartindent
 set shiftwidth=2
 set expandtab
+set guioptions-=m
+set guioptions-=T
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
+set guioptions-=b
 set ts=2
 set t_Co=256
 set nowrap
@@ -384,15 +391,22 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup
 
+autocmd GUIEnter * set transparency=220
+
 
 "------------------
 " key mappings
 "------------------
-inoremap <C-c> <Esc>
+imap <C-c> <Esc>
+imap <C-j> <Esc>
 nnoremap <C-c><C-c> :noh<CR>
-nnoremap <space>r :QuickRun<CR>
+nnoremap <C-j><C-j> :noh<CR>
+" nnoremap <space>r :QuickRun<CR>
 nnoremap <space>f :VimFiler<CR>
-nmap     <C-j> <ESC>
+nnoremap <space>v :vnew<CR>
+nnoremap <space>n :new<CR>
+nnoremap <C-l> ^
+nnoremap <C-h> $
 nmap     ; :
 
 " コメントアウトを切り替えるマッピング
