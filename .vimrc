@@ -370,21 +370,20 @@ set autoindent
 set incsearch
 set showmatch
 set smartindent
-set shiftwidth=2
+set shiftwidth=4
 set expandtab
-set guioptions-=m
-set guioptions-=T
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
-set guioptions-=b
+set guioptions=
 set ts=2
 set t_Co=256
 set nowrap
-syntax on
-colorscheme hybrid
+set mouse=
 set noswapfile
+set title
+set cmdheight=1
+set scrolloff=3
+set browsedir=current
+syntax on
+colorscheme molokai
 
 " Don't write backup file if vim is being called by "crontab -e"
 au BufWrite /private/tmp/crontab.* set nowritebackup
@@ -397,17 +396,21 @@ autocmd GUIEnter * set transparency=220
 "------------------
 " key mappings
 "------------------
-imap <C-c> <Esc>
-imap <C-j> <Esc>
-nnoremap <C-c><C-c> :noh<CR>
+no R <Nop>
+no <C-c> <Nop>
+no <C-j> <Nop>
+" inoremap <C-c> <Esc>
+" vnoremap <C-c> <Esc>
+" nnoremap <C-c><C-c> :noh<CR>
+inoremap <C-j> <Esc>
+vnoremap <C-j> <Esc>
 nnoremap <C-j><C-j> :noh<CR>
-" nnoremap <space>r :QuickRun<CR>
+nnoremap <space>r :QuickRun<CR>
 nnoremap <space>f :VimFiler<CR>
 nnoremap <space>v :vnew<CR>
 nnoremap <space>n :new<CR>
-nnoremap <C-l> ^
-nnoremap <C-h> $
-nmap     ; :
+nnoremap ; :
+nnoremap U <C-r>
 
 " コメントアウトを切り替えるマッピング
 " \c でカーソル行をコメントアウト
