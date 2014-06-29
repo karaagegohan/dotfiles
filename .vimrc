@@ -398,16 +398,17 @@ autocmd GUIEnter * set transparency=220
 "------------------
 no R <Nop>
 no <C-c> <Nop>
-no <C-j> <Nop>
-inoremap <C-j> <Esc>
-vnoremap <C-j> <Esc>
-nnoremap <C-j><C-j> :noh<CR>
+inoremap <C-c> <Esc>
+vnoremap <C-c> <Esc>
+nnoremap <C-c><C-c> :noh<CR>
 nnoremap <space>r :QuickRun<CR>
 nnoremap <space>f :VimFiler<CR>
 nnoremap <space>v :vnew<CR>
 nnoremap <space>n :new<CR>
 nnoremap ; :
 nnoremap U <C-r>
+cnoremap <C-j> <DOWN>
+cnoremap <C-k> <UP>
 
 " コメントアウトを切り替えるマッピング
 " \c でカーソル行をコメントアウト
