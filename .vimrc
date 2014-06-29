@@ -383,7 +383,7 @@ set cmdheight=1
 set scrolloff=3
 set browsedir=current
 syntax on
-colorscheme molokai
+colorscheme hybrid
 
 " Don't write backup file if vim is being called by "crontab -e"
 au BufWrite /private/tmp/crontab.* set nowritebackup
@@ -399,9 +399,6 @@ autocmd GUIEnter * set transparency=220
 no R <Nop>
 no <C-c> <Nop>
 no <C-j> <Nop>
-" inoremap <C-c> <Esc>
-" vnoremap <C-c> <Esc>
-" nnoremap <C-c><C-c> :noh<CR>
 inoremap <C-j> <Esc>
 vnoremap <C-j> <Esc>
 nnoremap <C-j><C-j> :noh<CR>
