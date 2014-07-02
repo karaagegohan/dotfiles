@@ -205,8 +205,7 @@ else
       let g:neocomplcache_omni_patterns = {}
     endif
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)' let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
     " For perlomni.vim setting.
     " https://github.com/c9s/perlomni.vim
@@ -357,13 +356,13 @@ NeoBundleCheck
 "--------------------
 " base settings
 "--------------------
+cd ~
 set modelines=0		" CVE-2007-2438
 set encoding=utf-8
 set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 set nocompatible	" Use Vim defaults instead of 100% vi compatibility
 set backspace=2		" more powerful backspacing
 set number
-set nocompatible
 set autoread
 set ruler
 set autoindent
@@ -381,6 +380,8 @@ set noswapfile
 set title
 set cmdheight=1
 set scrolloff=3
+set backupdir=~/vimFiles
+set directory=~/vimFiles
 set browsedir=current
 syntax on
 colorscheme hybrid
@@ -405,6 +406,7 @@ nnoremap <space>r :QuickRun<CR>
 nnoremap <space>f :VimFiler<CR>
 nnoremap <space>v :vnew<CR>
 nnoremap <space>n :new<CR>
+nnoremap <space>. :e $MYVIMRC<CR>
 nnoremap ; :
 nnoremap U <C-r>
 cnoremap <C-j> <DOWN>
