@@ -62,6 +62,7 @@ NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'scrooloose/nerdtree'
 
 " NeoBundle Setup
 " -----------------------------------------------------------------------
@@ -205,8 +206,7 @@ else
       let g:neocomplcache_omni_patterns = {}
     endif
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)' 
-    let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)' let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
     " For perlomni.vim setting.
     " https://github.com/c9s/perlomni.vim
@@ -271,6 +271,7 @@ nnoremap <silent> ,is :VimShell<CR>
 "    'Shougo/vimfiler'
 " -----------------------------------------------------------------------
 let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_enable_auto_cd = 1
 
 " -----------------------------------------------------------------------
 "    'Rip-Rip/clang_complete'
@@ -373,15 +374,15 @@ set smartindent
 set shiftwidth=4
 set expandtab
 set guioptions=
-set ts=2
+set ts=4
 set t_Co=256
 set nowrap
 set mouse=
-set noswapfile
 set title
 set cmdheight=1
-set scrolloff=3
+set scrolloff=5
 set backupdir=~/vimFiles
+set undodir=~/vimFiles
 set directory=~/vimFiles
 set browsedir=current
 syntax on
@@ -392,14 +393,20 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup
 
-autocmd GUIEnter * set transparency=220
+" autocmd GUIEnter * set transparency=200
 
+" 隠しファイルをデフォルトで表示させる
+let NERDTreeShowHidden = 1
+ 
+" デフォルトでツリーを表示させる
+autocmd VimEnter * execute 'NERDTree'
 
 "------------------
 " key mappings
 "------------------
 no R <Nop>
 no <C-c> <Nop>
+nnoremap <Tab> <C-w><C-w> 
 inoremap <C-c> <Esc>
 vnoremap <C-c> <Esc>
 nnoremap <C-c><C-c> :noh<CR>
@@ -407,11 +414,15 @@ nnoremap <space>r :QuickRun<CR>
 nnoremap <space>f :VimFiler<CR>
 nnoremap <space>v :vnew<CR>
 nnoremap <space>n :new<CR>
+nnoremap <space>t :NERDTree<CR>
 nnoremap <space>. :e $MYVIMRC<CR>
+nnoremap <space>, :e $MYGVIMRC<CR>
 nnoremap ; :
 nnoremap U <C-r>
 cnoremap <C-j> <DOWN>
 cnoremap <C-k> <UP>
+
+nnoremap s <Nop>
 
 " コメントアウトを切り替えるマッピング
 " \c でカーソル行をコメントアウト
