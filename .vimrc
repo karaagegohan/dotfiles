@@ -351,9 +351,34 @@ endfunction
 " -----------------------------------------------------------------------
 
 " -----------------------------------------------------------------------
-" Installation check.
+"    Installation check.
 " -----------------------------------------------------------------------
 NeoBundleCheck
+
+" -----------------------------------------------------------------------
+"    colorscheme
+" -----------------------------------------------------------------------
+" solarized カラースキーム
+  NeoBundle 'altercation/vim-colors-solarized'
+" mustang カラースキーム
+  NeoBundle 'croaker/mustang-vim'
+" wombat カラースキーム
+  NeoBundle 'jeffreyiacono/vim-colors-wombat'
+" jellybeans カラースキーム
+  NeoBundle 'nanotech/jellybeans.vim'
+" lucius カラースキーム
+  NeoBundle 'vim-scripts/Lucius'
+" zenburn カラースキーム
+  NeoBundle 'vim-scripts/Zenburn'
+" mrkn256 カラースキーム
+  NeoBundle 'mrkn/mrkn256.vim'
+" railscasts カラースキーム
+  NeoBundle 'jpo/vim-railscasts-theme'
+" pyte カラースキーム
+  NeoBundle 'therubymug/vim-pyte'
+" molokai カラースキーム
+  NeoBundle 'tomasr/molokai'
+colorscheme molokai
 
 "--------------------
 " base settings
@@ -386,7 +411,6 @@ set undodir=~/vimFiles
 set directory=~/vimFiles
 set browsedir=current
 syntax on
-colorscheme hybrid
 
 " Don't write backup file if vim is being called by "crontab -e"
 au BufWrite /private/tmp/crontab.* set nowritebackup
