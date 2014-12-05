@@ -425,7 +425,7 @@ nnoremap ; :
 nnoremap U <C-r>
 cnoremap <C-j> <DOWN>
 cnoremap <C-k> <UP>
-
+nnoremap U <C-r>
 nnoremap s <Nop>
 nmap s <Plug>(operator-replace)
 
