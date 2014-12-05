@@ -62,7 +62,6 @@ NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'scrooloose/nerdtree'
 
 " NeoBundle Setup
 " -----------------------------------------------------------------------
@@ -419,12 +418,6 @@ au BufWrite /private/etc/pw.* set nowritebackup
 
 " autocmd GUIEnter * set transparency=200
 
-" 隠しファイルをデフォルトで表示させる
-let NERDTreeShowHidden = 1
- 
-" デフォルトでツリーを表示させる
-autocmd VimEnter * execute 'NERDTree'
-
 "------------------
 " key mappings
 "------------------
@@ -438,7 +431,6 @@ nnoremap <space>r :QuickRun<CR>
 nnoremap <space>f :VimFiler<CR>
 nnoremap <space>v :vnew<CR>
 nnoremap <space>n :new<CR>
-nnoremap <space>t :NERDTree<CR>
 nnoremap <space>. :e $MYVIMRC<CR>
 nnoremap <space>, :e $MYGVIMRC<CR>
 nnoremap ; :
