@@ -416,7 +416,9 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup
 
-" autocmd GUIEnter * set transparency=200
+if has('win32')
+    autocmd GUIEnter * set transparency=200
+endif
 
 "------------------
 " key mappings
