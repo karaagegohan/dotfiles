@@ -361,9 +361,9 @@ NeoBundleCheck
 "    colorscheme
 " -----------------------------------------------------------------------
 " molokai カラースキーム
-  NeoBundle 'tomasr/molokai'
-  NeoBundle 'vim-scripts/candy.vim'
-colorscheme molokai
+  NeoBundle 'w0ng/vim-hybrid'
+
+colorscheme hybrid
 
 "--------------------
 " base settings
@@ -425,6 +425,7 @@ nnoremap ; :
 nnoremap U <C-r>
 cnoremap <C-j> <DOWN>
 cnoremap <C-k> <UP>
+
 nnoremap s <Nop>
 nmap s <Plug>(operator-replace)
 
