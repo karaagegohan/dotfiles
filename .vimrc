@@ -361,7 +361,7 @@ NeoBundleCheck
 "    colorscheme
 " -----------------------------------------------------------------------
 " molokai カラースキーム
-  NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'w0ng/vim-hybrid'
 
 colorscheme hybrid
 
@@ -415,12 +415,12 @@ nnoremap <Tab> <C-w><C-w>
 inoremap <C-c> <Esc>
 vnoremap <C-c> <Esc>
 nnoremap <C-c><C-c> :noh<CR>
-nnoremap <space>r :QuickRun<CR>
 nnoremap <space>f :VimFiler<CR>
 nnoremap <space>v :vnew<CR>
 nnoremap <space>n :new<CR>
 nnoremap <space>. :e $MYVIMRC<CR>
 nnoremap <space>, :e $MYGVIMRC<CR>
+nnoremap <space>r :Restart<CR>
 nnoremap ; :
 nnoremap U <C-r>
 cnoremap <C-j> <DOWN>
@@ -437,5 +437,5 @@ nmap \c <Plug>(caw:I:toggle)
 vmap \c <Plug>(caw:I:toggle)
 
 " \C でコメントアウトの解除
-nmap \C <Plug>(caw:I:uncomment)
-vmap \C <Plug>(caw:I:uncomment)
+" nmap \C <Plug>(caw:I:uncomment)
+" vmap \C <Plug>(caw:I:uncomment)
