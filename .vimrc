@@ -364,6 +364,7 @@ NeoBundleCheck
 " -----------------------------------------------------------------------
 " molokai カラースキーム
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'altercation/vim-colors-solarized'
 
 colorscheme hybrid
 
