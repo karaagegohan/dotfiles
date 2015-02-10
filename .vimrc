@@ -67,6 +67,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'kana/vim-operator-replace'
+NeoBundle 'bronson/vim-trailing-whitespace'
 
 " NeoBundle Setup
 " -----------------------------------------------------------------------
@@ -215,10 +216,10 @@ else
     " For perlomni.vim setting.
     " https://github.com/c9s/perlomni.vim
     let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-    
+
     " <TAB> completion.
     " inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+    " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
     " inoremap <expr><TAB>    pumvisible() ? neocomplcache#close_popup() :"\<CR>"
 endif
 
@@ -414,7 +415,7 @@ endif
 "------------------
 no R <Nop>
 no <C-c> <Nop>
-nnoremap <Tab> <C-w><C-w> 
+nnoremap <Tab> <C-w><C-w>
 inoremap <C-c> <Esc>
 vnoremap <C-c> <Esc>
 nnoremap <C-c><C-c> :noh<CR>
@@ -440,5 +441,5 @@ nmap \c <Plug>(caw:I:toggle)
 vmap \c <Plug>(caw:I:toggle)
 
 " \C でコメントアウトの解除
-" nmap \C <Plug>(caw:I:uncomment)
-" vmap \C <Plug>(caw:I:uncomment)
+nmap \C <Plug>(caw:I:uncomment)
+vmap \C <Plug>(caw:I:uncomment)
