@@ -407,7 +407,7 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 au BufWrite /private/etc/pw.* set nowritebackup
 
 if has('win32')
-    autocmd GUIEnter * set transparency=200
+"     autocmd GUIEnter * set transparency=250
 endif
 
 "------------------
@@ -432,6 +432,8 @@ cnoremap <C-k> <UP>
 nnoremap U <C-r>
 nnoremap s <Nop>
 nmap s <Plug>(operator-replace)
+
+map Kk mawv/ <CR>"ty/ <CR>wve"ny/getters<CR>$a<CR><CR><Esc>xxa<Tab>public <Esc>"tpa<Esc>"npbiget<Esc>l~hea ()<CR>{<CR><Tab>return <Esc>"npa;<CR>}<Esc>=<CR><Esc>/setters<CR>$a<CR><CR><Esc>xxa<Tab>public void <Esc>"npbiset<Esc>l~hea (<Esc>"tpa<Esc>"npa)<CR>{<CR><Tab>this.<Esc>"npa = <Esc>"npa;<CR>}<Esc>=<CR>`ak
 
 " コメントアウトを切り替えるマッピング
 " \c でカーソル行をコメントアウト
