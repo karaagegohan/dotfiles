@@ -2,56 +2,40 @@
 "   neobundle
 " -----------------------------------------------------------------------
 augroup vimrc
-  autocmd!
+    autocmd!
 augroup END
 
 if has('vim_starting')
-set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Recommended to install
-" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc.vim', {
-    \ 'build' : {
-        \ 'windows' : 'make -f make_mingw32.mak',
-        \ 'cygwin'  : 'make -f make_cygwin.mak ',
-        \ 'mac'     : 'make -f make_mac.mak    ',
-        \ 'unix'    : 'make -f make_unix.mak   ',
-    \ },
-\ }
-
-filetype plugin indent on     " Required!
-
-" Brief help
-" :NeoBundleList          - list configured bundles
-" :NeoBundleInstall(!)    - install(update) bundles
-" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-
-
-" Bundle
+            \ 'build' : {
+            \ 'windows' : 'make -f make_mingw32.mak',
+            \ 'cygwin'  : 'make -f make_cygwin.mak ',
+            \ 'mac'     : 'make -f make_mac.mak    ',
+            \ 'unix'    : 'make -f make_unix.mak   ',
+            \ },
+            \ }
 function! s:meet_neocomplete_requirements()
     return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
 endfunction
-
 if s:meet_neocomplete_requirements()
     NeoBundle 'Shougo/neocomplete.vim'
 else
     NeoBundle 'Shougo/neocomplcache.vim'
 endif
-
 NeoBundle "tyru/caw.vim"
 NeoBundle "Shougo/neosnippet"
 NeoBundle "Shougo/neosnippet-snippets"
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundleLazy 'Shougo/vimshell.vim', {
-    \ 'depends' : [ 'Shougo/vimproc.vim' ]
-    \ }
+            \ 'depends' : [ 'Shougo/vimproc.vim' ]
+            \ }
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'kana/vim-smartchr'
@@ -68,6 +52,11 @@ NeoBundle 'tyru/restart.vim'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'kana/vim-operator-replace'
 NeoBundle 'bronson/vim-trailing-whitespace'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'altercation/vim-colors-solarized'
+
+filetype plugin indent on
+call neobundle#end()
 
 " NeoBundle Setup
 " -----------------------------------------------------------------------
@@ -92,10 +81,10 @@ if s:meet_neocomplete_requirements()
 
     " Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+                \ 'default' : '',
+                \ 'vimshell' : $HOME.'/.vimshell_hist',
+                \ 'scheme' : $HOME.'/.gosh_completions'
+                \ }
 
     " Define keyword.
     if !exists('g:neocomplete#keyword_patterns')
@@ -111,9 +100,9 @@ if s:meet_neocomplete_requirements()
     " <CR>: close popup and save indent.
     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
-      return neocomplete#close_popup() . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+        return neocomplete#close_popup() . "\<CR>"
+        " For no inserting <CR> key.
+        "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
     endfunction
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -134,7 +123,7 @@ if s:meet_neocomplete_requirements()
 
     " Enable heavy omni completion.
     if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
+        let g:neocomplete#sources#omni#input_patterns = {}
     endif
     let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
@@ -167,10 +156,10 @@ else
 
     " Define dictionary.
     let g:neocomplcache_dictionary_filetype_lists = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
+                \ 'default' : '',
+                \ 'vimshell' : $HOME.'/.vimshell_hist',
+                \ 'scheme' : $HOME.'/.gosh_completions'
+                \ }
 
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
@@ -186,9 +175,9 @@ else
     " <CR>: close popup and save indent.
     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
-      return neocomplcache#smart_close_popup() . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+        return neocomplcache#smart_close_popup() . "\<CR>"
+        " For no inserting <CR> key.
+        "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
     endfunction
     " <TAB>: completion.
     " <C-h>, <BS>: close popup and delete backword char.
@@ -208,7 +197,7 @@ else
 
     " Enable heavy omni completion.
     if !exists('g:neocomplcache_omni_patterns')
-      let g:neocomplcache_omni_patterns = {}
+        let g:neocomplcache_omni_patterns = {}
     endif
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)' let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
@@ -238,7 +227,7 @@ smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : 
 
 " For snippet_complete marker.
 if has('conceal')
-set conceallevel=2 concealcursor=i
+    set conceallevel=2 concealcursor=i
 endif
 
 " -----------------------------------------------------------------------
@@ -286,7 +275,7 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_complete_copen = 0
 let g:clang_use_library = 1
-let g:clang_library_path = '/usr/lib/llvm'
+let g:clang_library_path =s '/usr/lib/llvm'
 let g:clang_debug = 0
 let g:clang_user_options = '-std= c++11'
 
@@ -303,17 +292,17 @@ inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
 "    'itchyny/lightline.vim'
 " -----------------------------------------------------------------------
 let g:lightline = {
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'fugitive', 'filename' ] ]
-    \ },
-    \ 'component_function': {
-    \   'fugitive': 'MyFugitive',
-    \   'readonly': 'MyReadonly',
-    \   'modified': 'MyModified',
-    \   'filename': 'MyFilename'
-    \ },
-    \ }
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'fugitive', 'filename' ] ]
+            \ },
+            \ 'component_function': {
+            \   'fugitive': 'MyFugitive',
+            \   'readonly': 'MyReadonly',
+            \   'modified': 'MyModified',
+            \   'filename': 'MyFilename'
+            \ },
+            \ }
 
 function! MyModified()
     if &filetype == "help"
@@ -343,8 +332,8 @@ endfunction
 
 function! MyFilename()
     return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
+                \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+                \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
 " -----------------------------------------------------------------------
@@ -364,8 +353,6 @@ NeoBundleCheck
 "    colorscheme
 " -----------------------------------------------------------------------
 " molokai カラースキーム
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'altercation/vim-colors-solarized'
 
 colorscheme hybrid
 
@@ -406,9 +393,6 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup
 
-if has('win32')
-"     autocmd GUIEnter * set transparency=250
-endif
 
 "------------------
 " key mappings
@@ -432,8 +416,6 @@ cnoremap <C-k> <UP>
 nnoremap U <C-r>
 nnoremap s <Nop>
 nmap s <Plug>(operator-replace)
-
-map Kk mawv/ <CR>"ty/ <CR>wve"ny/getters<CR>$a<CR><CR><Esc>xxa<Tab>public <Esc>"tpa<Esc>"npbiget<Esc>l~hea ()<CR>{<CR><Tab>return <Esc>"npa;<CR>}<Esc>=<CR><Esc>/setters<CR>$a<CR><CR><Esc>xxa<Tab>public void <Esc>"npbiset<Esc>l~hea (<Esc>"tpa<Esc>"npa)<CR>{<CR><Tab>this.<Esc>"npa = <Esc>"npa;<CR>}<Esc>=<CR>`ak
 
 " コメントアウトを切り替えるマッピング
 " \c でカーソル行をコメントアウト
