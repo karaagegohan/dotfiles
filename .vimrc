@@ -1,6 +1,4 @@
-"-----------------------------------------------------------------------
-"   neobundle
-" -----------------------------------------------------------------------
+" NeoBundle  {{{
 augroup vimrc
     autocmd!
 augroup END
@@ -28,18 +26,16 @@ if s:meet_neocomplete_requirements()
 else
     NeoBundle 'Shougo/neocomplcache.vim'
 endif
-NeoBundle "tyru/caw.vim"
 NeoBundle "Shougo/neosnippet"
 NeoBundle "Shougo/neosnippet-snippets"
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundleLazy 'Shougo/vimshell.vim', {
             \ 'depends' : [ 'Shougo/vimproc.vim' ]
             \ }
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'kana/vim-smartchr'
-NeoBundle 'sakuraiyuta/commentout.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'cohama/vim-hier'
 NeoBundle 'dannyob/quickfixstatus'
@@ -51,19 +47,14 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'kana/vim-operator-replace'
-NeoBundle 'bronson/vim-trailing-whitespace'
+NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'altercation/vim-colors-solarized'
 
 filetype plugin indent on
 call neobundle#end()
-
-" NeoBundle Setup
-" -----------------------------------------------------------------------
-"    'Shougo/neocomplete.vim'
-" -----------------------------------------------------------------------
-"    'Shougo/neocomplcashe'
-" -----------------------------------------------------------------------
+NeoBundleCheck
+" }}}
+" Shougo/neocomplete.vim, Shougo/neocomplcashe {{{
 if s:meet_neocomplete_requirements()
     " --------------------------------------------------------------------
     " neocomplete の設定
@@ -211,10 +202,8 @@ else
     " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
     " inoremap <expr><TAB>    pumvisible() ? neocomplcache#close_popup() :"\<CR>"
 endif
-
-" -----------------------------------------------------------------------
-"    'Shougo/neosnippet'
-" -----------------------------------------------------------------------
+" }}}
+" Shougo/neosnippet {{{
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -229,10 +218,8 @@ smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : 
 if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
-
-" -----------------------------------------------------------------------
-"    'Shougo/unite.vim'
-" -----------------------------------------------------------------------
+" }}}
+" Shougo/unite.vim {{{
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
 nnoremap <silent> [space]y :<C-u>Unite history/yank<CR>
@@ -240,16 +227,12 @@ nnoremap <silent> [space]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [space]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> [space]r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [space]u :<C-u>Unite file_mru buffer<CR>
-
-" -----------------------------------------------------------------------
-"    'Shougo/unite-outline'
-" -----------------------------------------------------------------------
+" }}}
+" Shougo/unite-outline {{{
 let g:unite_split_rule = 'botright'
 noremap [space]o <ESC>:Unite -vertical -winwidth=60 outline<Return>
-
-" -----------------------------------------------------------------------
-"    'Shougo/vimshell'
-" -----------------------------------------------------------------------
+" }}}
+" Shougo/vimshell {{{
 " ,is: シェルを起動
 nnoremap <silent> ,is :VimShell<CR>
 " ,ipy: pythonを非同期で起動
@@ -260,16 +243,12 @@ nnoremap <silent> ,is :VimShell<CR>
 "vmap <silent> ,ss :VimShellSendString<CR>
 " 選択中に,ss: 非同期で開いたインタプリタに選択行を評価させる
 "nnoremap <silent> ,ss <S-v>:VimShellSendString<CR>
-
-" -----------------------------------------------------------------------
-"    'Shougo/vimfiler'
-" -----------------------------------------------------------------------
+"" }}}
+" Shougo/vimfiler {{{
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_enable_auto_cd = 1
-
-" -----------------------------------------------------------------------
-"    'Rip-Rip/clang_complete'
-" -----------------------------------------------------------------------
+" }}}
+" Rip-Rip/clang_complete {{{
 set completeopt=menuone
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
@@ -278,19 +257,11 @@ let g:clang_use_library = 1
 let g:clang_library_path =s '/usr/lib/llvm'
 let g:clang_debug = 0
 let g:clang_user_options = '-std= c++11'
-
-" -----------------------------------------------------------------------
-"    'kana/vim-smartchr'
-" -----------------------------------------------------------------------
+" }}}
+" kana/vim-smartchr {{{
 inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
-
-" -----------------------------------------------------------------------
-"    'sakuraiyuta/commentout.vim'
-" -----------------------------------------------------------------------
-
-" -----------------------------------------------------------------------
-"    'itchyny/lightline.vim'
-" -----------------------------------------------------------------------
+" }}} 
+" itchyny/lightline.vim {{{
 let g:lightline = {
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
@@ -335,31 +306,8 @@ function! MyFilename()
                 \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
                 \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
-
-" -----------------------------------------------------------------------
-"   'cohama/vim-hier'
-" -----------------------------------------------------------------------
-
-" -----------------------------------------------------------------------
-"   'dannyob/quickfixstatus'
-" -----------------------------------------------------------------------
-
-" -----------------------------------------------------------------------
-"    Installation check.
-" -----------------------------------------------------------------------
-NeoBundleCheck
-
-" -----------------------------------------------------------------------
-"    colorscheme
-" -----------------------------------------------------------------------
-" molokai カラースキーム
-
-colorscheme hybrid
-
-"--------------------
-" base settings
-"--------------------
-cd ~
+" }}}
+" base settings {{{
 set modelines=0		" CVE-2007-2438
 set encoding=utf-8
 set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
@@ -386,17 +334,17 @@ set backupdir=~/vimFiles
 set undodir=~/vimFiles
 set directory=~/vimFiles
 set browsedir=current
+set foldmethod=marker
+set clipboard=unnamed
+colorscheme hybrid
 syntax on
 
 " Don't write backup file if vim is being called by "crontab -e"
 au BufWrite /private/tmp/crontab.* set nowritebackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup
-
-
-"------------------
-" key mappings
-"------------------
+" }}}
+" key mappings {{{
 no R <Nop>
 no <C-c> <Nop>
 nnoremap <Tab> <C-w><C-w>
@@ -415,15 +363,8 @@ cnoremap <C-j> <DOWN>
 cnoremap <C-k> <UP>
 nnoremap U <C-r>
 nnoremap s <Nop>
+nnoremap z za
 nmap s <Plug>(operator-replace)
-
-" コメントアウトを切り替えるマッピング
-" \c でカーソル行をコメントアウト
-" 再度 \c でコメントアウトを解除
-" 選択してから複数行の \c も可能
-nmap \c <Plug>(caw:I:toggle)
-vmap \c <Plug>(caw:I:toggle)
-
-" \C でコメントアウトの解除
-nmap \C <Plug>(caw:I:uncomment)
-vmap \C <Plug>(caw:I:uncomment)
+nmap \c <Plug>TComment_gcc<Esc>
+vmap \c <Plug>TComment_gcc<Esc>
+" }}}

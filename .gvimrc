@@ -7,7 +7,7 @@ source $VIMRUNTIME/menu.vim
 " An example for a Japanese version gvimrc file.
 " 日本語版のデフォルトGUI設定ファイル(gvimrc) - Vim7用試作
 "
-" Last Change: 08-Dec-2014.
+" Last Change: 13-May-2015.
 " Maintainer:  MURAOKA Taro <koron.kaoriya@gmail.com>
 "
 " 解説:
@@ -174,13 +174,12 @@ endif
 " ウインドウに関する設定:
 "
 " ウインドウの幅
-set columns=160
+set columns=100
 " ウインドウの高さ
-set lines=45
+set lines=130
 " コマンドラインの高さ(GUI使用時)
 set cmdheight=1
 "?N???b?v?{?[?h??Windows?ƘA?g
-set clipboard=unnamed
 
 "---------------------------------------------------------------------------
 " 日本語入力に関する設定:
