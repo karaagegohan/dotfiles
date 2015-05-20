@@ -7,7 +7,7 @@ source $VIMRUNTIME/menu.vim
 " An example for a Japanese version gvimrc file.
 " 日本語版のデフォルトGUI設定ファイル(gvimrc) - Vim7用試作
 "
-" Last Change: 13-May-2015.
+" Last Change: 16-May-2015.
 " Maintainer:  MURAOKA Taro <koron.kaoriya@gmail.com>
 "
 " 解説:
@@ -153,8 +153,8 @@ colorscheme hybrid
 if has('win32')
   " Windows用
 "   set guifont=Meslo_LG_S_DZ:h12:cANSI
-    set guifont=Inconsolata:h11:cANSI
-    set guifontwide=Ricty_Diminished:h11:cSHIFTJIS
+    set guifont=Inconsolata:h10:cANSI
+    set guifontwide=Ricty_Diminished:h10:cSHIFTJIS
 "     set guifont=Inconsolata:h18:cANSI
 "   set guifontwide=Ricty_Diminished:h18:cSHIFTJIS
   " 行間隔の設定
