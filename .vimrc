@@ -1,5 +1,6 @@
-" NeoBundle  {{{
 scriptencoding utf-8
+
+" NeoBundle  {{{
 augroup vimrc
     autocmd!
 augroup END
@@ -50,6 +51,7 @@ NeoBundle 'kana/vim-operator-user'
 NeoBundle 'kana/vim-operator-replace'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'junegunn/vim-easy-align'
 
 filetype plugin indent on
 call neobundle#end()
@@ -91,7 +93,6 @@ if s:meet_neocomplete_requirements()
 
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
         return neocomplete#close_popup() . "\<CR>"
         " For no inserting <CR> key.
@@ -318,66 +319,93 @@ function! MyFilename()
 endfunction
 " }}}
 
+" junegunn/vim-easy-align {{{
+let g:easy_align_delimiters = {
+\ '"': {
+\     'pattern':         '"',
+\     'delimiter_align': 'l',
+\     'left_margin':   2,
+\     'right_margin':   1,
+\     'ignore_groups':   ['!Comment'] },
+\ }
+" }}}
+
 " basic settings {{{
 
-" validate modeline
+" modeline
 set modeline
 set modelines=3
 
 " encoding
-set encoding=utf-8     " character code for .vimrc
-set fileencoding=utf-8 " character code for opening files
-set fileencodings=utf-8,sjis,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,cp932
+set encoding=utf-8                " character code for .vimrc
+set fileencoding=utf-8            " character code to write files
+set fileencodings=utf-8,sjis      " character code to read file
+set fileencodings+=ucs-bom        " character code to read file
+set fileencodings+=iso-2022-jp-3  " character code to read file
+set fileencodings+=iso-2022-jp    " character code to read file
+set fileencodings+=eucjp-ms       " character code to read file
+set fileencodings+=euc-jisx0213   " character code to read file
+set fileencodings+=euc-jp         " character code to read file
+set fileencodings+=cp932          " character code to read file
 
-set nocompatible	" Use Vim defaults instead of 100% vi compatibility
-set backspace=2		" more powerful backspacing
-set number
-set autoread
-set ruler
-set autoindent
-set incsearch
-set showmatch
-set smartindent
-set shiftwidth=4
-set expandtab
-set guioptions=
-set ts=4
-set t_Co=256
-set nowrap
-set mouse=
-set title
-set cmdheight=1
-set scrolloff=5
-set backupdir=~/vimFiles
-set undodir=~/vimFiles
-set directory=~/vimFiles
-set browsedir=current
-set foldmethod=marker
-set clipboard=unnamed
-cd ~
+" window
+set backspace=2  " more powerful backspacing
+set number       " show line number
+set ruler        " show current line number
+set title        " show title of the file
 syntax on
 
-" Don't write backup file if vim is being called by "crontab -e"
-au BufWrite /private/tmp/crontab.* set nowritebackup
-" Don't write backup file if vim is being called by "chpass"
-au BufWrite /private/etc/pw.* set nowritebackup
+" indent
+set smartindent   " indent automatically
+set autoindent    " indent automatically
+set shiftwidth=4  " width of indent for autoindent
+set tabstop=4     " width of TAB
+set expandtab     " change TAB to space
+
+" searching
+set incsearch  " validate increment search
+set showmatch  " show matching bracket
+
+" action
+set autoread           " reload file automatically when it is updated
+set scrolloff=15       " scrooloff
+set foldmethod=marker  " folding {{{.}}}
+set clipboard=unnamed  " sharing clipboard
+
+" directories
+cd ~
+set backupdir=~/vimFiles  " directiry to save backup files
+set undodir=~/vimFiles    " directiry to save undo files
+set directory=~/vimFiles  " directiry to save swap files
+set browsedir=current     " directiry to save editing files
+
 " }}}
 
 " key mappings {{{
-nnoremap <Tab> <C-w><C-w>
-noremap <C-c> <Esc>
-nnoremap <C-c><C-c> :noh<CR>
-nnoremap <space>f :VimFiler<CR>
-nnoremap <space>v :vnew<CR>
-nnoremap <space>n :new<CR>
-nnoremap <space>. :e $MYVIMRC<CR>
-nnoremap <space>, :e $MYGVIMRC<CR>
-nnoremap <space>s. :source $MYVIMRC<CR>
-nnoremap <space>s, :source $MYGVIMRC<CR>
-nnoremap ; :
-nnoremap U <C-r>
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L $
+onoremap H ^
+onoremap L $
 cnoremap <C-j> <DOWN>
 cnoremap <C-k> <UP>
+nnoremap <Tab> <C-w><C-w>
+noremap <C-c> <Esc>
+nnoremap <silent> <C-c><C-c> :noh<CR>
+nnoremap <silent> <space>f :VimFiler<CR>
+nnoremap <silent> <space>v :vnew<CR>
+nnoremap <silent> <space>n :new<CR>
+nnoremap <silent> <space>. :e $MYVIMRC<CR>
+nnoremap <silent> <space>, :e $MYGVIMRC<CR>
+nnoremap <silent> <space>r :<C-u>source $MYVIMRC<CR> :<C-u>source $MYGVIMRC<CR>
+nnoremap ; :
+vnoremap ; :
+nnoremap U <C-r>
 nnoremap U <C-r>
 nnoremap z za
 nnoremap di( f(di(
@@ -395,4 +423,5 @@ nnoremap sa{ f{sa{
 nmap s <Plug>(operator-replace)
 nmap \c <Plug>TComment_gcc<Esc>
 vmap \c <Plug>TComment_gcc<Esc>
+vmap <Enter> <Plug>(EasyAlign)
 " }}}
