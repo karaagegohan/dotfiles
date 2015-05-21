@@ -1,9 +1,10 @@
+
+" NeoBundle  {{{
+
 scriptencoding utf-8
 augroup vimrc
     autocmd!
 augroup END
-
-" NeoBundle  {{{
 
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -29,29 +30,29 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundleLazy 'Shougo/vimshell.vim', {
             \ 'depends' : [ 'Shougo/vimproc.vim' ]
             \ }
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'kana/vim-smartchr'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'cohama/vim-hier'
-NeoBundle 'dannyob/quickfixstatus'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-qfreplace'
-NeoBundle 'thinca/vim-visualstar'
-NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'kana/vim-operator-user'
-NeoBundle 'rhysd/vim-operator-surround'
-NeoBundle 'tyru/restart.vim'
-NeoBundle 'kana/vim-operator-user'
-NeoBundle 'kana/vim-operator-replace'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'junegunn/vim-easy-align'
-NeoBundle 'fuenor/qfixgrep'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'tpope/vim-repeat'
+NeoBundle 'kana/vim-smartchr'            " insert several candidates with a single key
+NeoBundle 'itchyny/lightline.vim'        " color command line
+NeoBundle 'cohama/vim-hier'              " hilight quickfix errors
+NeoBundle 'thinca/vim-quickrun'          " run current code quickly
+NeoBundle 'thinca/vim-qfreplace'         " perform the replacement in quickfix
+NeoBundle 'thinca/vim-visualstar'        " use * in visual mode
+NeoBundle 'rhysd/clever-f.vim'           " improve f{char}
+NeoBundle 'kana/vim-operator-user'       " use vim-operator
+NeoBundle 'rhysd/vim-operator-surround'  " surround text obj with any word
+NeoBundle 'kana/vim-operator-replace'    " replace text obj with yanked word
+NeoBundle 'tomtom/tcomment_vim'          " comment out easily
+NeoBundle 'junegunn/vim-easy-align'      " align codes by delimiter
+NeoBundle 'fuenor/qfixgrep'              " make notes easily
+NeoBundle 'fuenor/qfixhowm'              " make notes easily
+NeoBundle 'tpope/vim-repeat'             " enable to repeat plugins by '.'
+NeoBundle 'tpope/vim-fugitive'           " a Git wrapper
 
-filetype plugin indent on
+NeoBundle 'w0ng/vim-hybrid' " colorscheme
+
+filetype plugin on
+filetype indent on
 NeoBundleCheck
+
 call neobundle#end()
 " }}}
 
@@ -114,11 +115,6 @@ endif
 " Shougo/unite.vim {{{
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
-nnoremap <silent> [space]y :<C-u>Unite history/yank<CR>
-nnoremap <silent> [space]b :<C-u>Unite buffer<CR>
-nnoremap <silent> [space]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> [space]r :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> [space]u :<C-u>Unite file_mru buffer<CR>
 " }}}
 
 " Shougo/unite-outline {{{
@@ -128,21 +124,12 @@ noremap [space]o <ESC>:Unite -vertical -winwidth=60 outline<Return>
 
 " Shougo/vimshell {{{
 " ,is: シェルを起動
-nnoremap <silent> ,is :VimShell<CR>
 " ,ipy: pythonを非同期で起動
-"nnoremap <silent> ,ipy :VimShellInteractive python<CR>
-" ,irb: irbを非同期で起動
-"nnoremap <silent> ,irb :VimShellInteractive irb<CR>
 " ,ss: 非同期で開いたインタプリタに現在の行を評価させる
 "vmap <silent> ,ss :VimShellSendString<CR>
 " 選択中に,ss: 非同期で開いたインタプリタに選択行を評価させる
 "nnoremap <silent> ,ss <S-v>:VimShellSendString<CR>
 "" }}}
-
-" Shougo/vimfiler {{{
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_enable_auto_cd = 1
-" }}}
 
 " kana/vim-smartchr {{{
 inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
@@ -209,12 +196,16 @@ let g:easy_align_delimiters = {
 " fuenor/qfixhowm " {{{
 
 let QFixHowm_Key       = 'g'  " keymap of QFix
+let QFixHowm_KeyB      = ''  " keymap of QFix
 let howm_dir           = '~/Documents/Memo'
 let howm_filename      = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
 let howm_fileencoding  = 'utf-8'
 let howm_fileformat    = 'unix'
-let QFixHowm_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'
+let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'
 
+" }}}
+
+" tpope/vim-fugitive {{{
 " }}}
 
 " basic settings {{{
@@ -240,7 +231,7 @@ set backspace=2  " more powerful backspacing
 set number       " show line number
 set ruler        " show current line number
 set title        " show title of the file
-syntax on
+syntax on        " show syntax hilight
 
 " indent
 set smartindent   " indent automatically
@@ -270,50 +261,67 @@ set browsedir=current     " directiry to save editing files
 
 " key mappings {{{
 
-noremap <C-c> <Esc>
-nnoremap <CR> :<C-u>w<CR>
+" basic mappimgs
+nnoremap ;                  :
+vnoremap ;                  :
+noremap  <silent><C-c>      <Esc>
+nnoremap <silent><C-c><C-c> :noh<CR>
+nnoremap <CR>               :<C-u>w<CR>
+nnoremap U                  <C-r>
+nnoremap j                  gj
+nnoremap k                  gk
+vnoremap j                  gj
+vnoremap k                  gk
+nnoremap H                  ^
+nnoremap L                  $
+vnoremap H                  ^
+vnoremap L                  $
+onoremap H                  ^
+onoremap L                  $
+cnoremap <C-j>              <DOWN>
+cnoremap <C-k>              <UP>
+nnoremap <Tab>              <C-w><C-w>
+nnoremap z                  za
 
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap H ^
-nnoremap L $
-vnoremap H ^
-vnoremap L $
-onoremap H ^
-onoremap L $
-cnoremap <C-j> <DOWN>
-cnoremap <C-k> <UP>
-nnoremap <Tab> <C-w><C-w>
-nnoremap <silent> <C-c><C-c> :noh<CR>
-nnoremap <silent> <space>f :VimFiler<CR>
-nnoremap <silent> <space>v :vnew<CR>
-nnoremap <silent> <space>n :new<CR>
-nnoremap <silent> <space>. :e $MYVIMRC<CR>
-nnoremap <silent> <space>, :e $MYGVIMRC<CR>
-nnoremap <silent> <space>r :<C-u>source $MYVIMRC<CR> :<C-u>source $MYGVIMRC<CR>
-nnoremap ; :
-vnoremap ; :
-nnoremap U <C-r>
-nnoremap z za
-nnoremap di( f(di(
-nnoremap da( f(da(
-nnoremap ci( f(ci(
-nnoremap ca( f(ca(
-nnoremap si( f(si(
-nnoremap sa( f(sa(
-nnoremap di{ f{di{
-nnoremap da{ f{da{
-nnoremap ci{ f{ci{
-nnoremap ca{ f{ca{
-nnoremap si{ f{si{
-nnoremap sa{ f{sa{
-nmap ys <Plug>(operator-surround-append)
-nmap ds <Plug>(operator-surround-delete)
-nmap cs <Plug>(operator-surround-replace)
-nmap \c <Plug>TComment_gcc<Esc>
-vmap \c <Plug>TComment_gcc<Esc>
-vmap <Enter> <Plug>(EasyAlign)
+" handy
+nnoremap [prefix]           <Nop>
+nmap     ,                  [prefix]
+nnoremap <silent>[prefix]v  :vnew<CR>
+nnoremap <silent>[prefix]n  :new<CR>
+nnoremap <silent>[prefix].  :e $MYVIMRC<CR>
+nnoremap <silent>[prefix],  :e $MYGVIMRC<CR>
+nnoremap <silent>[prefix]r  :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
+nnoremap <silent>[prefix]w  :w<CR>
+nnoremap <silent>[prefix]W  :W<CR>
+nnoremap <silent>[prefix]q  :q<CR>
+nnoremap <silent>[prefix]Q  :Q<CR>
+nmap     <silent>[prefix]m  gm
+nmap     <silent>[prefix]c  gc
+
+" Unite and vimshell
+nnoremap [space]            <Nop>
+nmap     <Space>            [space]
+nnoremap <silent>[space]y   :<C-u>Unite history/yank<CR>
+nnoremap <silent>[space]b   :<C-u>Unite buffer<CR>
+nnoremap <silent>[space]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent>[space]r   :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent>[space]u   :<C-u>Unite file_mru buffer<CR>
+nnoremap <silent>[space]is  :VimShell<CR>
+nnoremap <silent>[space]ip  :VimShellInteractive python<CR>
+nnoremap <silent>[space]ir  :VimShellInteractive irb<CR>
+
+" operator
+nmap     ys                 <Plug>(operator-surround-append)
+nmap     ds                 <Plug>(operator-surround-delete)
+nmap     cs                 <Plug>(operator-surround-replace)
+nmap     s                  <Plug>(operator-replace)
+
+" comment out
+nmap     \c                 <Plug>TComment_gcc<Esc>
+vmap     \c                 <Plug>TComment_gcc<Esc>
+
+" align
+vmap     <Enter>            <Plug>(EasyAlign)
+
 " }}}
 
