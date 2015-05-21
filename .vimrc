@@ -1,4 +1,5 @@
 " NeoBundle  {{{
+scriptencoding utf-8
 augroup vimrc
     autocmd!
 augroup END
@@ -54,6 +55,7 @@ filetype plugin indent on
 call neobundle#end()
 NeoBundleCheck
 " }}}
+
 " Shougo/neocomplete.vim, Shougo/neocomplcashe {{{
 if s:meet_neocomplete_requirements()
     " --------------------------------------------------------------------
@@ -203,6 +205,7 @@ else
     " inoremap <expr><TAB>    pumvisible() ? neocomplcache#close_popup() :"\<CR>"
 endif
 " }}}
+
 " Shougo/neosnippet {{{
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -219,6 +222,7 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 " }}}
+
 " Shougo/unite.vim {{{
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
@@ -228,10 +232,12 @@ nnoremap <silent> [space]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> [space]r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [space]u :<C-u>Unite file_mru buffer<CR>
 " }}}
+
 " Shougo/unite-outline {{{
 let g:unite_split_rule = 'botright'
 noremap [space]o <ESC>:Unite -vertical -winwidth=60 outline<Return>
 " }}}
+
 " Shougo/vimshell {{{
 " ,is: シェルを起動
 nnoremap <silent> ,is :VimShell<CR>
@@ -244,10 +250,12 @@ nnoremap <silent> ,is :VimShell<CR>
 " 選択中に,ss: 非同期で開いたインタプリタに選択行を評価させる
 "nnoremap <silent> ,ss <S-v>:VimShellSendString<CR>
 "" }}}
+
 " Shougo/vimfiler {{{
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_enable_auto_cd = 1
 " }}}
+
 " Rip-Rip/clang_complete {{{
 set completeopt=menuone
 let g:clang_complete_auto = 0
@@ -258,9 +266,11 @@ let g:clang_library_path = '/usr/lib/llvm'
 let g:clang_debug = 0
 let g:clang_user_options = '-std= c++11'
 " }}}
+
 " kana/vim-smartchr {{{
 inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
 " }}} 
+
 " itchyny/lightline.vim {{{
 let g:lightline = {
             \ 'active': {
@@ -307,11 +317,18 @@ function! MyFilename()
                 \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 " }}}
-" base settings {{{
-cd ~
-set modelines=0		" CVE-2007-2438
-set encoding=utf-8
-set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+
+" basic settings {{{
+
+" validate modeline
+set modeline
+set modelines=3
+
+" encoding
+set encoding=utf-8     " character code for .vimrc
+set fileencoding=utf-8 " character code for opening files
+set fileencodings=utf-8,sjis,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,cp932
+
 set nocompatible	" Use Vim defaults instead of 100% vi compatibility
 set backspace=2		" more powerful backspacing
 set number
@@ -337,7 +354,7 @@ set directory=~/vimFiles
 set browsedir=current
 set foldmethod=marker
 set clipboard=unnamed
-colorscheme hybrid
+cd ~
 syntax on
 
 " Don't write backup file if vim is being called by "crontab -e"
@@ -345,26 +362,36 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup
 " }}}
+
 " key mappings {{{
-no R <Nop>
-no <C-c> <Nop>
 nnoremap <Tab> <C-w><C-w>
-inoremap <C-c> <Esc>
-vnoremap <C-c> <Esc>
+noremap <C-c> <Esc>
 nnoremap <C-c><C-c> :noh<CR>
 nnoremap <space>f :VimFiler<CR>
 nnoremap <space>v :vnew<CR>
 nnoremap <space>n :new<CR>
 nnoremap <space>. :e $MYVIMRC<CR>
 nnoremap <space>, :e $MYGVIMRC<CR>
-nnoremap <space>r :Restart<CR>
+nnoremap <space>s. :source $MYVIMRC<CR>
+nnoremap <space>s, :source $MYGVIMRC<CR>
 nnoremap ; :
 nnoremap U <C-r>
 cnoremap <C-j> <DOWN>
 cnoremap <C-k> <UP>
 nnoremap U <C-r>
-nnoremap s <Nop>
 nnoremap z za
+nnoremap di( f(di(
+nnoremap da( f(da(
+nnoremap ci( f(ci(
+nnoremap ca( f(ca(
+nnoremap si( f(si(
+nnoremap sa( f(sa(
+nnoremap di{ f{di{
+nnoremap da{ f{da{
+nnoremap ci{ f{ci{
+nnoremap ca{ f{ca{
+nnoremap si{ f{si{
+nnoremap sa{ f{sa{
 nmap s <Plug>(operator-replace)
 nmap \c <Plug>TComment_gcc<Esc>
 vmap \c <Plug>TComment_gcc<Esc>
