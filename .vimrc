@@ -67,6 +67,7 @@ NeoBundle 'kana/vim-operator-replace'    " replace text obj with yanked word
 " colorscheme
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundleCheck
 
@@ -267,7 +268,6 @@ set textwidth       =0                  " text width
 
 " searching
 set incsearch                           " disable increment search
-set hlsearch                            " hililight result
 set wrapscan                            " searchrs wrap around
 
 " action
@@ -352,16 +352,14 @@ vnoremap L                  $
 onoremap L                  $
 
 " searching
-nnoremap n nzz
-nnoremap N Nzz
+nnoremap n                  nzz
+nnoremap N                  Nzz
 
 " window
 nnoremap <C-h>              <C-w>h
 nnoremap <C-j>              <C-w>j
 nnoremap <C-k>              <C-w>k
 nnoremap <C-l>              <C-w>l
-nnoremap <silent>[prefix]v  :<C-u>vnew<CR>
-nnoremap <silent>[prefix]n  :<C-u>new<CR>
 
 " tab
 nnoremap <TAB>              gt
@@ -380,18 +378,22 @@ nnoremap <silent>[prefix].  :<C-u>e $MYVIMRC<CR>
 nnoremap <silent>[prefix],  :<C-u>e $MYGVIMRC<CR>
 nnoremap <silent>[prefix]r  :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 
-" Unite and vimshell
+" Unite
 nnoremap <silent>[space]y   :<C-u>Unite history/yank<CR>
 nnoremap <silent>[space]b   :<C-u>Unite buffer<CR>
 nnoremap <silent>[space]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent>[space]r   :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent>[space]u   :<C-u>Unite file_mru buffer<CR>
+nnoremap <silent>[space]f   :<C-u>Unite file<CR>
+nnoremap <silent>[space]n   :<C-u>split<CR> :<C-u>Unite file<CR>
+nnoremap <silent>[space]v   :<C-u>vsplit<CR> :<C-u>Unite file<CR>
+nmap     <silent>[space]m   g,m
+nmap     <silent>[space]c   g,c
+
+" vimshell
 nnoremap <silent>[space]is  :<C-u>VimShell<CR>
 nnoremap <silent>[space]ip  :<C-u>VimShellInteractive python<CR>
 nnoremap <silent>[space]ir  :<C-u>VimShellInteractive irb<CR>
-nmap     <silent>[space]m   g,m
-nmap     <silent>[space]c   g,c
-"
 
 " complete and snippet
 imap     <C-k>              <Plug>(neosnippet_expand_or_jump)
