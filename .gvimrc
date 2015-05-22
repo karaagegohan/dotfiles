@@ -1,6 +1,10 @@
+" === Initialization ========================================================================================= {{{
+
 scriptencoding utf-8
 
-" font settings {{{
+" }}}
+
+" === font settings =========================================================================================== {{{
 
 if has('win32')
     " set guifont=Meslo_LG_S_DZ:h12:cANSI
@@ -24,7 +28,7 @@ endif
 
 " }}}
 
-" input ssettings {{{
+" === input settings ========================================================================================== {{{
 
 if has('multi_byte_ime') || has('xim')
     " IME ON時のカーソルの色を設定(設定例:紫)
@@ -42,7 +46,7 @@ endif
 
 " }}}
 
-" base settings {{{
+" === base settings ========================================================================================= {{{
 
 " mouse settings
 set mouse=
@@ -54,7 +58,6 @@ set guioptions=     " invalidate GUI options
 set columns=150     " width of window
 set lines=130       " height of window
 set cmdheight=1     " height of commandline
-set t_Co=256        " 256 colors in vim
 colorscheme hybrid  " colorsheme
 
 " }}}
