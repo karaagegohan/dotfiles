@@ -354,8 +354,8 @@ set browsedir       =current            " directiry to save editing files
 "
 " ***NOTE***
 " --------------------------------------------------------------------------------
-" | -noremap: default key map (reclusive)                                        |
-" |     -map: plugins (not reclusive)                                            |
+" | -noremap: default key map (notreclusive)                                     |
+" |     -map: plugins (reclusive)                                                |
 " --------------------------------------------------------------------------------
 "  }}}
 
