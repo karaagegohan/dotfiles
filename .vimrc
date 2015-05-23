@@ -1,16 +1,12 @@
-" === Initialization ========================================================================================= {{{
+" === Initialization ===================================================================================== {{{
 
 scriptencoding utf-8
-augroup vimrc
-    autocmd!
-augroup END
 
 if !isdirectory('~/vimFiles')
     call mkdir('~/vimFiles', 'p')
 endif
 
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -50,6 +46,7 @@ NeoBundle 'fuenor/qfixgrep'              " make notes easily
 NeoBundle 'fuenor/qfixhowm'              " make notes easily
 NeoBundle 'tpope/vim-repeat'             " enable to repeat plugins by '.'
 NeoBundle 'tpope/vim-fugitive'           " a Git wrapper
+NeoBundle 'kien/rainbow_parentheses.vim' " better rainbow parentheses
 
 " Unite
 NeoBundle 'Shougo/unite.vim'
@@ -68,6 +65,16 @@ NeoBundle 'kana/vim-operator-replace'    " replace text obj with yanked word
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'altercation/vim-colors-solarized'
+
+" Java
+NeoBundleLazy 'vim-scripts/javacomplete', {
+\   'build': {
+\       'cygwin': 'javac autoload/Reflection.java',
+\       'mac': 'javac autoload/Reflection.java',
+\       'unix': 'javac autoload/Reflection.java',
+\   },
+\}
+NeoBundle 'moznion/java_getset.vim'
 
 NeoBundleCheck
 
@@ -98,11 +105,13 @@ endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup vimrc_neocomplete
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
 
 let g:neocomplete#force_overwrite_completefunc=1
 
@@ -214,13 +223,47 @@ let g:easy_align_delimiters = {
 
 " === fuenor/qfixhowm ==================================================================================== {{{
 
-let QFixHowm_Key       = 'g'  " keymap of QFix first
-let QFixHowm_KeyB      = ','  " keymap of QFix second
-let howm_dir           = '~/Documents/Memo'
-let howm_filename      = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
-let howm_fileencoding  = 'utf-8'
-let howm_fileformat    = 'unix'
-let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'
+let QFixHowm_Key                   = 'g'                                 " keymap of QFix first
+let QFixHowm_KeyB                  = ','                                 " keymap of QFix second
+let howm_dir                       = '~/Documents/Memo'                  " drectory to save memo
+let howm_filename                  = '%Y/%m/%Y-%m-%d-%H%M%S.txt'         " filename
+let howm_fileencoding              = 'utf-8'                             " character code
+let howm_fileformat                = 'unix'                              " return code
+let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'   " filename of diary
+
+" }}}
+
+" === altercation/vim-colors-solarized =================================================================== {{{
+
+" color
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+
+" }}}
+
+" === moznion/java_getset.vim ============================================================================ {{{
+
+let b:javagetset_enable_K_and_R = 1   " K$R style
+let b:javagetset_add_this       = 1   " add .this
 
 " }}}
 
@@ -282,7 +325,7 @@ set foldmethod      =marker             " folding by {{{.}}}
 
 " directories
 cd ~
-set backup
+set backup                              " make backup file
 set backupdir       =~/vimFiles         " directiry to save backup files
 set undofile                            " make undo file
 set undodir         =~/vimFiles         " directiry to save undo files
@@ -395,7 +438,7 @@ nnoremap <silent>[space]is  :<C-u>VimShell<CR>
 nnoremap <silent>[space]ip  :<C-u>VimShellInteractive python<CR>
 nnoremap <silent>[space]ir  :<C-u>VimShellInteractive irb<CR>
 
-" complete and snippet
+" snippet
 imap     <C-k>              <Plug>(neosnippet_expand_or_jump)
 smap     <C-k>              <Plug>(neosnippet_expand_or_jump)
 
@@ -408,6 +451,11 @@ vmap     \c                 <Plug>TComment_gcc<Esc>
 
 " align
 vmap     <Enter>            <Plug>(EasyAlign)
+
+" Java
+map      <buffer>[prefix]g  <Plug>JavagetsetInsertGetterOnly
+map      <buffer>[prefix]s  <Plug>JavagetsetInsertSetterOnly
+map      <buffer>[prefix]b  <Plug>JavagetsetInsertBothGetterSetter
 
 " }}}
 
