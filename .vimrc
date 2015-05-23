@@ -374,6 +374,7 @@ noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>noh<CR>
 nnoremap <CR>               :<C-u>w<CR>
 nnoremap <BS>               :<C-u>q<CR>
+nnoremap Q                  :<C-u>q!<CR>
 nnoremap U                  <C-r>
 
 " cursor
