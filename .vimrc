@@ -2,12 +2,6 @@
 
 scriptencoding utf-8
 
-if !isdirectory('~/vimFiles')
-    call mkdir('~/vimFiles', 'p')
-endif
-
-filetype plugin indent on
-
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -18,15 +12,17 @@ endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 
+" managing plugins
 NeoBundle 'Shougo/neobundle.vim'
+
 NeoBundle 'Shougo/vimproc.vim', {
-            \ 'build' : {
-            \ 'windows' : 'make -f make_mingw32.mak',
-            \ 'cygwin'  : 'make -f make_cygwin.mak ',
-            \ 'mac'     : 'make -f make_mac.mak    ',
-            \ 'unix'    : 'make -f make_unix.mak   ',
-            \ },
-            \ }
+            \'build' : {
+            \    'windows' : 'make -f make_mingw32.mak',
+            \    'cygwin'  : 'make -f make_cygwin.mak ',
+            \    'mac'     : 'make -f make_mac.mak    ',
+            \    'unix'    : 'make -f make_unix.mak   ',
+            \    },
+            \}
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
@@ -68,18 +64,22 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 " Java
 NeoBundleLazy 'vim-scripts/javacomplete', {
-\   'build': {
-\       'cygwin': 'javac autoload/Reflection.java',
-\       'mac': 'javac autoload/Reflection.java',
-\       'unix': 'javac autoload/Reflection.java',
-\   },
-\}
+            \   'build': {
+            \       'cygwin': 'javac autoload/Reflection.java',
+            \       'mac'   : 'javac autoload/Reflection.java',
+            \       'unix'  : 'javac autoload/Reflection.java',
+            \   },
+            \}
 NeoBundle 'moznion/java_getset.vim'
 
-NeoBundleCheck
+" Swift
+" NeoBundle 'toyamarinyon/vim-swift'
+NeoBundle 'keith/swift.vim'
 
 call neobundle#end()
 
+NeoBundleCheck
+filetype plugin indent on
 
 " }}}
 
@@ -144,13 +144,6 @@ let g:unite_source_file_mru_limit = 200
 " === Shougo/unite-outline =============================================================================== {{{
 
 let g:unite_split_rule = 'botright'
-noremap [space]o <ESC>:Unite -vertical -winwidth=60 outline<Return>
-
-" }}}
-
-" === kana/vim-smartchr ================================================================================== {{{
-
-inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
 
 " }}}
 
@@ -230,6 +223,8 @@ let howm_filename                  = '%Y/%m/%Y-%m-%d-%H%M%S.txt'         " filen
 let howm_fileencoding              = 'utf-8'                             " character code
 let howm_fileformat                = 'unix'                              " return code
 let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'   " filename of diary
+let QFixHowm_MenuPreview           = 0                                   " preview in menz
+let QFixHowm_MenuKey               = 0                                   " invalid default keymaps
 
 " }}}
 
@@ -318,7 +313,7 @@ set autoread                            " reload file automatically when it is u
 set scrolloff       =20                 " scrooloff
 set clipboard       =unnamed            " sharing clipboard
 
-"fold
+" fold
 set foldenable                          " enable fold
 set foldcolumn      =0                  " width of folding guide
 set foldmethod      =marker             " folding by {{{.}}}
@@ -332,6 +327,9 @@ set undodir         =~/vimFiles         " directiry to save undo files
 set swapfile                            " make swap file
 set directory       =~/vimFiles         " directiry to save swap files
 set browsedir       =current            " directiry to save editing files
+
+" colorscheme
+colorscheme hybrid
 
 " }}}
 
@@ -404,6 +402,8 @@ nnoremap <C-h>              <C-w>h
 nnoremap <C-j>              <C-w>j
 nnoremap <C-k>              <C-w>k
 nnoremap <C-l>              <C-w>l
+nnoremap [space]n           :<C-u>split<CR>
+nnoremap [space]v           :<C-u>vsplit<CR>
 
 " tab
 nnoremap <TAB>              gt
@@ -417,27 +417,33 @@ cnoremap <C-p>              <UP>
 " fold
 nnoremap z                  za
 
+" vim-smartchr
+inoremap <buffer><expr>=    smartchr#loop(' = ', ' == ', '=')
+
 " handy
 nnoremap <silent>[prefix].  :<C-u>e $MYVIMRC<CR>
 nnoremap <silent>[prefix],  :<C-u>e $MYGVIMRC<CR>
 nnoremap <silent>[prefix]r  :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 
 " Unite
-nnoremap <silent>[space]y   :<C-u>Unite history/yank<CR>
-nnoremap <silent>[space]b   :<C-u>Unite buffer<CR>
-nnoremap <silent>[space]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent>[space]r   :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent>[space]u   :<C-u>Unite file_mru buffer<CR>
-nnoremap <silent>[space]f   :<C-u>Unite file<CR>
-nnoremap <silent>[space]n   :<C-u>split<CR> :<C-u>Unite file<CR>
-nnoremap <silent>[space]v   :<C-u>vsplit<CR> :<C-u>Unite file<CR>
-nmap     <silent>[space]m   g,m
-nmap     <silent>[space]c   g,c
+nnoremap [space]y           :<C-u>Unite history/yank<CR>
+nnoremap [space]b           :<C-u>Unite buffer<CR>
+nnoremap [space]f           :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap [space]r           :<C-u>Unite -buffer-name=register register<CR>
+nnoremap [space]u           :<C-u>Unite file_mru buffer<CR>
+nnoremap [space]f           :<C-u>Unite file<CR>
+
+" QFixHowm
+nmap     [space]m           g,m
+nmap     [space]c           g,c
+nmap     [space]q           g,q
+nmap     [space],           g,,
+
 
 " vimshell
-nnoremap <silent>[space]is  :<C-u>VimShell<CR>
-nnoremap <silent>[space]ip  :<C-u>VimShellInteractive python<CR>
-nnoremap <silent>[space]ir  :<C-u>VimShellInteractive irb<CR>
+nnoremap [space]is          :<C-u>VimShell<CR>
+nnoremap [space]ip          :<C-u>VimShellInteractive python<CR>
+nnoremap [space]ir          :<C-u>VimShellInteractive irb<CR>
 
 " snippet
 imap     <C-k>              <Plug>(neosnippet_expand_or_jump)
