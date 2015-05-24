@@ -6,6 +6,10 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+if isdirectory(expand('~/.vimfiles'))
+    call mkdir(expand('~/.vimfiles'))
+endif
+
 " }}}
 
 " === Shougo/neobundle.vim =============================================================================== {{{
@@ -419,7 +423,7 @@ nnoremap z                  za
 
 " vim-smartchr
 inoremap <buffer><expr>=    smartchr#loop(' = ', ' == ', '=')
-
+ 
 " handy
 nnoremap <silent>[prefix].  :<C-u>e $MYVIMRC<CR>
 nnoremap <silent>[prefix],  :<C-u>e $MYGVIMRC<CR>
