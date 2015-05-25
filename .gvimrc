@@ -1,6 +1,10 @@
 " === Initialization ========================================================================================= {{{
 
-scriptencoding utf-8
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set columns    =160   " width of window
+    set lines      =140   " height of window
+endif
 
 " }}}
 
@@ -8,8 +12,8 @@ scriptencoding utf-8
 
 if has('win32')
     " set guifont=Meslo_LG_S_DZ:h12:cANSI
-    set guifont=Inconsolata:h10:cANSI
-    set guifontwide=Ricty_Diminished:h10:cSHIFTJIS
+    set guifont      =Inconsolata:h10:cANSI
+    set guifontwide  =Ricty_Diminished:h10:cSHIFTJIS
     " set guifont=Inconsolata:h18:cANSI
     " set guifontwide=Ricty_Diminished:h18:cSHIFTJIS
     " 行間隔の設定
@@ -54,10 +58,8 @@ set nomousefocus
 set mousehide
 
 " window settings
-set guioptions=     " invalidate GUI options
-set columns=150     " width of window
-set lines=130       " height of window
-set cmdheight=1     " height of commandline
-colorscheme hybrid  " colorsheme
+set guioptions =       " invalidate GUI options
+set cmdheight  =1      " height of commandline
+colorscheme hybrid     " colorsheme
 
 " }}}
