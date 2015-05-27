@@ -24,7 +24,7 @@ if has('win32')
         set ambiwidth=auto
     endif
 elseif has('mac')
-    " set guifont=Osaka－等幅:h14
+    set guifont=Osaka-Mono:h16
 elseif has('xfontset')
     " UNIX用 (xfontsetを使用)
     set guifontset=a14,r14,k14
@@ -58,8 +58,10 @@ set nomousefocus
 set mousehide
 
 " window settings
-set guioptions =       " invalidate GUI options
-set cmdheight  =1      " height of commandline
-colorscheme hybrid     " colorsheme
+set guioptions =         " invalidate GUI options
+set cmdheight  =1        " height of commandline
+
+"colorscheme
+colorscheme jellybeans   " colorsheme
 
 " }}}

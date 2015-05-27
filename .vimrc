@@ -6,203 +6,6 @@ endif
 
 " }}}
 
-" === base settings ===================================================================================== {{{
-
-" modeline
-set modeline
-set modelines       =3
-
-" function
-set history         =1024               " number of history
-set helplang        =en                 " language to read help
-
-" encoding
-set encoding        =utf-8              " character code for .vimrc
-set fileencoding    =utf-8              " character code to write files
-set fileencodings   =utf-8,sjis         " character code to read file (default)
-set fileencodings  +=ucs-bom            " character code to read file
-set fileencodings  +=iso-2022-jp-3      " character code to read file
-set fileencodings  +=iso-2022-jp        " character code to read file
-set fileencodings  +=eucjp-ms           " character code to read file
-set fileencodings  +=euc-jisx0213       " character code to read file
-set fileencodings  +=euc-jp             " character code to read file
-set fileencodings  +=cp932              " character code to read file
-set fileformats     =unix,dos,mac       " newline character
-
-" view
-syntax on                               " show syntax hilight
-set number                              " show line number
-set ruler                               " show current line number
-set title                               " show title of the file
-set showmatch                           " show matching bracket
-set virtualedit    +=block              " expand bounds in visual mode
-set nowrap                              " nowrap
-set t_Co           =256                 " terminal color
-set equalalways                         " adjust window size
-
-" indent
-set backspace       =indent,eol,start   " more powerful backspacing
-set smartindent                         " indent automatically
-set autoindent                          " indent automatically
-set shiftwidth      =4                  " width of indent for autoindent
-set tabstop         =4                  " width of TAB
-set expandtab                           " change TAB to space
-set textwidth       =0                  " text width
-
-" searching
-set incsearch                           " disable increment search
-set wrapscan                            " searchrs wrap around
-
-" action
-set autoread                            " reload file automatically when it is updated
-set scrolloff       =20                 " scrooloff
-set clipboard       =unnamed            " sharing clipboard
-
-" fold
-set foldenable                          " enable fold
-set foldcolumn      =0                  " width of folding guide
-set foldmethod      =marker             " folding by {{{.}}}
-
-" directories
-if !isdirectory(expand('~/.vimfiles'))
-    call mkdir(expand('~/.vimfiles'))
-endif
-cd ~
-set backup                              " make backup file
-set backupdir       =~/.vimfiles        " directiry to save backup files
-set undofile                            " make undo file
-set undodir         =~/.vimfiles        " directiry to save undo files
-set swapfile                            " make swap file
-set directory       =~/.vimfiles        " directiry to save swap files
-set browsedir       =current            " directiry to save editing files
-
-" colorscheme
-colorscheme hybrid
-
-" }}}
-
-" === key mappings ======================================================================================= {{{
-
-" ***NOTE*** {{{
-" --------------------------------------------------------------------------------
-" |      | normal    | insert    | command   | visual    | select    | waiting   |
-" |------------------------------------------------------------------------------|
-" |  map |     @     |     -     |     -     |     @     |     @     |     @     |
-" | map! |     -     |     @     |     @     |     -     |     -     |     -     |
-" | nmap |     @     |     -     |     -     |     -     |     -     |     -     |
-" | imap |     -     |     @     |     -     |     -     |     -     |     -     |
-" | cmap |     -     |     -     |     @     |     -     |     -     |     -     |
-" | vmap |     -     |     -     |     -     |     @     |     @     |     -     |
-" | xmap |     -     |     -     |     -     |     @     |     -     |     -     |
-" | smap |     -     |     -     |     -     |     -     |     @     |     -     |
-" | omap |     -     |     -     |     -     |     -     |     -     |     @     |
-" --------------------------------------------------------------------------------
-" | -noremap: default key map (notreclusive)                                     |
-" |     -map: plugins etc. (reclusive)                                                |
-" --------------------------------------------------------------------------------
-"  }}}
-
-" prefixes
-nnoremap [comma]            <Nop>
-nmap     ,                  [comma]
-nnoremap [space]            <Nop>
-nmap     <Space>            [space]
-
-" base mappimgs
-noremap  ;                  :
-noremap  :                  ;
-noremap! ;                  :
-noremap! :                  ;
-noremap  <C-c>              <Esc>
-nnoremap <silent><C-c><C-c> :<C-u>noh<CR>
-nnoremap <CR>               :<C-u>w<CR>
-nnoremap <BS>               :<C-u>q<CR>
-nnoremap U                  <C-r>
-
-" cursor
-nnoremap j                  gj
-nnoremap k                  gk
-vnoremap j                  gj
-vnoremap k                  gk
-noremap  H                  ^
-noremap  J                  }
-noremap  K                  {
-noremap  L                  $
-
-" searching
-nnoremap n                  nzzzo
-nnoremap N                  Nzzzo
-nmap     *                  *N
-nmap     #                  #n
-
-" window
-nnoremap <C-h>              <C-w>h
-nnoremap <C-j>              <C-w>j
-nnoremap <C-k>              <C-w>k
-nnoremap <C-l>              <C-w>l
-nnoremap [comma]n           :<C-u>split<CR>
-nnoremap [comma]v           :<C-u>vsplit<CR>
-
-" tab
-nnoremap <TAB>              gt
-nnoremap <S-TAB>            gT
-nnoremap [comma]t           :<C-u>tabnew<CR>
-
-" command mode
-cnoremap <C-n>              <DOWN>
-cnoremap <C-p>              <UP>
-
-" fold
-nnoremap z                  za
-
-" vim-smartchr
-inoremap <buffer><expr>=    smartchr#loop(' = ', ' == ', '=')
-
-" handy
-nnoremap [comma].           :<C-u>e $MYVIMRC<CR>
-nnoremap [comma],           :<C-u>e $MYGVIMRC<CR>
-nnoremap [comma]r           :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
-
-" Unite
-nnoremap [space]y           :<C-u>Unite history/yank<CR>
-nnoremap [space]b           :<C-u>Unite buffer<CR>
-nnoremap [space]f           :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap [space]r           :<C-u>Unite -buffer-name=register register<CR>
-nnoremap [space]u           :<C-u>Unite file_mru buffer<CR>
-nnoremap [space]f           :<C-u>Unite file<CR>
-
-" QFixHowm
-nmap [space]m           g,m
-nmap [space]c           g,c
-nmap [space]q           g,q
-nmap [space],           g,,
-
-" vimshell
-nnoremap [space]is          :<C-u>VimShell<CR>
-nnoremap [space]ip          :<C-u>VimShellInteractive python<CR>
-nnoremap [space]ir          :<C-u>VimShellInteractive irb<CR>
-
-" snippet
-imap     <C-k>              <Plug>(neosnippet_expand_or_jump)
-smap     <C-k>              <Plug>(neosnippet_expand_or_jump)
-
-" operator
-nmap     s                  <Plug>(operator-replace)
-
-" comment out
-nmap     \c                 <Plug>TComment_gcc<Esc>
-vmap     \c                 <Plug>TComment_gcc<Esc>
-
-" align
-vmap     <Enter>            <Plug>(EasyAlign)
-
-" Java
-map      <buffer>[comma]g   <Plug>JavagetsetInsertGetterOnly
-map      <buffer>[comma]s   <Plug>JavagetsetInsertSetterOnly
-map      <buffer>[comma]b   <Plug>JavagetsetInsertBothGetterSetter
-
-" }}}
-
 " === Shougo/neobundle.vim =============================================================================== {{{
 
 " ***NOTE*** {{{
@@ -299,6 +102,11 @@ NeoBundleLazy 'keith/swift.vim', {
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'morhetz/gruvbox'
+
+"dictionary
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mattn/excitetranslate-vim'
 
 call neobundle#end()
 
@@ -450,7 +258,7 @@ endif
 
 let QFixHowm_Key                   = 'g'                                 " keymap of QFix first
 let QFixHowm_KeyB                  = ','                                 " keymap of QFix second
-let howm_dir                       = s:hdir
+let howm_dir                       = s:hdir                              " directory
 let howm_filename                  = '%Y/%m/%Y-%m-%d-%H%M%S.txt'         " filename
 let howm_fileencoding              = 'utf-8'                             " character code
 let howm_fileformat                = 'unix'                              " return code
@@ -495,20 +303,220 @@ let b:javagetset_add_this       = 1   " add .this
 " }}}
 
 " === scrooloose/syntastic.git =========================================================================== {{{
-"
-" let g:syntastic_enable_signs  = 1
-" let g:syntastic_auto_loc_list = 2
-" let g:syntastic_mode_map = {'mode': 'passive'} 
-"
-" augroup AutoSyntastic
-"     autocmd!
-"     autocmd InsertLeave,TextChanged * call s:syntastic() 
-" augroup END
-"
-" function! s:syntastic()
-"     w
-"     SyntasticCheck
-" endfunction
-"
+
+let g:syntastic_enable_signs  = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_mode_map = {'mode': 'passive'} 
+
+augroup AutoSyntastic
+    autocmd!
+    autocmd InsertLeave,TextChanged * call s:syntastic() 
+augroup END
+
+function! s:syntastic()
+    " w
+    " SyntasticCheck
+endfunction
+
+" }}}
+
+" === base settings ===================================================================================== {{{
+
+" modeline
+set modeline
+set modelines       =3
+
+" function
+set history         =1024               " number of history
+set helplang        =en                 " language to read help
+
+" encoding
+set encoding        =utf-8              " character code for .vimrc
+set fileencoding    =utf-8              " character code to write files
+set fileencodings   =utf-8,sjis         " character code to read file (default)
+set fileencodings  +=ucs-bom            " character code to read file
+set fileencodings  +=iso-2022-jp-3      " character code to read file
+set fileencodings  +=iso-2022-jp        " character code to read file
+set fileencodings  +=eucjp-ms           " character code to read file
+set fileencodings  +=euc-jisx0213       " character code to read file
+set fileencodings  +=euc-jp             " character code to read file
+set fileencodings  +=cp932              " character code to read file
+set fileformats     =unix,dos,mac       " newline character
+
+" view
+syntax on                               " show syntax hilight
+set number                              " show line number
+set ruler                               " show current line number
+set title                               " show title of the file
+set showmatch                           " show matching bracket
+set virtualedit    +=block              " expand bounds in visual mode
+set nowrap                              " nowrap
+set t_Co           =256                 " terminal color
+set equalalways                         " adjust window size
+
+" indent
+set backspace       =indent,eol,start   " more powerful backspacing
+set smartindent                         " indent automatically
+set autoindent                          " indent automatically
+set shiftwidth      =4                  " width of indent for autoindent
+set tabstop         =4                  " width of TAB
+set expandtab                           " change TAB to space
+set textwidth       =0                  " text width
+
+" searching
+set incsearch                           " disable increment search
+set wrapscan                            " searchrs wrap around
+
+" action
+set autoread                            " reload file automatically when it is updated
+set scrolloff       =20                 " scrooloff
+set clipboard       =unnamed            " sharing clipboard
+
+" fold
+set foldenable                          " enable fold
+set foldcolumn      =0                  " width of folding guide
+set foldmethod      =marker             " folding by {{{.}}}
+
+" directories
+if !isdirectory(expand('~/.vimfiles'))
+    call mkdir(expand('~/.vimfiles'))
+endif
+cd ~
+set backup                              " make backup file
+set backupdir       =~/.vimfiles        " directiry to save backup files
+set undofile                            " make undo file
+set undodir         =~/.vimfiles        " directiry to save undo files
+set swapfile                            " make swap file
+set directory       =~/.vimfiles        " directiry to save swap files
+set browsedir       =current            " directiry to save editing files
+
+" colorscheme
+colorscheme jellybeans
+
+" }}}
+
+" === key mappings ======================================================================================= {{{
+
+" ***NOTE*** {{{
+" --------------------------------------------------------------------------------
+" |      | normal    | insert    | command   | visual    | select    | waiting   |
+" |------------------------------------------------------------------------------|
+" |  map |     @     |     -     |     -     |     @     |     @     |     @     |
+" | map! |     -     |     @     |     @     |     -     |     -     |     -     |
+" | nmap |     @     |     -     |     -     |     -     |     -     |     -     |
+" | imap |     -     |     @     |     -     |     -     |     -     |     -     |
+" | cmap |     -     |     -     |     @     |     -     |     -     |     -     |
+" | vmap |     -     |     -     |     -     |     @     |     @     |     -     |
+" | xmap |     -     |     -     |     -     |     @     |     -     |     -     |
+" | smap |     -     |     -     |     -     |     -     |     @     |     -     |
+" | omap |     -     |     -     |     -     |     -     |     -     |     @     |
+" --------------------------------------------------------------------------------
+" | -noremap: default key map (notreclusive)                                     |
+" |     -map: plugins etc. (reclusive)                                           |
+" --------------------------------------------------------------------------------
+"  }}}
+
+" prefixes
+nnoremap [comma]            <Nop>
+nmap     ,                  [comma]
+nnoremap [space]            <Nop>
+nmap     <Space>            [space]
+
+" base mappimgs
+noremap  ;                  :
+noremap  :                  ;
+noremap! ;                  :
+noremap! :                  ;
+noremap  <C-c>              <Esc>
+nnoremap <silent><C-c><C-c> :<C-u>noh<CR>
+nnoremap <CR>               :<C-u>w<CR>
+nnoremap <BS>               :<C-u>q<CR>
+nnoremap U                  <C-r>
+
+" cursor
+nnoremap j                  gj
+nnoremap k                  gk
+vnoremap j                  gj
+vnoremap k                  gk
+noremap  H                  ^
+noremap  J                  }
+noremap  K                  {
+noremap  L                  $
+
+" searching
+nnoremap n                  nzzzo
+nnoremap N                  Nzzzo
+nmap     *                  *N
+nmap     #                  #n
+
+" window
+nnoremap <C-h>              <C-w>h
+nnoremap <C-j>              <C-w>j
+nnoremap <C-k>              <C-w>k
+nnoremap <C-l>              <C-w>l
+nnoremap [comma]n           :<C-u>split<CR>
+nnoremap [comma]v           :<C-u>vsplit<CR>
+
+" tab
+nnoremap <TAB>              gt
+nnoremap <S-TAB>            gT
+nnoremap [comma]t           :<C-u>tabnew<CR>
+
+" command mode
+cnoremap <C-n>              <DOWN>
+cnoremap <C-p>              <UP>
+
+" fold
+nnoremap z                  za
+
+" vim-smartchr
+inoremap <buffer><expr>=    smartchr#loop(' = ', ' == ', '=')
+
+" handy
+nnoremap [comma].           :<C-u>e $MYVIMRC<CR>
+nnoremap [comma],           :<C-u>e $MYGVIMRC<CR>
+nnoremap <silent>[comma]r   :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
+
+" Unite
+nnoremap [space]y           :<C-u>Unite history/yank<CR>
+nnoremap [space]b           :<C-u>Unite buffer<CR>
+nnoremap [space]f           :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap [space]r           :<C-u>Unite -buffer-name=register register<CR>
+nnoremap [space]u           :<C-u>Unite file_mru buffer<CR>
+nnoremap [space]f           :<C-u>Unite file<CR>
+
+" dictionary
+nnoremap [space]t           :<C-u>ExciteTranslate<CR>
+
+" QFixHowm
+nmap     [space]m           g,m
+nmap     [space]c           g,c
+nmap     [space]q           g,q
+nmap     [space],           g,,
+
+" vimshell
+nnoremap [space]is          :<C-u>VimShell<CR>
+nnoremap [space]ip          :<C-u>VimShellInteractive python<CR>
+nnoremap [space]ir          :<C-u>VimShellInteractive irb<CR>
+
+" snippet
+imap     <C-k>              <Plug>(neosnippet_expand_or_jump)
+smap     <C-k>              <Plug>(neosnippet_expand_or_jump)
+
+" operator
+nmap     s                  <Plug>(operator-replace)
+
+" comment out
+nmap     \c                 <Plug>TComment_gcc<Esc>
+vmap     \c                 <Plug>TComment_gcc<Esc>
+
+" align
+vmap     <Enter>            <Plug>(EasyAlign)
+
+" Java
+map      <buffer>[comma]g   <Plug>JavagetsetInsertGetterOnly
+map      <buffer>[comma]s   <Plug>JavagetsetInsertSetterOnly
+map      <buffer>[comma]b   <Plug>JavagetsetInsertBothGetterSetter
+
 " }}}
 
