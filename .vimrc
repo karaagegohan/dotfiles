@@ -119,11 +119,13 @@ vmap     <Enter>            <Plug>(EasyAlign)
 "  }}}
 
 filetype plugin indent off
+
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 " managing plugins
 NeoBundle 'Shougo/neobundle.vim'
 
+" great asynchronous execution
 NeoBundle 'Shougo/vimproc.vim', {
             \'build' : {
             \    'windows' : 'make -f make_mingw32.mak',
@@ -158,7 +160,7 @@ NeoBundle 'tpope/vim-fugitive'           " a Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim' " better rainbow parentheses
 
 " syntax
-NeoBundle 'scrooloose/syntastic.git'     " powerful syntax
+" NeoBundle 'scrooloose/syntastic.git'     " powerful syntax
 
 " Unite
 NeoBundle 'Shougo/unite.vim'
@@ -210,13 +212,15 @@ NeoBundle 'mattn/excitetranslate-vim'
 call neobundle#end()
 
 NeoBundleCheck
+NeoBundleClean
+
 filetype plugin indent on
 
 " }}}
 
 " === Shougo/neocomplete.vim ============================================================================= {{{
-
 if neobundle#is_installed('neocomplete.vim')
+
     let g:acp_enableAtStartup                           = 1         " Disable AutoComplPop.
     let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
     let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
@@ -254,25 +258,25 @@ if neobundle#is_installed('neocomplete.vim')
     let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplete#sources#omni#input_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
     let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-endif
 
+endif
 " }}}
 
 " === Shougo/neocomplcache.vim =========================================================================== {{{
-
 if neobundle#is_installed('neocomplcache.vim')
+
+    " TODO
     
 endif
-
 " }}}
 
 " === Shougo/neosnippet ================================================================================== {{{
-
 if neobundle#is_installed('neosnippet')
+
     " key_mappings
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_target)
 
     " For snippet_complete marker.
     if has('conceal')
@@ -282,12 +286,11 @@ if neobundle#is_installed('neosnippet')
 
     " other snippets
     let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
-endif
 
+endif
 " }}}
 
 " === tpope/vim-fugitive ================================================================================== {{{
-
 if neobundle#is_installed('vim-fugitive')
 
     " key_mappings {{{
@@ -304,23 +307,21 @@ if neobundle#is_installed('vim-fugitive')
     " }}}
 
 endif
-
 " }}}
 
 " === kana/vim-smartchr ================================================================================== {{{
-
 if neobundle#is_installed('vim-smartchr')
+
     augroup vim_schar
         autocmd!
         autocmd FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
     augroup END
     inoremap <buffer><expr>= smartchr#loop(' = ', ' == ', '=')
-endif
 
+endif
 " }}}
 
 " === Shougo/vimshell.vim ================================================================================ {{{
-
 if neobundle#is_installed('vimshell.vim')
 
     " key_mappings {{{
@@ -333,12 +334,11 @@ if neobundle#is_installed('vimshell.vim')
     " }}}
 
 endif
-
 " }}}
 
 " === Shougo/unite.vim =================================================================================== {{{
-
 if neobundle#is_installed('unite.vim')
+
     let g:unite_source_history_yank_enable =1
     let g:unite_source_file_mru_limit = 200
 
@@ -355,20 +355,19 @@ if neobundle#is_installed('unite.vim')
     " }}}
 
 endif
-
 " }}}
 
 " === Shougo/unite-outline =============================================================================== {{{
-
 if neobundle#is_installed('unite-outline')
-    let g:unite_split_rule = 'botright'
-endif
 
+    let g:unite_split_rule = 'botright'
+
+endif
 " }}}
 
 " === itchyny/lightline.vim ============================================================================== {{{
-
 if neobundle#is_installed('lightline.vim')
+
     let g:lightline = {
                 \ 'active': {
                 \   'left': [ [ 'mode', 'paste' ],
@@ -413,13 +412,13 @@ if neobundle#is_installed('lightline.vim')
                     \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
                     \ ('' != MyModified() ? ' ' . MyModified() : '')
     endfunction
-endif
 
+endif
 " }}}
 
 " === junegunn/vim-easy-align ============================================================================ {{{
-
 if neobundle#is_installed('vim-easy-align')
+
     let g:easy_align_delimiters = {
                 \ '"': {
                 \     'pattern':         ' "',
@@ -433,19 +432,19 @@ if neobundle#is_installed('vim-easy-align')
                 \     'right_margin':   0
                 \   },
                 \ }
-endif
 
+endif
 " }}}
 
 " === fuenor/qfixhowm ==================================================================================== {{{
-
 if neobundle#is_installed('qfixhowm')
+
     if isdirectory(expand('~/Google\ Drive'))
         if !isdirectory(expand('~/Google\ Drive/Memo'))
             call mkdir('~/Google\ Drive/Memo', 'p')
         endif
-        let howm_dir                       = '~/Google\ Drive/Memo'             " directory
-        let QFixMRU_Filename               = '~/Google\ Drive/Memo/.qfixmru'    " MRU file
+        let howm_dir                   = '~/Google\ Drive/Memo'              " directory
+        let QFixMRU_Filename           = '~/Google\ Drive/Memo/.qfixmru'     " MRU file
     endif
 
     let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'   " filename of diary
@@ -462,13 +461,13 @@ if neobundle#is_installed('qfixhowm')
     nmap     [fpref]c           g,c
     nmap     [fpref]q           g,q
     nmap     [fpref],           g,,
-endif
 
+endif
 " }}}
 
 " === kien/rainbow_parentheses.vim ======================================================================= {{{
-
 if neobundle#is_installed('rainbow_parentheses.vim')
+
     " color
     let g:rbpt_colorpairs = [
                 \ ['brown',       'RoyalBlue3'],
@@ -491,13 +490,13 @@ if neobundle#is_installed('rainbow_parentheses.vim')
 
     let g:rbpt_max            = 16
     let g:rbpt_loadcmd_toggle = 0
-endif
 
+endif
 " }}}
 
 " === moznion/java_getset.vim ============================================================================ {{{
-
 if neobundle#is_installed('java_getset.vim')
+
     let b:javagetset_enable_K_and_R = 1   " K$R style
     let b:javagetset_add_this       = 1   " add .this
 
@@ -505,13 +504,13 @@ if neobundle#is_installed('java_getset.vim')
     map <buffer>[bpref]g <Plug>JavagetsetInsertGetterOnly
     map <buffer>[bpref]s <Plug>JavagetsetInsertSetterOnly
     map <buffer>[bpref]b <Plug>JavagetsetInsertBothGetterSetter
-endif
 
+endif
 " }}}
 
 " === scrooloose/syntastic.git =========================================================================== {{{
-
 if neobundle#is_installed('syntastic.git')
+
     let g:syntastic_enable_signs  = 1
     let g:syntastic_auto_loc_list = 2
     let g:syntastic_mode_map = {'mode': 'passive'} 
@@ -525,8 +524,8 @@ if neobundle#is_installed('syntastic.git')
         " w
         " SyntasticCheck
     endfunction
-endif
 
+endif
 " }}}
 
 " === base settings ====================================================================================== {{{
@@ -577,7 +576,7 @@ set incsearch   " disable increment search
 set wrapscan    " searchrs wrap around
 
 " command line
-set timeoutlen =1000000   " time to wait for a key code
+set timeoutlen =3000      " time to wait for a key code
 
 " action
 set autoread              " reload file automatically when it is updated
