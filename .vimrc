@@ -293,7 +293,8 @@ if neobundle#is_installed('vim-fugitive')
     nnoremap [vim-fugitive]a :<C-u>Gwrite<CR>
     nnoremap [vim-fugitive]d :<C-u>Gdiff<CR>
     nnoremap [vim-fugitive]c :<C-u>Gcommit -m ''<LEFT>
-    nnoremap [vim-fugitive]p :<C-u>Git push origin master<CR>
+    nnoremap [vim-fugitive]ps :<C-u>Git push origin master<CR>
+    nnoremap [vim-fugitive]pl :<C-u>Git push origin master<CR>
 endif
 
 " }}}
