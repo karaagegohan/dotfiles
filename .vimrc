@@ -40,8 +40,8 @@ noremap! ;                  :
 noremap! :                  ;
 noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>noh<CR>
-nnoremap <silent><CR>       :<C-u>w<CR>
-nnoremap <BS>               :<C-u>q<CR>
+nnoremap <silent><CR>       :<C-u>write<CR>
+nnoremap <BS>               :<C-u>quit<CR>
 nnoremap U                  <C-r>
 nnoremap ZZ                 <Nop>
 nnoremap ZQ                 <Nop>
@@ -83,8 +83,8 @@ cnoremap <C-p>              <UP>
 nnoremap z                  za
 
 " handy
-nnoremap [bpref].           :<C-u>e $MYVIMRC<CR>
-nnoremap [bpref],           :<C-u>e $MYGVIMRC<CR>
+nnoremap <silent>[bpref].   :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent>[bpref],   :<C-u>edit $MYGVIMRC<CR>
 nnoremap <silent>[bpref]r   :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 
 " dictionary
@@ -220,61 +220,65 @@ filetype plugin indent on
 
 " === Shougo/neocomplete.vim ============================================================================= {{{
 
-let g:acp_enableAtStartup                           = 1         " Disable AutoComplPop.
-let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
-let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
-let g:neocomplete#sources#syntax#min_keyword_length = 1         " Set minimum syntax keyword length.
-let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " file name to lock buffer
+if neobundle#is_installed('neocomplete')
+    let g:acp_enableAtStartup                           = 1         " Disable AutoComplPop.
+    let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
+    let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
+    let g:neocomplete#sources#syntax#min_keyword_length = 1         " Set minimum syntax keyword length.
+    let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " file name to lock buffer
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
+    " Define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+                \ 'default' : '',
+                \ 'vimshell' : $HOME.'/.vimshell_hist',
+                \ 'scheme' : $HOME.'/.gosh_completions'
+                \ }
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+    " Define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+    " Enable omni completion.
+    augroup vimrc_neocomplete
+        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    augroup END
+
+    let g:neocomplete#force_overwrite_completefunc=1
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Enable omni completion.
-augroup vimrc_neocomplete
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
-
-let g:neocomplete#force_overwrite_completefunc=1
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " }}}
 
 " === Shougo/neosnippet ================================================================================== {{{
 
-" key_mappings
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+if neobundle#is_installed('neosnippet')
+    " key_mappings
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" For snippet_complete marker.
-if has('conceal')
-    set conceallevel=2 
-    set concealcursor=i
+    " For snippet_complete marker.
+    if has('conceal')
+        set conceallevel=2 
+        set concealcursor=i
+    endif
+
+    " other snippets
+    let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
 endif
-
-" other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
 
 " }}}
 
@@ -438,9 +442,9 @@ let b:javagetset_enable_K_and_R = 1   " K$R style
 let b:javagetset_add_this       = 1   " add .this
 
 " key_mappings
-map      <buffer>[bpref]g   <Plug>JavagetsetInsertGetterOnly
-map      <buffer>[bpref]s   <Plug>JavagetsetInsertSetterOnly
-map      <buffer>[bpref]b   <Plug>JavagetsetInsertBothGetterSetter
+map <buffer>[bpref]g <Plug>JavagetsetInsertGetterOnly
+map <buffer>[bpref]s <Plug>JavagetsetInsertSetterOnly
+map <buffer>[bpref]b <Plug>JavagetsetInsertBothGetterSetter
 
 " }}}
 
@@ -511,7 +515,7 @@ set wrapscan    " searchrs wrap around
 
 " action
 set autoread              " reload file automatically when it is updated
-set scrolloff  =20        " scrooloff
+set scrolloff  =10        " scrooloff
 set clipboard  =unnamed   " sharing clipboard
 
 " fold
