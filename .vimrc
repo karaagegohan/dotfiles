@@ -118,6 +118,7 @@ vmap     <Enter>            <Plug>(EasyAlign)
 "
 "  }}}
 
+filetype plugin indent off
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 " managing plugins
@@ -237,11 +238,11 @@ if neobundle#is_installed('neocomplete.vim')
 
     " Enable omni completion.
     augroup vimrc_neocomplete
-        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+        autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
         autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+        autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+        autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+        autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
     augroup END
 
     let g:neocomplete#force_overwrite_completefunc=1
@@ -251,7 +252,7 @@ if neobundle#is_installed('neocomplete.vim')
         let g:neocomplete#sources#omni#input_patterns = {}
     endif
     let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    let g:neocomplete#sources#omni#input_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
     let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 endif
 
@@ -342,8 +343,8 @@ if neobundle#is_installed('unite.vim')
     let g:unite_source_file_mru_limit = 200
 
     " key_mappings {{{
-    nnoremap [unite]  <Nop>
-    nmap     [fpref]u    [unite]
+    nnoremap [unite]   <Nop>
+    nmap     [fpref]u  [unite]
 
     nnoremap [unite]u  :<C-u>Unite<CR>
     nnoremap [unite]hy :<C-u>Unite history/yank<CR>
@@ -576,7 +577,7 @@ set incsearch   " disable increment search
 set wrapscan    " searchrs wrap around
 
 " command line
-set timeoutlen =1000000
+set timeoutlen =1000000   " time to wait for a key code
 
 " action
 set autoread              " reload file automatically when it is updated
