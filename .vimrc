@@ -141,6 +141,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'karaagegohan/my-snippets'
 
 NeoBundleLazy 'Shougo/vimshell.vim', {
             \ 'depends' : [ 'Shougo/vimproc.vim' ]
@@ -272,13 +273,8 @@ if has('conceal')
     set concealcursor=i
 endif
 
-" my snippets
-" if !isdirectory(expand('~/.vim/snippets'))
-"     call mkdir('~/.vim/snippets', 'p')
-"     !mkdir ~/.vim/snippets
-" endif
-" let s:my_snippet = '~/.vim/snippets/'
-" let g:neosnippet#snippets_directory = s:my_snippet
+" other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
 
 " }}}
 
@@ -395,6 +391,7 @@ if isdirectory(expand('~/Google\ Drive'))
         call mkdir('~/Google\ Drive/Memo', 'p')
     endif
     let howm_dir                       = '~/Google\ Drive/Memo'             " directory
+    let QFixMRU_Filename               = '~/Google\ Drive/Memo/.qfixmru'    " MRU file
 endif
 
 let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'   " filename of diary

@@ -1,0 +1,127 @@
+" === key mappings ======================================================================================= {{{
+
+" ***NOTE*** {{{
+" --------------------------------------------------------------------------------
+" |      | normal    | insert    | command   | visual    | select    | waiting   |
+" |------------------------------------------------------------------------------|
+" |  map |     @     |     -     |     -     |     @     |     @     |     @     |
+" | map! |     -     |     @     |     @     |     -     |     -     |     -     |
+" | nmap |     @     |     -     |     -     |     -     |     -     |     -     |
+" | imap |     -     |     @     |     -     |     -     |     -     |     -     |
+" | cmap |     -     |     -     |     @     |     -     |     -     |     -     |
+" | vmap |     -     |     -     |     -     |     @     |     @     |     -     |
+" | xmap |     -     |     -     |     -     |     @     |     -     |     -     |
+" | smap |     -     |     -     |     -     |     -     |     @     |     -     |
+" | omap |     -     |     -     |     -     |     -     |     -     |     @     |
+" --------------------------------------------------------------------------------
+" | -noremap: default key map (notreclusive)                                     |
+" |     -map: plugins etc. (reclusive)                                           |
+" --------------------------------------------------------------------------------
+"  }}}
+
+" base mappimgs
+noremap  ;                  :
+noremap  :                  ;
+noremap! ;                  :
+noremap! :                  ;
+noremap  <C-c>              <Esc>
+nnoremap <silent><C-c><C-c> :<C-u>noh<CR>
+nnoremap <silent><CR>       :<C-u>w<CR>
+nnoremap <BS>               :<C-u>q<CR>
+nnoremap U                  <C-r>
+nnoremap ZZ                 <Nop>
+nnoremap ZQ                 <Nop>
+
+" cursor
+noremap  H                  ^
+noremap  J                  }
+noremap  K                  {
+noremap  L                  $
+
+" searching
+nnoremap n                  nzzzo
+nnoremap N                  Nzzzo
+nmap     *                  *N
+nmap     #                  #n
+
+
+" command mode
+cnoremap <C-n>              <DOWN>
+cnoremap <C-p>              <UP>
+
+" }}}
+
+" === base settings ====================================================================================== {{{
+
+" modeline
+set modeline
+set modelines =3
+
+" function
+set history  =1024   " number of history
+set helplang =en     " language to read help
+
+" encoding
+set encoding        =utf-8           " character code for .vimrc
+set fileencoding    =utf-8           " character code to write files
+set fileencodings   =utf-8,sjis      " character code to read file (default)
+set fileencodings  +=ucs-bom         " character code to read file
+set fileencodings  +=iso-2022-jp-3   " character code to read file
+set fileencodings  +=iso-2022-jp     " character code to read file
+set fileencodings  +=eucjp-ms        " character code to read file
+set fileencodings  +=euc-jisx0213    " character code to read file
+set fileencodings  +=euc-jp          " character code to read file
+set fileencodings  +=cp932           " character code to read file
+set fileformats     =unix,dos,mac    " newline character
+
+" view
+syntax on                  " show syntax hilight
+set number                 " show line number
+set ruler                  " show current line number
+set title                  " show title of the file
+set showmatch              " show matching bracket
+set virtualedit  +=block   " expand bounds in visual mode
+set nowrap                 " nowrap
+set t_Co          =256     " terminal color
+set equalalways            " adjust window size
+
+" indent
+set backspace   =indent,eol,start   " more powerful backspacing
+set smartindent                     " indent automatically
+set autoindent                      " indent automatically
+set shiftwidth  =4                  " width of indent for autoindent
+set tabstop     =4                  " width of TAB
+set expandtab                       " change TAB to space
+set textwidth   =0                  " text width
+
+" searching
+set incsearch   " disable increment search
+set wrapscan    " searchrs wrap around
+
+" action
+set autoread              " reload file automatically when it is updated
+set scrolloff  =20        " scrooloff
+set clipboard  =unnamed   " sharing clipboard
+
+" fold
+set foldenable            " enable fold
+set foldcolumn  =0        " width of folding guide
+set foldmethod  =marker   " folding by {{{.}}}
+
+" directories
+if !isdirectory(expand('~/.vimfiles'))
+    call mkdir(expand('~/.vimfiles'))
+endif
+set browsedir  =current       " directiry to save editing files
+set backup                    " make backup file
+set backupdir  =~/.vimfiles   " directiry to save backup files
+set undofile                  " make undo file
+set undodir    =~/.vimfiles   " directiry to save undo files
+set swapfile                  " make swap file
+set directory  =~/.vimfiles   " directiry to save swap files
+
+" colorscheme
+colorscheme jellybeans
+
+" }}}
+
