@@ -288,12 +288,12 @@ endif
 
 if neobundle#is_installed('vim-fugitive')
     " key_mappings
-    nnoremap [git]            <Nop>
-    nmap     [fpref]g        [git]
-    nnoremap [git]a :<C-u>Gwrite<CR>
-    nnoremap [git]d :<C-u>Gdiff<CR>
-    nnoremap [git]c :<C-u>Gcommit -m ''<LEFT>
-    nnoremap [git]p :<C-u>Git push origin master<CR>
+    nnoremap [vim-fugitive]  <Nop>
+    nmap     [fpref]g        [vim-fugitive]
+    nnoremap [vim-fugitive]a :<C-u>Gwrite<CR>
+    nnoremap [vim-fugitive]d :<C-u>Gdiff<CR>
+    nnoremap [vim-fugitive]c :<C-u>Gcommit -m ''<LEFT>
+    nnoremap [vim-fugitive]p :<C-u>Git push origin master<CR>
 endif
 
 " }}}
@@ -314,9 +314,11 @@ endif
 
 if neobundle#is_installed('vimshell.vim')
     " key_mappings
-    nnoremap [fpref]is          :<C-u>VimShell<CR>
-    nnoremap [fpref]ip          :<C-u>VimShellInteractive python<CR>
-    nnoremap [fpref]ir          :<C-u>VimShellInteractive irb<CR>
+    nnoremap [vimshell]  <Nop>
+    nmap     [fpref]s    [vimshell]
+    nnoremap [vimshell]s :<C-u>VimShell<CR>
+    nnoremap [vimshell]p :<C-u>VimShellInteractive python<CR>
+    nnoremap [vimshell]r :<C-u>VimShellInteractive irb<CR>
 endif
 
 " }}}
