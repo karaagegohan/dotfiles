@@ -298,6 +298,8 @@ if neobundle#is_installed('vim-fugitive')
     nnoremap [vim-fugitive]c  :<C-u>Gcommit -m ''<LEFT>
     nnoremap [vim-fugitive]ps :<C-u>Git push origin master<CR>
     nnoremap [vim-fugitive]pl :<C-u>Git pull<CR>
+    nnoremap [vim-fugitive]st :<C-u>Git status<CR>
+    nnoremap [vim-fugitive]sh :<C-u>Git stash<CR>
     " }}}
 
 endif
@@ -572,6 +574,9 @@ set textwidth   =0                  " text width
 " searching
 set incsearch   " disable increment search
 set wrapscan    " searchrs wrap around
+
+" command line
+set timeoutlen =1000000
 
 " action
 set autoread              " reload file automatically when it is updated
