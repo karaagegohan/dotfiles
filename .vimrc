@@ -57,10 +57,10 @@ noremap  K                  {
 noremap  L                  $
 
 " searching
-nnoremap n                  nzozo
-nnoremap N                  Nzozo
-nnoremap *                  *Nzozo
-nnoremap #                  #nzozo
+nnoremap n                  nzO
+nnoremap N                  NzO
+nnoremap *                  *NzO
+nnoremap #                  #nzO
 
 " window
 nnoremap <C-h>              <C-w>h
