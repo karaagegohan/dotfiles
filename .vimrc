@@ -6,7 +6,7 @@ endif
 
 " }}}
 
-" === key mappings ======================================================================================= {{{
+" === key_mappings ======================================================================================= {{{
 
 " ***NOTE*** {{{
 " --------------------------------------------------------------------------------
@@ -59,8 +59,8 @@ noremap  L                  $
 " searching
 nnoremap n                  nzzzo
 nnoremap N                  Nzzzo
-nmap     *                  *N
-nmap     #                  #n
+nnoremap *                  *N
+nnoremap #                  #n
 
 " window
 nnoremap <C-h>              <C-w>h
@@ -287,14 +287,18 @@ endif
 " === tpope/vim-fugitive ================================================================================== {{{
 
 if neobundle#is_installed('vim-fugitive')
-    " key_mappings
-    nnoremap [vim-fugitive]  <Nop>
-    nmap     [fpref]g        [vim-fugitive]
-    nnoremap [vim-fugitive]a :<C-u>Gwrite<CR>
-    nnoremap [vim-fugitive]d :<C-u>Gdiff<CR>
-    nnoremap [vim-fugitive]c :<C-u>Gcommit -m ''<LEFT>
+
+    " key_mappings {{{
+    nnoremap [vim-fugitive]   <Nop>
+    nmap     [fpref]g         [vim-fugitive]
+
+    nnoremap [vim-fugitive]a  :<C-u>Gwrite<CR>
+    nnoremap [vim-fugitive]d  :<C-u>Gdiff<CR>
+    nnoremap [vim-fugitive]c  :<C-u>Gcommit -m ''<LEFT>
     nnoremap [vim-fugitive]ps :<C-u>Git push origin master<CR>
-    nnoremap [vim-fugitive]pl :<C-u>Git push origin master<CR>
+    nnoremap [vim-fugitive]pl :<C-u>Git pull<CR>
+    " }}}
+
 endif
 
 " }}}
@@ -314,12 +318,16 @@ endif
 " === Shougo/vimshell.vim ================================================================================ {{{
 
 if neobundle#is_installed('vimshell.vim')
-    " key_mappings
+
+    " key_mappings {{{
     nnoremap [vimshell]  <Nop>
     nmap     [fpref]s    [vimshell]
+
     nnoremap [vimshell]s :<C-u>VimShell<CR>
     nnoremap [vimshell]p :<C-u>VimShellInteractive python<CR>
     nnoremap [vimshell]r :<C-u>VimShellInteractive irb<CR>
+    " }}}
+
 endif
 
 " }}}
@@ -330,12 +338,17 @@ if neobundle#is_installed('unite.vim')
     let g:unite_source_history_yank_enable =1
     let g:unite_source_file_mru_limit = 200
 
-    " key_mappings
-    nnoremap [fpref]hy :<C-u>Unite history/yank<CR>
-    nnoremap [fpref]hf :<C-u>Unite file_mru buffer<CR>
-    nnoremap [fpref]b  :<C-u>Unite buffer<CR>
-    nnoremap [fpref]r  :<C-u>Unite -buffer-name=register register<CR>
-    nnoremap [fpref]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    " key_mappings {{{
+    nnoremap [unite]  <Nop>
+    nmap     [fpref]s    [unite]
+
+    nnoremap [unite]hy :<C-u>Unite history/yank<CR>
+    nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
+    nnoremap [unite]b  :<C-u>Unite buffer<CR>
+    nnoremap [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+    nnoremap [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    " }}}
+
 endif
 
 " }}}
