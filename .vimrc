@@ -83,18 +83,12 @@ cnoremap <C-p>              <UP>
 nnoremap z                  za
 
 " handy
-nnoremap <silent>[bpref].   :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent>[bpref],   :<C-u>edit $MYGVIMRC<CR>
+nnoremap <silent>[bpref].   :<C-u>edit ~/dotfiles/.vimrc<CR>
+nnoremap <silent>[bpref],   :<C-u>edit ~/dotfiles/.gvimrc<CR>
 nnoremap <silent>[bpref]r   :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 
 " dictionary
 nnoremap [fpref]t           :<C-u>ExciteTranslate<CR>
-
-" QFixHowm
-nmap     [fpref]m           g,m
-nmap     [fpref]c           g,c
-nmap     [fpref]q           g,q
-nmap     [fpref],           g,,
 
 " operator
 nmap     s                  <Plug>(operator-replace)
@@ -138,7 +132,7 @@ NeoBundle 'Shougo/vimproc.vim', {
             \}
 
 " complement 
-NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle has('lua') ? 'Shougo/neocomplete.vim' : 'Shougo/neocomplcache.vim' 
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'karaagegohan/my-snippets'
@@ -220,7 +214,7 @@ filetype plugin indent on
 
 " === Shougo/neocomplete.vim ============================================================================= {{{
 
-if neobundle#is_installed('neocomplete')
+if neobundle#is_installed('neocomplete.vim')
     let g:acp_enableAtStartup                           = 1         " Disable AutoComplPop.
     let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
     let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
@@ -262,6 +256,14 @@ endif
 
 " }}}
 
+" === Shougo/neocomplcache.vim =========================================================================== {{{
+
+if neobundle#is_installed('neocomplcache.vim')
+    
+endif
+
+" }}}
+
 " === Shougo/neosnippet ================================================================================== {{{
 
 if neobundle#is_installed('neosnippet')
@@ -282,187 +284,226 @@ endif
 
 " }}}
 
-" === kana/vim-smartchr ================================================================================== {{{
+" === tpope/vim-fugitive ================================================================================== {{{
 
-augroup vim_schar
-    autocmd!
-    autocmd FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
-augroup END
-inoremap <buffer><expr>= smartchr#loop(' = ', ' == ', '=')
+if neobundle#is_installed('vim-fugitive')
+    " key_mappings
+    nnoremap [git]            <Nop>
+    nmap     [fpref]g        [git]
+    nnoremap [git]a :<C-u>Gwrite<CR>
+    nnoremap [git]c :<C-u>Gcommit<CR>
+    nnoremap [git]p :<C-u>Git push origin master<CR>
+endif
 
 " }}}
 
-" === Shougo/vimshell.vim ================================================================================== {{{
+" === kana/vim-smartchr ================================================================================== {{{
 
-" key_mappings
-nnoremap [fpref]is          :<C-u>VimShell<CR>
-nnoremap [fpref]ip          :<C-u>VimShellInteractive python<CR>
-nnoremap [fpref]ir          :<C-u>VimShellInteractive irb<CR>
+if neobundle#is_installed('vim-smartchr')
+    augroup vim_schar
+        autocmd!
+        autocmd FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
+    augroup END
+    inoremap <buffer><expr>= smartchr#loop(' = ', ' == ', '=')
+endif
+
+" }}}
+
+" === Shougo/vimshell.vim ================================================================================ {{{
+
+if neobundle#is_installed('vimshell.vim')
+    " key_mappings
+    nnoremap [fpref]is          :<C-u>VimShell<CR>
+    nnoremap [fpref]ip          :<C-u>VimShellInteractive python<CR>
+    nnoremap [fpref]ir          :<C-u>VimShellInteractive irb<CR>
+endif
 
 " }}}
 
 " === Shougo/unite.vim =================================================================================== {{{
 
-let g:unite_source_history_yank_enable =1
-let g:unite_source_file_mru_limit = 200
+if neobundle#is_installed('unite.vim')
+    let g:unite_source_history_yank_enable =1
+    let g:unite_source_file_mru_limit = 200
 
-" key_mappings
-nnoremap [fpref]hy :<C-u>Unite history/yank<CR>
-nnoremap [fpref]hf :<C-u>Unite file_mru buffer<CR>
-nnoremap [fpref]b  :<C-u>Unite buffer<CR>
-nnoremap [fpref]r  :<C-u>Unite -buffer-name=register register<CR>
-nnoremap [fpref]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    " key_mappings
+    nnoremap [fpref]hy :<C-u>Unite history/yank<CR>
+    nnoremap [fpref]hf :<C-u>Unite file_mru buffer<CR>
+    nnoremap [fpref]b  :<C-u>Unite buffer<CR>
+    nnoremap [fpref]r  :<C-u>Unite -buffer-name=register register<CR>
+    nnoremap [fpref]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+endif
 
 " }}}
 
 " === Shougo/unite-outline =============================================================================== {{{
 
-let g:unite_split_rule = 'botright'
+if neobundle#is_installed('unite-outline')
+    let g:unite_split_rule = 'botright'
+endif
 
 " }}}
 
 " === itchyny/lightline.vim ============================================================================== {{{
 
-let g:lightline = {
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'fugitive', 'filename' ] ]
-            \ },
-            \ 'component_function': {
-            \   'fugitive': 'MyFugitive',
-            \   'readonly': 'MyReadonly',
-            \   'modified': 'MyModified',
-            \   'filename': 'MyFilename'
-            \ },
-            \ }
+if neobundle#is_installed('lightline.vim')
+    let g:lightline = {
+                \ 'active': {
+                \   'left': [ [ 'mode', 'paste' ],
+                \             [ 'fugitive', 'filename' ] ]
+                \ },
+                \ 'component_function': {
+                \   'fugitive': 'MyFugitive',
+                \   'readonly': 'MyReadonly',
+                \   'modified': 'MyModified',
+                \   'filename': 'MyFilename'
+                \ },
+                \ }
 
-function! MyModified()
-    if &filetype == "help"
-        return ""
-    elseif &modified
-        return "+"
-    elseif &modifiable
-        return ""
-    else
-        return ""
-    endif
-endfunction
+    function! MyModified()
+        if &filetype == "help"
+            return ""
+        elseif &modified
+            return "+"
+        elseif &modifiable
+            return ""
+        else
+            return ""
+        endif
+    endfunction
 
-function! MyReadonly()
-    if &filetype == "help"
-        return ""
-    elseif &readonly
-        return "RO"
-    else
-        return ""
-    endif
-endfunction
+    function! MyReadonly()
+        if &filetype == "help"
+            return ""
+        elseif &readonly
+            return "RO"
+        else
+            return ""
+        endif
+    endfunction
 
-function! MyFugitive()
-    return exists('*fugitive#head') ? fugitive#head() : ''
-endfunction
+    function! MyFugitive()
+        return exists('*fugitive#head') ? fugitive#head() : ''
+    endfunction
 
-function! MyFilename()
-    return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-                \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-                \ ('' != MyModified() ? ' ' . MyModified() : '')
-endfunction
+    function! MyFilename()
+        return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+                    \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+                    \ ('' != MyModified() ? ' ' . MyModified() : '')
+    endfunction
+endif
 
 " }}}
 
 " === junegunn/vim-easy-align ============================================================================ {{{
 
-let g:easy_align_delimiters = {
-            \ '"': {
-            \     'pattern':         ' "',
-            \     'delimiter_align': 'l',
-            \     'left_margin':     2,
-            \     'right_margin':    1
-            \   },
-            \ '.': {
-            \     'pattern':         '+=\|=',
-            \     'left_margin':   2,
-            \     'right_margin':   0
-            \   },
-            \ }
+if neobundle#is_installed('vim-easy-align')
+    let g:easy_align_delimiters = {
+                \ '"': {
+                \     'pattern':         ' "',
+                \     'delimiter_align': 'l',
+                \     'left_margin':     2,
+                \     'right_margin':    1
+                \   },
+                \ '.': {
+                \     'pattern':         '+=\|=',
+                \     'left_margin':   2,
+                \     'right_margin':   0
+                \   },
+                \ }
+endif
 
 " }}}
 
 " === fuenor/qfixhowm ==================================================================================== {{{
 
-if isdirectory(expand('~/Google\ Drive'))
-    if !isdirectory(expand('~/Google\ Drive/Memo'))
-        call mkdir('~/Google\ Drive/Memo', 'p')
+if neobundle#is_installed('qfixhowm')
+    if isdirectory(expand('~/Google\ Drive'))
+        if !isdirectory(expand('~/Google\ Drive/Memo'))
+            call mkdir('~/Google\ Drive/Memo', 'p')
+        endif
+        let howm_dir                       = '~/Google\ Drive/Memo'             " directory
+        let QFixMRU_Filename               = '~/Google\ Drive/Memo/.qfixmru'    " MRU file
     endif
-    let howm_dir                       = '~/Google\ Drive/Memo'             " directory
-    let QFixMRU_Filename               = '~/Google\ Drive/Memo/.qfixmru'    " MRU file
-endif
 
-let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'   " filename of diary
-let QFixHowm_Key                   = 'g'                                 " keymap of QFix first
-let QFixHowm_KeyB                  = ','                                 " keymap of QFix second
-let howm_filename                  = '%Y/%m/%Y-%m-%d-%H%M%S.txt'         " filename
-let howm_fileencoding              = 'utf-8'                             " character code
-let howm_fileformat                = 'unix'                              " return code
-let QFixHowm_MenuPreview           = 0                                   " preview in menu
-let QFixHowm_MenuKey               = 0                                   " invalid default keymaps
+    let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'   " filename of diary
+    let QFixHowm_Key                   = 'g'                                 " keymap of QFix first
+    let QFixHowm_KeyB                  = ','                                 " keymap of QFix second
+    let howm_filename                  = '%Y/%m/%Y-%m-%d-%H%M%S.txt'         " filename
+    let howm_fileencoding              = 'utf-8'                             " character code
+    let howm_fileformat                = 'unix'                              " return code
+    let QFixHowm_MenuPreview           = 0                                   " preview in menu
+    let QFixHowm_MenuKey               = 0                                   " invalid default keymaps
+
+    " QFixHowm
+    nmap     [fpref]m           g,m
+    nmap     [fpref]c           g,c
+    nmap     [fpref]q           g,q
+    nmap     [fpref],           g,,
+endif
 
 " }}}
 
 " === kien/rainbow_parentheses.vim ======================================================================= {{{
 
-" color
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+if neobundle#is_installed('rainbow_parentheses.vim')
+    " color
+    let g:rbpt_colorpairs = [
+                \ ['brown',       'RoyalBlue3'],
+                \ ['Darkblue',    'SeaGreen3'],
+                \ ['darkgray',    'DarkOrchid3'],
+                \ ['darkgreen',   'firebrick3'],
+                \ ['darkcyan',    'RoyalBlue3'],
+                \ ['darkred',     'SeaGreen3'],
+                \ ['darkmagenta', 'DarkOrchid3'],
+                \ ['brown',       'firebrick3'],
+                \ ['gray',        'RoyalBlue3'],
+                \ ['black',       'SeaGreen3'],
+                \ ['darkmagenta', 'DarkOrchid3'],
+                \ ['Darkblue',    'firebrick3'],
+                \ ['darkgreen',   'RoyalBlue3'],
+                \ ['darkcyan',    'SeaGreen3'],
+                \ ['darkred',     'DarkOrchid3'],
+                \ ['red',         'firebrick3'],
+                \ ]
 
-let g:rbpt_max            = 16
-let g:rbpt_loadcmd_toggle = 0
+    let g:rbpt_max            = 16
+    let g:rbpt_loadcmd_toggle = 0
+endif
 
 " }}}
 
 " === moznion/java_getset.vim ============================================================================ {{{
 
-let b:javagetset_enable_K_and_R = 1   " K$R style
-let b:javagetset_add_this       = 1   " add .this
+if neobundle#is_installed('java_getset.vim')
+    let b:javagetset_enable_K_and_R = 1   " K$R style
+    let b:javagetset_add_this       = 1   " add .this
 
-" key_mappings
-map <buffer>[bpref]g <Plug>JavagetsetInsertGetterOnly
-map <buffer>[bpref]s <Plug>JavagetsetInsertSetterOnly
-map <buffer>[bpref]b <Plug>JavagetsetInsertBothGetterSetter
+    " key_mappings
+    map <buffer>[bpref]g <Plug>JavagetsetInsertGetterOnly
+    map <buffer>[bpref]s <Plug>JavagetsetInsertSetterOnly
+    map <buffer>[bpref]b <Plug>JavagetsetInsertBothGetterSetter
+endif
 
 " }}}
 
 " === scrooloose/syntastic.git =========================================================================== {{{
 
-let g:syntastic_enable_signs  = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_mode_map = {'mode': 'passive'} 
+if neobundle#is_installed('syntastic.git')
+    let g:syntastic_enable_signs  = 1
+    let g:syntastic_auto_loc_list = 2
+    let g:syntastic_mode_map = {'mode': 'passive'} 
 
-augroup AutoSyntastic
-    autocmd!
-    autocmd InsertLeave,TextChanged * call s:syntastic() 
-augroup END
+    augroup AutoSyntastic
+        autocmd!
+        autocmd InsertLeave,TextChanged * call s:syntastic() 
+    augroup END
 
-function! s:syntastic()
-    " w
-    " SyntasticCheck
-endfunction
+    function! s:syntastic()
+        " w
+        " SyntasticCheck
+    endfunction
+endif
 
 " }}}
 
