@@ -57,10 +57,10 @@ noremap  K                  {
 noremap  L                  $
 
 " searching
-" nnoremap n                  nzzzo
-" nnoremap N                  Nzzzo
-nnoremap *                  *N
-nnoremap #                  #n
+nnoremap n                  nzozo
+nnoremap N                  Nzozo
+nnoremap *                  *Nzozo
+nnoremap #                  #nzozo
 
 " window
 nnoremap <C-h>              <C-w>h
@@ -86,6 +86,7 @@ nnoremap z                  za
 nnoremap <silent>[bpref].   :<C-u>edit ~/dotfiles/.vimrc<CR>
 nnoremap <silent>[bpref],   :<C-u>edit ~/dotfiles/.gvimrc<CR>
 nnoremap <silent>[bpref]r   :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
+nnoremap <silent>[bpref]km  /key_mappings<CR>zo 
 
 " dictionary
 nnoremap [fpref]t           :<C-u>ExciteTranslate<CR>
@@ -340,8 +341,9 @@ if neobundle#is_installed('unite.vim')
 
     " key_mappings {{{
     nnoremap [unite]  <Nop>
-    nmap     [fpref]s    [unite]
+    nmap     [fpref]u    [unite]
 
+    nnoremap [unite]u  :<C-u>Unite<CR>
     nnoremap [unite]hy :<C-u>Unite history/yank<CR>
     nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
     nnoremap [unite]b  :<C-u>Unite buffer<CR>
