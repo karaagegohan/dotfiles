@@ -291,7 +291,8 @@ if neobundle#is_installed('vim-fugitive')
     nnoremap [git]            <Nop>
     nmap     [fpref]g        [git]
     nnoremap [git]a :<C-u>Gwrite<CR>
-    nnoremap [git]c :<C-u>Gcommit<CR>
+    nnoremap [git]d :<C-u>Gdiff<CR>
+    nnoremap [git]c :<C-u>Gcommit -m ''<LEFT>
     nnoremap [git]p :<C-u>Git push origin master<CR>
 endif
 
