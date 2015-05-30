@@ -57,8 +57,8 @@ noremap  K                  {
 noremap  L                  $
 
 " searching
-nnoremap n                  nzzzo
-nnoremap N                  Nzzzo
+" nnoremap n                  nzzzo
+" nnoremap N                  Nzzzo
 nnoremap *                  *N
 nnoremap #                  #n
 
