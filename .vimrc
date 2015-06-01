@@ -559,7 +559,7 @@ vmap <Enter> <Plug>(EasyAlign)
 
 " }}}
 
-" === thinca/vim-quickrun ============================================================================ {{{
+" === thinca/vim-quickrun ================================================================================ {{{
 
 " key_mappings {{{
 nnoremap [fpref]r :<C-u>QuickRun -runner vimproc<CR>
