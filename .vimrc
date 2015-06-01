@@ -1,4 +1,4 @@
-"/ === Initialization =================================================================================== {{{
+" === Initialization ===================================================================================== {{{
 
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -28,10 +28,10 @@ endif
 "  }}}
 
 " prefixes
-nnoremap [bpref]            <Nop>
-nmap     ,                  [bpref]
-nnoremap [fpref]            <Nop>
-nmap     <Space>            [fpref]
+nnoremap [func]             <Nop>
+nmap     ,                  <ESC>[func]
+nnoremap [plugin]           <Nop>
+nmap     <Space>            <ESC>[plugin]
 
 " base mappimgs
 noremap  ;                  :
@@ -41,13 +41,13 @@ noremap! :                  ;
 noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>noh<CR>
 nnoremap <silent><CR>       :<C-u>write<CR>
-nnoremap <BS>               :<C-u>quit<CR>
+nnoremap <silent><BS>       :<C-u>quit<CR>
 nnoremap U                  <C-r>
 nnoremap ZZ                 <Nop>
 nnoremap ZQ                 <Nop>
 
 " yank
-nnoremap Y yW
+nnoremap Y                  y$
 
 " cursor
 nnoremap j                  gj
@@ -67,18 +67,22 @@ nnoremap N                  NzO
 nnoremap *                  *NzO
 nnoremap #                  #NzO
 
+" increment, decrement
+nnoremap +                  <C-a>
+nnoremap -                  <C-x>
+
 " window
 nnoremap <C-h>              <C-w>h
 nnoremap <C-j>              <C-w>j
 nnoremap <C-k>              <C-w>k
 nnoremap <C-l>              <C-w>l
-nnoremap <silent>[bpref]n   :<C-u>split<CR>
-nnoremap <silent>[bpref]v   :<C-u>vsplit<CR>
+nnoremap <silent>[func]n    :<C-u>split<CR>
+nnoremap <silent>[func]v    :<C-u>vsplit<CR>
 
 " tab
 nnoremap <TAB>              gt
 nnoremap <S-TAB>            gT
-nnoremap [bpref]t           :<C-u>tabnew<CR>
+nnoremap [func]t            :<C-u>tabnew<CR>
 
 " command mode
 cnoremap <C-n>              <DOWN>
@@ -88,10 +92,10 @@ cnoremap <C-p>              <UP>
 nnoremap z                  za
 
 " handy
-nnoremap <silent>[bpref].   :<C-u>edit ~/dotfiles/.vimrc<CR>
-nnoremap <silent>[bpref],   :<C-u>edit ~/dotfiles/.gvimrc<CR>
-nnoremap <silent>[bpref]r   :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
-nnoremap <silent>[bpref]km  /key_mappings<CR>zo 
+nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
+nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
+nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
+nnoremap <silent>[func]km   /key_mappings<CR>zo
 
 " }}}
 
@@ -119,13 +123,13 @@ NeoBundle 'Shougo/neobundle.vim'
 
 " great asynchronous execution
 NeoBundle 'Shougo/vimproc.vim', {
-            \'build' : {
-            \    'windows' : 'make -f make_mingw32.mak',
-            \    'cygwin'  : 'make -f make_cygwin.mak ',
-            \    'mac'     : 'make -f make_mac.mak    ',
-            \    'unix'    : 'make -f make_unix.mak   ',
-            \    },
-            \}
+    \'build' : {
+    \    'windows' : 'make -f make_mingw32.mak',
+    \    'cygwin'  : 'make -f make_cygwin.mak ',
+    \    'mac'     : 'make -f make_mac.mak    ',
+    \    'unix'    : 'make -f make_unix.mak   ',
+    \    },
+    \}
 
 " complement 
 NeoBundle has('lua') ? 'Shougo/neocomplete.vim' : 'Shougo/neocomplcache.vim' 
@@ -134,8 +138,8 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'karaagegohan/my-snippets'
 
 NeoBundleLazy 'Shougo/vimshell.vim', {
-            \ 'depends' : [ 'Shougo/vimproc.vim' ]
-            \ }
+    \ 'depends' : [ 'Shougo/vimproc.vim' ]
+    \ }
 NeoBundle 'kana/vim-smartchr'            " Insert several candidates with a single key
 NeoBundle 'itchyny/lightline.vim'        " Color command line
 NeoBundle 'cohama/vim-hier'              " Hilight quickfix errors
@@ -156,6 +160,9 @@ NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
 " syntax
 " NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 
+" search
+NeoBundle 'haya14busa/incsearch.vim'
+
 " Unite
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
@@ -171,27 +178,27 @@ NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
 " Java 
 NeoBundleLazy 'vim-scripts/javacomplete', {
-            \   'build': {
-            \       'cygwin': 'javac autoload/Reflection.java',
-            \       'mac'   : 'javac autoload/Reflection.java',
-            \       'unix'  : 'javac autoload/Reflection.java',
-            \   },
-            \   'autoload': {
-            \       'filetypes': ['java'],
-            \   },
-            \} 
+    \   'build': {
+    \       'cygwin': 'javac autoload/Reflection.java',
+    \       'mac'   : 'javac autoload/Reflection.java',
+    \       'unix'  : 'javac autoload/Reflection.java',
+    \   },
+    \   'autoload': {
+    \       'filetypes': ['java'],
+    \   },
+    \} 
 NeoBundleLazy 'moznion/java_getset.vim', {
-            \   'autoload': {
-            \       'filetypes': ['java'],
-            \   },
-            \}
+    \   'autoload': {
+    \       'filetypes': ['java'],
+    \   },
+    \}
 
 " Swift 
 NeoBundleLazy 'keith/swift.vim', {
-            \   'autoload': {
-            \       'filetypes': ['swift'],
-            \   },
-            \}
+    \   'autoload': {
+    \       'filetypes': ['swift'],
+    \   },
+    \}
 
 " colorscheme 
 NeoBundle 'w0ng/vim-hybrid'
@@ -222,10 +229,10 @@ let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to l
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -283,16 +290,16 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
 
 " key_mappings {{{
 " prefix
-nnoremap [git]    <Nop>
-nmap     [fpref]g [git]
+nnoremap [git]     <Nop>
+nmap     [plugin]g [git]
 
-nnoremap [git]a  :<C-u>Gwrite<CR>
-nnoremap [git]d  :<C-u>Gdiff<CR>
-nnoremap [git]c  :<C-u>Gcommit -m ''<LEFT>
-nnoremap [git]ps :<C-u>Git push origin master<CR>
-nnoremap [git]pl :<C-u>Git pull<CR>
-nnoremap [git]st :<C-u>Git status<CR>
-nnoremap [git]sh :<C-u>Git stash<CR>
+nnoremap [git]a    :<C-u>Gwrite<CR>
+nnoremap [git]d    :<C-u>Gdiff<CR>
+nnoremap [git]c    :<C-u>Gcommit -m ''<LEFT>
+nnoremap [git]ps   :<C-u>Git push origin master<CR>
+nnoremap [git]pl   :<C-u>Git pull<CR>
+nnoremap [git]st   :<C-u>Git status<CR>
+nnoremap [git]sh   :<C-u>Git stash<CR>
 " }}}
 
 " }}}
@@ -311,8 +318,8 @@ inoremap <buffer><expr>= smartchr#loop(' = ', ' == ', '=')
 
 " key_mappings {{{
 " prefix
-nnoremap [shell]  <Nop>
-nmap     [fpref]s    [shell]
+nnoremap [shell]   <Nop>
+nmap     [plugin]s [shell]
 
 nnoremap [shell]s :<C-u>VimShellPop<CR>
 nnoremap [shell]p :<C-u>VimShellInteractive python<CR>
@@ -323,13 +330,19 @@ nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
 
 " === Shougo/unite.vim =================================================================================== {{{
 
-let g:unite_source_history_yank_enable =1
-let g:unite_source_file_mru_limit = 200
+let g:unite_source_history_yank_enable      = 1     " Enable history yank
+let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
+let g:unite_source_file_mru_filename_format = ''    " Maximum number of mru list
+
+augroup vim_unite
+    autocmd!
+    autocmd FileType unite nmap <buffer><C-c> <Plug>(unite_exit)
+augroup END
 
 " key_mappings {{{
 " prefix
 nnoremap [unite]   <Nop>
-nmap     [fpref]u  [unite]
+nmap     [plugin]u [unite]
 
 nnoremap [unite]u  :<C-u>Unite<CR>
 nnoremap [unite]hy :<C-u>Unite history/yank<CR>
@@ -337,6 +350,8 @@ nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
 nnoremap [unite]b  :<C-u>Unite buffer<CR>
 nnoremap [unite]r  :<C-u>Unite -buffer-name=register register<CR>
 nnoremap [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
+nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
 " }}}
 
 " }}}
@@ -350,17 +365,17 @@ let g:unite_split_rule = 'botright'
 " === itchyny/lightline.vim ============================================================================== {{{
 
 let g:lightline = {
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'fugitive', 'filename' ] ]
-            \ },
-            \ 'component_function': {
-            \   'fugitive': 'MyFugitive',
-            \   'readonly': 'MyReadonly',
-            \   'modified': 'MyModified',
-            \   'filename': 'MyFilename'
-            \ },
-            \ }
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'fugitive', 'filename' ] ]
+    \ },
+    \ 'component_function': {
+    \   'fugitive': 'MyFugitive',
+    \   'readonly': 'MyReadonly',
+    \   'modified': 'MyModified',
+    \   'filename': 'MyFilename'
+    \ },
+    \ }
 
 function! MyModified()
     if &filetype == "help"
@@ -390,8 +405,8 @@ endfunction
 
 function! MyFilename()
     return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-                \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-                \ ('' != MyModified() ? ' ' . MyModified() : '')
+        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
 " }}}
@@ -399,18 +414,18 @@ endfunction
 " === junegunn/vim-easy-align ============================================================================ {{{
 
 let g:easy_align_delimiters = {
-            \ '"': {
-            \     'pattern':         ' "',
-            \     'delimiter_align': 'l',
-            \     'left_margin':     2,
-            \     'right_margin':    1
-            \   },
-            \ '.': {
-            \     'pattern':         '+=\|=',
-            \     'left_margin':   2,
-            \     'right_margin':   0
-            \   },
-            \ }
+    \ '"': {
+    \     'pattern':         ' "',
+    \     'delimiter_align': 'l',
+    \     'left_margin':     2,
+    \     'right_margin':    1
+    \   },
+    \ '.': {
+    \     'pattern':         '+=\|=',
+    \     'left_margin':   2,
+    \     'right_margin':   0
+    \   },
+    \ }
 
 " }}}
 
@@ -434,10 +449,10 @@ let QFixHowm_MenuPreview           = 0                                   " previ
 let QFixHowm_MenuKey               = 0                                   " invalid default keymaps
 
 " QFixHowm
-nmap     [fpref]m           g,m
-nmap     [fpref]c           g,c
-nmap     [fpref]q           g,q
-nmap     [fpref],           g,,
+nmap [plugin]m g,m
+nmap [plugin]c g,c
+nmap [plugin]q g,q
+nmap [plugin], g,,
 
 " }}}
 
@@ -445,23 +460,23 @@ nmap     [fpref],           g,,
 
 " color
 let g:rbpt_colorpairs = [
-            \ ['brown',       'RoyalBlue3'],
-            \ ['Darkblue',    'SeaGreen3'],
-            \ ['darkgray',    'DarkOrchid3'],
-            \ ['darkgreen',   'firebrick3'],
-            \ ['darkcyan',    'RoyalBlue3'],
-            \ ['darkred',     'SeaGreen3'],
-            \ ['darkmagenta', 'DarkOrchid3'],
-            \ ['brown',       'firebrick3'],
-            \ ['gray',        'RoyalBlue3'],
-            \ ['black',       'SeaGreen3'],
-            \ ['darkmagenta', 'DarkOrchid3'],
-            \ ['Darkblue',    'firebrick3'],
-            \ ['darkgreen',   'RoyalBlue3'],
-            \ ['darkcyan',    'SeaGreen3'],
-            \ ['darkred',     'DarkOrchid3'],
-            \ ['red',         'firebrick3'],
-            \ ]
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
 
 let g:rbpt_max            = 16
 let g:rbpt_loadcmd_toggle = 0
@@ -474,9 +489,9 @@ let b:javagetset_enable_K_and_R = 1   " K$R style
 let b:javagetset_add_this       = 1   " add .this
 
 " key_mappings {{{
-map <buffer>[bpref]g <Plug>JavagetsetInsertGetterOnly
-map <buffer>[bpref]s <Plug>JavagetsetInsertSetterOnly
-map <buffer>[bpref]b <Plug>JavagetsetInsertBothGetterSetter
+map <buffer>[func]g <Plug>JavagetsetInsertGetterOnly
+map <buffer>[func]s <Plug>JavagetsetInsertSetterOnly
+map <buffer>[func]b <Plug>JavagetsetInsertBothGetterSetter
 " }}}
 
 " }}}
@@ -513,7 +528,7 @@ nmap <C-n> <Plug>(yankround-next)
 " }}}
 
 " === Lokaltog/vim-easymotion ============================================================================ {{{
-let g:EasyMotion_keys       = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_keys       = 'jfurmvhgytnbkdieclsowxapqzJFURMVHGYTNBKDIECLSOWXAPQZ'
 let g:EasyMotion_grouping   = 1
 
 " key_mappings {{{
@@ -529,7 +544,7 @@ map T <Plug>(easymotion-Tl)
 " === mattn/excitetranslate-vim ========================================================================== {{{
 
 " key_mappings {{{
-nnoremap [fpref]t           :<C-u>ExciteTranslate<CR>
+nnoremap [plugin]t :<C-u>ExciteTranslate<CR>
 " }}}
 
 " }}}
@@ -562,15 +577,26 @@ vmap <Enter> <Plug>(EasyAlign)
 " === thinca/vim-quickrun ================================================================================ {{{
 
 " key_mappings {{{
-nnoremap [fpref]r :<C-u>QuickRun -runner vimproc<CR>
+nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
 " }}}
 "
 let g:quickrun_config = {
-            \   "_" : {
-            \       "runner" : "vimproc",
-            \       "runner/vimproc/updatetime" : 60
-            \   },
-            \}
+    \   "_" : {
+    \       "runner" : "vimproc",
+    \       "runner/vimproc/updatetime" : 60
+    \   },
+    \}
+
+" }}}
+
+" === haya14busa/incsearch.vim =========================================================================== {{{
+
+let g:incsearch#magic = '\v'
+
+" key_mappings {{{
+nmap / <Plug>(incsearch-forward)
+nmap ? <Plug>(incsearch-backward)
+" }}}
 
 " }}}
 
@@ -598,24 +624,28 @@ set fileencodings  +=cp932           " Character code to read file
 set fileformats     =unix,dos,mac    " Newline character
 
 " view
-syntax on                  " Show syntax hilight
-set number                 " Show line number
-set ruler                  " Show current line number
-set title                  " Show title of the file
-set showmatch              " Show matching bracket
-set virtualedit  +=block   " Expand bounds in visual mode
-set nowrap                 " Nowrap
-set t_Co          =256     " Terminal color
-set equalalways            " Adjust window size
+syntax on                     " Show syntax hilight
+set number                    " Show line number
+set ruler                     " Show current line number
+set title                     " Show title of the file
+set showmatch                 " Show matching bracket
+set matchtime     =1          " Time of matching paren
+set virtualedit  +=block      " Expand bounds in visual mode
+set nowrap                    " Nowrap
+set t_Co          =256        " Terminal color
+set equalalways               " Adjust window size
+set display       =lastline   " Display
+set pumheight     =15         " Height of popup
 
 " indent
-set backspace   =indent,eol,start   " More powerful backspacing
-set smartindent                     " Indent automatically
-set autoindent                      " Indent automatically
-set shiftwidth  =4                  " Width of indent for autoindent
-set tabstop     =4                  " Width of TAB
-set expandtab                       " Change TAB to space
-set textwidth   =0                  " Text width
+set backspace          =indent,eol,start   " More powerful backspacing
+set smartindent                            " Indent automatically
+set autoindent                             " Indent automatically
+set shiftwidth         =4                  " Width of indent for autoindent
+set tabstop            =4                  " Width of TAB
+set expandtab                              " Change TAB to space
+set textwidth          =0                  " Text width
+let g:vim_indent_cont  =4                  " Space before \
 
 " searching
 set incsearch   " Disable increment search
