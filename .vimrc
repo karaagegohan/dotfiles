@@ -136,25 +136,25 @@ NeoBundle 'karaagegohan/my-snippets'
 NeoBundleLazy 'Shougo/vimshell.vim', {
             \ 'depends' : [ 'Shougo/vimproc.vim' ]
             \ }
-NeoBundle 'kana/vim-smartchr'            " insert several candidates with a single key
-NeoBundle 'itchyny/lightline.vim'        " color command line
-NeoBundle 'cohama/vim-hier'              " hilight quickfix errors
-NeoBundle 'thinca/vim-quickrun'          " run current code quickly
-NeoBundle 'thinca/vim-qfreplace'         " perform the replacement in quickfix
-NeoBundle 'thinca/vim-visualstar'        " use * in visual mode
-NeoBundle 'rhysd/clever-f.vim'           " improve f{char}
-NeoBundle 'tomtom/tcomment_vim'          " comment out easily
-NeoBundle 'junegunn/vim-easy-align'      " align codes by delimiter
-NeoBundle 'fuenor/qfixgrep'              " make notes easily
-NeoBundle 'fuenor/qfixhowm'              " make notes easily
-NeoBundle 'tpope/vim-repeat'             " enable to repeat plugins by '.'
-NeoBundle 'tpope/vim-fugitive'           " a Git wrapper
-NeoBundle 'kien/rainbow_parentheses.vim' " better rainbow parentheses
-NeoBundle 'LeafCage/yankround.vim'       " paste yank history
-NeoBundle 'Lokaltog/vim-easymotion'      " powerful motion
+NeoBundle 'kana/vim-smartchr'            " Insert several candidates with a single key
+NeoBundle 'itchyny/lightline.vim'        " Color command line
+NeoBundle 'cohama/vim-hier'              " Hilight quickfix errors
+NeoBundle 'thinca/vim-quickrun'          " Run current code quickly
+NeoBundle 'thinca/vim-qfreplace'         " Perform the replacement in quickfix
+NeoBundle 'thinca/vim-visualstar'        " Use * in visual mode
+NeoBundle 'rhysd/clever-f.vim'           " Improve f{char}
+NeoBundle 'tomtom/tcomment_vim'          " Comment out easily
+NeoBundle 'junegunn/vim-easy-align'      " Align codes by delimiter
+NeoBundle 'fuenor/qfixgrep'              " Make notes easily
+NeoBundle 'fuenor/qfixhowm'              " Make notes easily
+NeoBundle 'tpope/vim-repeat'             " Enable to repeat plugins by '.'
+NeoBundle 'tpope/vim-fugitive'           " A Git wrapper
+NeoBundle 'kien/rainbow_parentheses.vim' " Better rainbow parentheses
+NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
+NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
 
 " syntax
-" NeoBundle 'scrooloose/syntastic.git'     " powerful syntax
+" NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 
 " Unite
 NeoBundle 'Shougo/unite.vim'
@@ -165,9 +165,9 @@ NeoBundle 'ujihisa/unite-font'
 NeoBundle 'ujihisa/unite-help'
 
 " Operator
-NeoBundle 'kana/vim-operator-user'       " use vim-operator
-NeoBundle 'tpope/vim-surround'           " surround text obj with any word
-NeoBundle 'kana/vim-operator-replace'    " replace text obj with yanked word
+NeoBundle 'kana/vim-operator-user'       " Use vim-operator
+NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
+NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
 " Java 
 NeoBundleLazy 'vim-scripts/javacomplete', {
@@ -218,7 +218,7 @@ let g:acp_enableAtStartup                           = 1         " Disable AutoCo
 let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
 let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
 let g:neocomplete#sources#syntax#min_keyword_length = 1         " Set minimum syntax keyword length.
-let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " file name to lock buffer
+let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
@@ -581,71 +581,70 @@ set modeline
 set modelines =3
 
 " function
-set history  =1024   " number of history
-set helplang =en     " language to read help
+set history  =1024   " Number of history
+set helplang =en     " Language to read help
 
 " encoding
-set encoding        =utf-8           " character code for .vimrc
-set fileencoding    =utf-8           " character code to write files
-set fileencodings   =utf-8,sjis      " character code to read file (default)
-set fileencodings  +=ucs-bom         " character code to read file
-set fileencodings  +=iso-2022-jp-3   " character code to read file
-set fileencodings  +=iso-2022-jp     " character code to read file
-set fileencodings  +=eucjp-ms        " character code to read file
-set fileencodings  +=euc-jisx0213    " character code to read file
-set fileencodings  +=euc-jp          " character code to read file
-set fileencodings  +=cp932           " character code to read file
-set fileformats     =unix,dos,mac    " newline character
+set encoding        =utf-8           " Character code for .vimrc
+set fileencoding    =utf-8           " Character code to write files
+set fileencodings   =utf-8,sjis      " Character code to read file (default)
+set fileencodings  +=ucs-bom         " Character code to read file
+set fileencodings  +=iso-2022-jp-3   " Character code to read file
+set fileencodings  +=iso-2022-jp     " Character code to read file
+set fileencodings  +=eucjp-ms        " Character code to read file
+set fileencodings  +=euc-jisx0213    " Character code to read file
+set fileencodings  +=euc-jp          " Character code to read file
+set fileencodings  +=cp932           " Character code to read file
+set fileformats     =unix,dos,mac    " Newline character
 
 " view
-syntax on                  " show syntax hilight
-set number                 " show line number
-set ruler                  " show current line number
-set title                  " show title of the file
-set showmatch              " show matching bracket
-set virtualedit  +=block   " expand bounds in visual mode
-set nowrap                 " nowrap
-set t_Co          =256     " terminal color
-set equalalways            " adjust window size
+syntax on                  " Show syntax hilight
+set number                 " Show line number
+set ruler                  " Show current line number
+set title                  " Show title of the file
+set showmatch              " Show matching bracket
+set virtualedit  +=block   " Expand bounds in visual mode
+set nowrap                 " Nowrap
+set t_Co          =256     " Terminal color
+set equalalways            " Adjust window size
 
 " indent
-set backspace   =indent,eol,start   " more powerful backspacing
-set smartindent                     " indent automatically
-set autoindent                      " indent automatically
-set shiftwidth  =4                  " width of indent for autoindent
-set tabstop     =4                  " width of TAB
-set expandtab                       " change TAB to space
-set textwidth   =0                  " text width
+set backspace   =indent,eol,start   " More powerful backspacing
+set smartindent                     " Indent automatically
+set autoindent                      " Indent automatically
+set shiftwidth  =4                  " Width of indent for autoindent
+set tabstop     =4                  " Width of TAB
+set expandtab                       " Change TAB to space
+set textwidth   =0                  " Text width
 
 " searching
-set incsearch   " disable increment search
-set wrapscan    " searchrs wrap around
+set incsearch   " Disable increment search
+set wrapscan    " Searchrs wrap around
 
 " command line
-vmap     <Enter>            <Plug>(EasyAlign)
 set timeoutlen =10000      " time to wait for a key code
 
 " action
-set autoread              " reload file automatically when it is updated
-set scrolloff  =10        " scrooloff
-set clipboard  =unnamed   " sharing clipboard
+set autoread              " Reload file automatically when it is updated
+set scrolloff  =10        " Scrooloff
+set clipboard  =unnamed   " Sharing clipboard
 
 " fold
-set foldenable            " enable fold
-set foldcolumn  =0        " width of folding guide
-set foldmethod  =marker   " folding by {{{.}}}
+set foldenable            " Enable fold
+set foldcolumn  =0        " Width of folding guide
+set foldmethod  =marker   " Folding by {{{.}}}
 
 " directories
 if !isdirectory(expand('~/.vimfiles'))
     call mkdir(expand('~/.vimfiles'))
 endif
-set browsedir  =current       " directiry to save editing files
-set backup                    " make backup file
-set backupdir  =~/.vimfiles   " directiry to save backup files
-set undofile                  " make undo file
-set undodir    =~/.vimfiles   " directiry to save undo files
-set swapfile                  " make swap file
-set directory  =~/.vimfiles   " directiry to save swap files
+set browsedir  =current       " Directiry to save editing files
+set backup                    " Make backup file
+set backupdir  =~/.vimfiles   " Directiry to save backup files
+set undofile                  " Make undo file
+set undodir    =~/.vimfiles   " Directiry to save undo files
+set swapfile                  " Make swap file
+set directory  =~/.vimfiles   " Directiry to save swap files
 
 " colorscheme
 colorscheme jellybeans
