@@ -29,9 +29,9 @@ endif
 
 " prefixes
 nnoremap [func]             <Nop>
-nmap     ,                  <ESC>[func]
+nmap     ,                  [func]
 nnoremap [plugin]           <Nop>
-nmap     <Space>            <ESC>[plugin]
+nmap     <Space>            [plugin]
 
 " base mappimgs
 noremap  ;                  :
@@ -96,6 +96,7 @@ nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
 nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
 nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 nnoremap <silent>[func]km   /key_mappings<CR>zo
+nnoremap [func]h            :<C-u>help 
 
 " }}}
 
@@ -156,6 +157,15 @@ NeoBundle 'tpope/vim-fugitive'           " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim' " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
+
+" Operator
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'sgur/vim-textobj-parameter'          " [,]  for parameter of function
+NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
+NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
+
+" Textobject
+NeoBundle 'kana/vim-textobj-user'
 
 " syntax
 " NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
@@ -333,11 +343,7 @@ nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
 let g:unite_source_history_yank_enable      = 1     " Enable history yank
 let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
 let g:unite_source_file_mru_filename_format = ''    " Maximum number of mru list
-
-augroup vim_unite
-    autocmd!
-    autocmd FileType unite nmap <buffer><C-c> <Plug>(unite_exit)
-augroup END
+let g:unite_enable_start_insert             = 0     " Start in insert mode
 
 " key_mappings {{{
 " prefix
