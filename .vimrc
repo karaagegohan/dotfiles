@@ -289,16 +289,17 @@ endif
 if neobundle#is_installed('vim-fugitive')
 
     " key_mappings {{{
-    nnoremap [vim-fugitive]   <Nop>
-    nmap     [fpref]g         [vim-fugitive]
+    " prefix
+    nnoremap [git]    <Nop>
+    nmap     [fpref]g [git]
 
-    nnoremap [vim-fugitive]a  :<C-u>Gwrite<CR>
-    nnoremap [vim-fugitive]d  :<C-u>Gdiff<CR>
-    nnoremap [vim-fugitive]c  :<C-u>Gcommit -m ''<LEFT>
-    nnoremap [vim-fugitive]ps :<C-u>Git push origin master<CR>
-    nnoremap [vim-fugitive]pl :<C-u>Git pull<CR>
-    nnoremap [vim-fugitive]st :<C-u>Git status<CR>
-    nnoremap [vim-fugitive]sh :<C-u>Git stash<CR>
+    nnoremap [git]a  :<C-u>Gwrite<CR>
+    nnoremap [git]d  :<C-u>Gdiff<CR>
+    nnoremap [git]c  :<C-u>Gcommit -m ''<LEFT>
+    nnoremap [git]ps :<C-u>Git push origin master<CR>
+    nnoremap [git]pl :<C-u>Git pull<CR>
+    nnoremap [git]st :<C-u>Git status<CR>
+    nnoremap [git]sh :<C-u>Git stash<CR>
     " }}}
 
 endif
@@ -320,12 +321,13 @@ endif
 if neobundle#is_installed('vimshell.vim')
 
     " key_mappings {{{
-    nnoremap [vimshell]  <Nop>
-    nmap     [fpref]s    [vimshell]
+    " prefix
+    nnoremap [shell]  <Nop>
+    nmap     [fpref]s    [shell]
 
-    nnoremap [vimshell]s :<C-u>VimShellPop<CR>
-    nnoremap [vimshell]p :<C-u>VimShellInteractive python<CR>
-    nnoremap [vimshell]r :<C-u>VimShellInteractive irb<CR>
+    nnoremap [shell]s :<C-u>VimShellPop<CR>
+    nnoremap [shell]p :<C-u>VimShellInteractive python<CR>
+    nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
     " }}}
 
 endif
@@ -338,6 +340,7 @@ if neobundle#is_installed('unite.vim')
     let g:unite_source_file_mru_limit = 200
 
     " key_mappings {{{
+    " prefix
     nnoremap [unite]   <Nop>
     nmap     [fpref]u  [unite]
 
@@ -644,7 +647,8 @@ set incsearch   " disable increment search
 set wrapscan    " searchrs wrap around
 
 " command line
-set timeoutlen =3000      " time to wait for a key code
+vmap     <Enter>            <Plug>(EasyAlign)
+set timeoutlen =10000      " time to wait for a key code
 
 " action
 set autoread              " reload file automatically when it is updated
