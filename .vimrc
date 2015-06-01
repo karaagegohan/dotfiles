@@ -1,4 +1,4 @@
-" === Initialization ===================================================================================== {{{
+"/ === Initialization ===================================================================================== {{{
 
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -46,8 +46,13 @@ nnoremap U                  <C-r>
 nnoremap ZZ                 <Nop>
 nnoremap ZQ                 <Nop>
 
+" yank
+nnoremap Y yW
+
 " cursor
 nnoremap j                  gj
+nnoremap k                  gk
+nnoremap k                  gk
 nnoremap k                  gk
 vnoremap j                  gj
 vnoremap k                  gk
@@ -87,19 +92,6 @@ nnoremap <silent>[bpref].   :<C-u>edit ~/dotfiles/.vimrc<CR>
 nnoremap <silent>[bpref],   :<C-u>edit ~/dotfiles/.gvimrc<CR>
 nnoremap <silent>[bpref]r   :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 nnoremap <silent>[bpref]km  /key_mappings<CR>zo 
-
-" dictionary
-nnoremap [fpref]t           :<C-u>ExciteTranslate<CR>
-
-" operator
-nmap     s                  <Plug>(operator-replace)
-
-" comment out
-nmap     \c                 <Plug>TComment_gcc<Esc>
-vmap     \c                 <Plug>TComment_gcc<Esc>
-
-" align
-vmap     <Enter>            <Plug>(EasyAlign)
 
 " }}}
 
@@ -158,6 +150,8 @@ NeoBundle 'fuenor/qfixhowm'              " make notes easily
 NeoBundle 'tpope/vim-repeat'             " enable to repeat plugins by '.'
 NeoBundle 'tpope/vim-fugitive'           " a Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim' " better rainbow parentheses
+NeoBundle 'LeafCage/yankround.vim'       " paste yank history
+NeoBundle 'Lokaltog/vim-easymotion'      " powerful motion
 
 " syntax
 " NeoBundle 'scrooloose/syntastic.git'     " powerful syntax
@@ -273,10 +267,11 @@ endif
 " === Shougo/neosnippet ================================================================================== {{{
 if neobundle#is_installed('neosnippet')
 
-    " key_mappings
+    " key_mappings {{{
     imap <C-k> <Plug>(neosnippet_expand_or_jump)
     smap <C-k> <Plug>(neosnippet_expand_or_jump)
     xmap <C-k> <Plug>(neosnippet_expand_target)
+    " }}}
 
     " For snippet_complete marker.
     if has('conceal')
@@ -328,7 +323,7 @@ if neobundle#is_installed('vimshell.vim')
     nnoremap [vimshell]  <Nop>
     nmap     [fpref]s    [vimshell]
 
-    nnoremap [vimshell]s :<C-u>VimShell<CR>
+    nnoremap [vimshell]s :<C-u>VimShellPop<CR>
     nnoremap [vimshell]p :<C-u>VimShellInteractive python<CR>
     nnoremap [vimshell]r :<C-u>VimShellInteractive irb<CR>
     " }}}
@@ -500,10 +495,11 @@ if neobundle#is_installed('java_getset.vim')
     let b:javagetset_enable_K_and_R = 1   " K$R style
     let b:javagetset_add_this       = 1   " add .this
 
-    " key_mappings
+    " key_mappings {{{
     map <buffer>[bpref]g <Plug>JavagetsetInsertGetterOnly
     map <buffer>[bpref]s <Plug>JavagetsetInsertSetterOnly
     map <buffer>[bpref]b <Plug>JavagetsetInsertBothGetterSetter
+    " }}}
 
 endif
 " }}}
@@ -524,6 +520,78 @@ if neobundle#is_installed('syntastic.git')
         " w
         " SyntasticCheck
     endfunction
+
+endif
+" }}}
+
+" === LeafCage/yankround.vim ============================================================================= {{{
+if neobundle#is_installed('yankround.vim')
+
+    let g:yankround_max_history = 100
+
+    " key_mappings {{{
+    nmap p     <Plug>(yankround-p)
+    nmap P     <Plug>(yankround-P)
+    nmap <C-p> <Plug>(yankround-prev)
+    nmap <C-n> <Plug>(yankround-next)
+    " }}}
+
+endif
+" }}}
+
+" === Lokaltog/vim-easymotion ============================================================================ {{{
+if neobundle#is_installed('vim-easymotion')
+    let g:EasyMotion_keys       = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+    let g:EasyMotion_grouping   = 1
+
+    " key_mappings {{{
+    map m <Plug>(easymotion-prefix)
+    map f <Plug>(easymotion-fl)
+    map t <Plug>(easymotion-tl)
+    map F <Plug>(easymotion-Fl)
+    map T <Plug>(easymotion-Tl)
+    " }}}
+
+endif
+" }}}
+
+" === mattn/excitetranslate-vim ========================================================================== {{{
+if neobundle#is_installed('excitetranslate-vim')
+
+    " key_mappings {{{
+    nnoremap [fpref]t           :<C-u>ExciteTranslate<CR>
+    " }}}
+
+endif
+" }}}
+
+" === tomtom/tcomment_vim ================================================================================ {{{
+if neobundle#is_installed('tcomment_vim')
+
+    " key_mappings {{{
+    nmap \c <Plug>TComment_gcc<Esc>
+    vmap \c <Plug>TComment_gcc<Esc>
+    " }}}
+
+endif
+" }}}
+
+" === tpope/vim-repeat =================================================================================== {{{
+if neobundle#is_installed('vim-repeat')
+
+    " key_mappings {{{
+    nmap s <Plug>(operator-replace)
+    " }}}
+
+endif
+" }}}
+
+" === junegunn/vim-easy-align ============================================================================ {{{
+if neobundle#is_installed('vim-easy-align')
+
+    " key_mappings {{{
+    vmap <Enter> <Plug>(EasyAlign)
+    " }}}
 
 endif
 " }}}
