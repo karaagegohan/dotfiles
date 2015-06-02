@@ -39,6 +39,9 @@ noremap  :                  ;
 noremap! ;                  :
 noremap! :                  ;
 noremap  <C-c>              <Esc>
+noremap! <C-c>              <Esc>
+noremap  <C-v>              <Esc>
+noremap! <C-v>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>noh<CR>
 nnoremap <silent><CR>       :<C-u>write<CR>
 nnoremap <silent><BS>       :<C-u>quit<CR>
@@ -232,388 +235,433 @@ filetype plugin indent on
 " }}}
 
 " === Shougo/neocomplete.vim ============================================================================= {{{
+if neobundle#tap('neocomplete.vim')
 
-let g:acp_enableAtStartup                           = 1         " Disable AutoComplPop.
-let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
-let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
-let g:neocomplete#sources#syntax#min_keyword_length = 1         " Set minimum syntax keyword length.
-let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
-let g:neocomplete#lock_iminsert                     = 1         " 
+    let g:acp_enableAtStartup                           = 1         " Disable AutoComplPop.
+    let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
+    let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
+    let g:neocomplete#sources#syntax#min_keyword_length = 1         " Set minimum syntax keyword length.
+    let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
+    let g:neocomplete#lock_iminsert                     = 1         " 
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
+    " Define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+    " Define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+    " Enable omni completion.
+    augroup vimrc_neocomplete
+        autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+        autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+        autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+        autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+    augroup END
+
+    let g:neocomplete#force_overwrite_completefunc=1
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplete#sources#omni#input_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
+    let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
 endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Enable omni completion.
-augroup vimrc_neocomplete
-    autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
-
-let g:neocomplete#force_overwrite_completefunc=1
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
 " }}}
 
 " === Shougo/neocomplcache.vim =========================================================================== {{{
+if neobundle#tap('neocomplcache.vim')
 
-" TODO
+    " TODO
 
+endif
 " }}}
 
 " === Shougo/neosnippet ================================================================================== {{{
+if neobundle#tap('neosnippet')
 
-" key_mappings {{{
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-" }}}
+    " key_mappings {{{
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_target)
+    " }}}
 
-" For snippet_complete marker.
-if has('conceal')
-    set conceallevel=2 
-    set concealcursor=i
+    " For snippet_complete marker.
+    if has('conceal')
+        set conceallevel=2 
+        set concealcursor=i
+    endif
+
+    " other snippets
+    let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
+
 endif
-
-" other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
-
 " }}}
 
 " === tpope/vim-fugitive ================================================================================= {{{
+if neobundle#tap('vim-fugitive')
 
-" key_mappings {{{
-" prefix
-nnoremap [git]     <Nop>
-nmap     [plugin]g [git]
+    " key_mappings {{{
+    " prefix
+    nnoremap [git]     <Nop>
+    nmap     [plugin]g [git]
 
-nnoremap [git]g    :<C-u>Git<CR>
-nnoremap [git]a    :<C-u>Gwrite<CR>
-nnoremap [git]d    :<C-u>Gdiff<CR>
-nnoremap [git]c    :<C-u>Gcommit -m ''<LEFT>
-nnoremap [git]ps   :<C-u>Git push origin master<CR>
-nnoremap [git]pl   :<C-u>Git pull<CR>
-nnoremap [git]st   :<C-u>Git status<CR>
-nnoremap [git]sh   :<C-u>Git stash<CR>
-" }}}
+    nnoremap [git]g    :<C-u>Git<CR>
+    nnoremap [git]a    :<C-u>Gwrite<CR>
+    nnoremap [git]d    :<C-u>Gdiff<CR>
+    nnoremap [git]c    :<C-u>Gcommit -m ''<LEFT>
+    nnoremap [git]ps   :<C-u>Git push origin master<CR>
+    nnoremap [git]pl   :<C-u>Git pull<CR>
+    nnoremap [git]st   :<C-u>Git status<CR>
+    nnoremap [git]sh   :<C-u>Git stash<CR>
+    " }}}
 
+endif
 " }}}
 
 " === kana/vim-smartchr ================================================================================== {{{
+if neobundle#tap('vim-smartchr')
 
-augroup vim_schar
-    autocmd!
-    autocmd FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
-augroup END
-inoremap <buffer><expr>= smartchr#loop(' = ', ' == ', '=')
+    augroup vim_schar
+        autocmd!
+        autocmd FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
+    augroup END
+    inoremap <buffer><expr>= smartchr#loop(' = ', ' == ', '=')
 
+endif
 " }}}
 
 " === Shougo/vimshell.vim ================================================================================ {{{
+if neobundle#tap('vimshell.vim')
 
-" key_mappings {{{
-" prefix
-nnoremap [shell]   <Nop>
-nmap     [plugin]s [shell]
+    " key_mappings {{{
+    " prefix
+    nnoremap [shell]   <Nop>
+    nmap     [plugin]s [shell]
 
-nnoremap [shell]s :<C-u>VimShell<CR>
-nnoremap [shell]n :<C-u>VimShellPop<CR>
-nnoremap [shell]p :<C-u>VimShellInteractive python<CR>
-nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
-" }}}
+    nnoremap [shell]s :<C-u>VimShell<CR>
+    nnoremap [shell]n :<C-u>VimShellPop<CR>
+    nnoremap [shell]p :<C-u>VimShellInteractive python<CR>
+    nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
+    " }}}
 
+endif
 " }}}
 
 " === Shougo/unite.vim =================================================================================== {{{
+if neobundle#tap('unite.vim')
 
-let g:unite_source_history_yank_enable      = 1     " Enable history yank
-let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
-let g:unite_source_file_mru_filename_format = ''    " Maximum number of mru list
-let g:unite_enable_start_insert             = 0     " Start in insert mode
+    let g:unite_source_history_yank_enable      = 1     " Enable history yank
+    let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
+    let g:unite_source_file_mru_filename_format = ''    " Maximum number of mru list
+    let g:unite_enable_start_insert             = 0     " Start in insert mode
 
-" key_mappings {{{
-" prefix
-nnoremap [unite]   <Nop>
-nmap     [plugin]u [unite]
+    " key_mappings {{{
+    " prefix
+    nnoremap [unite]   <Nop>
+    nmap     [plugin]u [unite]
 
-nnoremap [unite]u  :<C-u>Unite<CR>
-nnoremap [unite]hy :<C-u>Unite history/yank<CR>
-nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
-nnoremap [unite]b  :<C-u>Unite buffer<CR>
-nnoremap [unite]r  :<C-u>Unite -buffer-name=register register<CR>
-nnoremap [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
-nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
-" }}}
+    nnoremap [unite]u  :<C-u>Unite<CR>
+    nnoremap [unite]hy :<C-u>Unite history/yank<CR>
+    nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
+    nnoremap [unite]b  :<C-u>Unite buffer<CR>
+    nnoremap [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+    nnoremap [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
+    nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
+    " }}}
 
+endif
 " }}}
 
 " === Shougo/unite-outline =============================================================================== {{{
+if neobundle#tap('unite-outline')
 
-let g:unite_split_rule = 'botright'
+    let g:unite_split_rule = 'botright'
 
+endif
 " }}}
 
 " === itchyny/lightline.vim ============================================================================== {{{
+if neobundle#tap('lightline.vim')
 
-let g:lightline = {
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'fugitive', 'filename' ] ]
-    \ },
-    \ 'component_function': {
-    \   'fugitive': 'MyFugitive',
-    \   'readonly': 'MyReadonly',
-    \   'modified': 'MyModified',
-    \   'filename': 'MyFilename'
-    \ },
-    \ }
+    let g:lightline = {
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'fugitive', 'filename' ] ]
+        \ },
+        \ 'component_function': {
+        \   'fugitive': 'MyFugitive',
+        \   'readonly': 'MyReadonly',
+        \   'modified': 'MyModified',
+        \   'filename': 'MyFilename'
+        \ },
+        \ }
 
-function! MyModified()
-    if &filetype == "help"
-        return ""
-    elseif &modified
-        return "+"
-    elseif &modifiable
-        return ""
-    else
-        return ""
-    endif
-endfunction
+    function! MyModified()
+        if &filetype == "help"
+            return ""
+        elseif &modified
+            return "+"
+        elseif &modifiable
+            return ""
+        else
+            return ""
+        endif
+    endfunction
 
-function! MyReadonly()
-    if &filetype == "help"
-        return ""
-    elseif &readonly
-        return "RO"
-    else
-        return ""
-    endif
-endfunction
+    function! MyReadonly()
+        if &filetype == "help"
+            return ""
+        elseif &readonly
+            return "RO"
+        else
+            return ""
+        endif
+    endfunction
 
-function! MyFugitive()
-    return exists('*fugitive#head') ? fugitive#head() : ''
-endfunction
+    function! MyFugitive()
+        return exists('*fugitive#head') ? fugitive#head() : ''
+    endfunction
 
-function! MyFilename()
-    return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
-endfunction
+    function! MyFilename()
+        return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+            \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+            \ ('' != MyModified() ? ' ' . MyModified() : '')
+    endfunction
 
+endif
 " }}}
 
 " === junegunn/vim-easy-align ============================================================================ {{{
+if neobundle#tap('vim-easy-align')
 
-let g:easy_align_delimiters = {
-    \ '"': {
-    \     'pattern':         ' "',
-    \     'delimiter_align': 'l',
-    \     'left_margin':     2,
-    \     'right_margin':    1
-    \   },
-    \ '.': {
-    \     'pattern':         '+=\|=',
-    \     'left_margin':   2,
-    \     'right_margin':   0
-    \   },
-    \ }
+    let g:easy_align_delimiters = {
+        \ '"': {
+        \     'pattern':         ' "',
+        \     'delimiter_align': 'l',
+        \     'left_margin':     2,
+        \     'right_margin':    1
+        \   },
+        \ '.': {
+        \     'pattern':         '+=\|=',
+        \     'left_margin':   2,
+        \     'right_margin':   0
+        \   },
+        \ }
 
+endif
 " }}}
 
 " === fuenor/qfixhowm ==================================================================================== {{{
+if neobundle#tap('qfixhowm')
 
-if isdirectory(expand('~/Google\ Drive'))
-    if !isdirectory(expand('~/Google\ Drive/Memo'))
-        call mkdir('~/Google\ Drive/Memo', 'p')
+    if isdirectory(expand('~/Google\ Drive'))
+        if !isdirectory(expand('~/Google\ Drive/Memo'))
+            call mkdir('~/Google\ Drive/Memo', 'p')
+        endif
+        let howm_dir                   = '~/Google\ Drive/Memo'              " directory
+        let QFixMRU_Filename           = '~/Google\ Drive/Memo/.qfixmru'     " MRU file
     endif
-    let howm_dir                   = '~/Google\ Drive/Memo'              " directory
-    let QFixMRU_Filename           = '~/Google\ Drive/Memo/.qfixmru'     " MRU file
+
+    let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'   " filename of diary
+    let QFixHowm_Key                   = 'g'                                 " keymap of QFix first
+    let QFixHowm_KeyB                  = ','                                 " keymap of QFix second
+    let howm_filename                  = '%Y/%m/%Y-%m-%d-%H%M%S.txt'         " filename
+    let howm_fileencoding              = 'utf-8'                             " character code
+    let howm_fileformat                = 'unix'                              " return code
+    let QFixHowm_MenuPreview           = 0                                   " preview in menu
+    let QFixHowm_MenuKey               = 0                                   " invalid default keymaps
+
+    " key_mappings {{{
+    " prefix
+    nnoremap [hown]     <Nop>
+    nmap     [plugin]h [hown]
+
+    nmap [hown]l g,m
+    nmap [hown]c g,c
+    nmap [hown]q g,q
+    nmap [hown], g,,
+    " }}}
+
 endif
-
-let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'   " filename of diary
-let QFixHowm_Key                   = 'g'                                 " keymap of QFix first
-let QFixHowm_KeyB                  = ','                                 " keymap of QFix second
-let howm_filename                  = '%Y/%m/%Y-%m-%d-%H%M%S.txt'         " filename
-let howm_fileencoding              = 'utf-8'                             " character code
-let howm_fileformat                = 'unix'                              " return code
-let QFixHowm_MenuPreview           = 0                                   " preview in menu
-let QFixHowm_MenuKey               = 0                                   " invalid default keymaps
-
-" key_mappings {{{
-" prefix
-nnoremap [hown]     <Nop>
-nmap     [plugin]h [hown]
-
-nmap [hown]l g,m
-nmap [hown]c g,c
-nmap [hown]q g,q
-nmap [hown], g,,
-" }}}
-
 " }}}
 
 " === kien/rainbow_parentheses.vim ======================================================================= {{{
+if neobundle#tap('rainbow_parentheses.vim')
 
-" color
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+    " color
+    let g:rbpt_colorpairs = [
+        \ ['brown',       'RoyalBlue3'],
+        \ ['Darkblue',    'SeaGreen3'],
+        \ ['darkgray',    'DarkOrchid3'],
+        \ ['darkgreen',   'firebrick3'],
+        \ ['darkcyan',    'RoyalBlue3'],
+        \ ['darkred',     'SeaGreen3'],
+        \ ['darkmagenta', 'DarkOrchid3'],
+        \ ['brown',       'firebrick3'],
+        \ ['gray',        'RoyalBlue3'],
+        \ ['black',       'SeaGreen3'],
+        \ ['darkmagenta', 'DarkOrchid3'],
+        \ ['Darkblue',    'firebrick3'],
+        \ ['darkgreen',   'RoyalBlue3'],
+        \ ['darkcyan',    'SeaGreen3'],
+        \ ['darkred',     'DarkOrchid3'],
+        \ ['red',         'firebrick3'],
+        \ ]
 
-let g:rbpt_max            = 16
-let g:rbpt_loadcmd_toggle = 0
+    let g:rbpt_max            = 16
+    let g:rbpt_loadcmd_toggle = 0
 
+endif
 " }}}
 
 " === moznion/java_getset.vim ============================================================================ {{{
+if neobundle#tap('java_getset.vim')
 
-let b:javagetset_enable_K_and_R = 1   " K$R style
-let b:javagetset_add_this       = 1   " add .this
+    let b:javagetset_enable_K_and_R = 1   " K$R style
+    let b:javagetset_add_this       = 1   " add .this
 
-" key_mappings {{{
-map <buffer>[func]g <Plug>JavagetsetInsertGetterOnly
-map <buffer>[func]s <Plug>JavagetsetInsertSetterOnly
-map <buffer>[func]b <Plug>JavagetsetInsertBothGetterSetter
-" }}}
+    " key_mappings {{{
+    map <buffer>[func]g <Plug>JavagetsetInsertGetterOnly
+    map <buffer>[func]s <Plug>JavagetsetInsertSetterOnly
+    map <buffer>[func]b <Plug>JavagetsetInsertBothGetterSetter
+    " }}}
 
+endif
 " }}}
 
 " === scrooloose/syntastic.git =========================================================================== {{{
+if neobundle#tap('syntastic.git')
 
-let g:syntastic_enable_signs  = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_mode_map = {'mode': 'passive'} 
+    let g:syntastic_enable_signs  = 1
+    let g:syntastic_auto_loc_list = 2
+    let g:syntastic_mode_map = {'mode': 'passive'} 
 
-augroup AutoSyntastic
-    autocmd!
-    autocmd InsertLeave,TextChanged * call s:syntastic() 
-augroup END
+    augroup AutoSyntastic
+        autocmd!
+        autocmd InsertLeave,TextChanged * call s:syntastic() 
+    augroup END
 
-function! s:syntastic()
-    " w
-    " SyntasticCheck
-endfunction
+    function! s:syntastic()
+        " w
+        " SyntasticCheck
+    endfunction
 
+endif
 " }}}
 
 " === LeafCage/yankround.vim ============================================================================= {{{
+if neobundle#tap('yankround.vim')
 
-let g:yankround_max_history = 100
+    let g:yankround_max_history = 100
 
-" key_mappings {{{
-nmap p     <Plug>(yankround-p)
-nmap P     <Plug>(yankround-P)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
-" }}}
+    " key_mappings {{{
+    nmap p     <Plug>(yankround-p)
+    nmap P     <Plug>(yankround-P)
+    nmap <C-p> <Plug>(yankround-prev)
+    nmap <C-n> <Plug>(yankround-next)
+    " }}}
 
+endif
 " }}}
 
 " === Lokaltog/vim-easymotion ============================================================================ {{{
-let g:EasyMotion_keys       = 'jfurmvhgytnbkdieclsowxapqzJFURMVHGYTNBKDIECLSOWXAPQZ'
-let g:EasyMotion_grouping   = 1
+if neobundle#tap('vim-easymotion')
 
-" key_mappings {{{
-map m <Plug>(easymotion-prefix)
-map f <Plug>(easymotion-fl)
-map t <Plug>(easymotion-tl)
-map F <Plug>(easymotion-Fl)
-map T <Plug>(easymotion-Tl)
-" }}}
+    let g:EasyMotion_keys       = 'jfurmvhgytnbkdieclsowxapqzJFURMVHGYTNBKDIECLSOWXAPQZ'
+    let g:EasyMotion_grouping   = 1
 
+    " key_mappings {{{
+    map m <Plug>(easymotion-prefix)
+    map f <Plug>(easymotion-fl)
+    map t <Plug>(easymotion-tl)
+    map F <Plug>(easymotion-Fl)
+    map T <Plug>(easymotion-Tl)
+    " }}}
+
+endif
 " }}}
 
 " === mattn/excitetranslate-vim ========================================================================== {{{
+if neobundle#tap('excitetranslate-vim')
 
-" key_mappings {{{
-nnoremap [plugin]t :<C-u>ExciteTranslate<CR>
-" }}}
+    " key_mappings {{{
+    nnoremap [plugin]t :<C-u>ExciteTranslate<CR>
+    " }}}
 
+endif
 " }}}
 
 " === tomtom/tcomment_vim ================================================================================ {{{
+if neobundle#tap('tcomment_vim')
 
-" key_mappings {{{
-nmap \c <Plug>TComment_gcc<Esc>
-vmap \c <Plug>TComment_gcc<Esc>
-" }}}
+    " key_mappings {{{
+    nmap \c <Plug>TComment_gcc<Esc>
+    vmap \c <Plug>TComment_gcc<Esc>
+    " }}}
 
+endif
 " }}}
 
 " === tpope/vim-repeat =================================================================================== {{{
+if neobundle#tap('vim-repeat')
 
-" key_mappings {{{
-nmap s <Plug>(operator-replace)
-" }}}
+    " key_mappings {{{
+    nmap s <Plug>(operator-replace)
+    " }}}
 
+endif
 " }}}
 
 " === junegunn/vim-easy-align ============================================================================ {{{
+if neobundle#tap('vim-easy-align')
 
-" key_mappings {{{
-vmap <Enter> <Plug>(EasyAlign)
-" }}}
+    " key_mappings {{{
+    vmap <Enter> <Plug>(EasyAlign)
+    " }}}
 
+endif
 " }}}
 
 " === thinca/vim-quickrun ================================================================================ {{{
+if neobundle#tap('vim-quickrun')
 
-" key_mappings {{{
-nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
-" }}}
-"
-let g:quickrun_config = {
-    \   "_" : {
-    \       "runner" : "vimproc",
-    \       "runner/vimproc/updatetime" : 60
-    \   },
-    \}
+    " key_mappings {{{
+    nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
+    " }}}
+    "
+    let g:quickrun_config = {
+        \   "_" : {
+        \       "runner" : "vimproc",
+        \       "runner/vimproc/updatetime" : 60
+        \   },
+        \}
 
+endif
 " }}}
 
 " === haya14busa/incsearch.vim =========================================================================== {{{
+if neobundle#tap('incsearch.vim')
 
-let g:incsearch#magic = '\v'
+    let g:incsearch#magic = '\v'
 
-" key_mappings {{{
-nmap / <Plug>(incsearch-forward)
-nmap ? <Plug>(incsearch-backward)
-" }}}
+    " key_mappings {{{
+    nmap / <Plug>(incsearch-forward)
+    nmap ? <Plug>(incsearch-backward)
+    " }}}
 
+endif
 " }}}
 
 " === base settings ====================================================================================== {{{
