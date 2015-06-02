@@ -221,8 +221,6 @@ NeoBundle 'mattn/excitetranslate-vim'
 call neobundle#end()
 
 NeoBundleCheck
-NeoBundleClean
-
 filetype plugin indent on
 
 " }}}
