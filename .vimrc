@@ -100,132 +100,132 @@ nnoremap [func]h            :<C-u>help
 
 " }}}
 
-" " === Shougo/neobundle.vim =============================================================================== {{{
+" === Shougo/neobundle.vim =============================================================================== {{{
+
+" ***NOTE*** {{{
 "
-" " ***NOTE*** {{{
-" "
-" " NeoBundleLazy
-" "     autoload
-" "         filetypes
-" "         commands
-" "         function_prefix
-" "         mappings
-" "         isert
-" "     depends
-" "
-" "  }}}
+" NeoBundleLazy
+"     autoload
+"         filetypes
+"         commands
+"         function_prefix
+"         mappings
+"         isert
+"     depends
 "
-" filetype plugin indent off
-"
-" call neobundle#begin(expand('~/.vim/bundle/'))
-"
-" " managing plugins
-" NeoBundle 'Shougo/neobundle.vim'
-"
-" " great asynchronous execution
-" NeoBundle 'Shougo/vimproc.vim', {
-"     \'build' : {
-"     \    'windows' : 'make -f make_mingw32.mak',
-"     \    'cygwin'  : 'make -f make_cygwin.mak ',
-"     \    'mac'     : 'make -f make_mac.mak    ',
-"     \    'unix'    : 'make -f make_unix.mak   ',
-"     \    },
-"     \}
-"
-" " complement 
-" NeoBundle has('lua') ? 'Shougo/neocomplete.vim' : 'Shougo/neocomplcache.vim' 
-" NeoBundle 'Shougo/neosnippet'
-" NeoBundle 'Shougo/neosnippet-snippets'
-" NeoBundle 'karaagegohan/my-snippets'
-"
-" NeoBundleLazy 'Shougo/vimshell.vim', {
-"     \ 'depends' : [ 'Shougo/vimproc.vim' ]
-"     \ }
-" NeoBundle 'kana/vim-smartchr'            " Insert several candidates with a single key
-" NeoBundle 'itchyny/lightline.vim'        " Color command line
-" NeoBundle 'cohama/vim-hier'              " Hilight quickfix errors
-" NeoBundle 'thinca/vim-quickrun'          " Run current code quickly
-" NeoBundle 'thinca/vim-qfreplace'         " Perform the replacement in quickfix
-" NeoBundle 'thinca/vim-visualstar'        " Use * in visual mode
-" NeoBundle 'rhysd/clever-f.vim'           " Improve f{char}
-" NeoBundle 'tomtom/tcomment_vim'          " Comment out easily
-" NeoBundle 'junegunn/vim-easy-align'      " Align codes by delimiter
-" NeoBundle 'fuenor/qfixgrep'              " Make notes easily
-" NeoBundle 'fuenor/qfixhowm'              " Make notes easily
-" NeoBundle 'tpope/vim-repeat'             " Enable to repeat plugins by '.'
-" NeoBundle 'tpope/vim-fugitive'           " A Git wrapper
-" NeoBundle 'kien/rainbow_parentheses.vim' " Better rainbow parentheses
-" NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
-" NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
-"
-" " Textobject
-" NeoBundle 'kana/vim-textobj-user'
-" NeoBundle 'sgur/vim-textobj-parameter'          " [,]  for parameter of function
-" NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
-" NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
-"
-"
-" " syntax
-" " NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
-"
-" " search
-" NeoBundle 'haya14busa/incsearch.vim'
-"
-" " Unite
-" NeoBundle 'Shougo/unite.vim'
-" NeoBundle 'Shougo/unite-outline'
-" NeoBundle 'Shougo/neomru.vim'
-" NeoBundle 'ujihisa/unite-colorscheme'
-" NeoBundle 'ujihisa/unite-font'
-" NeoBundle 'ujihisa/unite-help'
-"
-" " Operator
-" NeoBundle 'kana/vim-operator-user'       " Use vim-operator
-" NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
-" NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
-"
-" " Java 
-" NeoBundleLazy 'vim-scripts/javacomplete', {
-"     \   'build': {
-"     \       'cygwin': 'javac autoload/Reflection.java',
-"     \       'mac'   : 'javac autoload/Reflection.java',
-"     \       'unix'  : 'javac autoload/Reflection.java',
-"     \   },
-"     \   'autoload': {
-"     \       'filetypes': ['java'],
-"     \   },
-"     \} 
-" NeoBundleLazy 'moznion/java_getset.vim', {
-"     \   'autoload': {
-"     \       'filetypes': ['java'],
-"     \   },
-"     \}
-"
-" " Swift 
-" NeoBundleLazy 'keith/swift.vim', {
-"     \   'autoload': {
-"     \       'filetypes': ['swift'],
-"     \   },
-"     \}
-"
-" " colorscheme 
-" NeoBundle 'w0ng/vim-hybrid'
-" NeoBundle 'nanotech/jellybeans.vim'
-" NeoBundle 'altercation/vim-colors-solarized'
-" NeoBundle 'morhetz/gruvbox'
-"
-" "dictionary
-" NeoBundle 'mattn/webapi-vim'
-" NeoBundle 'mattn/excitetranslate-vim'
-"
-" call neobundle#end()
-"
-" NeoBundleCheck
-" NeoBundleClean
-"
-" filetype plugin indent on
-"
-" " }}}
+"  }}}
+
+filetype plugin indent off
+
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" managing plugins
+NeoBundle 'Shougo/neobundle.vim'
+
+" great asynchronous execution
+NeoBundle 'Shougo/vimproc.vim', {
+    \'build' : {
+    \    'windows' : 'make -f make_mingw32.mak',
+    \    'cygwin'  : 'make -f make_cygwin.mak ',
+    \    'mac'     : 'make -f make_mac.mak    ',
+    \    'unix'    : 'make -f make_unix.mak   ',
+    \    },
+    \}
+
+" complement 
+NeoBundle has('lua') ? 'Shougo/neocomplete.vim' : 'Shougo/neocomplcache.vim' 
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'karaagegohan/my-snippets'
+
+NeoBundleLazy 'Shougo/vimshell.vim', {
+    \ 'depends' : [ 'Shougo/vimproc.vim' ]
+    \ }
+NeoBundle 'kana/vim-smartchr'            " Insert several candidates with a single key
+NeoBundle 'itchyny/lightline.vim'        " Color command line
+NeoBundle 'cohama/vim-hier'              " Hilight quickfix errors
+NeoBundle 'thinca/vim-quickrun'          " Run current code quickly
+NeoBundle 'thinca/vim-qfreplace'         " Perform the replacement in quickfix
+NeoBundle 'thinca/vim-visualstar'        " Use * in visual mode
+NeoBundle 'rhysd/clever-f.vim'           " Improve f{char}
+NeoBundle 'tomtom/tcomment_vim'          " Comment out easily
+NeoBundle 'junegunn/vim-easy-align'      " Align codes by delimiter
+NeoBundle 'fuenor/qfixgrep'              " Make notes easily
+NeoBundle 'fuenor/qfixhowm'              " Make notes easily
+NeoBundle 'tpope/vim-repeat'             " Enable to repeat plugins by '.'
+NeoBundle 'tpope/vim-fugitive'           " A Git wrapper
+NeoBundle 'kien/rainbow_parentheses.vim' " Better rainbow parentheses
+NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
+NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
+
+" Textobject
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'sgur/vim-textobj-parameter'          " [,]  for parameter of function
+NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
+NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
+
+
+" syntax
+" NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
+
+" search
+NeoBundle 'haya14busa/incsearch.vim'
+
+" Unite
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'ujihisa/unite-font'
+NeoBundle 'ujihisa/unite-help'
+
+" Operator
+NeoBundle 'kana/vim-operator-user'       " Use vim-operator
+NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
+NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
+
+" Java 
+NeoBundleLazy 'vim-scripts/javacomplete', {
+    \   'build': {
+    \       'cygwin': 'javac autoload/Reflection.java',
+    \       'mac'   : 'javac autoload/Reflection.java',
+    \       'unix'  : 'javac autoload/Reflection.java',
+    \   },
+    \   'autoload': {
+    \       'filetypes': ['java'],
+    \   },
+    \} 
+NeoBundleLazy 'moznion/java_getset.vim', {
+    \   'autoload': {
+    \       'filetypes': ['java'],
+    \   },
+    \}
+
+" Swift 
+NeoBundleLazy 'keith/swift.vim', {
+    \   'autoload': {
+    \       'filetypes': ['swift'],
+    \   },
+    \}
+
+" colorscheme 
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'morhetz/gruvbox'
+
+"dictionary
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mattn/excitetranslate-vim'
+
+call neobundle#end()
+
+NeoBundleCheck
+NeoBundleClean
+
+filetype plugin indent on
+
+" }}}
 
 " === Shougo/neocomplete.vim ============================================================================= {{{
 
