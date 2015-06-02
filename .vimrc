@@ -218,7 +218,11 @@ NeoBundle 'morhetz/gruvbox'
 
 "dictionary
 NeoBundle 'mattn/webapi-vim'
-NeoBundle 'mattn/excitetranslate-vim'
+NeoBundleLazy 'mattn/excitetranslate-vim', {
+    \ 'depends': 'mattn/webapi-vim',
+    \ 'autoload' : { 'commands': ['ExciteTranslate']}
+    \ }
+NeoBundle 'ujihisa/neco-look'
 
 call neobundle#end()
 
@@ -234,6 +238,7 @@ let g:neocomplete#enable_at_startup                 = 1         " Use neocomplet
 let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
 let g:neocomplete#sources#syntax#min_keyword_length = 1         " Set minimum syntax keyword length.
 let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
+let g:neocomplete#lock_iminsert                     = 1         " 
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
@@ -330,7 +335,8 @@ inoremap <buffer><expr>= smartchr#loop(' = ', ' == ', '=')
 nnoremap [shell]   <Nop>
 nmap     [plugin]s [shell]
 
-nnoremap [shell]s :<C-u>VimShellPop<CR>
+nnoremap [shell]s :<C-u>VimShell<CR>
+nnoremap [shell]n :<C-u>VimShellPop<CR>
 nnoremap [shell]p :<C-u>VimShellInteractive python<CR>
 nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
 " }}}
@@ -645,7 +651,7 @@ set nowrap                    " Nowrap
 set t_Co          =256        " Terminal color
 set equalalways               " Adjust window size
 set display       =lastline   " Display
-set pumheight     =15         " Height of popup
+set pumheight     =40         " Height of popup
 
 " indent
 set backspace          =indent,eol,start   " More powerful backspacing
