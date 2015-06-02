@@ -290,12 +290,6 @@ endif
 " === Shougo/neosnippet ================================================================================== {{{
 if neobundle#tap('neosnippet')
 
-    " key_mappings {{{
-    imap <C-k> <Plug>(neosnippet_expand_or_jump)
-    smap <C-k> <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k> <Plug>(neosnippet_expand_target)
-    " }}}
-
     " For snippet_complete marker.
     if has('conceal')
         set conceallevel=2 
@@ -304,6 +298,12 @@ if neobundle#tap('neosnippet')
 
     " other snippets
     let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
+
+    " key_mappings {{{
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_target)
+    " }}}
 
 endif
 " }}}
@@ -336,7 +336,7 @@ if neobundle#tap('vim-smartchr')
         autocmd!
         autocmd FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
     augroup END
-    inoremap <buffer><expr>= smartchr#loop(' = ', ' == ', '=')
+    inoremap <expr>= smartchr#loop(' = ', ' == ', '=')
 
 endif
 " }}}
@@ -485,13 +485,12 @@ if neobundle#tap('qfixhowm')
 
     " key_mappings {{{
     " prefix
-    nnoremap [hown]     <Nop>
+    nnoremap [hown]    <Nop>
     nmap     [plugin]h [hown]
-
-    nmap [hown]l g,m
-    nmap [hown]c g,c
-    nmap [hown]q g,q
-    nmap [hown], g,,
+    nmap     [hown]l   g,m
+    nmap     [hown]c   g,c
+    nmap     [hown]q   g,q
+    nmap     [hown],   g,,
     " }}}
 
 endif
@@ -530,12 +529,25 @@ endif
 if neobundle#tap('java_getset.vim')
 
     let b:javagetset_enable_K_and_R = 1   " K$R style
-    let b:javagetset_add_this       = 1   " add .this
+    let b:javagetset_add_this       = 1   " add this.
 
     " key_mappings {{{
-    map <buffer>[func]g <Plug>JavagetsetInsertGetterOnly
-    map <buffer>[func]s <Plug>JavagetsetInsertSetterOnly
-    map <buffer>[func]b <Plug>JavagetsetInsertBothGetterSetter
+    augroup vim_java_getset
+        autocmd!
+        autocmd Filetype java call s:java_getset_mappings()
+    augroup END
+
+    function! s:java_getset_mappings()
+        " prefix
+        nnoremap [getset]  <Nop>
+        nmap     [plugin]j [getset]
+        nmap     <buffer>[getset]g <Plug>JavagetsetInsertGetterOnly
+        nmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
+        nmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
+        vmap     <buffer>[getset]g <Plug>JavagetsetInsertGetterOnly
+        vmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
+        vmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
+    endfunction
     " }}}
 
 endif
@@ -617,9 +629,9 @@ endif
 " === tpope/vim-repeat =================================================================================== {{{
 if neobundle#tap('vim-repeat')
 
-    " key_mappings {{{
-    nmap s <Plug>(operator-replace)
-    " }}}
+" key_mappings {{{
+nmap s <Plug>(operator-replace)
+" }}}
 
 endif
 " }}}
@@ -627,9 +639,9 @@ endif
 " === junegunn/vim-easy-align ============================================================================ {{{
 if neobundle#tap('vim-easy-align')
 
-    " key_mappings {{{
-    vmap <Enter> <Plug>(EasyAlign)
-    " }}}
+" key_mappings {{{
+vmap <Enter> <Plug>(EasyAlign)
+" }}}
 
 endif
 " }}}
@@ -637,16 +649,16 @@ endif
 " === thinca/vim-quickrun ================================================================================ {{{
 if neobundle#tap('vim-quickrun')
 
-    " key_mappings {{{
-    nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
-    " }}}
-    "
-    let g:quickrun_config = {
-        \   "_" : {
-        \       "runner" : "vimproc",
-        \       "runner/vimproc/updatetime" : 60
-        \   },
-        \}
+" key_mappings {{{
+nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
+" }}}
+"
+let g:quickrun_config = {
+    \   "_" : {
+    \       "runner" : "vimproc",
+    \       "runner/vimproc/updatetime" : 60
+    \   },
+    \}
 
 endif
 " }}}
@@ -654,12 +666,12 @@ endif
 " === haya14busa/incsearch.vim =========================================================================== {{{
 if neobundle#tap('incsearch.vim')
 
-    let g:incsearch#magic = '\v'
+let g:incsearch#magic = '\v'
 
-    " key_mappings {{{
-    nmap / <Plug>(incsearch-forward)
-    nmap ? <Plug>(incsearch-backward)
-    " }}}
+" key_mappings {{{
+nmap / <Plug>(incsearch-forward)
+nmap ? <Plug>(incsearch-backward)
+" }}}
 
 endif
 " }}}
