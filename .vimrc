@@ -141,6 +141,7 @@ NeoBundle 'karaagegohan/my-snippets'
 NeoBundleLazy 'Shougo/vimshell.vim', {
     \ 'depends' : [ 'Shougo/vimproc.vim' ]
     \ }
+
 NeoBundle 'kana/vim-smartchr'            " Insert several candidates with a single key
 NeoBundle 'itchyny/lightline.vim'        " Color command line
 NeoBundle 'cohama/vim-hier'              " Hilight quickfix errors
@@ -159,7 +160,7 @@ NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
 
 " Textobject
-NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
 NeoBundle 'sgur/vim-textobj-parameter'          " [,]  for parameter of function
 NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
@@ -169,10 +170,10 @@ NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
 " NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 
 " search
-NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 
 " Unite
-NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite.vim'           " synthesis
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'ujihisa/unite-colorscheme'
