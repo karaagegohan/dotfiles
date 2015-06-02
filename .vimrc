@@ -14,10 +14,10 @@ endif
 " |------------------------------------------------------------------------------|
 " |  map |     @     |     -     |     -     |     @     |     @     |     @     |
 " | map! |     -     |     @     |     @     |     -     |     -     |     -     |
+" | vmap |     -     |     -     |     -     |     @     |     @     |     -     |
 " | nmap |     @     |     -     |     -     |     -     |     -     |     -     |
 " | imap |     -     |     @     |     -     |     -     |     -     |     -     |
 " | cmap |     -     |     -     |     @     |     -     |     -     |     -     |
-" | vmap |     -     |     -     |     -     |     @     |     @     |     -     |
 " | xmap |     -     |     -     |     -     |     @     |     -     |     -     |
 " | smap |     -     |     -     |     -     |     -     |     @     |     -     |
 " | omap |     -     |     -     |     -     |     -     |     -     |     @     |
@@ -97,6 +97,7 @@ nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
 nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 nnoremap <silent>[func]km   /key_mappings<CR>zo
 nnoremap [func]h            :<C-u>help 
+nnoremap [func]e            :<C-u>e!<CR> 
 
 " }}}
 
@@ -300,6 +301,7 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
 nnoremap [git]     <Nop>
 nmap     [plugin]g [git]
 
+nnoremap [git]g    :<C-u>Git<CR>
 nnoremap [git]a    :<C-u>Gwrite<CR>
 nnoremap [git]d    :<C-u>Gdiff<CR>
 nnoremap [git]c    :<C-u>Gcommit -m ''<LEFT>
@@ -451,11 +453,16 @@ let howm_fileformat                = 'unix'                              " retur
 let QFixHowm_MenuPreview           = 0                                   " preview in menu
 let QFixHowm_MenuKey               = 0                                   " invalid default keymaps
 
-" QFixHowm
-nmap [plugin]m g,m
-nmap [plugin]c g,c
-nmap [plugin]q g,q
-nmap [plugin], g,,
+" key_mappings {{{
+" prefix
+nnoremap [hown]     <Nop>
+nmap     [plugin]h [hown]
+
+nmap [hown]l g,m
+nmap [hown]c g,c
+nmap [hown]q g,q
+nmap [hown], g,,
+" }}}
 
 " }}}
 
