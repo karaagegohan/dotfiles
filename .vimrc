@@ -159,13 +159,12 @@ NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
 
 " Operator
-NeoBundle 'kana/vim-operator-user'
 NeoBundle 'sgur/vim-textobj-parameter'          " [,]  for parameter of function
 NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
 
 " Textobject
-NeoBundle 'kana/vim-textobj-user'
+" NeoBundle 'kana/vim-textobj-user'
 
 " syntax
 " NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
