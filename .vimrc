@@ -510,12 +510,12 @@ if neobundle#tap('qfixhowm')
 
     " key_mappings {{{
     " prefix
-    nnoremap [hown]    <Nop>
-    nmap     [plugin]h [hown]
-    nmap     [hown]l   g,m
-    nmap     [hown]c   g,c
-    nmap     [hown]q   g,q
-    nmap     [hown],   g,,
+    nnoremap [hown]      <Nop>
+    nmap     [plugin]qfh [hown]
+    nmap     [hown]l     g,m
+    nmap     [hown]c     g,c
+    nmap     [hown]q     g,q
+    nmap     [hown],     g,,
     " }}}
 
 endif
