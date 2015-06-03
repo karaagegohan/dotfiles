@@ -6,6 +6,16 @@ endif
 
 " }}}
 
+" === Functions =========================================================================================== {{{
+
+function! s:My_mkdir(name) abort
+    if !isdirectory(expand(a:name))
+        call mkdir(expand(a:name))
+    endif
+endfunction
+
+" }}}
+
 " === key_mappings ======================================================================================= {{{
 
 " ***NOTE*** {{{
@@ -40,8 +50,7 @@ noremap! ;                  :
 noremap! :                  ;
 noremap  <C-c>              <Esc>
 noremap! <C-c>              <Esc>
-noremap  <C-v>              <Esc>
-noremap! <C-v>              <Esc>
+inoremap  <C-v>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>noh<CR>
 nnoremap <silent><CR>       :<C-u>write<CR>
 nnoremap <silent><BS>       :<C-u>quit<CR>
@@ -100,7 +109,7 @@ nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
 nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 nnoremap <silent>[func]km   /key_mappings<CR>zo
 nnoremap [func]h            :<C-u>help 
-nnoremap [func]e            :<C-u>e!<CR> 
+nnoremap [func]e            :<C-u>edit<CR> 
 
 " }}}
 
@@ -171,7 +180,7 @@ NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
 
 
 " syntax
-" NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
+NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 
 " search
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
@@ -519,6 +528,7 @@ if neobundle#tap('rainbow_parentheses.vim')
         \ ['red',         'firebrick3'],
         \ ]
 
+
     let g:rbpt_max            = 16
     let g:rbpt_loadcmd_toggle = 0
 
@@ -560,15 +570,13 @@ if neobundle#tap('syntastic.git')
     let g:syntastic_auto_loc_list = 2
     let g:syntastic_mode_map = {'mode': 'passive'} 
 
-    augroup AutoSyntastic
-        autocmd!
-        autocmd InsertLeave,TextChanged * call s:syntastic() 
-    augroup END
+    " key_mappings {{{
+    " prefix
+    nnoremap [syantax]  <Nop>
+    nmap     [plugin]c [syantax]
+    nmap     <buffer>[syantax] :SyntaasticCHack
+    " }}}
 
-    function! s:syntastic()
-        " w
-        " SyntasticCheck
-    endfunction
 
 endif
 " }}}
@@ -649,16 +657,16 @@ endif
 " === thinca/vim-quickrun ================================================================================ {{{
 if neobundle#tap('vim-quickrun')
 
-" key_mappings {{{
-nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
-" }}}
-"
 let g:quickrun_config = {
     \   "_" : {
     \       "runner" : "vimproc",
     \       "runner/vimproc/updatetime" : 60
     \   },
     \}
+
+" key_mappings {{{
+nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
+" }}}
 
 endif
 " }}}
@@ -741,9 +749,7 @@ set foldcolumn  =0        " Width of folding guide
 set foldmethod  =marker   " Folding by {{{.}}}
 
 " directories
-if !isdirectory(expand('~/.vimfiles'))
-    call mkdir(expand('~/.vimfiles'))
-endif
+call s:My_mkdir('~/.vimfiles')
 set browsedir  =current       " Directiry to save editing files
 set backup                    " Make backup file
 set backupdir  =~/.vimfiles   " Directiry to save backup files
