@@ -405,48 +405,64 @@ endif
 if neobundle#tap('lightline.vim')
 
     let g:lightline = {
+        \ 'colorscheme': 'jellybeans',
+        \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'fugitive', 'filename' ] ]
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
         \ },
         \ 'component_function': {
-        \   'fugitive': 'MyFugitive',
-        \   'readonly': 'MyReadonly',
         \   'modified': 'MyModified',
-        \   'filename': 'MyFilename'
-        \ },
+        \   'readonly': 'MyReadonly',
+        \   'fugitive': 'MyFugitive',
+        \   'filename': 'MyFilename',
+        \   'fileformat': 'MyFileformat',
+        \   'filetype': 'MyFiletype',
+        \   'fileencoding': 'MyFileencoding',
+        \   'mode': 'MyMode'
+        \ }
         \ }
 
     function! MyModified()
-        if &filetype == "help"
-            return ""
-        elseif &modified
-            return "+"
-        elseif &modifiable
-            return ""
-        else
-            return ""
-        endif
+        return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
     endfunction
 
     function! MyReadonly()
-        if &filetype == "help"
-            return ""
-        elseif &readonly
-            return "RO"
-        else
-            return ""
-        endif
-    endfunction
-
-    function! MyFugitive()
-        return exists('*fugitive#head') ? fugitive#head() : ''
+        return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
     endfunction
 
     function! MyFilename()
         return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-            \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+            \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+            \  &ft == 'unite' ? unite#get_status_string() :
+            \  &ft == 'vimshell' ? vimshell#get_status_string() :
+            \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
             \ ('' != MyModified() ? ' ' . MyModified() : '')
+    endfunction
+
+    function! MyFugitive()
+        try
+            if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+                return fugitive#head()
+            endif
+        catch
+        endtry
+        return ''
+    endfunction
+
+    function! MyFileformat()
+        return winwidth(0) > 70 ? &fileformat : ''
+    endfunction
+
+    function! MyFiletype()
+        return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+    endfunction
+
+    function! MyFileencoding()
+        return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+    endfunction
+
+    function! MyMode()
+        return winwidth(0) > 60 ? lightline#mode() : ''
     endfunction
 
 endif
