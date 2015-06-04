@@ -6,7 +6,7 @@ endif
 
 " }}}
 
-" === Functions =========================================================================================== {{{
+" === Functions ========================================================================================== {{{
 
 function! s:My_mkdir(name) abort
     if !isdirectory(expand(a:name))
@@ -50,15 +50,21 @@ noremap! ;                  :
 noremap! :                  ;
 noremap  <C-c>              <Esc>
 noremap! <C-c>              <Esc>
-inoremap  <C-v>              <Esc>
-nnoremap <silent><C-c><C-c> :<C-u>noh<CR>
+inoremap <C-v>              <Esc>
+nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <silent><CR>       :<C-u>write<CR>
 nnoremap <silent><BS>       :<C-u>quit<CR>
 nnoremap U                  <C-r>
-nnoremap ZZ                 <Nop>
-nnoremap ZQ                 <Nop>
+noremap  <UP>               <Nop>
+noremap  <DOWN>             <Nop>
+noremap  <LEFT>             <Nop>
+noremap  <RIGHT>            <Nop>
+noremap! <UP>               <Nop>
+noremap! <DOWN>             <Nop>
+noremap! <LEFT>             <Nop>
+noremap! <RIGHT>            <Nop>
 
-" yank
+" edit
 nnoremap Y                  y$
 
 " cursor
@@ -81,7 +87,7 @@ nnoremap #                  #NzO
 
 " increment, decrement
 nnoremap +                  <C-a>
-nnoremap -                  <C-x>
+nnoremap _                  <C-x>
 
 " window
 nnoremap <C-h>              <C-w>h
@@ -104,12 +110,22 @@ cnoremap <C-p>              <UP>
 nnoremap z                  za
 
 " handy
-nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
-nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
+if isdirectory(expand('~/dotfiles')) 
+    nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
+    nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
+else 
+    nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
+    nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
+endif
 nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 nnoremap <silent>[func]km   /key_mappings<CR>zo
 nnoremap [func]h            :<C-u>help 
 nnoremap [func]e            :<C-u>edit<CR> 
+
+
+" dangerous key mappings
+nnoremap ZZ                 <Nop>
+nnoremap ZQ                 <Nop>
 
 " }}}
 
@@ -123,7 +139,7 @@ nnoremap [func]e            :<C-u>edit<CR>
 "         commands
 "         function_prefix
 "         mappings
-"         isert
+"         insert
 "     depends
 "
 "  }}}
@@ -228,7 +244,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'morhetz/gruvbox'
 
-"dictionary
+" dictionary
 NeoBundle 'mattn/webapi-vim'
 NeoBundleLazy 'mattn/excitetranslate-vim', {
     \ 'depends': 'mattn/webapi-vim',
@@ -653,9 +669,9 @@ endif
 " === tpope/vim-repeat =================================================================================== {{{
 if neobundle#tap('vim-repeat')
 
-" key_mappings {{{
-nmap s <Plug>(operator-replace)
-" }}}
+    " key_mappings {{{
+    nmap s <Plug>(operator-replace)
+    " }}}
 
 endif
 " }}}
@@ -663,9 +679,9 @@ endif
 " === junegunn/vim-easy-align ============================================================================ {{{
 if neobundle#tap('vim-easy-align')
 
-" key_mappings {{{
-vmap <Enter> <Plug>(EasyAlign)
-" }}}
+    " key_mappings {{{
+    vmap <Enter> <Plug>(EasyAlign)
+    " }}}
 
 endif
 " }}}
@@ -673,16 +689,16 @@ endif
 " === thinca/vim-quickrun ================================================================================ {{{
 if neobundle#tap('vim-quickrun')
 
-let g:quickrun_config = {
-    \   "_" : {
-    \       "runner" : "vimproc",
-    \       "runner/vimproc/updatetime" : 60
-    \   },
-    \}
+    let g:quickrun_config = {
+        \   "_" : {
+        \       "runner" : "vimproc",
+        \       "runner/vimproc/updatetime" : 60
+        \   },
+        \}
 
-" key_mappings {{{
-nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
-" }}}
+    " key_mappings {{{
+    nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
+    " }}}
 
 endif
 " }}}
@@ -690,12 +706,12 @@ endif
 " === haya14busa/incsearch.vim =========================================================================== {{{
 if neobundle#tap('incsearch.vim')
 
-let g:incsearch#magic = '\v'
+    let g:incsearch#magic = '\v'
 
-" key_mappings {{{
-nmap / <Plug>(incsearch-forward)
-nmap ? <Plug>(incsearch-backward)
-" }}}
+    " key_mappings {{{
+    nmap / <Plug>(incsearch-forward)
+    nmap ? <Plug>(incsearch-backward)
+    " }}}
 
 endif
 " }}}
