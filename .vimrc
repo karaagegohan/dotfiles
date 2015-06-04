@@ -66,6 +66,8 @@ noremap! <RIGHT>            <Nop>
 
 " edit
 nnoremap Y                  y$
+inoremap <BS>               <Nop>
+nnoremap R                  J
 
 " cursor
 nnoremap j                  gj
@@ -193,7 +195,8 @@ NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
 NeoBundle 'sgur/vim-textobj-parameter'          " [,]  for parameter of function
 NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
-
+NeoBundle 'kana/vim-textobj-fold'               " [z]  for fold
+NeoBundle 'kana/vim-textobj-underscore'         " [_]  for object between underscore
 
 " syntax
 NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
