@@ -157,56 +157,57 @@ NeoBundle     'Shougo/neobundle.vim'
 NeoBundle     'Shougo/vimproc.vim', { 'build' : { 'windows' : 'make -f make_mingw32.mak', 'cygwin'  : 'make -f make_cygwin.mak ', 'mac'     : 'make -f make_mac.mak    ', 'unix'    : 'make -f make_unix.mak   ', }, }
 
 " complement 
-NeoBundle     has('lua') ? 'Shougo/neocomplete.vim' : 'Shougo/neocomplcache.vim'
-NeoBundle     'Shougo/neosnippet'
-NeoBundle     'Shougo/neosnippet-snippets'
-NeoBundle     'karaagegohan/my-snippets'
+NeoBundle has('lua') ? 'Shougo/neocomplete.vim' : 'Shougo/neocomplcache.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'karaagegohan/my-snippets'
 
 NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
 
-NeoBundle     'kana/vim-smartchr'            " Insert several candidates with a single key
-NeoBundle     'itchyny/lightline.vim'        " Color command line
-NeoBundle     'cohama/vim-hier'              " Hilight quickfix errors
-NeoBundle     'thinca/vim-quickrun'          " Run current code quickly
-NeoBundle     'thinca/vim-qfreplace'         " Perform the replacement in quickfix
-NeoBundle     'thinca/vim-visualstar'        " Use * in visual mode
-NeoBundle     'rhysd/clever-f.vim'           " Improve f{char}
-NeoBundle     'tomtom/tcomment_vim'          " Comment out easily
-NeoBundle     'junegunn/vim-easy-align'      " Align codes by delimiter
-NeoBundle     'fuenor/qfixgrep'              " Make notes easily
-NeoBundle     'fuenor/qfixhowm'              " Make notes easily
-NeoBundle     'tpope/vim-repeat'             " Enable to repeat plugins by '.'
-NeoBundle     'tpope/vim-fugitive'           " A Git wrapper
-NeoBundle     'kien/rainbow_parentheses.vim' " Better rainbow parentheses
-NeoBundle     'LeafCage/yankround.vim'       " Paste yank history
-NeoBundle     'Lokaltog/vim-easymotion'      " Powerful motion
+NeoBundle 'kana/vim-smartchr'            " Insert several candidates with a single key
+NeoBundle 'itchyny/lightline.vim'        " Color command line
+NeoBundle 'cohama/vim-hier'              " Hilight quickfix errors
+NeoBundle 'thinca/vim-quickrun'          " Run current code quickly
+NeoBundle 'thinca/vim-qfreplace'         " Perform the replacement in quickfix
+NeoBundle 'thinca/vim-visualstar'        " Use * in visual mode
+NeoBundle 'rhysd/clever-f.vim'           " Improve f{char}
+NeoBundle 'tomtom/tcomment_vim'          " Comment out easily
+NeoBundle 'junegunn/vim-easy-align'      " Align codes by delimiter
+NeoBundle 'fuenor/qfixgrep'              " Make notes easily
+NeoBundle 'fuenor/qfixhowm'              " Make notes easily
+NeoBundle 'tpope/vim-repeat'             " Enable to repeat plugins by '.'
+NeoBundle 'tpope/vim-fugitive'           " A Git wrapper
+NeoBundle 'kien/rainbow_parentheses.vim' " Better rainbow parentheses
+NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
+NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
 
 " Textobject
-NeoBundle     'kana/vim-textobj-user'               " Base plugin of textobject
-NeoBundle     'sgur/vim-textobj-parameter'          " [,]  for parameter of function
-NeoBundle     'kana/vim-textobj-indent'             " [i]  for indent
-NeoBundle     'kana/vim-textobj-fold'               " [z]  for fold
-NeoBundle     'kana/vim-textobj-underscore'         " [_]  for object between underscore
-NeoBundle     'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
+NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
+NeoBundle 'sgur/vim-textobj-parameter'          " [,]  for parameter of function
+NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
+NeoBundle 'kana/vim-textobj-fold'               " [z]  for fold
+NeoBundle 'kana/vim-textobj-underscore'         " [_]  for object between underscore
+NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 
 " syntax
-NeoBundle     'scrooloose/syntastic.git'     " Powerful syntax
+NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 
 " search
-NeoBundle     'haya14busa/incsearch.vim'    " Make searching powerful
+NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 
 " Unite
-NeoBundle     'Shougo/unite.vim'           " synthesis
-NeoBundle     'Shougo/unite-outline'
-NeoBundle     'Shougo/neomru.vim'
-NeoBundle     'ujihisa/unite-colorscheme'
-NeoBundle     'ujihisa/unite-font'
-NeoBundle     'ujihisa/unite-help'
+NeoBundle 'Shougo/unite.vim'           " synthesis
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'ujihisa/unite-font'
+NeoBundle 'ujihisa/unite-help'
+NeoBundle 'todashuta/unite-transparency'
 
 " Operator
-NeoBundle     'kana/vim-operator-user'       " Use vim-operator
-NeoBundle     'tpope/vim-surround'           " Surround text obj with any word
-NeoBundle     'kana/vim-operator-replace'    " Replace text obj with yanked word
+NeoBundle 'kana/vim-operator-user'       " Use vim-operator
+NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
+NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
 " Java 
 NeoBundleLazy 'vim-scripts/javacomplete', { 'build': { 'cygwin': 'javac autoload/Reflection.java', 'mac' : 'javac autoload/Reflection.java', 'unix' : 'javac autoload/Reflection.java', }, 'autoload' : { 'filetypes' : ['java'] } }
@@ -216,15 +217,15 @@ NeoBundleLazy 'moznion/java_getset.vim', { 'autoload': { 'filetypes': ['java'] }
 NeoBundleLazy 'keith/swift.vim', { 'autoload' : { 'filetypes' : ['swift'] } }
 
 " colorscheme 
-NeoBundle     'w0ng/vim-hybrid'
-NeoBundle     'nanotech/jellybeans.vim'
-NeoBundle     'altercation/vim-colors-solarized'
-NeoBundle     'morhetz/gruvbox'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'morhetz/gruvbox'
 
 " dictionary
-NeoBundle     'mattn/webapi-vim'
+NeoBundle 'mattn/webapi-vim'
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
-NeoBundle     'ujihisa/neco-look'
+NeoBundle 'ujihisa/neco-look'
 
 call neobundle#end()
 
@@ -363,7 +364,7 @@ if neobundle#tap('unite.vim')
     let g:unite_source_history_yank_enable      = 1     " Enable history yank
     let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
     let g:unite_source_file_mru_filename_format = ''    " Maximum number of mru list
-    let g:unite_enable_start_insert             = 0     " Start in insert mode
+    let g:unite_enable_start_insert             = 1     " Start in insert mode
 
     " key_mappings {{{
     " prefix
@@ -378,6 +379,7 @@ if neobundle#tap('unite.vim')
     nnoremap [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
     nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
     nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
+    nnoremap [unite]pp :<C-u>Unite -auto-preview transparency<CR>
     " }}}
 
 endif
