@@ -189,7 +189,7 @@ NeoBundle 'kana/vim-textobj-fold'               " [z]  for fold
 NeoBundle 'kana/vim-textobj-underscore'         " [_]  for object between underscore
 NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 
-" syntax
+" Syntax
 NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 
 " search
@@ -203,6 +203,7 @@ NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 NeoBundle 'ujihisa/unite-help'
 NeoBundle 'todashuta/unite-transparency'
+NeoBundle 'osyo-manga/unite-quickfix.git'
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
@@ -377,9 +378,10 @@ if neobundle#tap('unite.vim')
     nnoremap [unite]b  :<C-u>Unite buffer<CR>
     nnoremap [unite]r  :<C-u>Unite -buffer-name=register register<CR>
     nnoremap [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    nnoremap [unite]qf :<C-u>Unite -no-quit -direction=botright quickfix<CR>
     nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
     nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
-    nnoremap [unite]pp :<C-u>Unite -auto-preview transparency<CR>
+    " nnoremap [unite]pp :<C-u>Unite -auto-preview transparency<CR>
     " }}}
 
 endif
@@ -471,9 +473,9 @@ if neobundle#tap('vim-easy-align')
         \     'right_margin':    1
         \   },
         \ '.': {
-        \     'pattern':         '+=\|=',
-        \     'left_margin':   2,
-        \     'right_margin':   0
+        \     'pattern':      '+=\|=',
+        \     'left_margin':  2,
+        \     'right_margin': 0
         \   },
         \ }
 
@@ -585,7 +587,6 @@ if neobundle#tap('syntastic.git')
     nmap     <buffer>[syantax] :SyntaasticCHack
     " }}}
 
-
 endif
 " }}}
 
@@ -647,6 +648,7 @@ if neobundle#tap('vim-repeat')
 
     " key_mappings {{{
     nmap s <Plug>(operator-replace)
+    nmap S <Plug>(operator-replace)$
     " }}}
 
 endif
