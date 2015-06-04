@@ -55,14 +55,14 @@ nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <silent><CR>       :<C-u>write<CR>
 nnoremap <silent><BS>       :<C-u>quit<CR>
 nnoremap U                  <C-r>
-noremap  <UP>               <Nop>
-noremap  <DOWN>             <Nop>
-noremap  <LEFT>             <Nop>
-noremap  <RIGHT>            <Nop>
-noremap! <UP>               <Nop>
-noremap! <DOWN>             <Nop>
-noremap! <LEFT>             <Nop>
-noremap! <RIGHT>            <Nop>
+" noremap  <UP>               <Nop>
+" noremap  <DOWN>             <Nop>
+" noremap  <LEFT>             <Nop>
+" noremap  <RIGHT>            <Nop>
+" noremap! <UP>               <Nop>
+" noremap! <DOWN>             <Nop>
+" noremap! <LEFT>             <Nop>
+" noremap! <RIGHT>            <Nop>
 
 " edit
 nnoremap Y                  y$
