@@ -179,6 +179,7 @@ NeoBundle 'tpope/vim-fugitive'           " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim' " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
+NeoBundle 'Shougo/vimfiler.vim'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -189,7 +190,7 @@ NeoBundle 'kana/vim-textobj-underscore'         " [_]  for object between unders
 NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 
 " Syntax
-NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
+" NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 
 " search
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
@@ -308,6 +309,58 @@ if neobundle#tap('neosnippet')
 endif
 " }}}
 
+" === Shougo/unite.vim =================================================================================== {{{
+if neobundle#tap('unite.vim')
+
+    let g:unite_source_history_yank_enable      = 1     " Enable history yank
+    let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
+    let g:unite_source_file_mru_filename_format = ''    " Maximum number of mru list
+    let g:unite_enable_start_insert             = 1     " Start in insert mode
+
+    " key_mappings {{{
+    " prefix
+    nnoremap [unite]   <Nop>
+    nmap     [plugin]u [unite]
+
+    nnoremap [unite]u  :<C-u>Unite<CR>
+    nnoremap [unite]hy :<C-u>Unite history/yank<CR>
+    nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
+    nnoremap [unite]b  :<C-u>Unite buffer<CR>
+    nnoremap [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+    nnoremap [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    nnoremap [unite]qf :<C-u>Unite -no-quit -direction=botright quickfix<CR>
+    nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
+    nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
+    nnoremap [unite]pp :<C-u>Unite -auto-preview transparency<CR>
+    " }}}
+
+endif
+" }}}
+
+" === Shougo/unite-outline =============================================================================== {{{
+if neobundle#tap('unite-outline')
+
+    let g:unite_split_rule = 'botright'
+
+endif
+" }}}
+
+" === Shougo/vimfiler.vim =============================================================================== {{{
+if neobundle#tap('vimfiler.vim')
+
+    let g:vimfiler_enable_auto_cd = 1
+
+    " key_mappings {{{
+    " prefix
+    nnoremap [filer]   <Nop>
+    nmap     [plugin]f [filer]
+
+    nnoremap [filer]  :<C-u>VimFiler<CR>
+    " }}}
+   
+endif
+" }}}
+
 " === tpope/vim-fugitive ================================================================================= {{{
 if neobundle#tap('vim-fugitive')
 
@@ -354,42 +407,6 @@ if neobundle#tap('vimshell.vim')
     nnoremap [shell]p :<C-u>VimShellInteractive python<CR>
     nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
     " }}}
-
-endif
-" }}}
-
-" === Shougo/unite.vim =================================================================================== {{{
-if neobundle#tap('unite.vim')
-
-    let g:unite_source_history_yank_enable      = 1     " Enable history yank
-    let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
-    let g:unite_source_file_mru_filename_format = ''    " Maximum number of mru list
-    let g:unite_enable_start_insert             = 1     " Start in insert mode
-
-    " key_mappings {{{
-    " prefix
-    nnoremap [unite]   <Nop>
-    nmap     [plugin]u [unite]
-
-    nnoremap [unite]u  :<C-u>Unite<CR>
-    nnoremap [unite]hy :<C-u>Unite history/yank<CR>
-    nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
-    nnoremap [unite]b  :<C-u>Unite buffer<CR>
-    nnoremap [unite]r  :<C-u>Unite -buffer-name=register register<CR>
-    nnoremap [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-    nnoremap [unite]qf :<C-u>Unite -no-quit -direction=botright quickfix<CR>
-    nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
-    nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
-    nnoremap [unite]pp :<C-u>Unite -auto-preview transparency<CR>
-    " }}}
-
-endif
-" }}}
-
-" === Shougo/unite-outline =============================================================================== {{{
-if neobundle#tap('unite-outline')
-
-    let g:unite_split_rule = 'botright'
 
 endif
 " }}}
