@@ -66,7 +66,6 @@ nnoremap U                  <C-r>
 
 " edit
 nnoremap Y                  y$
-inoremap <BS>               <Nop>
 nnoremap R                  J
 
 " cursor
@@ -243,7 +242,7 @@ if neobundle#tap('neocomplete.vim')
     let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
     let g:neocomplete#sources#syntax#min_keyword_length = 1         " Set minimum syntax keyword length.
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
-    let g:neocomplete#lock_iminsert                     = 1         " 
+    let g:neocomplete#lock_iminsert                     = 0         " 
 
     " Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
@@ -381,7 +380,7 @@ if neobundle#tap('unite.vim')
     nnoremap [unite]qf :<C-u>Unite -no-quit -direction=botright quickfix<CR>
     nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
     nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
-    " nnoremap [unite]pp :<C-u>Unite -auto-preview transparency<CR>
+    nnoremap [unite]pp :<C-u>Unite -auto-preview transparency<CR>
     " }}}
 
 endif
