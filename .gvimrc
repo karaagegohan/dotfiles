@@ -2,7 +2,7 @@
 
 if has('vim_starting')
 
-    set columns    =160   " width of window
+    set columns    =80    " width of window
     set lines      =140   " height of window
 
     " window
@@ -10,7 +10,7 @@ if has('vim_starting')
         set fuoptions=maxvert,maxhorz
         augroup vim_window
             autocmd!
-            autocmd GUIEnter * set fullscreen 
+            " autocmd GUIEnter * set fullscreen 
         augroup END
     endif
 
@@ -36,16 +36,16 @@ endif
 " }}}
 
 " === input settings ========================================================================================== {{{
-"
-" if has('multi_byte_ime') || has('xim')
-"     highlight CursorIM guibg=Purple guifg=NONE
-"     set iminsert=0 imsearch=0
-"     if has('xim') && has('GUI_GTK')
-"         "set imactivatekey=s-space
-"     endif
-"     inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-" endif
-"
+
+if has('multi_byte_ime') || has('xim')
+    highlight CursorIM guibg=Purple guifg=NONE
+    set iminsert=0 imsearch=0
+    if has('xim') && has('GUI_GTK')
+        "set imactivatekey=s-space
+    endif
+    inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+endif
+
 " }}}
 
 " === base settings ========================================================================================= {{{
@@ -63,3 +63,4 @@ set cmdheight  =1        " height of commandline
 colorscheme jellybeans   " colorsheme
 
 " }}}
+
