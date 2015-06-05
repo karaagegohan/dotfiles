@@ -150,16 +150,20 @@ filetype plugin indent off
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 " managing plugins
-NeoBundle     'Shougo/neobundle.vim'
+NeoBundle 'Shougo/neobundle.vim'
 
 " great asynchronous execution
-NeoBundle     'Shougo/vimproc.vim', { 'build' : { 'windows' : 'make -f make_mingw32.mak', 'cygwin'  : 'make -f make_cygwin.mak ', 'mac'     : 'make -f make_mac.mak    ', 'unix'    : 'make -f make_unix.mak   ', }, }
+NeoBundle 'Shougo/vimproc.vim', { 'build' : { 'windows' : 'make -f make_mingw32.mak', 'cygwin'  : 'make -f make_cygwin.mak ', 'mac'     : 'make -f make_mac.mak    ', 'unix'    : 'make -f make_unix.mak   ', }, }
 
 " complement 
-NeoBundle has('lua') ? 'Shougo/neocomplete.vim' : 'Shougo/neocomplcache.vim'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'karaagegohan/my-snippets'
+if has('lua') 
+    NeoBundleLazy 'Shougo/neocomplete.vim', { 'autoload' : { 'insert' : 1 } }
+else 
+    NeoBundleLazy 'Shougo/neocomplcache.vim', { 'autoload' : { 'insert' : 1 } }
+endif
+NeoBundleLazy 'Shougo/neosnippet', { 'autoload' : { 'insert' : 1 } }
+NeoBundleLazy 'Shougo/neosnippet-snippets', { 'autoload' : { 'insert' : 1 }, 'depends' : ['Shougo/neosnippet'] }
+NeoBundleLazy 'karaagegohan/my-snippets', { 'autoload' : { 'insert' : 1 }, 'depends' : ['Shougo/neosnippet'] }
 
 NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
 
@@ -197,13 +201,13 @@ NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 
 " Unite
 NeoBundle 'Shougo/unite.vim'           " synthesis
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'ujihisa/unite-font'
-NeoBundle 'ujihisa/unite-help'
-NeoBundle 'todashuta/unite-transparency'
-NeoBundle 'osyo-manga/unite-quickfix.git'
+NeoBundleLazy 'Shougo/unite-outline', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundleLazy 'Shougo/neomru.vim', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundleLazy 'ujihisa/unite-colorscheme', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundleLazy 'ujihisa/unite-font', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundleLazy 'ujihisa/unite-help', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundleLazy 'todashuta/unite-transparency', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundleLazy 'osyo-manga/unite-quickfix.git', { 'depends' : ['Shougo/unite.vim'] }
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
