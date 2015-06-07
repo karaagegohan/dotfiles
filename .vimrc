@@ -105,7 +105,7 @@ nnoremap z                  za
 
 " View
 if !s:is_terminal
-    nnoremap <silent><          :<C-u>settransparency-=2<CR>
+    nnoremap <silent><          :<C-u>set transparency-=2<CR>
     nnoremap <silent>>          :<C-u>set transparency+=2<CR>
 endif
 
