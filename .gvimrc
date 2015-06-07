@@ -2,11 +2,11 @@
 
 if has('vim_starting')
 
-    set columns    =160   " width of window
-    set lines      =140   " height of window
+    set columns    =999   " width of window
+    set lines      =999   " height of window
 
     " window
-    if has('gui_macvim')
+    if has('gui_running')
         set fuoptions=maxvert,maxhorz
         augroup vim_window
             autocmd!
