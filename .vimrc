@@ -48,10 +48,10 @@ noremap  ;                  :
 noremap  :                  ;
 noremap! ;                  :
 noremap! :                  ;
-noremap  <C-c>              <Esc>
 noremap! <C-c>              <Esc>
-inoremap <C-v>              <Esc>
-nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
+vnoremap <C-c>              <Esc>
+onoremap <C-c>              <Esc>
+nnoremap <silent><C-c>      :<C-u>nohlsearch<CR>
 nnoremap <silent><CR>       :<C-u>write<CR>
 nnoremap <silent><BS>       :<C-u>quit<CR>
 nnoremap U                  <C-r>
