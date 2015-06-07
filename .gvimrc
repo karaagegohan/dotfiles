@@ -2,7 +2,7 @@
 
 if has('vim_starting')
 
-    set columns    =80    " width of window
+    set columns    =160   " width of window
     set lines      =140   " height of window
 
     " window
