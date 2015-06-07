@@ -6,13 +6,17 @@ endif
 
 " }}}
 
-" === Functions ========================================================================================== {{{
+" === Functions and Constant ============================================================================= {{{
 
 function! s:My_mkdir(name) abort
     if !isdirectory(expand(a:name))
         call mkdir(expand(a:name))
     endif
 endfunction
+
+let s:is_terminal = !has('gui_running')
+let s:is_windows  = has('win16') || has('win32') || has('win64')
+let s:is_cygwin   = has('win32unix')
 
 " }}}
 
@@ -49,9 +53,8 @@ noremap  :                  ;
 noremap! ;                  :
 noremap! :                  ;
 noremap! <C-c>              <Esc>
-vnoremap <C-c>              <Esc>
-onoremap <C-c>              <Esc>
-nnoremap <silent><C-c>      :<C-u>nohlsearch<CR>
+noremap  <C-c>              <Esc>
+nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <silent><CR>       :<C-u>write<CR>
 nnoremap <silent><BS>       :<C-u>quit<CR>
 nnoremap U                  <C-r>
@@ -62,8 +65,6 @@ nnoremap R                  J
 
 " cursor
 nnoremap j                  gj
-nnoremap k                  gk
-nnoremap k                  gk
 nnoremap k                  gk
 vnoremap j                  gj
 vnoremap k                  gk
@@ -103,8 +104,10 @@ cnoremap <C-p>              <UP>
 nnoremap z                  za
 
 " View
-nnoremap <silent><          :<C-u>set transparency-=2<CR>
-nnoremap <silent>>          :<C-u>set transparency+=2<CR>
+if !s:is_terminal
+    nnoremap <silent><          :<C-u>settransparency-=2<CR>
+    nnoremap <silent>>          :<C-u>set transparency+=2<CR>
+endif
 
 " handy
 if isdirectory(expand('~/dotfiles')) 
@@ -115,10 +118,9 @@ else
     nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
 nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
-nnoremap <silent>[func]km   /key_mappings<CR>zo
+nnoremap <silent>[func]km   :/key_mappings<CR>zO
 nnoremap [func]h            :<C-u>help 
 nnoremap [func]e            :<C-u>edit<CR> 
-
 
 " dangerous key mappings
 nnoremap ZZ                 <Nop>
@@ -196,7 +198,7 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 
 " Unite
-NeoBundle 'Shougo/unite.vim'           " synthesis
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline', { 'depends' : ['Shougo/unite.vim'] }
 NeoBundle 'Shougo/neomru.vim', { 'depends' : ['Shougo/unite.vim'] }
 NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : ['Shougo/unite.vim'] }
@@ -260,6 +262,7 @@ if neobundle#tap('neocomplete.vim')
 
     " Enable omni completion.
     augroup vimrc_neocomplete
+        autocmd!
         autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
         autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
         autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
