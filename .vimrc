@@ -55,14 +55,6 @@ nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <silent><CR>       :<C-u>write<CR>
 nnoremap <silent><BS>       :<C-u>quit<CR>
 nnoremap U                  <C-r>
-" noremap  <UP>               <Nop>
-" noremap  <DOWN>             <Nop>
-" noremap  <LEFT>             <Nop>
-" noremap  <RIGHT>            <Nop>
-" noremap! <UP>               <Nop>
-" noremap! <DOWN>             <Nop>
-" noremap! <LEFT>             <Nop>
-" noremap! <RIGHT>            <Nop>
 
 " edit
 nnoremap Y                  y$
@@ -109,6 +101,10 @@ cnoremap <C-p>              <UP>
 
 " fold
 nnoremap z                  za
+
+" View
+nnoremap <silent><          :<C-u>set transparency-=2<CR>
+nnoremap <silent>>          :<C-u>set transparency+=2<CR>
 
 " handy
 if isdirectory(expand('~/dotfiles')) 
@@ -183,7 +179,7 @@ NeoBundle 'tpope/vim-fugitive'           " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim' " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
-NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimfiler.vim'          " Filer in vim
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -201,13 +197,13 @@ NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 
 " Unite
 NeoBundle 'Shougo/unite.vim'           " synthesis
-NeoBundleLazy 'Shougo/unite-outline', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundleLazy 'Shougo/neomru.vim', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundleLazy 'ujihisa/unite-colorscheme', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundleLazy 'ujihisa/unite-font', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundleLazy 'ujihisa/unite-help', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundleLazy 'todashuta/unite-transparency', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundleLazy 'osyo-manga/unite-quickfix.git', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'Shougo/unite-outline', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'Shougo/neomru.vim', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'ujihisa/unite-font', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'ujihisa/unite-help', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'todashuta/unite-transparency', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'osyo-manga/unite-quickfix.git', { 'depends' : ['Shougo/unite.vim'] }
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
