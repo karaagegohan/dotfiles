@@ -14,6 +14,20 @@ function! s:My_mkdir(name) abort
     endif
 endfunction
 
+function! s:transparancy_up()
+    if &transparency + 2 < 100
+        set transparency+=4
+    endif
+endfunction 
+command! MyTransparancyUp call s:transparancy_up()
+
+function! s:transparancy_down()
+    if &transparency - 2 > 0
+        set transparency-=2
+    endif
+endfunction 
+command! MyTransparancyDown call s:transparancy_down()
+
 let s:is_terminal = !has('gui_running')
 let s:is_windows  = has('win16') || has('win32') || has('win64')
 let s:is_cygwin   = has('win32unix')
@@ -105,8 +119,8 @@ nnoremap z                  za
 
 " View
 if !s:is_terminal
-    nnoremap <silent><          :<C-u>set transparency-=2<CR>
-    nnoremap <silent>>          :<C-u>set transparency+=2<CR>
+    nnoremap <silent><          :<C-u>MyTransparancyDown<CR>
+    nnoremap <silent>>          :<C-u>MyTransparancyUp<CR>
 endif
 
 " handy
@@ -182,6 +196,7 @@ NeoBundle 'kien/rainbow_parentheses.vim' " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
 NeoBundle 'Shougo/vimfiler.vim'          " Filer in vim
+NeoBundle 'thinca/vim-fontzoom'          " Change font size
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -190,7 +205,6 @@ NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
 NeoBundle 'kana/vim-textobj-fold'               " [z]  for fold
 NeoBundle 'kana/vim-textobj-underscore'         " [_]  for object between underscore
 NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
-
 " Syntax
 " NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 
@@ -708,6 +722,17 @@ if neobundle#tap('incsearch.vim')
     " key_mappings {{{
     nmap / <Plug>(incsearch-forward)
     nmap ? <Plug>(incsearch-backward)
+    " }}}
+
+endif
+" }}}
+
+" === thinca/vim-fontzoom =========================================================================== {{{
+if neobundle#tap('vim-fontzoom')
+
+    " key_mappings {{{
+    nmap + <Plug>(fontzoom-larger)
+    nmap _ <Plug>(fontzoom-smaller)
     " }}}
 
 endif
