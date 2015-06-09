@@ -2,10 +2,9 @@
 
 if has('vim_starting')
 
+    " window {{{
     set columns    =999   " width of window
     set lines      =999   " height of window
-
-    " window
     if has('gui_running')
         set fuoptions=maxvert,maxhorz
         augroup vim_window
@@ -13,29 +12,28 @@ if has('vim_starting')
             " autocmd GUIEnter * set fullscreen 
         augroup END
     endif
+    " }}}
 
-endif
-
-" }}}
-
-" === font settings =========================================================================================== {{{
-
-if has('win32')
-    set guifont      =Inconsolata:h10:cANSI
-    set guifontwide  =Ricty_Diminished:h10:cSHIFTJIS
-    set linespace=1
-    if has('kaoriya')
-        set ambiwidth=auto
+    " font {{{
+    if has('win32')
+        set guifont        =Inconsolata:h10:cANSI
+        set guifontwide    =Ricty_Diminished:h10:cSHIFTJIS
+        set linespace      =1
+        if has('kaoriya')
+            set ambiwidth  =auto
+        endif
+    elseif has('mac')
+        set guifont        =Osaka-Mono:h16
+    elseif has('xfontset')
+        set guifontset     =a14,r14,k14
     endif
-elseif has('mac')
-    set guifont=Osaka-Mono:h16
-elseif has('xfontset')
-    set guifontset=a14,r14,k14
+    " }}}
+    "
 endif
 
 " }}}
 
-" === input settings ========================================================================================== {{{
+" === input settings ========================================================================================= {{{
 
 if has('multi_byte_ime') || has('xim')
     highlight CursorIM guibg=Purple guifg=NONE
@@ -48,7 +46,7 @@ endif
 
 " }}}
 
-" === base settings ========================================================================================= {{{
+" === base settings ========================================================================================== {{{
 
 " mouse settings
 set mouse=
@@ -56,7 +54,7 @@ set nomousefocus
 set mousehide
 
 " window settings
-set guioptions =         " invalidate GUI options
+set guioptions =         " disable GUI options
 set cmdheight  =1        " height of commandline
 
 " colorscheme
