@@ -6,7 +6,11 @@ endif
 
 " }}}
 
-" === Functions and Constant ============================================================================= {{{
+" === Functions and Constants ============================================================================= {{{
+
+let s:is_terminal = !has('gui_running')
+let s:is_windows  = has('win16') || has('win32') || has('win64')
+let s:is_cygwin   = has('win32unix')
 
 function! s:My_mkdir(name) abort
     if !isdirectory(expand(a:name))
@@ -27,10 +31,6 @@ function! s:transparancy_down()
     endif
 endfunction 
 command! MyTransparancyDown call s:transparancy_down()
-
-let s:is_terminal = !has('gui_running')
-let s:is_windows  = has('win16') || has('win32') || has('win64')
-let s:is_cygwin   = has('win32unix')
 
 " }}}
 
@@ -104,6 +104,7 @@ nnoremap <C-k>              <C-w>k
 nnoremap <C-l>              <C-w>l
 nnoremap <silent>[func]n    :<C-u>split<CR>
 nnoremap <silent>[func]v    :<C-u>vsplit<CR>
+nnoremap <silent>[func]fs   :<C-u>set fullscreen!<CR>
 
 " tab
 nnoremap <TAB>              gt
@@ -118,9 +119,13 @@ cnoremap <C-p>              <UP>
 nnoremap z                  za
 
 " View
-if !s:is_terminal
-    nnoremap <silent><          :<C-u>MyTransparancyDown<CR>
-    nnoremap <silent>>          :<C-u>MyTransparancyUp<CR>
+if !s:is_windows
+    if !s:is_terminal
+        nnoremap <silent><          :<C-u>MyTransparancyDown<CR>
+        nnoremap <silent>>          :<C-u>MyTransparancyUp<CR>
+    endif
+else
+    " TODO
 endif
 
 " handy
@@ -362,7 +367,7 @@ if neobundle#tap('unite-outline')
 endif
 " }}}
 
-" === Shougo/vimfiler.vim =============================================================================== {{{
+" === Shougo/vimfiler.vim ================================================================================ {{{
 if neobundle#tap('vimfiler.vim')
 
     let g:vimfiler_enable_auto_cd = 1
@@ -538,7 +543,7 @@ if neobundle#tap('qfixhowm')
     " key_mappings {{{
     " prefix
     nnoremap [hown]      <Nop>
-    nmap     [plugin]qfh [hown]
+    nmap     [plugin]h   [hown]
     nmap     [hown]l     g,m
     nmap     [hown]c     g,c
     nmap     [hown]q     g,q
@@ -727,7 +732,7 @@ if neobundle#tap('incsearch.vim')
 endif
 " }}}
 
-" === thinca/vim-fontzoom =========================================================================== {{{
+" === thinca/vim-fontzoom ================================================================================ {{{
 if neobundle#tap('vim-fontzoom')
 
     " key_mappings {{{
