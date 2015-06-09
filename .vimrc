@@ -6,7 +6,7 @@ endif
 
 " }}}
 
-" === Functions and Constants ============================================================================= {{{
+" === Functions and Constants ============================================================================ {{{
 
 let s:is_terminal = !has('gui_running')
 let s:is_windows  = has('win16') || has('win32') || has('win64')
@@ -20,7 +20,7 @@ endfunction
 
 function! s:transparancy_up()
     if &transparency + 2 < 100
-        set transparency+=4
+        set transparency+=2
     endif
 endfunction 
 command! MyTransparancyUp call s:transparancy_up()
@@ -170,7 +170,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundle 'Shougo/neobundle.vim'
 
 " great asynchronous execution
-NeoBundle 'Shougo/vimproc.vim', { 'build' : { 'windows' : 'make -f make_mingw32.mak', 'cygwin'  : 'make -f make_cygwin.mak ', 'mac'     : 'make -f make_mac.mak    ', 'unix'    : 'make -f make_unix.mak   ', }, }
+NeoBundle 'Shougo/vimproc.vim', { 'build' : { 'windows' : 'make -f make_mingw32.mak', 'cygwin' : 'make -f make_cygwin.mak ', 'mac' : 'make -f make_mac.mak ', 'unix' : 'make -f make_unix.mak ', }, }
 
 " complement 
 if has('lua') 
@@ -225,6 +225,10 @@ NeoBundle 'ujihisa/unite-font', { 'depends' : ['Shougo/unite.vim'] }
 NeoBundle 'ujihisa/unite-help', { 'depends' : ['Shougo/unite.vim'] }
 NeoBundle 'todashuta/unite-transparency', { 'depends' : ['Shougo/unite.vim'] }
 NeoBundle 'osyo-manga/unite-quickfix.git', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'LeafCage/unite-gvimrgb', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'LeafCage/unite-recording', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'LeafCage/unite-highlight', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'LeafCage/unite-webcolorname', { 'depends' : ['Shougo/unite.vim'] }
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
@@ -264,7 +268,7 @@ if neobundle#tap('neocomplete.vim')
     let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
     let g:neocomplete#sources#syntax#min_keyword_length = 1         " Set minimum syntax keyword length.
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
-    let g:neocomplete#lock_iminsert                     = 0         " 
+    let g:neocomplete#lock_iminsert                     = 1         " 
 
     " Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
@@ -538,7 +542,7 @@ if neobundle#tap('qfixhowm')
     let howm_fileencoding              = 'utf-8'                             " character code
     let howm_fileformat                = 'unix'                              " return code
     let QFixHowm_MenuPreview           = 0                                   " preview in menu
-    let QFixHowm_MenuKey               = 0                                   " invalid default keymaps
+    let QFixHowm_MenuKey               = 1                                   " invalid default keymaps
 
     " key_mappings {{{
     " prefix
