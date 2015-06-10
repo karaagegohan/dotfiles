@@ -203,6 +203,7 @@ NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
 NeoBundle 'Shougo/vimfiler.vim'          " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'          " Change font size
 NeoBundle 'AndrewRadev/switch.vim'       " Switch segments
+NeoBundle 't9md/vim-quickhl'             " Highlight any words
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -270,7 +271,7 @@ if neobundle#tap('neocomplete.vim')
     let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
     let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
     let g:neocomplete#enable_camel_case                 = 1         " Use camelcase.
-    let g:neocomplete#enable_fuzzy_completion           = 1         " Use camelcase.
+    let g:neocomplete#enable_fuzzy_completion           = 1         " Use fuzzy completion.
     let g:neocomplete#use_vimproc                       = 1
     let g:neocomplete#lock_iminsert                     = 0         " 
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
@@ -757,7 +758,20 @@ endif
 if neobundle#tap('switch.vim')
 
     " key_mappings {{{
-    nnoremap <silent>' :<C-u>Switch<CR>
+    nnoremap <silent>" :<C-u>Switch<CR>
+    " }}}
+
+endif
+" }}}
+
+" === t9md/vim-quickhl ============================================================================= {{{
+if neobundle#tap('vim-quickhl')
+
+    " key_mappings {{{
+    nmap { <Plug>(quickhl-manual-this)
+    xmap { <Plug>(quickhl-manual-this)
+    nmap } <Plug>(quickhl-manual-reset)
+    xmap } <Plug>(quickhl-manual-reset)
     " }}}
 
 endif
@@ -821,9 +835,9 @@ set wrapscan    " Searchrs wrap around
 set timeoutlen =10000      " time to wait for a key code
 
 " action
-set autoread              " Reload file automatically when it is updated
-set scrolloff  =10        " Scrooloff
-set clipboard  =unnamed   " Sharing clipboard
+set autoread                          " Reload file automatically when it is updated
+set scrolloff  =10                    " Scrooloff
+set clipboard +=unnamedplus,unnamed   " Sharing clipboard
 
 " fold
 set foldenable            " Enable fold
