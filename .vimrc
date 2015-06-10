@@ -202,6 +202,7 @@ NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
 NeoBundle 'Shougo/vimfiler.vim'          " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'          " Change font size
+NeoBundle 'AndrewRadev/switch.vim'       " Switch segments
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -210,25 +211,26 @@ NeoBundle 'kana/vim-textobj-indent'             " [i]  for indent
 NeoBundle 'kana/vim-textobj-fold'               " [z]  for fold
 NeoBundle 'kana/vim-textobj-underscore'         " [_]  for object between underscore
 NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
+
 " Syntax
-" NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
+NeoBundleLazy 'scrooloose/syntastic.git'     " Powerful syntax
 
 " search
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 
 " Unite
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'Shougo/neomru.vim', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'ujihisa/unite-font', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'ujihisa/unite-help', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'todashuta/unite-transparency', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'osyo-manga/unite-quickfix.git', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'LeafCage/unite-gvimrgb', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'LeafCage/unite-recording', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'LeafCage/unite-highlight', { 'depends' : ['Shougo/unite.vim'] }
-NeoBundle 'LeafCage/unite-webcolorname', { 'depends' : ['Shougo/unite.vim'] }
+NeoBundle 'Shougo/neomru.vim'
+NeoBundleLazy 'Shougo/unite-outline', { 'autoload' : { 'unite_source' : ['outline'] } }
+NeoBundleLazy 'ujihisa/unite-colorscheme', { 'autoload' : { 'unite_source' : ['colorscheme'] } }
+NeoBundleLazy 'ujihisa/unite-font', { 'autoload' : { 'unite_source' : ['font'] } }
+NeoBundleLazy 'ujihisa/unite-help', { 'autoload' : { 'unite_source' : ['help'] } }
+NeoBundleLazy 'todashuta/unite-transparency', { 'autoload' : { 'unite_source' : ['transparency'] } }
+NeoBundleLazy 'osyo-manga/unite-quickfix.git', { 'autoload' : { 'unite_source' : ['quickfix'] } }
+NeoBundleLazy 'LeafCage/unite-gvimrgb', { 'autoload' : { 'unite_source' : ['gvimrgb'] } }
+NeoBundleLazy 'LeafCage/unite-recording', { 'autoload' : { 'unite_source' : ['recording'] } }
+NeoBundleLazy 'LeafCage/unite-highlight', { 'autoload' : { 'unite_source' : ['highlight'] } }
+NeoBundleLazy 'LeafCage/unite-webcolorname', { 'autoload' : { 'unite_source' : ['webcolorname'] } }
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
@@ -264,11 +266,14 @@ filetype plugin indent on
 if neobundle#tap('neocomplete.vim')
 
     let g:acp_enableAtStartup                           = 1         " Disable AutoComplPop.
+    let g:neocomplete#auto_completion_start_length      = 2
     let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
     let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
-    let g:neocomplete#sources#syntax#min_keyword_length = 1         " Set minimum syntax keyword length.
+    let g:neocomplete#enable_camel_case                 = 1         " Use camelcase.
+    let g:neocomplete#enable_fuzzy_completion           = 1         " Use camelcase.
+    let g:neocomplete#use_vimproc                       = 1
+    let g:neocomplete#lock_iminsert                     = 0         " 
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
-    let g:neocomplete#lock_iminsert                     = 1         " 
 
     " Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
@@ -357,7 +362,8 @@ if neobundle#tap('unite.vim')
     nnoremap [unite]qf :<C-u>Unite -no-quit -direction=botright quickfix<CR>
     nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
     nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
-    nnoremap [unite]pp :<C-u>Unite -auto-preview transparency<CR>
+    nnoremap [unite]pt :<C-u>Unite -auto-preview transparency<CR>
+    nnoremap [unite]yr :<C-u>Unite yankround<CR>
     " }}}
 
 endif
@@ -742,6 +748,16 @@ if neobundle#tap('vim-fontzoom')
     " key_mappings {{{
     nmap + <Plug>(fontzoom-larger)
     nmap _ <Plug>(fontzoom-smaller)
+    " }}}
+
+endif
+" }}}
+
+" === AndrewRadev/switch.vim ============================================================================= {{{
+if neobundle#tap('switch.vim')
+
+    " key_mappings {{{
+    nnoremap <silent>' :<C-u>Switch<CR>
     " }}}
 
 endif
