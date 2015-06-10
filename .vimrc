@@ -184,26 +184,29 @@ NeoBundleLazy 'karaagegohan/my-snippets', { 'autoload' : { 'insert' : 1 }, 'depe
 
 NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
 
-NeoBundle 'kana/vim-smartchr'            " Insert several candidates with a single key
-NeoBundle 'itchyny/lightline.vim'        " Color command line
-NeoBundle 'cohama/vim-hier'              " Hilight quickfix errors
-NeoBundle 'thinca/vim-quickrun'          " Run current code quickly
-NeoBundle 'thinca/vim-qfreplace'         " Perform the replacement in quickfix
-NeoBundle 'thinca/vim-visualstar'        " Use * in visual mode
-NeoBundle 'rhysd/clever-f.vim'           " Improve f{char}
-NeoBundle 'tomtom/tcomment_vim'          " Comment out easily
-NeoBundle 'junegunn/vim-easy-align'      " Align codes by delimiter
-NeoBundle 'fuenor/qfixgrep'              " Make notes easily
-NeoBundle 'fuenor/qfixhowm'              " Make notes easily
-NeoBundle 'tpope/vim-repeat'             " Enable to repeat plugins by '.'
-NeoBundle 'tpope/vim-fugitive'           " A Git wrapper
-NeoBundle 'kien/rainbow_parentheses.vim' " Better rainbow parentheses
-NeoBundle 'LeafCage/yankround.vim'       " Paste yank history
-NeoBundle 'Lokaltog/vim-easymotion'      " Powerful motion
-NeoBundle 'Shougo/vimfiler.vim'          " Filer in vim
-NeoBundle 'thinca/vim-fontzoom'          " Change font size
-NeoBundle 'AndrewRadev/switch.vim'       " Switch segments
-NeoBundle 't9md/vim-quickhl'             " Highlight any words
+NeoBundle 'kana/vim-smartchr'                  " Insert several candidates with a single key
+NeoBundle 'itchyny/lightline.vim'              " Color command line
+NeoBundle 'cohama/vim-hier'                    " Hilight quickfix errors
+NeoBundle 'thinca/vim-quickrun'                " Run current code quickly
+NeoBundle 'thinca/vim-qfreplace'               " Perform the replacement in quickfix
+NeoBundle 'thinca/vim-visualstar'              " Use * in visual mode
+NeoBundle 'rhysd/clever-f.vim'                 " Improve f{char}
+NeoBundle 'tomtom/tcomment_vim'                " Comment out easily
+NeoBundle 'junegunn/vim-easy-align'            " Align codes by delimiter
+NeoBundle 'fuenor/qfixgrep'                    " Make notes easily
+NeoBundle 'fuenor/qfixhowm'                    " Make notes easily
+NeoBundle 'tpope/vim-repeat'                   " Enable to repeat plugins by '.'
+NeoBundle 'tpope/vim-fugitive'                 " A Git wrapper
+NeoBundle 'kien/rainbow_parentheses.vim'       " Better rainbow parentheses
+NeoBundle 'LeafCage/yankround.vim'             " Paste yank history
+NeoBundle 'Lokaltog/vim-easymotion'            " Powerful motion
+NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
+NeoBundle 'thinca/vim-fontzoom'                " Change font size
+NeoBundle 'AndrewRadev/switch.vim'             " Switch segments
+NeoBundle 't9md/vim-quickhl'                   " Highlight any words
+NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
+NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
+NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -254,7 +257,8 @@ NeoBundle 'morhetz/gruvbox'
 " dictionary
 NeoBundle 'mattn/webapi-vim'
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
-NeoBundle 'ujihisa/neco-look'
+NeoBundle 'https://github.com/ujihisa/neco-look.git'
+
 
 call neobundle#end()
 
@@ -275,6 +279,7 @@ if neobundle#tap('neocomplete.vim')
     let g:neocomplete#use_vimproc                       = 1
     let g:neocomplete#lock_iminsert                     = 0         " 
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
+    let g:neocomplete#skip_auto_completion_time         = ''
 
     " Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
@@ -764,7 +769,7 @@ if neobundle#tap('switch.vim')
 endif
 " }}}
 
-" === t9md/vim-quickhl ============================================================================= {{{
+" === t9md/vim-quickhl =================================================================================== {{{
 if neobundle#tap('vim-quickhl')
 
     " key_mappings {{{
@@ -772,6 +777,16 @@ if neobundle#tap('vim-quickhl')
     xmap { <Plug>(quickhl-manual-this)
     nmap } <Plug>(quickhl-manual-reset)
     xmap } <Plug>(quickhl-manual-reset)
+    " }}}
+
+endif
+" }}}
+
+" === terryma/vim-multiple-cursors ======================================================================= {{{
+if neobundle#tap('vim-multiple-cursors')
+
+    " key_mappings {{{
+    nnoremap [plugin]mc :<C-u>MultipleCursorsFind 
     " }}}
 
 endif
