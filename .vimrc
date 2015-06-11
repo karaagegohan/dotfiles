@@ -19,19 +19,35 @@ function! s:My_mkdir(name) abort
 endfunction
 
 function! s:transparancy_up()
-    if &transparency + 2 < 100
-        set transparency+=2
-    else
-        set transparency =100
+    if s:is_windows
+        if &transparency - 5 > 1
+            set transparency-=5
+        else
+            set transparency =1
+        endif
+    else 
+        if &transparency + 2 < 100
+            set transparency+=2
+        else
+            set transparency =100
+        endif
     endif
 endfunction 
 command! MyTransparancyUp call s:transparancy_up()
 
 function! s:transparancy_down()
-    if &transparency - 2 > 0
-        set transparency-=2
+    if s:is_windows
+        if &transparency + 5 < 255
+            set transparency+=5
+        else
+            set transparency =255
+        endif
     else
-        set transparency =0
+        if &transparency - 2 > 0
+            set transparency-=2
+        else
+            set transparency =0
+        endif
     endif
 endfunction 
 command! MyTransparancyDown call s:transparancy_down()
@@ -130,13 +146,9 @@ cnoremap <C-p>              <UP>
 nnoremap z                  za
 
 " View
-if !s:is_windows
-    if !s:is_terminal
-        nnoremap <silent><          :<C-u>MyTransparancyDown<CR>
-        nnoremap <silent>>          :<C-u>MyTransparancyUp<CR>
-    endif
-else
-    " TODO
+if !s:is_terminal
+    nnoremap <silent><          :<C-u>MyTransparancyDown<CR>
+    nnoremap <silent>>          :<C-u>MyTransparancyUp<CR>
 endif
 
 " handy
