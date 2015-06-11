@@ -5,13 +5,13 @@ if has('vim_starting')
     " window {{{
     set columns    =999   " width of window
     set lines      =999   " height of window
-    if has('gui_running')
-        set fuoptions=maxvert,maxhorz
-        augroup vim_window
-            autocmd!
-            " autocmd GUIEnter * set fullscreen 
-        augroup END
-    endif
+    " if has('gui_running')
+    "     set fuoptions=maxvert,maxhorz
+    "     augroup vim_window
+    "         autocmd!
+    "         " autocmd GUIEnter * set fullscreen 
+    "     augroup END
+    " endif
     " }}}
 
     " font {{{

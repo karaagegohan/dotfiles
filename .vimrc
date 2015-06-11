@@ -21,6 +21,8 @@ endfunction
 function! s:transparancy_up()
     if &transparency + 2 < 100
         set transparency+=2
+    else
+        set transparency =100
     endif
 endfunction 
 command! MyTransparancyUp call s:transparancy_up()
@@ -28,6 +30,8 @@ command! MyTransparancyUp call s:transparancy_up()
 function! s:transparancy_down()
     if &transparency - 2 > 0
         set transparency-=2
+    else
+        set transparency =0
     endif
 endfunction 
 command! MyTransparancyDown call s:transparancy_down()
