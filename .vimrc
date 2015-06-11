@@ -32,6 +32,13 @@ function! s:transparancy_down()
 endfunction 
 command! MyTransparancyDown call s:transparancy_down()
 
+function! s:fullscreen()
+    if !s:is_terminal
+        set fullscreen!
+    endif
+endfunction
+command! MyFullscreen call s:fullscreen()
+
 " }}}
 
 " === key_mappings ======================================================================================= {{{
@@ -104,7 +111,7 @@ nnoremap <C-k>              <C-w>k
 nnoremap <C-l>              <C-w>l
 nnoremap <silent>[func]n    :<C-u>split<CR>
 nnoremap <silent>[func]v    :<C-u>vsplit<CR>
-nnoremap <silent>[func]fs   :<C-u>set fullscreen!<CR>
+nnoremap <silent>[func]fs   :<C-u>MyFullscreen<CR>
 
 " tab
 nnoremap <TAB>              gt
@@ -207,6 +214,9 @@ NeoBundle 't9md/vim-quickhl'                   " Highlight any words
 NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
 NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
+NeoBundle 'rking/ag.vim'                       " Use ag command in vim
+NeoBundle 'matchit.vim'                        " expand function of %
+NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline 
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
