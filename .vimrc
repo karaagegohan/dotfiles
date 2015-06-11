@@ -273,6 +273,12 @@ NeoBundleLazy 'moznion/java_getset.vim', { 'autoload': { 'filetypes': ['java'] }
 " Swift 
 NeoBundleLazy 'keith/swift.vim', { 'autoload' : { 'filetypes' : ['swift'] } }
 
+" C#
+NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] }, 'build': { 'windows' : 'msbuild server/OmniSharp.sln', 'mac': 'xbuild server/OmniSharp.sln', 'unix': 'xbuild server/OmniSharp.sln', }, } 
+NeoBundleLazy 'tpope/vim-dispatch', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
+NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
+
+
 " colorscheme 
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
@@ -296,15 +302,14 @@ filetype plugin indent on
 if neobundle#tap('neocomplete.vim')
 
     let g:acp_enableAtStartup                           = 1         " Disable AutoComplPop.
-    let g:neocomplete#auto_completion_start_length      = 2
     let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
     let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
     let g:neocomplete#enable_camel_case                 = 1         " Use camelcase.
     let g:neocomplete#enable_fuzzy_completion           = 1         " Use fuzzy completion.
     let g:neocomplete#use_vimproc                       = 1
     let g:neocomplete#lock_iminsert                     = 0         " 
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
-    let g:neocomplete#skip_auto_completion_time         = ''
 
     " Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
@@ -814,6 +819,14 @@ if neobundle#tap('vim-multiple-cursors')
     " key_mappings {{{
     nnoremap [plugin]mc :<C-u>MultipleCursorsFind 
     " }}}
+
+endif
+" }}}
+
+" === OmniSharp/omnisharp-vim ======================================================================= {{{
+if neobundle#tap('omnisharp-vim')
+
+    let g:OmniSharp_selector_ui = 'unite'  " Use unite.vim
 
 endif
 " }}}
