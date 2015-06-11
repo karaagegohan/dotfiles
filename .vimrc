@@ -215,7 +215,6 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
 NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
 NeoBundle 'rking/ag.vim'                       " Use ag command in vim
-NeoBundleLazy 'matchit.vim'                        " expand function of %
 NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline 
 
 " Textobject
@@ -371,6 +370,7 @@ if neobundle#tap('unite.vim')
 
     nnoremap [unite]u  :<C-u>Unite<CR>
     nnoremap [unite]hy :<C-u>Unite history/yank<CR>
+    nnoremap [unite]he :<C-u>Unite help<CR>
     nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
     nnoremap [unite]b  :<C-u>Unite buffer<CR>
     nnoremap [unite]r  :<C-u>Unite -buffer-name=register register<CR>
