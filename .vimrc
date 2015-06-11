@@ -215,7 +215,6 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
 NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
 NeoBundle 'rking/ag.vim'                       " Use ag command in vim
-NeoBundle 'matchit.vim'                        " expand function of %
 NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline 
 
 " Textobject
