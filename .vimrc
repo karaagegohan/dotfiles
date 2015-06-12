@@ -269,7 +269,7 @@ NeoBundleLazy 'LeafCage/unite-webcolorname', { 'autoload' : { 'unite_source' : [
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
-NeoBundle 'tpope/vim-surround'           " Surround te(23/70): |switch.vim| Updatedxt obj with any word
+NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
 NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
 " Java 
@@ -282,7 +282,12 @@ NeoBundleLazy 'keith/swift.vim', { 'autoload' : { 'filetypes' : ['swift'] } }
 " C#
 NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] }, 'build': { 'windows' : 'msbuild server/OmniSharp.sln', 'mac': 'xbuild server/OmniSharp.sln', 'unix': 'xbuild server/OmniSharp.sln', }, } 
 NeoBundleLazy 'tpope/vim-dispatch', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
-NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
+NeoBundle 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
+
+" Twitter
+NeoBundleDisable 'basyura/TweetVim'
+NeoBundleDisable 'basyura/bitly.vim'
+NeoBundleDisable 'basyura/twibill.vim'
 
 " colorscheme 
 NeoBundle 'w0ng/vim-hybrid'
@@ -293,7 +298,7 @@ NeoBundle 'morhetz/gruvbox'
 " dictionary
 NeoBundle 'mattn/webapi-vim'
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
-NeoBundle 'https://github.com/ujihisa/neco-look.git'
+NeoBundle 'ujihisa/neco-look.git'
 
 call neobundle#end()
 
@@ -795,6 +800,7 @@ endif
 if neobundle#tap('vim-fontzoom')
 
     " key_mappings {{{
+    nnoremap - <Nop>
     nmap + <Plug>(fontzoom-larger)
     nmap _ <Plug>(fontzoom-smaller)
     " }}}
@@ -805,8 +811,10 @@ endif
 " === AndrewRadev/switch.vim ============================================================================= {{{
 if neobundle#tap('switch.vim')
 
+    let g:switch_custom_definitions = [ ['NeoBundle', 'NeoBundleDisable'] ]
+
     " key_mappings {{{
-    nnoremap <silent>" :<C-u>Switch<CR>
+    nnoremap <silent>- :<C-u>Switch<CR>
     " }}}
 
 endif
@@ -909,6 +917,12 @@ if neobundle#tap('vim-over')
     " key_mappings {{{
     nnoremap [func]s :<C-u>OverCommandLine<CR>%s/
     " }}}
+
+endif
+" }}}
+
+" === basyura/TweetVim ================================================================================ {{{
+if neobundle#tap('TweetVim')
 
 endif
 " }}}
