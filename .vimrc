@@ -841,7 +841,7 @@ endif
 " }}}
 
 " === gregsexton/VimCalc ================================================================================= {{{
-if neobundle#tap('omnisharp-vim')
+if neobundle#tap('VimCalc ')
 
     " key_mappings {{{
     nnoremap [plugin]ca :<C-u>Calc<CR>
