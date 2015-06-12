@@ -235,7 +235,7 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
-NeoBundleLazy 'kana/vim-gf-user'               " Expand gf function
+NeoBundle 'kana/vim-gf-user'                   " Expand gf function
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -849,7 +849,19 @@ if neobundle#tap('VimCalc')
 
     augroup keymapping_VimCalc
         autocmd!
-        autocmd FileType vimcalc inoremap <silent><C-c> <ESC>:<C-u>quit<CR>
+        autocmd FileType vimcalc inoremap <buffer><silent><C-c> <ESC>:<C-u>quit<CR>
+        " autocmd FileType vimcalc inoremap <buffer><silent>N 0
+        " autocmd FileType vimcalc inoremap <buffer><silent>M 1
+        " autocmd FileType vimcalc inoremap <buffer><silent>< 2
+        " autocmd FileType vimcalc inoremap <buffer><silent>> 3
+        " autocmd FileType vimcalc inoremap <buffer><silent>J 4
+        " autocmd FileType vimcalc inoremap <buffer><silent>K 5
+        " autocmd FileType vimcalc inoremap <buffer><silent>L 6
+        " autocmd FileType vimcalc inoremap <buffer><silent>U 7
+        " autocmd FileType vimcalc inoremap <buffer><silent>I 8
+        " autocmd FileType vimcalc inoremap <buffer><silent>O 9
+        " autocmd FileType vimcalc inoremap <buffer><silent>_ -
+        " autocmd FileType vimcalc inoremap <buffer><silent>& /
     augroup END
 
     " }}}
