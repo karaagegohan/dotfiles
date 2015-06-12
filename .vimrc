@@ -278,7 +278,6 @@ NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'c
 NeoBundleLazy 'tpope/vim-dispatch', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 
-
 " colorscheme 
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
@@ -308,7 +307,7 @@ if neobundle#tap('neocomplete.vim')
     let g:neocomplete#enable_fuzzy_completion           = 1         " Use fuzzy completion.
     let g:neocomplete#use_vimproc                       = 1
     let g:neocomplete#lock_iminsert                     = 0         " 
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#sources#syntax#min_keyword_length = 1
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
 
     " Define dictionary.
@@ -350,7 +349,15 @@ endif
 " === Shougo/neocomplcache.vim =========================================================================== {{{
 if neobundle#tap('neocomplcache.vim')
 
-    " TODO
+    let g:neocomplcache_enable_at_startup = 1
+    let g:neocomplcache_enable_ignore_case = 1
+    let g:neocomplcache_enable_smart_case = 1
+    if !exists('g:neocomplcache_keyword_patterns')
+        let g:neocomplcache_keyword_patterns = {}
+    endif
+    let g:neocomplcache_keyword_patterns._ = '\h\w*'
+    let g:neocomplcache_enable_camel_case_completion = 1
+    let g:neocomplcache_enable_underbar_completion = 1
 
 endif
 " }}}
@@ -426,7 +433,7 @@ if neobundle#tap('vimfiler.vim')
 
     nnoremap [filer]  :<C-u>VimFiler<CR>
     " }}}
-   
+
 endif
 " }}}
 
