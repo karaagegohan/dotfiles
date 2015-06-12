@@ -227,11 +227,14 @@ NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'                " Change font size
 NeoBundle 'AndrewRadev/switch.vim'             " Switch segments
 NeoBundle 't9md/vim-quickhl'                   " Highlight any words
-NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
 NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
 NeoBundle 'rking/ag.vim'                       " Use ag command in vim
 NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline 
+NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
+NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
+NeoBundle 'open-browser.vim( 6/70): |unite.vim| Updated'
+
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -263,7 +266,7 @@ NeoBundleLazy 'LeafCage/unite-webcolorname', { 'autoload' : { 'unite_source' : [
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
-NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
+NeoBundle 'tpope/vim-surround'           " Surround te(23/70): |switch.vim| Updatedxt obj with any word
 NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
 " Java 
@@ -288,7 +291,6 @@ NeoBundle 'morhetz/gruvbox'
 NeoBundle 'mattn/webapi-vim'
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
 NeoBundle 'https://github.com/ujihisa/neco-look.git'
-
 
 call neobundle#end()
 
