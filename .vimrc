@@ -234,7 +234,7 @@ NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline
 NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'
-
+NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -832,10 +832,26 @@ if neobundle#tap('vim-multiple-cursors')
 endif
 " }}}
 
-" === OmniSharp/omnisharp-vim ======================================================================= {{{
+" === OmniSharp/omnisharp-vim ============================================================================ {{{
 if neobundle#tap('omnisharp-vim')
 
     let g:OmniSharp_selector_ui = 'unite'  " Use unite.vim
+
+endif
+" }}}
+
+" === gregsexton/VimCalc ================================================================================= {{{
+if neobundle#tap('omnisharp-vim')
+
+    " key_mappings {{{
+    nnoremap [plugin]ca :<C-u>Calc<CR>
+
+    augroup keymapping_VimCalc
+        autocmd!
+        autocmd FileType vimcalc inoremap <silent><C-c> <ESC>:<C-u>quit<CR>
+    augroup END
+
+    " }}}
 
 endif
 " }}}
