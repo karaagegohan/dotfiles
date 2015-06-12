@@ -235,7 +235,7 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
-NeoBundle 'kana/vim-gf-user'                   " Expand gf function
+NeoBundleLazy 'kana/vim-gf-user'               " Expand gf function
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
