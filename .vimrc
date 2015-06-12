@@ -236,6 +236,8 @@ NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
 NeoBundle 'kana/vim-gf-user'                   " Expand gf function
+NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit search
+NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -889,6 +891,24 @@ if neobundle#tap('vim-gf-user')
             \ }
     endfunction
     call gf#user#extend('GfFile', 1000)
+
+endif
+" }}}
+
+" === osyo-manga/vim-anzu ================================================================================ {{{
+if neobundle#tap('vim-anzu')
+
+    let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
+
+endif
+" }}}
+
+" === osyo-manga/vim-over ================================================================================ {{{
+if neobundle#tap('vim-over')
+
+    " key_mappings {{{
+    nnoremap [func]s :<C-u>OverCommandLine<CR>%s/
+    " }}}
 
 endif
 " }}}
