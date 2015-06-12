@@ -233,7 +233,7 @@ NeoBundle 'rking/ag.vim'                       " Use ag command in vim
 NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline 
 NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
-NeoBundle 'open-browser.vim'
+NeoBundle 'tyru/open-browser.vim'
 
 
 " Textobject
