@@ -55,7 +55,7 @@ set mousehide
 
 " window settings
 set guioptions =         " disable GUI options
-set cmdheight  =1        " height of commandline
+set cmdheight  =2        " height of commandline
 
 " colorscheme
 colorscheme jellybeans   " colorsheme
