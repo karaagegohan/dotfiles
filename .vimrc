@@ -235,6 +235,7 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
+NeoBundle 'kana/vim-gf-user'                   " Expand gf function
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -841,7 +842,7 @@ endif
 " }}}
 
 " === gregsexton/VimCalc ================================================================================= {{{
-if neobundle#tap('VimCalc ')
+if neobundle#tap('VimCalc')
 
     " key_mappings {{{
     nnoremap [plugin]ca :<C-u>Calc<CR>
@@ -852,6 +853,30 @@ if neobundle#tap('VimCalc ')
     augroup END
 
     " }}}
+
+endif
+" }}}
+
+" === kana/vim-gf-user =================================================================================== {{{
+if neobundle#tap('vim-gf-user')
+
+    function! GfFile()
+        let path = expand('<cfile>')
+        let line = 0
+        if path =~# ':\d\+:\?$'
+            let line = matchstr(path, '\d\+:\?$')
+            let path = matchstr(path, '.*\ze:\d\+:\?$')
+        endif
+        if !filereadable(path)
+            return 0
+        endif
+        return {
+            \   'path': path,
+            \   'line': line,
+            \   'col': 0,
+            \ }
+    endfunction
+    call gf#user#extend('GfFile', 1000)
 
 endif
 " }}}
