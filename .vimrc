@@ -235,7 +235,6 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
-NeoBundle 'kana/vim-gf-user'                   " Expand gf function
 NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit search
 NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 
@@ -282,12 +281,12 @@ NeoBundleLazy 'keith/swift.vim', { 'autoload' : { 'filetypes' : ['swift'] } }
 " C#
 NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] }, 'build': { 'windows' : 'msbuild server/OmniSharp.sln', 'mac': 'xbuild server/OmniSharp.sln', 'unix': 'xbuild server/OmniSharp.sln', }, } 
 NeoBundleLazy 'tpope/vim-dispatch', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
-NeoBundle 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
+NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 
 " Twitter
-NeoBundleDisable 'basyura/TweetVim'
-NeoBundleDisable 'basyura/bitly.vim'
-NeoBundleDisable 'basyura/twibill.vim'
+NeoBundleLazy 'basyura/TweetVim'
+NeoBundleLazy 'basyura/bitly.vim'
+NeoBundleLazy 'basyura/twibill.vim'
 
 " colorscheme 
 NeoBundle 'w0ng/vim-hybrid'
@@ -298,7 +297,10 @@ NeoBundle 'morhetz/gruvbox'
 " dictionary
 NeoBundle 'mattn/webapi-vim'
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
-NeoBundle 'ujihisa/neco-look.git'
+NeoBundleLazy 'ujihisa/neco-look.git'
+
+" iTunes
+NeoBundleLazy 'VimItunes.vim'
 
 call neobundle#end()
 
@@ -811,7 +813,7 @@ endif
 " === AndrewRadev/switch.vim ============================================================================= {{{
 if neobundle#tap('switch.vim')
 
-    let g:switch_custom_definitions = [ ['NeoBundle', 'NeoBundleDisable'] ]
+    let g:switch_custom_definitions = [ ['NeoBundle', 'NeoBundleLazy'] ]
 
     " key_mappings {{{
     nnoremap <silent>- :<C-u>Switch<CR>
@@ -875,30 +877,6 @@ if neobundle#tap('VimCalc')
     augroup END
 
     " }}}
-
-endif
-" }}}
-
-" === kana/vim-gf-user =================================================================================== {{{
-if neobundle#tap('vim-gf-user')
-
-    function! GfFile()
-        let path = expand('<cfile>')
-        let line = 0
-        if path =~# ':\d\+:\?$'
-            let line = matchstr(path, '\d\+:\?$')
-            let path = matchstr(path, '.*\ze:\d\+:\?$')
-        endif
-        if !filereadable(path)
-            return 0
-        endif
-        return {
-            \   'path': path,
-            \   'line': line,
-            \   'col': 0,
-            \ }
-    endfunction
-    call gf#user#extend('GfFile', 1000)
 
 endif
 " }}}
