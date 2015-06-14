@@ -205,8 +205,7 @@ NeoBundleLazy 'Shougo/neosnippet', { 'autoload' : { 'insert' : 1 } }
 NeoBundleLazy 'Shougo/neosnippet-snippets', { 'autoload' : { 'insert' : 1 }, 'depends' : ['Shougo/neosnippet'] }
 NeoBundleLazy 'karaagegohan/my-snippets', { 'autoload' : { 'insert' : 1 }, 'depends' : ['Shougo/neosnippet'] }
 
-NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
-
+NeoBundle 'Shougo/vimshell.vim'                " Use shell
 NeoBundle 'kana/vim-smartchr'                  " Insert several candidates with a single key
 NeoBundle 'itchyny/lightline.vim'              " Color command line
 NeoBundle 'cohama/vim-hier'                    " Hilight quickfix errors
@@ -237,6 +236,7 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
 NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit search
 NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
+NeoBundle 'mbbill/undotree'                    " Make undo tree
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -420,6 +420,7 @@ if neobundle#tap('unite.vim')
     nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
     nnoremap [unite]pt :<C-u>Unite -auto-preview transparency<CR>
     nnoremap [unite]yr :<C-u>Unite yankround<CR>
+    nnoremap [unite]n :<C-u>Unite neobundle<CR>
     " }}}
 
 endif
@@ -610,6 +611,7 @@ if neobundle#tap('qfixhowm')
     " prefix
     nnoremap [hown]      <Nop>
     nmap     [plugin]h   [hown]
+
     nmap     [hown]l     g,m
     nmap     [hown]c     g,c
     nmap     [hown]q     g,q
@@ -665,6 +667,7 @@ if neobundle#tap('java_getset.vim')
         " prefix
         nnoremap [getset]  <Nop>
         nmap     [plugin]j [getset]
+
         nmap     <buffer>[getset]g <Plug>JavagetsetInsertGetterOnly
         nmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
         nmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
@@ -688,7 +691,8 @@ if neobundle#tap('syntastic.git')
     " prefix
     nnoremap [syantax]  <Nop>
     nmap     [plugin]c [syantax]
-    nmap     <buffer>[syantax] :SyntaasticCHack
+
+    nmap     <buffer>[syantax] :SyntaasticCheck
     " }}}
 
 endif
@@ -884,7 +888,7 @@ endif
 " === osyo-manga/vim-anzu ================================================================================ {{{
 if neobundle#tap('vim-anzu')
 
-    let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
+    let g:anzu_aenable_CursorMoved_AnzuUpdateSearchStatus = 1
 
 endif
 " }}}
@@ -899,8 +903,32 @@ if neobundle#tap('vim-over')
 endif
 " }}}
 
-" === basyura/TweetVim ================================================================================ {{{
+" === basyura/TweetVim =================================================================================== {{{
 if neobundle#tap('TweetVim')
+
+endif
+" }}}
+
+" === mbbill/undotree =================================================================================== {{{
+if neobundle#tap('undotree')
+
+    let g:undotree_SetFocusWhenToggle   = 1
+    let g:undotree_SplitLocation        = 'topleft'
+    let g:undotree_SplitWidth           = 35
+    let g:undotree_diffAutoOpen         = 1
+    let g:undotree_diffpanelHeight      = 25
+    let g:undotree_RelativeTimestamp    = 1
+    let g:undotree_TreeNodeShape        = '*'
+    let g:undotree_HighlightChangedText = 1
+    let g:undotree_HighlightSyntax      = "UnderLined"
+
+    " key_mappings {{{
+    " prefix
+    nnoremap [undotr]   <Nop>
+    nmap     [plugin]U [undotr]
+
+    nnoremap [undotr]  :<C-u>UndotreeToggle<CR>
+    " }}}
 
 endif
 " }}}
@@ -944,6 +972,7 @@ set pumheight     =40         " Height of popup
 set t_vb=                     " Visual bell of terminal
 set visualbell                " Show visualbell
 set noerrorbells              " Diable error bell
+set imdisable
 
 " indent
 set backspace          =indent,eol,start   " More powerful backspacing
