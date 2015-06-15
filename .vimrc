@@ -10,6 +10,7 @@ endif
 
 let s:is_terminal = !has('gui_running')
 let s:is_windows  = has('win16') || has('win32') || has('win64')
+let s:is_mac      = !s:is_windows
 let s:is_cygwin   = has('win32unix')
 
 function! s:My_mkdir(name) abort
@@ -54,7 +55,12 @@ command! MyTransparancyDown call s:transparancy_down()
 
 function! s:fullscreen()
     if !s:is_terminal
-        set fullscreen!
+        if s:is_mac
+            set fullscreen!
+        else
+            set columns =999
+            set lines   =999
+        endif
     endif
 endfunction
 command! MyFullscreen call s:fullscreen()
@@ -205,7 +211,7 @@ NeoBundleLazy 'Shougo/neosnippet', { 'autoload' : { 'insert' : 1 } }
 NeoBundleLazy 'Shougo/neosnippet-snippets', { 'autoload' : { 'insert' : 1 }, 'depends' : ['Shougo/neosnippet'] }
 NeoBundleLazy 'karaagegohan/my-snippets', { 'autoload' : { 'insert' : 1 }, 'depends' : ['Shougo/neosnippet'] }
 
-NeoBundleLazy 'Shougo/vimshell.vim', { 'depends' : [ 'Shougo/vimproc.vim' ] }
+NeoBundle 'Shougo/vimshell.vim'
 
 NeoBundle 'kana/vim-smartchr'                  " Insert several candidates with a single key
 NeoBundle 'itchyny/lightline.vim'              " Color command line
@@ -233,10 +239,11 @@ NeoBundle 'rking/ag.vim'                       " Use ag command in vim
 NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline 
 NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
-NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'tyru/open-browser.vim'              " Make opening beowser easier
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
 NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit search
 NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
+NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -293,6 +300,7 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'morhetz/gruvbox'
+NeoBundle 'buttercream.vim'
 
 " dictionary
 NeoBundle 'mattn/webapi-vim'
@@ -312,7 +320,7 @@ filetype plugin indent on
 " === Shougo/neocomplete.vim ============================================================================= {{{
 if neobundle#tap('neocomplete.vim')
 
-    let g:acp_enableAtStartup                           = 1         " Disable AutoComplPop.
+    let g:acp_enableAtStartup                           = 0         " Disable AutoComplPop.
     let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
     let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
     let g:neocomplete#enable_camel_case                 = 1         " Use camelcase.
@@ -590,11 +598,19 @@ endif
 if neobundle#tap('qfixhowm')
 
     if isdirectory(expand('~/Google\ Drive'))
-        if !isdirectory(expand('~/Google\ Drive/Memo'))
-            call mkdir('~/Google\ Drive/Memo', 'p')
+        if s:is_windows
+            if !isdirectory(expand('~/Google\ Drive/Memo'))
+                call mkdir('~/Google\ Drive/Memo', 'p')
+            endif
+            let howm_dir                   = '~/Google\ Drive/Memo'              " directory
+            let QFixMRU_Filename           = '~/Google\ Drive/Memo/.qfixmru'     " MRU file
+        else
+            if !isdirectory(expand('~/Google\ Drive/Memo'))
+                call mkdir('~/Google\ Drive/Memo', 'p')
+            endif
+            let howm_dir                   = '~/Google\ Drive/Memo'              " directory
+            let QFixMRU_Filename           = '~/Google\ Drive/Memo/.qfixmru'     " MRU file
         endif
-        let howm_dir                   = '~/Google\ Drive/Memo'              " directory
-        let QFixMRU_Filename           = '~/Google\ Drive/Memo/.qfixmru'     " MRU file
     endif
 
     let QFixHowmQFixHowm_Key_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.txt'   " filename of diary
@@ -610,8 +626,9 @@ if neobundle#tap('qfixhowm')
     " prefix
     nnoremap [hown]      <Nop>
     nmap     [plugin]h   [hown]
+
     nmap     [hown]l     g,m
-    nmap     [hown]c     g,c
+    nmap     [hown]n     g,c
     nmap     [hown]q     g,q
     nmap     [hown],     g,,
     " }}}
@@ -802,7 +819,9 @@ endif
 if neobundle#tap('vim-fontzoom')
 
     " key_mappings {{{
+    nnoremap + <Nop>
     nnoremap - <Nop>
+
     nmap + <Plug>(fontzoom-larger)
     nmap _ <Plug>(fontzoom-smaller)
     " }}}
@@ -901,6 +920,21 @@ endif
 
 " === basyura/TweetVim ================================================================================ {{{
 if neobundle#tap('TweetVim')
+
+endif
+" }}}
+
+" === Shougo/vinarise.vim ================================================================================ {{{
+if neobundle#tap('vinarise.vim')
+
+    " key_mappings {{{
+    " prefixes
+    nmap [vinarise] <Nop>
+    nmap [plugin]v  [vinarise]
+
+    nnoremap [vinarise]v :<C-u>Vinarise<CR>
+    nnoremap [vinarise]b :<C-u>VinarisePluginBitmapView<CR>
+    " }}}
 
 endif
 " }}}
