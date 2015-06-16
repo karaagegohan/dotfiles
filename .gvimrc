@@ -16,14 +16,14 @@ if has('vim_starting')
 
     " font {{{
     if has('win32')
-        set guifont        =Inconsolata:h14:cANSI
-        set guifontwide    =Ricty_Diminished:h14:cSHIFTJIS
+        set guifont        =Inconsolata:h12:cANSI
+        set guifontwide    =Ricty_Diminished:h12:cSHIFTJIS
         set linespace      =1
         if has('kaoriya')
             set ambiwidth  =auto
         endif
     elseif has('mac')
-        set guifont        =Osaka-Mono:h16
+        set guifont        =Osaka-Mono:h12
     elseif has('xfontset')
         set guifontset     =a14,r14,k14
     endif
