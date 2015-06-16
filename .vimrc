@@ -243,6 +243,7 @@ NeoBundle 'tyru/open-browser.vim'              " Make opening beowser easier
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
 NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit search
 NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
+NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
 
 " Textobject
@@ -935,6 +936,30 @@ if neobundle#tap('vinarise.vim')
 
     nnoremap [vinarise]v :<C-u>Vinarise<CR>
     nnoremap [vinarise]b :<C-u>VinarisePluginBitmapView<CR>
+    " }}}
+
+endif
+" }}}
+
+" === mbbill/undotree =================================================================================== {{{
+if neobundle#tap('undotree')
+
+    let g:undotree_SetFocusWhenToggle   = 1
+    let g:undotree_SplitLocation        = 'topleft'
+    let g:undotree_SplitWidth           = 35
+    let g:undotree_diffAutoOpen         = 1
+    let g:undotree_diffpanelHeight      = 25
+    let g:undotree_RelativeTimestamp    = 1
+    let g:undotree_TreeNodeShape        = '*'
+    let g:undotree_HighlightChangedText = 1
+    let g:undotree_HighlightSyntax      = "UnderLined"
+
+    " key_mappings {{{
+    " prefix
+    nnoremap [undotr]   <Nop>
+    nmap     [plugin]U [undotr]
+
+    nnoremap [undotr]  :<C-u>UndotreeToggle<CR>
     " }}}
 
 endif
