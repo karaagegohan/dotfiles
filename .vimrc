@@ -920,7 +920,7 @@ if neobundle#tap('vim-over')
 endif
 " }}}
 
-" === basyura/TweetVim ================================================================================ {{{
+" === basyura/TweetVim =================================================================================== {{{
 if neobundle#tap('TweetVim')
 
 endif
@@ -941,7 +941,7 @@ if neobundle#tap('vinarise.vim')
 endif
 " }}}
 
-" === mbbill/undotree =================================================================================== {{{
+" === mbbill/undotree ==================================================================================== {{{
 if neobundle#tap('undotree')
 
     let g:undotree_SetFocusWhenToggle   = 1
