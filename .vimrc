@@ -945,7 +945,7 @@ endif
 if neobundle#tap('undotree')
 
     let g:undotree_SetFocusWhenToggle   = 1
-    let g:undotree_SplitLocation        = 'topleft'
+    let g:undotree_WindowLayout         = 'topleft'
     let g:undotree_SplitWidth           = 35
     let g:undotree_diffAutoOpen         = 1
     let g:undotree_diffpanelHeight      = 25
