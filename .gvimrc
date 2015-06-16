@@ -16,8 +16,8 @@ if has('vim_starting')
 
     " font {{{
     if has('win32')
-        set guifont        =Inconsolata:h10:cANSI
-        set guifontwide    =Ricty_Diminished:h10:cSHIFTJIS
+        set guifont        =Inconsolata:h14:cANSI
+        set guifontwide    =Ricty_Diminished:h14:cSHIFTJIS
         set linespace      =1
         if has('kaoriya')
             set ambiwidth  =auto

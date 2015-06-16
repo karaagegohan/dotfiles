@@ -305,7 +305,7 @@ NeoBundle 'buttercream.vim'
 " dictionary
 NeoBundle 'mattn/webapi-vim'
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
-NeoBundleLazy 'ujihisa/neco-look.git'
+NeoBundle 'ujihisa/neco-look'
 
 " iTunes
 NeoBundleLazy 'VimItunes.vim'
@@ -428,6 +428,7 @@ if neobundle#tap('unite.vim')
     nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
     nnoremap [unite]pt :<C-u>Unite -auto-preview transparency<CR>
     nnoremap [unite]yr :<C-u>Unite yankround<CR>
+    nnoremap [unite]nb :<C-u>Unite neobundle<CR>
     " }}}
 
 endif
