@@ -245,6 +245,7 @@ NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit sear
 NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
+NeoBundle 'kana/vim-submode'                   " Use submode
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -965,6 +966,21 @@ if neobundle#tap('undotree')
 endif
 " }}}
 
+" === kana/vim-submode ==================================================================================== {{{
+if neobundle#tap('vim-submode')
+
+    call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+    call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+    call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
+    call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
+    call submode#map('winsize', 'n', '', '>', '<C-w>>')
+    call submode#map('winsize', 'n', '', '<', '<C-w><')
+    call submode#map('winsize', 'n', '', '+', '<C-w>-')
+    call submode#map('winsize', 'n', '', '-', '<C-w>+')
+
+endif
+" }}}
+
 " === base settings ====================================================================================== {{{
 
 " modeline
@@ -1033,6 +1049,7 @@ set foldcolumn  =0        " Width of folding guide
 set foldmethod  =marker   " Folding by {{{.}}}
 
 " directories
+cd ~
 call s:My_mkdir('~/.vimfiles')
 set browsedir  =current       " Directiry to save editing files
 set backup                    " Make backup file
