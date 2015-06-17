@@ -246,6 +246,7 @@ NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
 NeoBundle 'kana/vim-submode'                   " Use submode
+NeoBundle 'thinca/vim-qfreplace'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -288,7 +289,7 @@ NeoBundleLazy 'moznion/java_getset.vim', { 'autoload': { 'filetypes': ['java'] }
 NeoBundleLazy 'keith/swift.vim', { 'autoload' : { 'filetypes' : ['swift'] } }
 
 " C#
-NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] }, 'build': { 'windows' : 'msbuild server/OmniSharp.sln', 'mac': 'xbuild server/OmniSharp.sln', 'unix': 'xbuild server/OmniSharp.sln', }, } 
+NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] }, 'build': { 'mac': 'xbuild server/OmniSharp.sln', 'unix': 'xbuild server/OmniSharp.sln', }, } 
 NeoBundleLazy 'tpope/vim-dispatch', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 
@@ -322,13 +323,12 @@ filetype plugin indent on
 " === Shougo/neocomplete.vim ============================================================================= {{{
 if neobundle#tap('neocomplete.vim')
 
-    let g:acp_enableAtStartup                           = 0         " Disable AutoComplPop.
     let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
     let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
     let g:neocomplete#enable_camel_case                 = 1         " Use camelcase.
     let g:neocomplete#enable_fuzzy_completion           = 1         " Use fuzzy completion.
     let g:neocomplete#use_vimproc                       = 1
-    let g:neocomplete#lock_iminsert                     = 0         " 
+    let g:neocomplete#lock_iminsert                     = 1         " 
     let g:neocomplete#sources#syntax#min_keyword_length = 1
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
 
@@ -353,6 +353,7 @@ if neobundle#tap('neocomplete.vim')
         autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
         autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
         autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+        autocmd FileType cs            setlocal omnifunc=OmniSharp#Complete
     augroup END
 
     let g:neocomplete#force_overwrite_completefunc=1
@@ -364,7 +365,7 @@ if neobundle#tap('neocomplete.vim')
     let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplete#sources#omni#input_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
     let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
+    let g:neocomplete#sources#omni#input_patterns.cs  = '.*[^=\);]'
 endif
 " }}}
 
@@ -708,7 +709,7 @@ if neobundle#tap('syntastic.git')
     " prefix
     nnoremap [syantax]  <Nop>
     nmap     [plugin]c [syantax]
-    nmap     <buffer>[syantax] :SyntaasticCHack
+    nmap     <buffer>[syantax] :<C-u>SyntasticCheck<CR>
     " }}}
 
 endif
@@ -767,8 +768,8 @@ if neobundle#tap('tcomment_vim')
 endif
 " }}}
 
-" === tpope/vim-repeat =================================================================================== {{{
-if neobundle#tap('vim-repeat')
+" === kana/vim-operator-replace ========================================================================== {{{
+if neobundle#tap('vim-operator-replace')
 
     " key_mappings {{{
     nmap s <Plug>(operator-replace)
@@ -966,9 +967,10 @@ if neobundle#tap('undotree')
 endif
 " }}}
 
-" === kana/vim-submode ==================================================================================== {{{
+" === kana/vim-submode =================================================================================== {{{
 if neobundle#tap('vim-submode')
 
+    " winsize mode
     call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
     call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
     call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
