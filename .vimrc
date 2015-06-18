@@ -247,6 +247,9 @@ NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
 NeoBundle 'kana/vim-submode'                   " Use submode
 NeoBundle 'thinca/vim-qfreplace'
+NeoBundle 'yuratomo/w3m.vim'                   " Browsing
+NeoBundle 'thinca/vim-ref'                     " Reference
+NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -329,7 +332,7 @@ if neobundle#tap('neocomplete.vim')
     let g:neocomplete#enable_fuzzy_completion           = 1         " Use fuzzy completion.
     let g:neocomplete#use_vimproc                       = 1
     let g:neocomplete#lock_iminsert                     = 1         " 
-    let g:neocomplete#sources#syntax#min_keyword_length = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
 
     " Define dictionary.
@@ -401,6 +404,36 @@ if neobundle#tap('neosnippet')
     imap <C-k> <Plug>(neosnippet_expand_or_jump)
     smap <C-k> <Plug>(neosnippet_expand_or_jump)
     xmap <C-k> <Plug>(neosnippet_expand_target)
+    " }}}
+
+endif
+" }}}
+
+" === OmniSharp/omnisharp-vim ============================================================================ {{{
+if neobundle#tap('omnisharp-vim')
+
+    " key_mappings {{{
+    augroup vim_km_omnisharp
+        autocmd!
+        autocmd Filetype cs call s:km_omnisharp()
+    augroup END
+
+    function! s:km_omnisharp()
+        " prefix
+        nnoremap [omnisharp] <Nop>
+        nmap     [plugin]o   [omnisharp]
+
+        nnoremap <silent><buffer>[omnisharp]a :<C-u>OmniSharpAddToProject<CR>
+        nnoremap <silent><buffer>[omnisharp]b :<C-u>OmniSharpBuild<CR>
+        nnoremap <silent><buffer>[omnisharp]e :<C-u>OmniSharpFindSyntaxErrors<CR>
+        nnoremap <silent><buffer>[omnisharp]c :<C-u>OmniSharpCodeFormat<CR>
+        nnoremap <silent><buffer>[omnisharp]d :<C-u>OmniSharpGotoDefinition<CR>
+        nnoremap <silent><buffer>[omnisharp]i :<C-u>OmniSharpFindImplementations<CR>
+        nnoremap <silent><buffer>[omnisharp]r :<C-u>OmniSharpRename<CR>
+        nnoremap <silent><buffer>[omnisharp]l :<C-u>OmniSharpTypeLookup<CR>
+        nnoremap <silent><buffer>[omnisharp]f :<C-u>OmniSharpFindUsages<CR>
+        nnoremap <silent><buffer>[omnisharp]a :<C-u>OmniSharpGetCodeActions<CR>
+    endfunction
     " }}}
 
 endif
@@ -1018,7 +1051,7 @@ set nowrap                    " Nowrap
 set t_Co          =256        " Terminal color
 set equalalways               " Adjust window size
 set display       =lastline   " Display
-set pumheight     =40         " Height of popup
+set pumheight     =10         " Height of popup
 set t_vb=                     " Visual bell of terminal
 set visualbell                " Show visualbell
 set noerrorbells              " Diable error bell
