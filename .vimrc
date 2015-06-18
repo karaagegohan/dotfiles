@@ -261,6 +261,11 @@ NeoBundle 'kana/vim-textobj-fold'               " [z]  for fold
 NeoBundle 'kana/vim-textobj-underscore'         " [_]  for object between underscore
 NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 
+" Operator
+NeoBundle 'kana/vim-operator-user'       " Use vim-operator
+NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
+NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
+
 " Syntax
 NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 
@@ -280,11 +285,6 @@ NeoBundleLazy 'LeafCage/unite-gvimrgb', { 'autoload' : { 'unite_source' : ['gvim
 NeoBundleLazy 'LeafCage/unite-recording', { 'autoload' : { 'unite_source' : ['recording'] } }
 NeoBundleLazy 'LeafCage/unite-highlight', { 'autoload' : { 'unite_source' : ['highlight'] } }
 NeoBundleLazy 'LeafCage/unite-webcolorname', { 'autoload' : { 'unite_source' : ['webcolorname'] } }
-
-" Operator
-NeoBundle 'kana/vim-operator-user'       " Use vim-operator
-NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
-NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
 " Java 
 NeoBundleLazy 'vim-scripts/javacomplete', { 'build': { 'cygwin': 'javac autoload/Reflection.java', 'mac' : 'javac autoload/Reflection.java', 'unix' : 'javac autoload/Reflection.java', }, 'autoload' : { 'filetypes' : ['java'] } }
