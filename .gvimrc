@@ -5,27 +5,27 @@ if has('vim_starting')
     " window {{{
     set columns    =999   " width of window
     set lines      =999   " height of window
-    " if has('gui_running')
-    "     set fuoptions=maxvert,maxhorz
-    "     augroup vim_window
-    "         autocmd!
-    "         " autocmd GUIEnter * set fullscreen 
-    "     augroup END
-    " endif
+    if has('gui_running')
+        set fuoptions=maxvert,maxhorz
+        augroup vim_window
+            autocmd!
+            " autocmd GUIEnter * set fullscreen 
+        augroup END
+    endif
     " }}}
 
     " font {{{
     if has('win32')
-        set guifont        =Inconsolata:h14:cANSI
-        set guifontwide    =Ricty_Diminished:h14:cSHIFTJIS
+        set guifont        =Inconsolata:h13:cANSI
+        set guifontwide    =Ricty_Diminished:h13:cSHIFTJIS
         set linespace      =1
         if has('kaoriya')
             set ambiwidth  =auto
         endif
     elseif has('mac')
-        set guifont        =Osaka-Mono:h14
+        set guifont        =Osaka-Mono:h13
     elseif has('xfontset')
-        set guifontset     =a14,r14,k14
+        set guifontset     =a13,r13,k13
     endif
     " }}}
     "
@@ -58,7 +58,7 @@ set guioptions =         " disable GUI options
 set cmdheight  =2        " height of commandline
 
 " colorscheme
-colorscheme jellybeans   " colorsheme
+colorscheme solarized   " colorsheme
 
 " }}}
 
