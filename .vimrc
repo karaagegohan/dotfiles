@@ -805,12 +805,6 @@ endif
 " === kien/rainbow_parentheses.vim ======================================================================= {{{
 if neobundle#tap('rainbow_parentheses.vim')
 
-    autocmd BufEnter * RainbowParenthesesActivate
-    autocmd BufEnter * RainbowParenthesesLoadRound
-    autocmd BufEnter * RainbowParenthesesLoadSquare
-    autocmd BufEnter * RainbowParenthesesLoadBraces
-    autocmd BufEnter * setlocal iskeyword+=?,-,*,!,+,/,=,<,>,.,:
-
     " color
     let g:rbpt_colorpairs = [
         \ ['brown',       'RoyalBlue3'],
