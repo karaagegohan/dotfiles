@@ -246,8 +246,7 @@ NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
 NeoBundle 'kana/vim-submode'                   " Use submode
-NeoBundle 'thinca/vim-qfreplace'
-NeoBundle 'yuratomo/w3m.vim'                   " Browsing
+NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : { 'command' : ['W3m'] } }
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 
