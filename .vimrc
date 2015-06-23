@@ -590,6 +590,7 @@ if neobundle#tap('unite.vim')
     nnoremap [unite]pt :<C-u>Unite -auto-preview transparency<CR>
     nnoremap [unite]yr :<C-u>Unite yankround<CR>
     nnoremap [unite]nb :<C-u>Unite neobundle<CR>
+    nnoremap [unite]co :<C-u>Unite command<CR>
     " }}}
 
 endif
@@ -1143,7 +1144,7 @@ if neobundle#tap('w3m.vim')
     nmap [w3m]     <Nop>
     nmap [plugin]w [w3m]
 
-    nnoremap [w3m]g :<C-u>W3mSplit google<CR>
+    nnoremap [w3m]v :<C-u>w3m google<CR>
     " }}}
 
 endif
@@ -1233,6 +1234,7 @@ set directory  =~/.vimfiles   " Directiry to save swap files
 
 " colorscheme
 colorscheme solarized
+set background =dark
 
 " }}}
 
