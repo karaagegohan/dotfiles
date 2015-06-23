@@ -1135,6 +1135,20 @@ if neobundle#tap('vim-submode')
 endif
 " }}}
 
+" === yuratomo/w3m.vim =================================================================================== {{{
+if neobundle#tap('w3m.vim')
+
+    " key_mappings {{{
+    " prefixes
+    nmap [w3m]     <Nop>
+    nmap [plugin]w [w3m]
+
+    nnoremap [w3m]g :<C-u>W3mSplit google<CR>
+    " }}}
+
+endif
+" }}}
+
 " === base settings ====================================================================================== {{{
 
 " modeline
@@ -1218,7 +1232,7 @@ set swapfile                  " Make swap file
 set directory  =~/.vimfiles   " Directiry to save swap files
 
 " colorscheme
-colorscheme jellybeans
+colorscheme solarized
 
 " }}}
 
