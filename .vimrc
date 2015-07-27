@@ -157,8 +157,8 @@ nnoremap zz                 za
 
 " View
 if !s:is_terminal
-    nnoremap <silent><          :<C-u>MyTransparancyDown<CR>
-    nnoremap <silent>>          :<C-u>MyTransparancyUp<CR>
+    nnoremap <silent><UP>          :<C-u>MyTransparancyDown<CR>
+    nnoremap <silent><DOWN>          :<C-u>MyTransparancyUp<CR>
 endif
 
 " handy
@@ -1144,7 +1144,8 @@ if neobundle#tap('w3m.vim')
     nmap [w3m]     <Nop>
     nmap [plugin]w [w3m]
 
-    nnoremap [w3m]v :<C-u>w3m google<CR>
+    nnoremap [w3m]g :<C-u>W3m google<CR>
+    nnoremap [w3m]w :<C-u>W3m 
     " }}}
 
 endif
