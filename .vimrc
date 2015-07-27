@@ -249,6 +249,7 @@ NeoBundle 'kana/vim-submode'                   " Use submode
 NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : { 'command' : ['W3m'] } }
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
+NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -1151,6 +1152,21 @@ if neobundle#tap('w3m.vim')
 endif
 " }}}
 
+" === osyo-manga/vim-sound =============================================================================== {{{
+if neobundle#tap('vim-sound')
+
+    " key_mappings {{{
+    " prefixes
+    nmap [w3m]     <Nop>
+    nmap [plugin]w [w3m]
+
+    nnoremap [w3m]g :<C-u>W3m google<CR>
+    nnoremap [w3m]w :<C-u>W3m 
+    " }}}
+
+endif
+" }}}
+
 " === base settings ====================================================================================== {{{
 
 " modeline
@@ -1194,6 +1210,7 @@ set noerrorbells              " Diable error bell
 set completeopt=longest,menuone,preview
 set splitbelow
 set hidden
+set cursorline
 
 " indent
 set backspace          =indent,eol,start   " More powerful backspacing
