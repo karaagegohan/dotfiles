@@ -97,8 +97,8 @@ nmap     <Space>            [plugin]
 " base mappimgs
 noremap  ;                  :
 noremap  :                  ;
-noremap! ;                  :
-noremap! :                  ;
+" noremap! ;                  :
+" noremap! :                  ;
 noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
