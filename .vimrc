@@ -994,8 +994,8 @@ if neobundle#tap('vim-fontzoom')
     nnoremap + <Nop>
     nnoremap - <Nop>
 
-    nmap + <Plug>(fontzoom-larger)
-    nmap _ <Plug>(fontzoom-smaller)
+    nmap <RIGHT> <Plug>(fontzoom-larger)
+    nmap <LEFT>  <Plug>(fontzoom-smaller)
     " }}}
 
 endif
