@@ -58,7 +58,7 @@ set guioptions =         " disable GUI options
 set cmdheight  =2        " height of commandline
 
 " colorscheme
-colorscheme solarized   " colorsheme
+colorscheme gruvbox   " colorsheme
 set background =dark
 
 " }}}
