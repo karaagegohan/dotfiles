@@ -678,7 +678,7 @@ endif
 if neobundle#tap('lightline.vim')
 
     let g:lightline = {
-        \ 'colorscheme': 'solarized',
+        \ 'colorscheme': 'grovbox',
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
