@@ -762,7 +762,7 @@ if neobundle#tap('vim-easy-align')
         \     'left_margin':     2,
         \     'right_margin':    2
         \   },
-        \ }
+        \ },
 
 endif
 " }}}
