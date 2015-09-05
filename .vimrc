@@ -165,6 +165,7 @@ endif
 if isdirectory(expand('~/dotfiles')) 
     nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
     nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
+    nnoremap <silent>[func]/    :<C-u>edit ~/dotfiles/AutoHotKey.ahk<CR>
 else 
     nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
@@ -250,6 +251,7 @@ NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : { 'command' : ['W3m'] } }
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -678,7 +680,6 @@ endif
 if neobundle#tap('lightline.vim')
 
     let g:lightline = {
-        \ 'colorscheme': 'grovbox',
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -744,26 +745,26 @@ endif
 " === junegunn/vim-easy-align ============================================================================ {{{
 if neobundle#tap('vim-easy-align')
 
-    let g:easy_align_delimiters = {
-        \ '"': {
-        \     'pattern':         ' "',
-        \     'delimiter_align': 'l',
-        \     'left_margin':     2,
-        \     'right_margin':    1
-        \   },
-        \ '.': {
-        \     'pattern':      '+=\|=',
-        \     'left_margin':  2,
-        \     'right_margin': 0
-        \   },
-        \ 'k': {
-        \     'pattern':         '：',
-        \     'delimiter_align': 'l',
-        \     'left_margin':     2,
-        \     'right_margin':    2
-        \   },
-        \ },
-
+    " let g:easy_align_delimiters = {
+    "     \ '"': {
+    "     \     'pattern':         ' "',
+    "     \     'delimiter_align': 'l',
+    "     \     'left_margin':     2,
+    "     \     'right_margin':    1
+    "     \   },
+    "     \ '.': {
+    "     \     'pattern':      '+=\|=',
+    "     \     'left_margin':  2,
+    "     \     'right_margin': 0
+    "     \   },
+    "     \ 'k': {
+    "     \     'pattern':         '：',
+    "     \     'delimiter_align': 'l',
+    "     \     'left_margin':     2,
+    "     \     'right_margin':    2
+    "     \   },
+    "     \ },
+    "
 endif
 " }}}
 
@@ -1173,6 +1174,18 @@ if neobundle#tap('vim-sound')
 endif
 " }}}
 
+" === nathanaelkane/vim-indent-guides =============================================================================== {{{
+if neobundle#tap('nathanaelkane/vim-indent-guides')
+
+    let g:indent_guides_enable_on_vim_startup=1
+    let g:indent_guides_start_level=2
+    let g:indent_guides_auto_colors=0
+    let g:indent_guides_color_change_percent = 30
+    let g:indent_guides_guide_size = 1
+
+endif
+" }}}
+
 " === base settings ====================================================================================== {{{
 
 " modeline
@@ -1257,8 +1270,10 @@ set swapfile                  " Make swap file
 set directory  =~/.vimfiles   " Directiry to save swap files
 
 " colorscheme
-colorscheme gruvbox
-set background =dark
+if !s:is_terminal
+    colorscheme gruvbox
+    set background =dark
+endif
 
 " }}}
 
