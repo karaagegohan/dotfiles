@@ -631,7 +631,7 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]     <Nop>
     nmap     [plugin]g [git]
 
-    nnoremap [git]g    :<C-u>Git<CR>
+    nnoremap [git]g    :<C-u>Git 
     nnoremap [git]a    :<C-u>Gwrite<CR>
     nnoremap [git]d    :<C-u>Gdiff<CR>
     nnoremap [git]c    :<C-u>Gcommit -m ''<LEFT>
