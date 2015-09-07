@@ -639,6 +639,8 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]pl   :<C-u>Git pull<CR>
     nnoremap [git]st   :<C-u>Git status<CR>
     nnoremap [git]sh   :<C-u>Git stash<CR>
+    nnoremap [git]ch   :<C-u>Git checkout 
+    nnoremap [git]br   :<C-u>Git branch 
     " }}}
 
 endif
@@ -877,9 +879,6 @@ if neobundle#tap('syntastic.git')
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
 
 endif
 " }}}
@@ -1162,14 +1161,6 @@ endif
 " === osyo-manga/vim-sound =============================================================================== {{{
 if neobundle#tap('vim-sound')
 
-    " key_mappings {{{
-    " prefixes
-    nmap [w3m]     <Nop>
-    nmap [plugin]w [w3m]
-
-    nnoremap [w3m]g :<C-u>W3m google<CR>
-    nnoremap [w3m]w :<C-u>W3m 
-    " }}}
 
 endif
 " }}}
