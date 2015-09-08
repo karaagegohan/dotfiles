@@ -581,6 +581,7 @@ if neobundle#tap('unite.vim')
     nmap     [plugin]u [unite]
 
     nnoremap [unite]u  :<C-u>Unite<CR>
+    nnoremap [unite]s  :<C-u>Unite source<CR>
     nnoremap [unite]hy :<C-u>Unite history/yank<CR>
     nnoremap [unite]he :<C-u>Unite help<CR>
     nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
@@ -639,7 +640,9 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]pl   :<C-u>Git pull<CR>
     nnoremap [git]st   :<C-u>Git status<CR>
     nnoremap [git]sh   :<C-u>Git stash<CR>
-    nnoremap [git]ch   :<C-u>Git checkout 
+    nnoremap [git]chw  :<C-u>Git checkout windows<CR>
+    nnoremap [git]chm  :<C-u>Git checkout mac<CR>
+    nnoremap [git]chh  :<C-u>Git checkout 
     nnoremap [git]br   :<C-u>Git branch 
     " }}}
 
