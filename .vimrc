@@ -640,9 +640,8 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]pl   :<C-u>Git pull<CR>
     nnoremap [git]st   :<C-u>Git status<CR>
     nnoremap [git]sh   :<C-u>Git stash<CR>
-    nnoremap [git]chw  :<C-u>Git checkout windows<CR>
-    nnoremap [git]chm  :<C-u>Git checkout mac<CR>
-    nnoremap [git]chh  :<C-u>Git checkout 
+    nnoremap [git]ch   :<C-u>Git checkout 
+    nnoremap [git]me   :<C-u>Git merge 
     nnoremap [git]br   :<C-u>Git branch 
     " }}}
 
