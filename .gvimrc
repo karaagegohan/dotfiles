@@ -33,6 +33,38 @@ endif
 
 " }}}
 
+" === window settings ======================================================================================== {{{
+
+set columns    =999   " width of window
+set lines      =999   " height of window
+
+" if has('gui_running')
+"     set fuoptions=maxvert,maxhorz
+"     augroup vim_window
+"         autocmd!
+"         " autocmd GUIEnter * set fullscreen 
+"     augroup END
+" endif
+
+" }}}
+
+" === font settings ========================================================================================== {{{
+
+if has('win32')
+    set guifont        =MyricaM_M:h10:cSHIFTJIS
+    set guifontwide    =MyricaM_M:h10:cSHIFTJIS
+    set linespace      =1
+    if has('kaoriya')
+        set ambiwidth  =auto
+    endif
+elseif has('mac')
+    set guifont        =Osaka-Mono:h10
+elseif has('xfontset')
+    set guifontset     =a10,r10,k10
+endif
+
+" }}}
+
 " === input settings ========================================================================================= {{{
 
 if has('multi_byte_ime') || has('xim')
