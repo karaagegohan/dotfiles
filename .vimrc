@@ -400,7 +400,7 @@ if neobundle#tap('neocomplete.vim')
     inoremap <expr><C-e>  neocomplete#cancel_popup()
 endif
 " }}}
-"
+
 " === Shougo/neocomplcache.vim =========================================================================== {{{
 if neobundle#tap('neocomplcache.vim')
 
@@ -1171,7 +1171,7 @@ if neobundle#tap('vim-sound')
 endif
 " }}}
 
-" === nathanaelkane/vim-indent-guides =============================================================================== {{{
+" === nathanaelkane/vim-indent-guides ==================================================================== {{{
 if neobundle#tap('nathanaelkane/vim-indent-guides')
 
     let g:indent_guides_enable_on_vim_startup=1
