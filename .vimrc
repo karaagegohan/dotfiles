@@ -20,34 +20,38 @@ function! s:My_mkdir(name) abort
 endfunction
 
 function! s:transparancy_up()
-    if s:is_windows
-        if &transparency - 5 > 1
-            set transparency-=5
-        else
-            set transparency =1
-        endif
-    else 
-        if &transparency + 2 < 100
-            set transparency+=2
-        else
-            set transparency =100
+    if !s:is_terminal
+        if s:is_mac
+            if &transparency + 2 < 100
+                set transparency+=2
+            else
+                set transparency =100
+            endif
+        else 
+            if &transparency - 5 > 1
+                set transparency-=5
+            else
+                set transparency =1
+            endif
         endif
     endif
 endfunction 
 command! MyTransparancyUp call s:transparancy_up()
 
 function! s:transparancy_down()
-    if s:is_windows
-        if &transparency + 5 < 255
-            set transparency+=5
+    if !s:is_terminal
+        if s:is_mac
+            if &transparency - 2 < 100
+                set transparency+=2
+            else
+                set transparency =100
+            endif
         else
-            set transparency =255
-        endif
-    else
-        if &transparency - 2 > 0
-            set transparency-=2
-        else
-            set transparency =0
+            if &transparency + 5 < 255
+                set transparency+=5
+            else
+                set transparency =255
+            endif
         endif
     endif
 endfunction 
@@ -67,7 +71,7 @@ command! MyFullscreen call s:fullscreen()
 
 " }}}
 
-" === key_mappings ======================================================================================= {{{
+" === key mappings ======================================================================================= {{{
 
 " ***NOTE*** {{{
 " --------------------------------------------------------------------------------
