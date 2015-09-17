@@ -234,7 +234,7 @@ NeoBundle 'tpope/vim-fugitive'                 " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim'       " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'             " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'            " Powerful motion
-NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
+NeoBundleLazy 'Shougo/vimfiler.vim'                " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'                " Change font size
 NeoBundle 'AndrewRadev/switch.vim'             " Switch segments
 NeoBundle 't9md/vim-quickhl'                   " Highlight any words
