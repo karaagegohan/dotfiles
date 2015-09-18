@@ -643,7 +643,7 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]ps   :<C-u>Git push origin master<CR>
     nnoremap [git]pl   :<C-u>Git pull<CR>
     nnoremap [git]st   :<C-u>Git status<CR>
-    nnoremap [git]sh   :<C-u>Git stash<CR
+    nnoremap [git]sh   :<C-u>Git stash<CR>
     nnoremap [git]ch   :<C-u>Git checkout 
     nnoremap [git]me   :<C-u>Git merge 
     nnoremap [git]br   :<C-u>Git branch 
