@@ -1250,6 +1250,7 @@ set timeoutlen =10000      " time to wait for a key code
 set autoread                          " Reload file automatically when it is updated
 set scrolloff  =10                    " Scrooloff
 set clipboard +=unnamedplus,unnamed   " Sharing clipboard
+set nrformats  =
 
 " fold
 set foldenable            " Enable fold
