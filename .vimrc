@@ -256,6 +256,7 @@ NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'gcmt/wildfire.vim'                  " Dangerous??
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
