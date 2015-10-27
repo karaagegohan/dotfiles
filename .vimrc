@@ -250,6 +250,11 @@ NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : { 'command' : ['W3m'] } }
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
+<<<<<<< HEAD
+=======
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'gcmt/wildfire.vim'                  " Dangerous??
+>>>>>>> 51eac117403e21461270db6d057ae923bbe5922d
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -1239,6 +1244,7 @@ set timeoutlen =10000      " time to wait for a key code
 set autoread                          " Reload file automatically when it is updated
 set scrolloff  =10                    " Scrooloff
 set clipboard +=unnamedplus,unnamed   " Sharing clipboard
+set nrformats  =
 
 " fold
 set foldenable            " Enable fold
