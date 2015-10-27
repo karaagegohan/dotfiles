@@ -1257,7 +1257,7 @@ set swapfile                  " Make swap file
 set directory  =~/.vimfiles   " Directiry to save swap files
 
 " colorscheme
-colorscheme gruvbox
+colorscheme hybrid
 set background =dark
 
 " }}}
