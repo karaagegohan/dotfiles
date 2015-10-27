@@ -20,38 +20,34 @@ function! s:My_mkdir(name) abort
 endfunction
 
 function! s:transparancy_up()
-    if !s:is_terminal
-    if s:is_mac
-        if &transparency + 2 < 100
-            set transparency+=2
-        else
-            set transparency =100
-        endif
-    else 
+    if s:is_windows
         if &transparency - 5 > 1
             set transparency-=5
         else
             set transparency =1
         endif
-    endif
+    else 
+        if &transparency + 2 < 100
+            set transparency+=2
+        else
+            set transparency =100
+        endif
     endif
 endfunction 
 command! MyTransparancyUp call s:transparancy_up()
 
 function! s:transparancy_down()
-    if !s:is_terminal
-        if s:is_mac
-            if &transparency - 2 < 100
-                set transparency+=2
-            else
-                set transparency =100
-            endif
+    if s:is_windows
+        if &transparency + 5 < 255
+            set transparency+=5
         else
-            if &transparency + 5 < 255
-                set transparency+=5
-            else
-                set transparency =255
-            endif
+            set transparency =255
+        endif
+    else
+        if &transparency - 2 > 0
+            set transparency-=2
+        else
+            set transparency =0
         endif
     endif
 endfunction 
@@ -71,7 +67,7 @@ command! MyFullscreen call s:fullscreen()
 
 " }}}
 
-" === key mappings ======================================================================================= {{{
+" === key_mappings ======================================================================================= {{{
 
 " ***NOTE*** {{{
 " --------------------------------------------------------------------------------
@@ -169,7 +165,6 @@ endif
 if isdirectory(expand('~/dotfiles')) 
     nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
     nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
-    nnoremap <silent>[func]/    :<C-u>edit ~/dotfiles/AutoHotKey.ahk<CR>
 else 
     nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
@@ -234,7 +229,7 @@ NeoBundle 'tpope/vim-fugitive'                 " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim'       " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'             " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'            " Powerful motion
-NeoBundleLazy 'Shougo/vimfiler.vim'                " Filer in vim
+NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'                " Change font size
 NeoBundle 'AndrewRadev/switch.vim'             " Switch segments
 NeoBundle 't9md/vim-quickhl'                   " Highlight any words
@@ -246,7 +241,7 @@ NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'              " Make opening beowser easier
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
-NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit search
+" NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit search
 NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
@@ -255,7 +250,6 @@ NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : { 'command' : ['W3m'] } }
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
-NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -585,7 +579,6 @@ if neobundle#tap('unite.vim')
     nmap     [plugin]u [unite]
 
     nnoremap [unite]u  :<C-u>Unite<CR>
-    nnoremap [unite]s  :<C-u>Unite source<CR>
     nnoremap [unite]hy :<C-u>Unite history/yank<CR>
     nnoremap [unite]he :<C-u>Unite help<CR>
     nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
@@ -636,17 +629,14 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]     <Nop>
     nmap     [plugin]g [git]
 
-    nnoremap [git]g    :<C-u>Git 
+    nnoremap [git]g    :<C-u>Git<CR>
     nnoremap [git]a    :<C-u>Gwrite<CR>
     nnoremap [git]d    :<C-u>Gdiff<CR>
-    nnoremap [git]c    :<C-u>Gcommit -m ""<LEFT>
+    nnoremap [git]c    :<C-u>Gcommit -m ''<LEFT>
     nnoremap [git]ps   :<C-u>Git push origin master<CR>
     nnoremap [git]pl   :<C-u>Git pull<CR>
     nnoremap [git]st   :<C-u>Git status<CR>
     nnoremap [git]sh   :<C-u>Git stash<CR>
-    nnoremap [git]ch   :<C-u>Git checkout 
-    nnoremap [git]me   :<C-u>Git merge 
-    nnoremap [git]br   :<C-u>Git branch 
     " }}}
 
 endif
@@ -688,6 +678,7 @@ endif
 if neobundle#tap('lightline.vim')
 
     let g:lightline = {
+        \ 'colorscheme': 'grovbox',
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -753,26 +744,26 @@ endif
 " === junegunn/vim-easy-align ============================================================================ {{{
 if neobundle#tap('vim-easy-align')
 
-    " let g:easy_align_delimiters = {
-    "     \ '"': {
-    "     \     'pattern':         ' "',
-    "     \     'delimiter_align': 'l',
-    "     \     'left_margin':     2,
-    "     \     'right_margin':    1
-    "     \   },
-    "     \ '.': {
-    "     \     'pattern':      '+=\|=',
-    "     \     'left_margin':  2,
-    "     \     'right_margin': 0
-    "     \   },
-    "     \ 'k': {
-    "     \     'pattern':         '：',
-    "     \     'delimiter_align': 'l',
-    "     \     'left_margin':     2,
-    "     \     'right_margin':    2
-    "     \   },
-    "     \ },
-    "
+    let g:easy_align_delimiters = {
+        \ '"': {
+        \     'pattern':         ' "',
+        \     'delimiter_align': 'l',
+        \     'left_margin':     2,
+        \     'right_margin':    1
+        \   },
+        \ '.': {
+        \     'pattern':      '+=\|=',
+        \     'left_margin':  2,
+        \     'right_margin': 0
+        \   },
+        \ 'k': {
+        \     'pattern':         '：',
+        \     'delimiter_align': 'l',
+        \     'left_margin':     2,
+        \     'right_margin':    2
+        \   },
+        \ },
+
 endif
 " }}}
 
@@ -885,6 +876,9 @@ if neobundle#tap('syntastic.git')
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
 
 endif
 " }}}
@@ -1167,18 +1161,14 @@ endif
 " === osyo-manga/vim-sound =============================================================================== {{{
 if neobundle#tap('vim-sound')
 
+    " key_mappings {{{
+    " prefixes
+    nmap [w3m]     <Nop>
+    nmap [plugin]w [w3m]
 
-endif
-" }}}
-
-" === nathanaelkane/vim-indent-guides ==================================================================== {{{
-if neobundle#tap('nathanaelkane/vim-indent-guides')
-
-    let g:indent_guides_enable_on_vim_startup=1
-    let g:indent_guides_start_level=2
-    let g:indent_guides_auto_colors=0
-    let g:indent_guides_color_change_percent = 30
-    let g:indent_guides_guide_size = 1
+    nnoremap [w3m]g :<C-u>W3m google<CR>
+    nnoremap [w3m]w :<C-u>W3m 
+    " }}}
 
 endif
 " }}}
@@ -1267,10 +1257,8 @@ set swapfile                  " Make swap file
 set directory  =~/.vimfiles   " Directiry to save swap files
 
 " colorscheme
-if !s:is_terminal
-    colorscheme gruvbox
-    set background =dark
-endif
+colorscheme gruvbox
+set background =dark
 
 " }}}
 
