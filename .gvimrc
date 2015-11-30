@@ -58,7 +58,7 @@ if has('win32')
         set ambiwidth  =auto
     endif
 elseif has('mac')
-    set guifont        =Osaka-Mono:h10
+    set guifont        =Osaka-Mono:h12
 elseif has('xfontset')
     set guifontset     =a10,r10,k10
 endif
@@ -91,7 +91,7 @@ set cmdheight  =2        " height of commandline
 
 " colorscheme
 let g:gruvbox_italic = 0
-colorscheme gruvbox   " colorsheme
+colorscheme hybrid   " colorsheme
 set background =dark
 
 " }}}
