@@ -4,6 +4,7 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+
 " }}}
 
 " === Functions and Constants ============================================================================ {{{
@@ -106,8 +107,8 @@ noremap  :                  ;
 noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
-nnoremap <silent><CR>       :<C-u>write<CR>
-nnoremap <silent><BS>       :<C-u>quit<CR>
+nnoremap <CR>               :<C-u>write<CR>
+nnoremap <BS>               :<C-u>quit<CR>
 nnoremap U                  <C-r>
 
 " edit
@@ -115,8 +116,8 @@ nnoremap Y                  y$
 nnoremap R                  J
 
 " cursor
-nnoremap j                  gj
-nnoremap k                  gk
+" nnoremap j                  gj
+" nnoremap k                  gk
 vnoremap j                  gj
 vnoremap k                  gk
 noremap  H                  ^
@@ -234,7 +235,7 @@ NeoBundle 'tpope/vim-fugitive'                 " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim'       " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'             " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'            " Powerful motion
-NeoBundleLazy 'Shougo/vimfiler.vim'                " Filer in vim
+NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'                " Change font size
 NeoBundle 'AndrewRadev/switch.vim'             " Switch segments
 NeoBundle 't9md/vim-quickhl'                   " Highlight any words
@@ -256,7 +257,7 @@ NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'gcmt/wildfire.vim'                  " Dangerous??
+" NeoBundle 'gcmt/wildfire.vim'                  " Dangerous??
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -288,8 +289,8 @@ NeoBundleLazy 'todashuta/unite-transparency', { 'autoload' : { 'unite_source' : 
 NeoBundleLazy 'osyo-manga/unite-quickfix.git', { 'autoload' : { 'unite_source' : ['quickfix'] } }
 NeoBundleLazy 'LeafCage/unite-gvimrgb', { 'autoload' : { 'unite_source' : ['gvimrgb'] } }
 NeoBundleLazy 'LeafCage/unite-recording', { 'autoload' : { 'unite_source' : ['recording'] } }
-NeoBundleLazy 'LeafCage/unite-highlight', { 'autoload' : { 'unite_source' : ['highlight'] } }
-NeoBundleLazy 'LeafCage/unite-webcolorname', { 'autoload' : { 'unite_source' : ['webcolorname'] } }
+" NeoBundleLazy 'LeafCage/unite-highlight', { 'autoload' : { 'unite_source' : ['highlight'] } }
+" NeoBundleLazy 'LeafCage/unite-webcolorname', { 'autoload' : { 'unite_source' : ['webcolorname'] } }
 
 " Java 
 NeoBundleLazy 'vim-scripts/javacomplete', { 'build': { 'cygwin': 'javac autoload/Reflection.java', 'mac' : 'javac autoload/Reflection.java', 'unix' : 'javac autoload/Reflection.java', }, 'autoload' : { 'filetypes' : ['java'] } }
@@ -330,45 +331,45 @@ filetype plugin indent on
 
 " }}}
 
-" === Shougo/neocomplete.vim ============================================================================= {{{
+" === shougo/neocomplete.vim ============================================================================= {{{
 if neobundle#tap('neocomplete.vim')
 
-    let g:neocomplete#enable_at_startup                 = 1         " Use neocomplete.
-    let g:neocomplete#enable_smart_case                 = 1         " Use smartcase.
-    let g:neocomplete#enable_camel_case                 = 1         " Use camelcase.
-    let g:neocomplete#enable_fuzzy_completion           = 1         " Use fuzzy completion.
+    let g:neocomplete#enable_at_startup                 = 1         " use neocomplete.
+    let g:neocomplete#enable_smart_case                 = 1         " use smartcase.
+    let g:neocomplete#enable_camel_case                 = 1         " use camelcase.
+    let g:neocomplete#enable_fuzzy_completion           = 1         " use fuzzy completion.
     let g:neocomplete#use_vimproc                       = 1
     let g:neocomplete#lock_iminsert                     = 1         " 
     let g:neocomplete#sources#syntax#min_keyword_length = 2
-    let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " File name to lock buffer
+    let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " file name to lock buffer
 
-    " Define dictionary.
+    " define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
         \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
+        \ 'vimshell' : $home.'/.vimshell_hist',
+        \ 'scheme' : $home.'/.gosh_completions'
         \ }
 
-    " Define keyword.
+    " define keyword.
     if !exists('g:neocomplete#keyword_patterns')
         let g:neocomplete#keyword_patterns = {}
     endif
     let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-    " Enable omni completion.
+    " enable omni completion.
     augroup vimrc_neocomplete
         autocmd!
-        autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-        autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-        autocmd FileType cs            setlocal omnifunc=OmniSharp#Complete
-    augroup END
+        autocmd filetype css           setlocal omnifunc=csscomplete#completecss
+        autocmd filetype html,markdown setlocal omnifunc=htmlcomplete#completetags
+        autocmd filetype javascript    setlocal omnifunc=javascriptcomplete#completejs
+        autocmd filetype python        setlocal omnifunc=pythoncomplete#complete
+        autocmd filetype xml           setlocal omnifunc=xmlcomplete#completetags
+        autocmd filetype cs            setlocal omnifunc=omnisharp#complete
+    augroup end
 
     let g:neocomplete#force_overwrite_completefunc=1
 
-    " Enable heavy omni completion.
+    " enable heavy omni completion.
     if !exists('g:neocomplete#sources#omni#input_patterns')
         let g:neocomplete#sources#omni#input_patterns = {}
     endif
@@ -380,25 +381,25 @@ if neobundle#tap('neocomplete.vim')
 
 
 
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
+    " plugin key-mappings.
+    inoremap <expr><c-g>     neocomplete#undo_completion()
+    inoremap <expr><c-l>     neocomplete#complete_common_string()
 
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    " recommended key-mappings.
+    " <cr>: close popup and save indent.
+    inoremap <silent> <cr> <c-r>=<sid>my_cr_function()<cr>
     function! s:my_cr_function()
-        return neocomplete#close_popup() . "\<CR>"
-        " For no inserting <CR> key.
-        "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+        return neocomplete#close_popup() . "\<cr>"
+        " for no inserting <cr> key.
+        "return pumvisible() ? neocomplete#close_popup() : "\<cr>"
     endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplete#close_popup()
-    inoremap <expr><C-e>  neocomplete#cancel_popup()
+    " <tab>: completion.
+    inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
+    " <c-h>, <bs>: close popup and delete backword char.
+    inoremap <expr><c-h> neocomplete#smart_close_popup()."\<c-h>"
+    inoremap <expr><bs> neocomplete#smart_close_popup()."\<c-h>"
+    inoremap <expr><c-y>  neocomplete#close_popup()
+    inoremap <expr><c-e>  neocomplete#cancel_popup()
 endif
 " }}}
 
@@ -751,32 +752,6 @@ if neobundle#tap('lightline.vim')
 endif
 " }}}
 
-" === junegunn/vim-easy-align ============================================================================ {{{
-if neobundle#tap('vim-easy-align')
-
-    " let g:easy_align_delimiters = {
-    "     \ '"': {
-    "     \     'pattern':         ' "',
-    "     \     'delimiter_align': 'l',
-    "     \     'left_margin':     2,
-    "     \     'right_margin':    1
-    "     \   },
-    "     \ '.': {
-    "     \     'pattern':      '+=\|=',
-    "     \     'left_margin':  2,
-    "     \     'right_margin': 0
-    "     \   },
-    "     \ 'k': {
-    "     \     'pattern':         '：',
-    "     \     'delimiter_align': 'l',
-    "     \     'left_margin':     2,
-    "     \     'right_margin':    2
-    "     \   },
-    "     \ },
-    "
-endif
-" }}}
-
 " === fuenor/qfixhowm ==================================================================================== {{{
 if neobundle#tap('qfixhowm')
 
@@ -959,6 +934,8 @@ if neobundle#tap('vim-easy-align')
 
     " key_mappings {{{
     vmap <Enter> <Plug>(EasyAlign)
+    nmap ga      <Plug>(EasyAlign)
+    xmap ga      <Plug>(EasyAlign)
     " }}}
 
 endif
@@ -1190,6 +1167,9 @@ endif
 set modeline
 set modelines =3
 
+" statusline
+set laststatus=2
+"
 " function
 set history  =1024   " Number of history
 set helplang =en     " Language to read help
