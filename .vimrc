@@ -180,6 +180,9 @@ nnoremap <silent>[func]km   :/key_mappings<CR>zO
 nnoremap [func]h            :<C-u>help 
 nnoremap [func]e            :<C-u>edit<CR> 
 
+" System
+nnoremap <silent><F3> :<C-u>setlocal relativenumber!<CR>
+
 " }}}
 
 " === Shougo/neobundle.vim =============================================================================== {{{
@@ -638,7 +641,7 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]     <Nop>
     nmap     [plugin]g [git]
 
-    nnoremap [git]g    :<C-u>Git 
+    nnoremap [git]i    :<C-u>Git 
     nnoremap [git]a    :<C-u>Gwrite<CR>
     nnoremap [git]d    :<C-u>Gdiff<CR>
     nnoremap [git]c    :<C-u>Gcommit -m ""<LEFT>
@@ -650,6 +653,15 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]me   :<C-u>Git merge 
     nnoremap [git]br   :<C-u>Git branch 
     " }}}
+
+endif
+" }}}
+
+" === airblade/vim-gitgutter ================================================================================= {{{
+if neobundle#tap('vim-gitgutter')
+
+    nnoremap <silent>[git]g :<C-u>GitGutterToggle<CR>
+    nnoremap <silent>[git]h :<C-u>GitGutterLineHighlightsToggle<CR>
 
 endif
 " }}}
