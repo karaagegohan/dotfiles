@@ -243,7 +243,7 @@ NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
 NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
 NeoBundle 'rking/ag.vim'                       " Use ag command in vim
 NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline 
-NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
+" NeoBundle 'terryma/vim-multiple-cursors'       " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'              " Make opening beowser easier
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
@@ -689,41 +689,42 @@ endif
 " === itchyny/lightline.vim ============================================================================== {{{
 if neobundle#tap('lightline.vim')
 
+
     let g:lightline = {
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
         \ },
         \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
+        \   'modified': 'LightLineModified',
+        \   'readonly': 'LightLineReadonly',
+        \   'fugitive': 'LightLineFugitive',
+        \   'filename': 'LightLineFilename',
+        \   'fileformat': 'LightLineFileformat',
+        \   'filetype': 'LightLineFiletype',
+        \   'fileencoding': 'LightLineFileencoding',
         \   'mode': 'LightLineMode'
         \ }
         \ }
 
-    function! MyModified()
+    function! LightLineModified()
         return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
     endfunction
 
-    function! MyReadonly()
+    function! LightLineReadonly()
         return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
     endfunction
 
-    function! MyFilename()
-        return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+    function! LightLineFilename()
+        return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
             \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
             \  &ft == 'unite' ? unite#get_status_string() :
             \  &ft == 'vimshell' ? vimshell#get_status_string() :
             \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-            \ ('' != MyModified() ? ' ' . MyModified() : '')
+            \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
     endfunction
 
-    function! MyFugitive()
+    function! LightLineFugitive()
         try
             if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
                 return fugitive#head()
@@ -733,19 +734,19 @@ if neobundle#tap('lightline.vim')
         return ''
     endfunction
 
-    function! MyFileformat()
+    function! LightLineFileformat()
         return winwidth(0) > 70 ? &fileformat : ''
     endfunction
 
-    function! MyFiletype()
+    function! LightLineFiletype()
         return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
     endfunction
 
-    function! MyFileencoding()
+    function! LightLineFileencoding()
         return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
     endfunction
 
-    function! MyMode()
+    function! LightLineMode()
         return winwidth(0) > 60 ? lightline#mode() : ''
     endfunction
 
@@ -861,6 +862,16 @@ if neobundle#tap('syntastic.git')
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
+
+endif
+" }}}
+
+" === tyru/open-browser.vim =========================================================================== {{{
+if neobundle#tap('open-browser.vim')
+
+    let g:netrw_nogx = 1 " disable netrw's gx mapping.
+    nmap gx <Plug>(openbrowser-smart-search)
+    vmap gx <Plug>(openbrowser-smart-search)
 
 endif
 " }}}
@@ -1187,13 +1198,11 @@ set fileencodings  +=euc-jp          " Character code to read file
 set fileencodings  +=cp932           " Character code to read file
 set fileformats     =unix,dos,mac    " Newline character
 
-" view
 syntax on                     " Show syntax hilight
 set number                    " Show line number
 set ruler                     " Show current line number
 set title                     " Show title of the file
 set showmatch                 " Show matching bracket
-set noshowmatch
 set matchtime     =1          " Time of matching paren
 set virtualedit  +=block      " Expand bounds in visual mode
 set nowrap                    " Nowrap
