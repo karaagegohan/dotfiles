@@ -11,7 +11,7 @@ endif
 
 let s:is_terminal = !has('gui_running')
 let s:is_windows  = has('win16') || has('win32') || has('win64')
-let s:is_mac      = !s:is_windows
+let s:is_mac      = has('mac') 
 let s:is_cygwin   = has('win32unix')
 
 function! s:My_mkdir(name) abort
@@ -29,8 +29,8 @@ function! s:transparancy_up()
             set transparency =100
         endif
     else 
-        if &transparency - 5 > 1
-            set transparency-=5
+        if &transparency - 10 > 1
+            set transparency-=10
         else
             set transparency =1
         endif
@@ -48,8 +48,8 @@ function! s:transparancy_down()
                 set transparency =100
             endif
         else
-            if &transparency + 5 < 255
-                set transparency+=5
+            if &transparency + 10 < 255
+                set transparency+=10
             else
                 set transparency =255
             endif
@@ -144,8 +144,8 @@ nnoremap <C-k>              <C-w>k
 nnoremap <C-l>              <C-w>l
 nnoremap <silent>[func]n    :<C-u>new<CR>
 nnoremap <silent>[func]v    :<C-u>vnew<CR>
-nnoremap <silent>[func]N    :<C-u>split<CR>
-nnoremap <silent>[func]V    :<C-u>vsplit<CR>
+nnoremap <silent>[func]sn   :<C-u>split<CR>
+nnoremap <silent>[func]sv   :<C-u>vsplit<CR>
 nnoremap <silent>[func]fs   :<C-u>MyFullscreen<CR>
 
 " tab
@@ -162,8 +162,8 @@ nnoremap zz                 za
 
 " View
 if !s:is_terminal
-    nnoremap <silent><UP>          :<C-u>MyTransparancyDown<CR>
-    nnoremap <silent><DOWN>          :<C-u>MyTransparancyUp<CR>
+    nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
+    nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 endif
 
 " handy
@@ -259,7 +259,8 @@ NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : { 'command' : ['W3m'] } }
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
-NeoBundle 'nathanaelkane/vim-indent-guides'
+" NeoBundle 'nathanaelkane/vim-indent-guides'
+" NeoBundle 'Yggdroot/indentLine'
 " NeoBundle 'gcmt/wildfire.vim'                  " Dangerous??
 
 " Textobject
@@ -657,11 +658,10 @@ if neobundle#tap('vim-fugitive')
 endif
 " }}}
 
-" === airblade/vim-gitgutter ================================================================================= {{{
+" === airblade/vim-gitgutter ============================================================================= {{{
 if neobundle#tap('vim-gitgutter')
 
-    nnoremap <silent>[git]g :<C-u>GitGutterToggle<CR>
-    nnoremap <silent>[git]h :<C-u>GitGutterLineHighlightsToggle<CR>
+    let g:gitgutter_max_signs = 5000 
 
 endif
 " }}}
@@ -674,6 +674,9 @@ if neobundle#tap('vim-smartchr')
         autocmd FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
     augroup END
     inoremap <expr>= smartchr#loop(' = ', ' == ', '=')
+    inoremap <expr>\| smartchr#loop(' \| ', ' \|\| ', '\|')
+    inoremap <expr>& smartchr#loop(' & ', ' && ', '&')
+
 
 endif
 " }}}
@@ -878,7 +881,7 @@ if neobundle#tap('syntastic.git')
 endif
 " }}}
 
-" === tyru/open-browser.vim =========================================================================== {{{
+" === tyru/open-browser.vim ============================================================================== {{{
 if neobundle#tap('open-browser.vim')
 
     let g:netrw_nogx = 1 " disable netrw's gx mapping.
@@ -1175,11 +1178,34 @@ endif
 " === nathanaelkane/vim-indent-guides ==================================================================== {{{
 if neobundle#tap('nathanaelkane/vim-indent-guides')
 
-    let g:indent_guides_enable_on_vim_startup = 1
-    let g:indent_guides_start_level           = 2
-    let g:indent_guides_auto_colors           = 0
-    let g:indent_guides_color_change_percent  = 30
-    let g:indent_guides_guide_size            = 1
+    " vim-indent-guides
+    " Vim 起動時 vim-indent-guides を自動起動
+    let g:indent_guides_enable_on_vim_startup=1
+    " ガイドをスタートするインデントの量
+    let g:indent_guides_start_level=1
+    " 自動カラー無効
+    let g:indent_guides_auto_colors=0
+    " 奇数番目のインデントの色
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#444433 ctermbg=black
+    " 偶数番目のインデントの色
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#333344 ctermbg=darkgray
+    " ガイドの幅
+    let g:indent_guides_guide_size = 1
+
+endif
+" }}}
+
+" === Yggdroot/indentLine ================================================================================ {{{
+if neobundle#tap('indentLine ')
+
+    let g:indentLine_color_term = 239
+
+    "GVim
+    let g:indentLine_color_gui = '#A4E57E'
+
+    " none X terminal
+    let g:indentLine_color_tty_light = 7 " (default: 4)
+    let g:indentLine_color_dark = 1 " (default: 2)
 
 endif
 " }}}
@@ -1212,6 +1238,7 @@ set fileformats     =unix,dos,mac    " Newline character
 
 syntax on                     " Show syntax hilight
 set number                    " Show line number
+set relativenumber
 set ruler                     " Show current line number
 set title                     " Show title of the file
 set showmatch                 " Show matching bracket
