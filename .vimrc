@@ -102,8 +102,8 @@ nmap     <Space>            [plugin]
 " base mappimgs
 noremap  ;                  :
 noremap  :                  ;
-" noremap! ;                  :
-" noremap! :                  ;
+noremap! ;                  :
+noremap! :                  ;
 noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
@@ -114,10 +114,11 @@ nnoremap U                  <C-r>
 " edit
 nnoremap Y                  y$
 nnoremap R                  J
+inoremap jj                 <ESC>
 
 " cursor
-" nnoremap j                  gj
-" nnoremap k                  gk
+nnoremap j                  gj
+nnoremap k                  gk
 vnoremap j                  gj
 vnoremap k                  gk
 noremap  H                  ^
@@ -663,6 +664,11 @@ if neobundle#tap('vim-gitgutter')
 
     let g:gitgutter_max_signs = 5000 
 
+    " key_mappings {{{
+    nnoremap <silent> [git]g :<C-u>GitGutterToggle<CR>
+    nnoremap <silent> [git]h :<C-u>GitGutterLineHighlightsToggle<CR>
+    " }}}
+
 endif
 " }}}
 
@@ -885,8 +891,14 @@ endif
 if neobundle#tap('open-browser.vim')
 
     let g:netrw_nogx = 1 " disable netrw's gx mapping.
-    nmap gx <Plug>(openbrowser-smart-search)
-    vmap gx <Plug>(openbrowser-smart-search)
+
+    " key_mappings {{{
+    " prefix
+    nnoremap [openbrowser]  <Nop>
+    nmap     [plugin]o      [openbrowser]
+    nmap [openbrowser] <Plug>(openbrowser-smart-search)
+    vmap [openbrowser] <Plug>(openbrowser-smart-search)
+    " }}}
 
 endif
 " }}}
