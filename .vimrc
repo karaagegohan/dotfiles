@@ -269,7 +269,8 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
-NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
+NeoBundle 'rhysd/vim-operator-surround'
+" NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
 NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
 " Syntax
@@ -1227,6 +1228,16 @@ if neobundle#tap('nathanaelkane/vim-indent-guides')
     let g:indent_guides_auto_colors=0
     let g:indent_guides_color_change_percent = 30
     let g:indent_guides_guide_size = 1
+
+endif
+" }}}
+
+" === rhysd/vim-operator-surround ==================================================================== {{{
+if neobundle#tap('rhysd/vim-operator-surround')
+
+    map <silent>ys <Plug>(operator-surround-append)
+    map <silent>ds <Plug>(operator-surround-delete)
+    map <silent>ss <Plug>(operator-surround-replace)
 
 endif
 " }}}
