@@ -58,7 +58,7 @@ if has('win32')
         set ambiwidth  =auto
     endif
 elseif has('mac')
-    set guifont        =Osaka-Mono:h12
+    set guifont        =Osaka-Mono:h15
 elseif has('xfontset')
     set guifontset     =a10,r10,k10
 endif
