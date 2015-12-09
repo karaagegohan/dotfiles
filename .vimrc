@@ -4,7 +4,6 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-
 " }}}
 
 " === Functions and Constants ============================================================================ {{{
@@ -12,7 +11,6 @@ endif
 let s:is_terminal = !has('gui_running')
 let s:is_windows  = has('win16') || has('win32') || has('win64')
 let s:is_mac      = has('mac')
-let s:is_cygwin   = has('win32unix')
 
 function! s:My_mkdir(name) abort
     if !isdirectory(expand(a:name))
@@ -116,6 +114,7 @@ inoremap kj                 <Esc>
 " edit
 nnoremap Y                  y$
 nnoremap R                  J
+nnoremap x                  "_x
 
 " cursor
 " nnoremap j                  gj
@@ -170,9 +169,9 @@ endif
 
 " handy
 if isdirectory(expand('~/dotfiles')) 
-    nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
-    nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
-    nnoremap <silent>[func]/    :<C-u>edit ~/dotfiles/AutoHotKey.ahk<CR>
+    nnoremap <silent>[func].    :tabedit ~/dotfiles/.vimrc<CR>
+    nnoremap <silent>[func],    :tabedit ~/dotfiles/.gvimrc<CR>
+    nnoremap <silent>[func]/    :tabedit ~/dotfiles/AutoHotKey.ahk<CR>
 else 
     nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
@@ -272,7 +271,7 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
-NeoBundle 'rhysd/vim-operator-surround'
+" NeoBundle 'rhysd/vim-operator-surround'
 " NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
 NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
@@ -672,7 +671,6 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]me   :<C-u>Git merge 
     nnoremap [git]br   :<C-u>Git branch 
     nnoremap [git]A    :<C-u>Gwrite<CR>:<C-u>Gcommit -m "Update"<CR>:<C-u>Git push origin master<CR>
-
     " }}}
 
 endif
@@ -1382,6 +1380,15 @@ set directory  =~/.vimfiles   " Directiry to save swap files
 " colorscheme
 colorscheme gruvbox
 set background =dark
+
+" Show cursor line in active window
+augroup vimrc_set_cursorline_only_active_window
+  autocmd!
+  autocmd VimEnter,BufWinEnter,WinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
+
+
 
 " }}}
 
