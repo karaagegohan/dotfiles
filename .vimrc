@@ -11,7 +11,7 @@ endif
 
 let s:is_terminal = !has('gui_running')
 let s:is_windows  = has('win16') || has('win32') || has('win64')
-let s:is_mac      = !s:is_windows
+let s:is_mac      = has('mac')
 let s:is_cygwin   = has('win32unix')
 
 function! s:My_mkdir(name) abort
@@ -110,6 +110,7 @@ nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <CR>               :<C-u>write<CR>
 nnoremap <BS>               :<C-u>quit<CR>
 nnoremap U                  <C-r>
+inoremap jj                 <Esc>
 
 " edit
 nnoremap Y                  y$
@@ -138,10 +139,10 @@ nnoremap +                  <C-a>
 nnoremap _                  <C-x>
 
 " window
-nnoremap <C-h>              <C-w>h
-nnoremap <C-j>              <C-w>j
-nnoremap <C-k>              <C-w>k
-nnoremap <C-l>              <C-w>l
+" nnoremap <C-h>              <C-w>h
+" nnoremap <C-j>              <C-w>j
+" nnoremap <C-k>              <C-w>k
+" nnoremap <C-l>              <C-w>l
 nnoremap <silent>[func]n    :<C-u>new<CR>
 nnoremap <silent>[func]v    :<C-u>vnew<CR>
 nnoremap <silent>[func]N    :<C-u>split<CR>
@@ -217,8 +218,7 @@ NeoBundleLazy 'Shougo/neosnippet', { 'autoload' : { 'insert' : 1 } }
 NeoBundleLazy 'Shougo/neosnippet-snippets', { 'autoload' : { 'insert' : 1 }, 'depends' : ['Shougo/neosnippet'] }
 NeoBundleLazy 'karaagegohan/my-snippets', { 'autoload' : { 'insert' : 1 }, 'depends' : ['Shougo/neosnippet'] }
 
-NeoBundle 'Shougo/vimshell.vim'
-
+NeoBundle 'Shougo/vimshell.vim'                " Shell in vim
 NeoBundle 'kana/vim-smartchr'                  " Insert several candidates with a single key
 NeoBundle 'itchyny/lightline.vim'              " Color command line
 NeoBundle 'cohama/vim-hier'                    " Hilight quickfix errors
@@ -257,7 +257,9 @@ NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 NeoBundle 'nathanaelkane/vim-indent-guides'
-" NeoBundle 'gcmt/wildfire.vim'                  " Dangerous??
+" NeoBundle 'rhysd/committia.vim'
+NeoBundle 'AndrewRadev/sideways.vim'
+NeoBundle 'dhruvasagar/vim-table-mode'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -603,6 +605,23 @@ if neobundle#tap('unite.vim')
     nnoremap [unite]nb :<C-u>Unite neobundle<CR>
     nnoremap [unite]co :<C-u>Unite command<CR>
     " }}}
+    
+    function! neobundle#tapped.hooks.on_source(bundle)
+        "" source/neobundleでプラグインの有効無効を切り替える
+        let neobundle_toggle = { 'is_selectable': 1 }
+
+        function! neobundle_toggle.func(candidates)
+            for candidate in a:candidates
+                let bundle = candidate.action__bundle_name
+                let cmd = neobundle#is_sourced(bundle) ?
+                    \ 'NeoBundleDisable ' : 'NeoBundleSource '
+                exec cmd . bundle
+            endfor
+        endfunction
+
+        call unite#custom#action('neobundle', 'source', neobundle_toggle)
+        call unite#custom#default_action('neobundle', 'source')
+    endfunction
 
 endif
 " }}}
@@ -1238,6 +1257,22 @@ if neobundle#tap('vim-operator-surround')
     map <silent>ys <Plug>(operator-surround-append)
     map <silent>ds <Plug>(operator-surround-delete)
     map <silent>ss <Plug>(operator-surround-replace)
+
+endif
+" }}}
+
+" === AndrewRadev/sideways.vim ==================================================================== {{{
+if neobundle#tap('sideways.vim')
+
+    nnoremap <c-h> :SidewaysLeft<cr>
+    nnoremap <c-l> :SidewaysRight<cr>
+
+endif
+" }}}
+
+" === dhruvasagar/vim-table-mode ==================================================================== {{{
+if neobundle#tap('vim-table-mode')
+
 
 endif
 " }}}
