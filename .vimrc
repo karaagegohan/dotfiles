@@ -272,8 +272,8 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'   " [sb] for (), {}, [] etc...
 
 " Operator
 NeoBundle 'kana/vim-operator-user'       " Use vim-operator
-" NeoBundle 'rhysd/vim-operator-surround'
-" NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
+NeoBundle 'rhysd/vim-operator-surround'
+NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
 NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
 " Syntax
@@ -696,7 +696,9 @@ if neobundle#tap('vim-smartchr')
         autocmd!
         autocmd FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
     augroup END
-    inoremap <expr>= smartchr#loop(' = ', ' == ', '=')
+    inoremap <expr>=  smartchr#loop(' = ', ' == ', '=')
+    inoremap <expr>\| smartchr#loop(' \| ', ' \|\| ', '\|')
+    inoremap <expr>&  smartchr#loop(' & ', ' && ', '&')
 
 endif
 " }}}
@@ -1266,17 +1268,17 @@ if neobundle#tap('vim-operator-replace')
 endif
 " }}}
 
-" === rhysd/vim-operator-surround ==================================================================== {{{
+" === rhysd/vim-operator-surround ======================================================================== {{{
 if neobundle#tap('vim-operator-surround')
 
-    map <silent>ys <Plug>(operator-surround-append)
-    map <silent>ds <Plug>(operator-surround-delete)
-    map <silent>ss <Plug>(operator-surround-replace)
+    nmap <silent>ys <Plug>(operator-surround-append)
+    nmap <silent>ds <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+    nmap <silent>cs <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 
 endif
 " }}}
 
-" === AndrewRadev/sideways.vim ==================================================================== {{{
+" === AndrewRadev/sideways.vim =========================================================================== {{{
 if neobundle#tap('sideways.vim')
 
     nnoremap <silent><c-h> :<C-u>SidewaysJumpLeft<cr>
@@ -1285,14 +1287,14 @@ if neobundle#tap('sideways.vim')
 endif
 " }}}
 
-" === dhruvasagar/vim-table-mode ==================================================================== {{{
+" === dhruvasagar/vim-table-mode ========================================================================= {{{
 if neobundle#tap('vim-table-mode')
 
 
 endif
 " }}}
 
-" === tyru/open-browser.vim ==================================================================== {{{
+" === tyru/open-browser.vim ============================================================================== {{{
 if neobundle#tap('open-browser.vim')
 
 
