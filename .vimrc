@@ -659,11 +659,11 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]     <Nop>
     nmap     [plugin]g [git]
 
-    nnoremap [git]i    :<C-u>Git 
-    nnoremap [git]a    :<C-u>Gwrite<CR>
-    nnoremap [git]d    :<C-u>Gdiff<CR>
-    nnoremap [git]b    :<C-u>Gblame<CR>
-    nnoremap [git]co    :<C-u>Gcommit -m ""<LEFT>
+    nnoremap [git]it   :<C-u>Git 
+    nnoremap [git]ad   :<C-u>Gwrite<CR>
+    nnoremap [git]di   :<C-u>Gdiff<CR>
+    nnoremap [git]bl    :<C-u>Gblame<CR>
+    nnoremap [git]co   :<C-u>Gcommit -m ""<LEFT>
     nnoremap [git]ps   :<C-u>Git push origin master<CR>
     nnoremap [git]pl   :<C-u>Git pull<CR>
     nnoremap [git]st   :<C-u>Git status<CR>
@@ -671,7 +671,7 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]ch   :<C-u>Git checkout 
     nnoremap [git]me   :<C-u>Git merge 
     nnoremap [git]br   :<C-u>Git branch 
-    nnoremap [git]u    :<C-u>Gwrite<CR>:<C-u>Gcommit -m "Update"<CR>:<C-u>Git push origin master<CR>
+    nnoremap [git]up   :<C-u>Gwrite<CR>:<C-u>Gcommit -m "Update"<CR>:<C-u>Git push origin master<CR>
     " }}}
 
 endif
