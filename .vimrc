@@ -100,8 +100,8 @@ nmap     <Space>            [plugin]
 " base mappimgs
 noremap  ;                  :
 noremap  :                  ;
-" noremap! ;                  :
-" noremap! :                  ;
+noremap! ;                  :
+noremap! :                  ;
 noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
@@ -115,10 +115,11 @@ inoremap kj                 <Esc>
 nnoremap Y                  y$
 nnoremap R                  J
 nnoremap x                  "_x
+nnoremap X                  x
 
 " cursor
-" nnoremap j                  gj
-" nnoremap k                  gk
+nnoremap j                  gj
+nnoremap k                  gk
 vnoremap j                  gj
 vnoremap k                  gk
 noremap  H                  ^
@@ -163,8 +164,8 @@ nnoremap zz                 za
 
 " View
 if !s:is_terminal
-    nnoremap <silent><UP>          :<C-u>MyTransparancyDown<CR>
-    nnoremap <silent><DOWN>          :<C-u>MyTransparancyUp<CR>
+    nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
+    nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 endif
 
 " handy
@@ -677,7 +678,7 @@ if neobundle#tap('vim-fugitive')
 endif
 " }}}
 
-" === airblade/vim-gitgutter ================================================================================= {{{
+" === tpope/vim-fugitive ================================================================================= {{{
 if neobundle#tap('vim-fugitive')
 
     " key_mappings {{{
