@@ -1291,6 +1291,14 @@ if neobundle#tap('vim-table-mode')
 endif
 " }}}
 
+" === tyru/open-browser.vim ==================================================================== {{{
+if neobundle#tap('open-browser.vim')
+
+
+
+endif
+" }}}
+
 " === base settings ====================================================================================== {{{
 
 " modeline
