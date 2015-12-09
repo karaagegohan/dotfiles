@@ -1349,6 +1349,7 @@ set completeopt=longest,menuone,preview
 set splitbelow
 set hidden
 set cursorline
+set hlsearch
 
 " indent
 set backspace          =indent,eol,start   " More powerful backspacing
@@ -1390,6 +1391,7 @@ set swapfile                  " Make swap file
 set directory  =~/.vimfiles   " Directiry to save swap files
 
 " colorscheme
+let g:gruvbox_italic = 0
 colorscheme gruvbox
 set background =dark
 
