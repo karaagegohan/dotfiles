@@ -989,17 +989,6 @@ if neobundle#tap('tcomment_vim')
 endif
 " }}}
 
-" === kana/vim-operator-replace ========================================================================== {{{
-if neobundle#tap('vim-operator-replace')
-
-    " key_mappings {{{
-    nmap s <Plug>(operator-replace)
-    nmap S <Plug>(operator-replace)$
-    " }}}
-
-endif
-" }}}
-
 " === junegunn/vim-easy-align ============================================================================ {{{
 if neobundle#tap('vim-easy-align')
 
@@ -1232,8 +1221,19 @@ if neobundle#tap('nathanaelkane/vim-indent-guides')
 endif
 " }}}
 
+" === kana/vim-operator-replace ========================================================================== {{{
+if neobundle#tap('vim-operator-replace')
+
+    " key_mappings {{{
+    nmap s <Plug>(operator-replace)
+    nmap S <Plug>(operator-replace)$
+    " }}}
+
+endif
+" }}}
+
 " === rhysd/vim-operator-surround ==================================================================== {{{
-if neobundle#tap('rhysd/vim-operator-surround')
+if neobundle#tap('vim-operator-surround')
 
     map <silent>ys <Plug>(operator-surround-append)
     map <silent>ds <Plug>(operator-surround-delete)
