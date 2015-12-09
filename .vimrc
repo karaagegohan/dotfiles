@@ -663,7 +663,7 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]a    :<C-u>Gwrite<CR>
     nnoremap [git]d    :<C-u>Gdiff<CR>
     nnoremap [git]b    :<C-u>Gblame<CR>
-    nnoremap [git]c    :<C-u>Gcommit -m ""<LEFT>
+    nnoremap [git]co    :<C-u>Gcommit -m ""<LEFT>
     nnoremap [git]ps   :<C-u>Git push origin master<CR>
     nnoremap [git]pl   :<C-u>Git pull<CR>
     nnoremap [git]st   :<C-u>Git status<CR>
@@ -1354,7 +1354,7 @@ set incsearch   " Disable increment search
 set wrapscan    " Searchrs wrap around
 
 " command line
-set timeoutlen =10000      " time to wait for a key code
+set timeoutlen =2000      " time to wait for a key code
 
 " action
 set autoread                          " Reload file automatically when it is updated
