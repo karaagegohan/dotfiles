@@ -111,6 +111,7 @@ nnoremap <CR>               :<C-u>write<CR>
 nnoremap <BS>               :<C-u>quit<CR>
 nnoremap U                  <C-r>
 inoremap jj                 <Esc>
+inoremap kj                 <Esc>
 
 " edit
 nnoremap Y                  y$
@@ -318,6 +319,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'morhetz/gruvbox'
 NeoBundle 'buttercream.vim'
+NeoBundle 'tomasr/molokai'
 
 " dictionary
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
@@ -669,6 +671,18 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]ch   :<C-u>Git checkout 
     nnoremap [git]me   :<C-u>Git merge 
     nnoremap [git]br   :<C-u>Git branch 
+    nnoremap [git]A    :<C-u>Gwrite<CR>:<C-u>Gcommit -m "Update"<CR>:<C-u>Git push origin master<CR>
+    " }}}
+
+endif
+" }}}
+
+" === airblade/vim-gitgutter ================================================================================= {{{
+if neobundle#tap('vim-fugitive')
+
+    " key_mappings {{{
+    nnoremap <silent>[git]gt   :<C-u>GitGutterToggle<CR>
+    nnoremap <silent>[git]gh   :<C-u>GitGutterLineHighlightsToggle<CR>
     " }}}
 
 endif
