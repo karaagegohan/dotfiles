@@ -1264,8 +1264,8 @@ endif
 " === AndrewRadev/sideways.vim ==================================================================== {{{
 if neobundle#tap('sideways.vim')
 
-    nnoremap <c-h> :SidewaysLeft<cr>
-    nnoremap <c-l> :SidewaysRight<cr>
+    nnoremap <silent><c-h> :<C-u>SidewaysLeft<cr>
+    nnoremap <silent><c-l> :<C-u>SidewaysRight<cr>
 
 endif
 " }}}
