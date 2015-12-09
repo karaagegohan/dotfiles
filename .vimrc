@@ -258,7 +258,7 @@ NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 NeoBundle 'nathanaelkane/vim-indent-guides'
 " NeoBundle 'rhysd/committia.vim'
-NeoBundle 'AndrewRadev/sideways.vim'
+" NeoBundle 'AndrewRadev/sideways.vim'
 NeoBundle 'dhruvasagar/vim-table-mode'
 
 " Textobject
@@ -1264,8 +1264,8 @@ endif
 " === AndrewRadev/sideways.vim ==================================================================== {{{
 if neobundle#tap('sideways.vim')
 
-    nnoremap <silent><c-h> :<C-u>SidewaysLeft<cr>
-    nnoremap <silent><c-l> :<C-u>SidewaysRight<cr>
+    nnoremap <silent><c-h> :<C-u>SidewaysJumpLeft<cr>
+    nnoremap <silent><c-l> :<C-u>SidewaysJumpRight<cr>
 
 endif
 " }}}
