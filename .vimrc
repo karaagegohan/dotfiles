@@ -684,7 +684,7 @@ if neobundle#tap('vim-fugitive')
 endif
 " }}}
 
-" === airblade/vim-gitgutter ================================================================================= {{{
+" === airblade/vim-gitgutter ============================================================================= {{{
 if neobundle#tap('vim-gitgutter')
 
     " key_mappings {{{
