@@ -89,10 +89,5 @@ set mousehide
 set guioptions =         " disable GUI options
 set cmdheight  =2        " height of commandline
 
-" colorscheme
-let g:gruvbox_italic = 0
-colorscheme hybrid   " colorsheme
-set background =dark
-
 " }}}
 

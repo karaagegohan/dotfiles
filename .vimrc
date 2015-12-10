@@ -1373,6 +1373,7 @@ set autoread                          " Reload file automatically when it is upd
 set scrolloff  =10                    " Scrooloff
 set clipboard +=unnamedplus,unnamed   " Sharing clipboard
 set nrformats  =
+set autochdir
 
 " fold
 set foldenable            " Enable fold
