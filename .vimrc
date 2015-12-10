@@ -1352,14 +1352,14 @@ set cursorline
 set hlsearch
 
 " indent
-set backspace         =indent,eol,start   " More powerful backspacing
-set smartindent                           " Indent automatically
-set autoindent                            " Indent automatically
-set shiftwidth        =4                  " Width of indent for autoindent
-set tabstop           =4                  " Width of TAB
-set expandtab                             " Change TAB to space
-set textwidth         =0                  " Text width
-let g:vim_indent_cont =4                  " Space before \
+set backspace         =indent,eol,start    " More powerful backspacing
+set smartindent                            " Indent automatically
+set autoindent                             " Indent automatically
+set shiftwidth        =4                   " Width of indent for autoindent
+set tabstop           =4                   " Width of TAB
+set expandtab                              " Change TAB to space
+set textwidth         =0                   " Text width
+let g:vim_indent_cont =4                   " Space before \
 set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
 
 " searching
