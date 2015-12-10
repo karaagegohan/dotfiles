@@ -140,10 +140,10 @@ nnoremap +                  <C-a>
 nnoremap _                  <C-x>
 
 " window
-" nnoremap <C-h>              <C-w>h
-" nnoremap <C-j>              <C-w>j
-" nnoremap <C-k>              <C-w>k
-" nnoremap <C-l>              <C-w>l
+nnoremap gh                 <C-w>h
+nnoremap gj                 <C-w>j
+nnoremap gk                 <C-w>k
+nnoremap gl                 <C-w>l
 nnoremap <silent>[func]n    :<C-u>new<CR>
 nnoremap <silent>[func]v    :<C-u>vnew<CR>
 nnoremap <silent>[func]N    :<C-u>split<CR>
@@ -1352,14 +1352,15 @@ set cursorline
 set hlsearch
 
 " indent
-set backspace          =indent,eol,start   " More powerful backspacing
-set smartindent                            " Indent automatically
-set autoindent                             " Indent automatically
-set shiftwidth         =4                  " Width of indent for autoindent
-set tabstop            =4                  " Width of TAB
-set expandtab                              " Change TAB to space
-set textwidth          =0                  " Text width
-let g:vim_indent_cont  =4                  " Space before \
+set backspace         =indent,eol,start   " More powerful backspacing
+set smartindent                           " Indent automatically
+set autoindent                            " Indent automatically
+set shiftwidth        =4                  " Width of indent for autoindent
+set tabstop           =4                  " Width of TAB
+set expandtab                             " Change TAB to space
+set textwidth         =0                  " Text width
+let g:vim_indent_cont =4                  " Space before \
+set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
 
 " searching
 set incsearch   " Disable increment search
@@ -1369,10 +1370,12 @@ set wrapscan    " Searchrs wrap around
 set timeoutlen =2000      " time to wait for a key code
 
 " action
-set autoread                          " Reload file automatically when it is updated
-set scrolloff  =10                    " Scrooloff
-set clipboard +=unnamedplus,unnamed   " Sharing clipboard
-set nrformats  =
+set autoread                              " Reload file automatically when it is updated
+set scrolloff      =10                    " Scrooloff
+set sidescroll     =1                     " Unit of left and right scroll
+set sidescrolloff  =8                     " Scrooloff
+set clipboard     +=unnamedplus,unnamed   " Sharing clipboard
+set nrformats      =
 set autochdir
 
 " fold
