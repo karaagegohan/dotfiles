@@ -261,6 +261,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 " NeoBundle 'rhysd/committia.vim'
 " NeoBundle 'AndrewRadev/sideways.vim'
 NeoBundle 'dhruvasagar/vim-table-mode'
+" NeoBundle 'thinca/vim-splash'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -678,8 +679,8 @@ if neobundle#tap('vim-fugitive')
 endif
 " }}}
 
-" === tpope/vim-fugitive ================================================================================= {{{
-if neobundle#tap('vim-fugitive')
+" === airblade/vim-gitgutter ================================================================================= {{{
+if neobundle#tap('vim-gitgutter')
 
     " key_mappings {{{
     nnoremap <silent>[git]gt   :<C-u>GitGutterToggle<CR>
