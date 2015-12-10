@@ -321,6 +321,11 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'morhetz/gruvbox'
 NeoBundle 'buttercream.vim'
 NeoBundle 'tomasr/molokai'
+NeoBundle 'vim-scripts/twilight'
+NeoBundle 'jonathanfilip/vim-lucius'
+NeoBundle 'jpo/vim-railscasts-theme'
+NeoBundle 'vim-scripts/Wombat'
+NeoBundle 'vim-scripts/rdark'
 
 " dictionary
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
@@ -1405,6 +1410,7 @@ augroup vimrc_set_cursorline_only_active_window
   autocmd!
   autocmd VimEnter,BufWinEnter,WinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
+  autocmd GUIEnter * simalt ~x
 augroup END
 
 
