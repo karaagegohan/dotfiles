@@ -212,6 +212,8 @@ NeoBundle 'Shougo/vimproc.vim', { 'build' : { 'windows' : 'make -f make_mingw32.
 " complement 
 if has('lua') 
     NeoBundleLazy 'Shougo/neocomplete.vim', { 'autoload' : { 'insert' : 1 } }
+elseif has('nvim')
+    NeoBundleLazy 'Shougo/deoplete.nvim', { 'autoload' : { 'insert' : 1 } }
 else 
     NeoBundleLazy 'Shougo/neocomplcache.vim', { 'autoload' : { 'insert' : 1 } }
 endif
@@ -261,7 +263,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 " NeoBundle 'rhysd/committia.vim'
 " NeoBundle 'AndrewRadev/sideways.vim'
 NeoBundle 'dhruvasagar/vim-table-mode'
-" NeoBundle 'thinca/vim-splash'
+NeoBundle 'thinca/vim-splash'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -426,6 +428,14 @@ if neobundle#tap('neocomplcache.vim')
     let g:neocomplcache_keyword_patterns._ = '\h\w*'
     let g:neocomplcache_enable_camel_case_completion = 1
     let g:neocomplcache_enable_underbar_completion = 1
+
+endif
+" }}}
+
+" === Shougo/deoplete.nvim =========================================================================== {{{
+if neobundle#tap('deoplete.nvim')
+
+    let g:deoplete#enable_at_startup = 1 
 
 endif
 " }}}
