@@ -1351,7 +1351,7 @@ set pumheight     =10         " Height of popup
 set t_vb=                     " Visual bell of terminal
 set visualbell                " Show visualbell
 set noerrorbells              " Diable error bell
-set completeopt=longest,menuone,preview
+set completeopt   =longest,menuone,preview
 set splitbelow
 set hidden
 set cursorline
@@ -1365,8 +1365,8 @@ set shiftwidth        =4                   " Width of indent for autoindent
 set tabstop           =4                   " Width of TAB
 set expandtab                              " Change TAB to space
 set textwidth         =0                   " Text width
-let g:vim_indent_cont =4                   " Space before \
 set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
+let g:vim_indent_cont =4                   " Space before \
 
 " searching
 set incsearch   " Disable increment search
@@ -1412,8 +1412,6 @@ augroup vimrc_set_cursorline_only_active_window
   autocmd WinLeave * setlocal nocursorline
   autocmd GUIEnter * simalt ~x
 augroup END
-
-
 
 " }}}
 
