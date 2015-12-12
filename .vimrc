@@ -432,7 +432,7 @@ if neobundle#tap('neocomplcache.vim')
 endif
 " }}}
 
-" === Shougo/deoplete.nvim =========================================================================== {{{
+" === Shougo/deoplete.nvim =============================================================================== {{{
 if neobundle#tap('deoplete.nvim')
 
     let g:deoplete#enable_at_startup = 1 
