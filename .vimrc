@@ -177,7 +177,11 @@ else
     nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
-nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
+if s:is_terminal
+    nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>
+else 
+    nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
+end
 nnoremap <silent>[func]km   :/key_mappings<CR>zO
 nnoremap [func]h            :<C-u>help 
 nnoremap [func]e            :<C-u>edit<CR> 
@@ -264,6 +268,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 " NeoBundle 'AndrewRadev/sideways.vim'
 NeoBundle 'dhruvasagar/vim-table-mode'
 NeoBundle 'thinca/vim-splash'
+NeoBundle 'deris/vim-gothrough-jk'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -1314,6 +1319,12 @@ endif
 if neobundle#tap('open-browser.vim')
 
 
+
+endif
+" }}}
+
+" === deris/vim-gothrough-jk ============================================================================= {{{
+if neobundle#tap('vim-gothrough-jk')
 
 endif
 " }}}
