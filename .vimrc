@@ -1431,7 +1431,6 @@ set background =dark
 " Show cursor line in active window
 autocmd MyVimrc VimEnter,BufWinEnter,WinEnter * setlocal cursorline
 autocmd MyVimrc WinLeave * setlocal nocursorline
-autocmd MyVimrc GUIEnter * simalt ~x
 
 " }}}
 
