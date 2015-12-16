@@ -118,7 +118,6 @@ inoremap kj                 <Esc>
 nnoremap Y                  y$
 nnoremap R                  J
 nnoremap x                  "_x
-nnoremap X                  x
 
 " cursor
 nnoremap j                  gj
@@ -166,19 +165,17 @@ cnoremap <C-p>              <UP>
 nnoremap zz                 za
 
 " View
-if !s:is_terminal
-    nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
-    nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
-endif
+nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
+nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
 " handy
 if isdirectory(expand('~/dotfiles')) 
-    nnoremap <silent>[func].    :tabedit ~/dotfiles/.vimrc<CR>
-    nnoremap <silent>[func],    :tabedit ~/dotfiles/.gvimrc<CR>
-    nnoremap <silent>[func]/    :tabedit ~/dotfiles/AutoHotKey.ahk<CR>
+    nnoremap <silent>[func].    :<C-u>tabedit ~/dotfiles/.vimrc<CR>
+    nnoremap <silent>[func],    :<C-u>tabedit ~/dotfiles/.gvimrc<CR>
+    nnoremap <silent>[func]/    :<C-u>tabedit ~/dotfiles/AutoHotKey.ahk<CR>
 else 
-    nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
-    nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
+    nnoremap <silent>[func].    :<C-u>tabedit $MYVIMRC<CR>
+    nnoremap <silent>[func],    :<C-u>tabedit $MYGVIMRC<CR>
 endif
 if s:is_terminal
     nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>
@@ -1339,7 +1336,7 @@ set modelines =3
 
 " statusline
 set laststatus=2
-"
+
 " function
 set history  =1024   " Number of history
 set helplang =en     " Language to read help
