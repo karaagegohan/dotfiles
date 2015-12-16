@@ -183,7 +183,7 @@ else
     nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 end
 nnoremap <silent>[func]km   :/key_mappings<CR>zO
-nnoremap [func]h            :<C-u>help 
+nnoremap [func]h            :<C-u>help<Space><C-r><C-w><CR>
 nnoremap [func]e            :<C-u>edit<CR> 
 
 " }}}
@@ -267,7 +267,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 " NeoBundle 'rhysd/committia.vim'
 " NeoBundle 'AndrewRadev/sideways.vim'
 NeoBundle 'dhruvasagar/vim-table-mode'
-NeoBundle 'thinca/vim-splash'
+" NeoBundle 'thinca/vim-splash'
 NeoBundle 'deris/vim-gothrough-jk'
 
 " Textobject
@@ -752,7 +752,7 @@ if neobundle#tap('lightline.vim')
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'filename'],
+        \     ['time', 'fugitive', 'gitgutter', 'filename'],
         \   ],
         \   'right': [
         \     ['lineinfo', 'syntastic'],
@@ -762,6 +762,7 @@ if neobundle#tap('lightline.vim')
         \ },
         \ 'component_function': {
         \   'modified': 'MyModified',
+        \   'time': 'MyTime',
         \   'readonly': 'MyReadonly',
         \   'fugitive': 'MyFugitive',
         \   'filename': 'MyFilename',
@@ -779,6 +780,10 @@ if neobundle#tap('lightline.vim')
 
     function! MyModified()
         return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    endfunction
+
+    function! MyTime()
+        return strftime("%Y/%m/%d %H:%M:%S", localtime())
     endfunction
 
     function! MyReadonly()
@@ -1311,14 +1316,11 @@ endif
 " === dhruvasagar/vim-table-mode ========================================================================= {{{
 if neobundle#tap('vim-table-mode')
 
-
 endif
 " }}}
 
 " === tyru/open-browser.vim ============================================================================== {{{
 if neobundle#tap('open-browser.vim')
-
-
 
 endif
 " }}}
