@@ -778,7 +778,7 @@ if neobundle#tap('lightline.vim')
     endfunction
 
     function! MyTime()
-        return strftime("%Y/%m/%d %H:%M:%S", localtime())
+        return winwidth('.') > 90 ? strftime("%Y/%m/%d %H:%M:%S", localtime()) : (winwidth('.') > 70 ? strftime("%Y/%m/%d", localtime()) : '')
     endfunction
 
     function! MyReadonly()
