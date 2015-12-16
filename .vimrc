@@ -1,4 +1,7 @@
 " === Initialization ===================================================================================== {{{
+augroup MyVimrc
+    autocmd!
+augroup END
 
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -20,19 +23,19 @@ endfunction
 
 function! s:transparancy_up()
     if !s:is_terminal
-    if s:is_mac
-        if &transparency + 2 < 100
-            set transparency+=2
-        else
-            set transparency =100
+        if s:is_mac
+            if &transparency + 2 < 100
+                set transparency+=2
+            else
+                set transparency =100
+            endif
+        else 
+            if &transparency - 5 > 1
+                set transparency-=5
+            else
+                set transparency =1
+            endif
         endif
-    else 
-        if &transparency - 5 > 1
-            set transparency-=5
-        else
-            set transparency =1
-        endif
-    endif
     endif
 endfunction 
 command! MyTransparancyUp call s:transparancy_up()
@@ -269,6 +272,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'dhruvasagar/vim-table-mode'
 " NeoBundle 'thinca/vim-splash'
 NeoBundle 'deris/vim-gothrough-jk'
+NeoBundle 'kakkyz81/evervim'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -375,15 +379,12 @@ if neobundle#tap('neocomplete.vim')
     let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
     " enable omni completion.
-    augroup vimrc_neocomplete
-        autocmd!
-        autocmd filetype css           setlocal omnifunc=csscomplete#completecss
-        autocmd filetype html,markdown setlocal omnifunc=htmlcomplete#completetags
-        autocmd filetype javascript    setlocal omnifunc=javascriptcomplete#completejs
-        autocmd filetype python        setlocal omnifunc=pythoncomplete#complete
-        autocmd filetype xml           setlocal omnifunc=xmlcomplete#completetags
-        autocmd filetype cs            setlocal omnifunc=omnisharp#complete
-    augroup end
+    autocmd MyVimrc filetype css           setlocal omnifunc=csscomplete#completecss
+    autocmd MyVimrc filetype html,markdown setlocal omnifunc=htmlcomplete#completetags
+    autocmd MyVimrc filetype javascript    setlocal omnifunc=javascriptcomplete#completejs
+    autocmd MyVimrc filetype python        setlocal omnifunc=pythoncomplete#complete
+    autocmd MyVimrc filetype xml           setlocal omnifunc=xmlcomplete#completetags
+    autocmd MyVimrc filetype cs            setlocal omnifunc=omnisharp#complete
 
     let g:neocomplete#force_overwrite_completefunc=1
 
@@ -628,7 +629,7 @@ if neobundle#tap('unite.vim')
     nnoremap [unite]nb :<C-u>Unite neobundle<CR>
     nnoremap [unite]co :<C-u>Unite command<CR>
     " }}}
-    
+
     function! neobundle#tapped.hooks.on_source(bundle)
         "" source/neobundleでプラグインの有効無効を切り替える
         let neobundle_toggle = { 'is_selectable': 1 }
@@ -713,10 +714,7 @@ endif
 " === kana/vim-smartchr ================================================================================== {{{
 if neobundle#tap('vim-smartchr')
 
-    augroup vim_schar
-        autocmd!
-        autocmd FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
-    augroup END
+    autocmd MyVimrc FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
     inoremap <expr>=  smartchr#loop(' = ', ' == ', '=')
     inoremap <expr>\| smartchr#loop(' \| ', ' \|\| ', '\|')
     inoremap <expr>&  smartchr#loop(' & ', ' && ', '&')
@@ -964,10 +962,7 @@ if neobundle#tap('java_getset.vim')
     let b:javagetset_add_this       = 1   " add this.
 
     " key_mappings {{{
-    augroup vim_java_getset
-        autocmd!
-        autocmd Filetype java call s:java_getset_mappings()
-    augroup END
+    autocmd MyVimrc Filetype java call s:java_getset_mappings()
 
     function! s:java_getset_mappings()
         " prefix
@@ -1148,22 +1143,19 @@ if neobundle#tap('VimCalc')
     " key_mappings {{{
     nnoremap [plugin]ca :<C-u>Calc<CR>
 
-    augroup keymapping_VimCalc
-        autocmd!
-        autocmd FileType vimcalc inoremap <buffer><silent><C-c> <ESC>:<C-u>quit<CR>
-        " autocmd FileType vimcalc inoremap <buffer><silent>N 0
-        " autocmd FileType vimcalc inoremap <buffer><silent>M 1
-        " autocmd FileType vimcalc inoremap <buffer><silent>< 2
-        " autocmd FileType vimcalc inoremap <buffer><silent>> 3
-        " autocmd FileType vimcalc inoremap <buffer><silent>J 4
-        " autocmd FileType vimcalc inoremap <buffer><silent>K 5
-        " autocmd FileType vimcalc inoremap <buffer><silent>L 6
-        " autocmd FileType vimcalc inoremap <buffer><silent>U 7
-        " autocmd FileType vimcalc inoremap <buffer><silent>I 8
-        " autocmd FileType vimcalc inoremap <buffer><silent>O 9
-        " autocmd FileType vimcalc inoremap <buffer><silent>_ -
-        " autocmd FileType vimcalc inoremap <buffer><silent>& /
-    augroup END
+    autocmd MyVimrc FileType vimcalc inoremap <buffer><silent><C-c> <ESC>:<C-u>quit<CR>
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>N 0
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>M 1
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>< 2
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>> 3
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>J 4
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>K 5
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>L 6
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>U 7
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>I 8
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>O 9
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>_ -
+    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>& /
 
     " }}}
 
@@ -1331,6 +1323,14 @@ if neobundle#tap('vim-gothrough-jk')
 endif
 " }}}
 
+" === kakkyz81/evervim ============================================================================= {{{
+if neobundle#tap('evervim')
+    
+    let g:evervim_devtoken="S=s301:U=2974e26:E=15901eda381:C=151aa3c76a0:P=1cd:A=en-devtoken:V=2:H=5fa185eb79a527ff40b094679f07657c"
+
+endif
+" }}}
+
 " === base settings ====================================================================================== {{{
 
 " modeline
@@ -1429,12 +1429,9 @@ colorscheme gruvbox
 set background =dark
 
 " Show cursor line in active window
-augroup vimrc_set_cursorline_only_active_window
-  autocmd!
-  autocmd VimEnter,BufWinEnter,WinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-  autocmd GUIEnter * simalt ~x
-augroup END
+autocmd MyVimrc VimEnter,BufWinEnter,WinEnter * setlocal cursorline
+autocmd MyVimrc WinLeave * setlocal nocursorline
+autocmd MyVimrc GUIEnter * simalt ~x
 
 " }}}
 
