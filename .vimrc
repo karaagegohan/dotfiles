@@ -24,12 +24,12 @@ endfunction
 function! s:transparancy_up()
     if !s:is_terminal
         if s:is_mac
-            if &transparency + 2 < 100
-                set transparency+=2
+            if &transparency - 5 > 1
+                set transparency-=5
             else
-                set transparency =100
+                set transparency =0
             endif
-        else 
+        elseif s:is_windows 
             if &transparency - 5 > 1
                 set transparency-=5
             else
@@ -43,12 +43,12 @@ command! MyTransparancyUp call s:transparancy_up()
 function! s:transparancy_down()
     if !s:is_terminal
         if s:is_mac
-            if &transparency - 2 < 100
-                set transparency+=2
+            if &transparency + 5 < 100
+                set transparency+=5
             else
                 set transparency =100
             endif
-        else
+        elseif s:is_windows
             if &transparency + 5 < 255
                 set transparency+=5
             else
