@@ -272,6 +272,7 @@ NeoBundle 'deris/vim-gothrough-jk'
 NeoBundle 'kakkyz81/evervim'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
+NeoBundle 'LeafCage/foldCC.vim'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -318,6 +319,7 @@ NeoBundleLazy 'keith/swift.vim', { 'autoload' : { 'filetypes' : ['swift'] } }
 NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] }, 'build': { 'mac': 'xbuild server/OmniSharp.sln', 'unix': 'xbuild server/OmniSharp.sln', }, } 
 NeoBundleLazy 'tpope/vim-dispatch', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
+NeoBundleLazy 'osyo-manga/vim-stargate',, { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } } {
 
 " Twitter
 NeoBundleLazy 'basyura/TweetVim'
@@ -693,7 +695,7 @@ if neobundle#tap('vim-fugitive')
     nnoremap [git]ch :<C-u>Git checkout 
     nnoremap [git]me :<C-u>Git merge 
     nnoremap [git]br :<C-u>Git branch 
-    nnoremap [git]pa :<C-u>Gwrite<CR>:<C-u>Gcommit -m "Update"<CR>:<C-u>Git push origin master<CR>
+    nnoremap [git]up :<C-u>Gwrite<CR>:<C-u>Gcommit -m "Update"<CR>:<C-u>Git push origin master<CR>
     " }}}
 
 endif
@@ -1165,6 +1167,8 @@ endif
 if neobundle#tap('vim-anzu')
 
     let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
+    nnoremap <expr> n anzu#mode#mapexpr("n", "", "zzzv")
+    nnoremap <expr> N anzu#mode#mapexpr("N", "", "zzzv")
 
 endif
 " }}}
@@ -1326,6 +1330,18 @@ endif
 if neobundle#tap('evervim')
     
     let g:evervim_devtoken="S=s301:U=2974e26:E=15901eda381:C=151aa3c76a0:P=1cd:A=en-devtoken:V=2:H=5fa185eb79a527ff40b094679f07657c"
+
+endif
+" }}}
+
+" === LeafCage/foldCC.vim ============================================================================= {{{
+if neobundle#tap('foldCC.vim')
+    
+    set foldtext=FoldCCtext()
+    set foldcolumn=3
+    set fillchars=vert:\|
+    let g:foldCCtext_tail = 'v:foldend-v:foldstart+1'
+    let g:foldCCtext_head = ''
 
 endif
 " }}}
