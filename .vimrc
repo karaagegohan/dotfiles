@@ -270,6 +270,8 @@ NeoBundle 'dhruvasagar/vim-table-mode'
 " NeoBundle 'thinca/vim-splash'
 NeoBundle 'deris/vim-gothrough-jk'
 NeoBundle 'kakkyz81/evervim'
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'kannokanno/previm'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -778,7 +780,7 @@ if neobundle#tap('lightline.vim')
     endfunction
 
     function! MyTime()
-        return winwidth('.') > 90 ? strftime("%Y/%m/%d %H:%M:%S", localtime()) : (winwidth('.') > 70 ? strftime("%Y/%m/%d", localtime()) : '')
+        return winwidth('.') > 110 ? strftime("%Y/%m/%d %H:%M:%S", localtime()) : (winwidth('.') > 90 ? strftime("%Y/%m/%d", localtime()) : '')
     endfunction
 
     function! MyReadonly()
@@ -1425,7 +1427,6 @@ let g:gruvbox_italic = 0
 colorscheme gruvbox
 set background =dark
 
-" Show cursor line in active window
 autocmd MyVimrc VimEnter,BufWinEnter,WinEnter * setlocal cursorline
 autocmd MyVimrc WinLeave * setlocal nocursorline
 
