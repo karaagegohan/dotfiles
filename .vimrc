@@ -269,11 +269,13 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'dhruvasagar/vim-table-mode'
 " NeoBundle 'thinca/vim-splash'
 NeoBundle 'deris/vim-gothrough-jk'
-NeoBundle 'kakkyz81/evervim'
+if has('python')
+    NeoBundle 'kakkyz81/evervim'
+endif
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'LeafCage/foldCC.vim'
-NeoBundle 'shikato/keysender.vim'
+" NeoBundle 'shikato/keysender.vim'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -720,6 +722,9 @@ if neobundle#tap('vim-smartchr')
     inoremap <expr>=  smartchr#loop(' = ', ' == ', '=')
     inoremap <expr>\| smartchr#loop(' \| ', ' \|\| ', '\|')
     inoremap <expr>&  smartchr#loop(' & ', ' && ', '&')
+    inoremap <expr>,  smartchr#loop(', ', ',')
+    inoremap <expr>(  smartchr#loop('( ', '(')
+    inoremap <expr>;  smartchr#loop('; ', '(')
 
 endif
 " }}}
@@ -1441,7 +1446,7 @@ set directory  =~/.vimfiles   " Directiry to save swap files
 
 " colorscheme
 let g:gruvbox_italic = 0
-colorscheme gruvbox
+colorscheme lucius
 set background =dark
 
 autocmd MyVimrc VimEnter,BufWinEnter,WinEnter * setlocal cursorline
