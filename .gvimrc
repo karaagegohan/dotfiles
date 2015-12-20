@@ -89,7 +89,7 @@ set mousehide
 set guioptions =         " disable GUI options
 set cmdheight  =2        " height of commandline
 
-colorscheme gruvbox
+colorscheme lucius
 set background =dark
 " }}}
 
