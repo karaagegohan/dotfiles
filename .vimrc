@@ -1,4 +1,4 @@
-" === Initialization ===================================================================================== {{{
+" INITIALIZATION {{{
 augroup MyVimrc
     autocmd!
 augroup END
@@ -9,7 +9,7 @@ endif
 
 " }}}
 
-" === Functions and Constants ============================================================================ {{{
+" FUNCTIONS AND CONSTANTS {{{
 
 let s:is_terminal = !has('gui_running')
 let s:is_windows  = has('win16') || has('win32') || has('win64')
@@ -73,7 +73,7 @@ command! MyFullscreen call s:fullscreen()
 
 " }}}
 
-" === key mappings ======================================================================================= {{{
+" KEY MAPPINGS {{{
 
 " ***NOTE*** {{{
 " --------------------------------------------------------------------------------
@@ -188,7 +188,7 @@ nnoremap [func]e            :<C-u>edit<CR>
 
 " }}}
 
-" === Shougo/neobundle.vim =============================================================================== {{{
+" PLUGINS {{{
 
 " ***NOTE*** {{{
 "
@@ -250,7 +250,7 @@ NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
 NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
 NeoBundle 'rking/ag.vim'                       " Use ag command in vim
 NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline 
-NeoBundleLazy 'terryma/vim-multiple-cursors'   " Multiple cursol
+" NeoBundle 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'              " Make opening beowser easier
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
@@ -1306,7 +1306,7 @@ if neobundle#tap('foldCC.vim') " {{{
 endif
 " }}}
 
-" === base settings ====================================================================================== {{{
+" BASE SETTINGS {{{
 
 " modeline
 set modeline
