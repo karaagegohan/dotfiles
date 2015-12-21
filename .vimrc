@@ -1300,7 +1300,7 @@ if neobundle#tap('foldCC.vim') " {{{
     set foldtext=FoldCCtext()
     set foldcolumn=3
     set fillchars=vert:\|
-    let g:foldCCtext_tail = 'v:foldend-v:foldstart+1'
+    let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
     let g:foldCCtext_head = ''
 
 endif
