@@ -113,6 +113,8 @@ nnoremap <BS>               :<C-u>quit<CR>
 nnoremap U                  <C-r>
 inoremap jj                 <Esc>
 inoremap kj                 <Esc>
+inoremap jk                 <Esc>
+inoremap kk                 <Esc>
 
 " edit
 nnoremap Y                  y$
@@ -182,7 +184,7 @@ if s:is_terminal
 else 
     nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 end
-nnoremap <silent>[func]km   :/key_mappings<CR>zO
+nnoremap <silent>[func]km   :<C-u>/key_mappings<CR>zO
 nnoremap [func]h            :<C-u>help<Space><C-r><C-w><CR>
 nnoremap [func]e            :<C-u>edit<CR> 
 
@@ -263,7 +265,6 @@ NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : { 'command' : ['W3m'] } }
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
-NeoBundle 'nathanaelkane/vim-indent-guides'
 " NeoBundle 'rhysd/committia.vim'
 " NeoBundle 'AndrewRadev/sideways.vim'
 NeoBundle 'dhruvasagar/vim-table-mode'
@@ -1380,7 +1381,7 @@ set sidescroll     =1                     " Unit of left and right scroll
 set sidescrolloff  =8                     " Scrooloff
 set clipboard     +=unnamedplus,unnamed   " Sharing clipboard
 set nrformats      =
-set autochdir
+" set autochdir
 
 " fold
 set foldenable            " Enable fold
