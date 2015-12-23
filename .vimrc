@@ -278,6 +278,7 @@ NeoBundle 'kannokanno/previm'
 NeoBundle 'LeafCage/foldCC.vim'
 " NeoBundle 'shikato/keysender.vim'
 
+
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
 NeoBundle 'sgur/vim-textobj-parameter'          " [,]  for parameter of function
