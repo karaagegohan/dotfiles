@@ -349,6 +349,7 @@ NeoBundle 'vim-scripts/rdark'
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'ujihisa/neco-look'
+NeoBundle 'mitsuse/kompl'
 
 " iTunes
 NeoBundleLazy 'VimItunes.vim'
