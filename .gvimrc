@@ -91,5 +91,6 @@ set cmdheight  =2        " height of commandline
 
 colorscheme lucius
 set background =dark
+
 " }}}
 
