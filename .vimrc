@@ -120,6 +120,7 @@ inoremap kk                 <Esc>
 nnoremap Y                  y$
 nnoremap R                  J
 nnoremap x                  "_x
+nnoremap <C-,>              <BS>
 
 " cursor
 nnoremap j                  gj
