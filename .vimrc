@@ -154,6 +154,10 @@ nnoremap <silent>[func]v    :<C-u>vnew<CR>
 nnoremap <silent>[func]N    :<C-u>split<CR>
 nnoremap <silent>[func]V    :<C-u>vsplit<CR>
 nnoremap <silent>[func]fs   :<C-u>MyFullscreen<CR>
+nnoremap <S-Left>           <C-w><<CR>
+nnoremap <S-Right>          <C-w>><CR>
+nnoremap <S-Up>             <C-w>-<CR>
+nnoremap <S-Down>           <C-w>+<CR>
 
 " tab
 nnoremap <TAB>              gt
