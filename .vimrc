@@ -282,7 +282,7 @@ NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'LeafCage/foldCC.vim'
 " NeoBundle 'shikato/keysender.vim'
-
+NeoBundle 'haya14busa/vim-operator-flashy'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -1310,6 +1310,14 @@ if neobundle#tap('foldCC.vim') " {{{
     set fillchars=vert:\|
     let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
     let g:foldCCtext_head = ''
+
+endif
+" }}}
+
+if neobundle#tap('vim-operator-flashy') " {{{
+
+    map y <Plug>(operator-flashy)
+    nmap Y <Plug>(operator-flashy)$   
 
 endif
 " }}}
