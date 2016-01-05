@@ -185,7 +185,7 @@ nnoremap <silent><F1>  :set number!<CR>:echo &number==0 ? "[number] off" : "[num
 nnoremap <silent><F2>  :set relativenumber!<CR>:echo &relativenumber==0 ? "[relativenumber] off" : "[relativenumber] on"<CR>
 nnoremap <silent><F3>  :set autochdir!<CR>:echo &autochdir==0 ? "[autochdir] off" : "[autochdir] on"<CR>
 nnoremap <silent><F4>  <Nop>
-nnoremap <silent><F5>  <Nop>
+nnoremap <silent><F5>  :<C-u>Restart<CR>
 nnoremap <silent><F6>  <Nop>
 nnoremap <silent><F7>  <Nop>
 nnoremap <silent><F8>  <Nop>
@@ -306,6 +306,7 @@ NeoBundle 'kannokanno/previm'
 NeoBundle 'LeafCage/foldCC.vim'
 " NeoBundle 'shikato/keysender.vim'
 NeoBundle 'haya14busa/vim-operator-flashy'
+NeoBundle 'tyru/restart.vim'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -360,6 +361,8 @@ NeoBundleLazy 'basyura/bitly.vim'
 NeoBundleLazy 'basyura/twibill.vim'
 
 " colorscheme 
+"
+NeoBundle 'rhysd/try-colorscheme.vim'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'altercation/vim-colors-solarized'
@@ -371,6 +374,8 @@ NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundle 'vim-scripts/Wombat'
 NeoBundle 'vim-scripts/rdark'
+NeoBundle 'vim-scripts/newspaper.vim'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
 
 " dictionary
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
@@ -1345,7 +1350,7 @@ if neobundle#tap('vim-operator-flashy') " {{{
 endif
 " }}}
 
-" BASE SETTINGS {{{
+" SETTINGS {{{
 
 " modeline
 set modeline
@@ -1419,7 +1424,7 @@ set sidescroll     =1                     " Unit of left and right scroll
 set sidescrolloff  =8                     " Scrooloff
 set clipboard     +=unnamedplus,unnamed   " Sharing clipboard
 set nrformats      =
-" set autochdir
+set autochdir
 
 " fold
 set foldenable            " Enable fold
@@ -1439,13 +1444,14 @@ set directory  =~/.vimfiles   " Directiry to save swap files
 
 " colorscheme
 let g:gruvbox_italic = 0
-colorscheme lucius
+colorscheme Tomorrow-Night-Eighties
 set background =dark
 
 autocmd MyVimrc VimEnter,BufWinEnter,WinEnter * setlocal cursorline
 autocmd MyVimrc WinLeave                      * setlocal nocursorline
 autocmd MyVimrc InsertEnter                   * setlocal list
 autocmd MyVimrc InsertLeave                   * setlocal nolist
+autocmd MyVimrc FileType help                   setlocal nofoldenable
 
 " }}}
 
