@@ -198,7 +198,7 @@ nnoremap <silent><F12> <Nop>
 nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
 nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
-" handy
+" hafndy
 if isdirectory(expand('~/dotfiles')) 
     nnoremap <silent>[func].    :<C-u>tabedit ~/dotfiles/.vimrc<CR>
     nnoremap <silent>[func],    :<C-u>tabedit ~/dotfiles/.gvimrc<CR>
