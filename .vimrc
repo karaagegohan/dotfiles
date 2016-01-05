@@ -71,6 +71,12 @@ function! s:fullscreen()
 endfunction
 command! MyFullscreen call s:fullscreen()
 
+function! s:autchdir()
+    set autochdir!
+    echo &autochdir==0 ? "autochdir off" : "autochdir on"
+endfunction
+command! MyFullscreen call s:fullscreen()
+
 " }}}
 
 " KEY MAPPINGS {{{
@@ -109,7 +115,9 @@ noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <CR>               :<C-u>write<CR>
+nnoremap <S-CR>             :<C-u>write!<CR>
 nnoremap <BS>               :<C-u>quit<CR>
+nnoremap <S-BS>             :<C-u>quit!<CR>
 nnoremap U                  <C-r>
 inoremap jj                 <Esc>
 inoremap kj                 <Esc>
@@ -170,6 +178,9 @@ cnoremap <C-p>              <UP>
 
 " fold
 nnoremap zz                 za
+
+" function keys
+nnoremap <silent><F3> :set autochdir!<CR>:echo &autochdir==0 ? "[autochdir] off" : "[autochdir] on"<CR>
 
 " View
 nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
@@ -1308,7 +1319,7 @@ if neobundle#tap('foldCC.vim') " {{{
     set foldtext=FoldCCtext()
     set foldcolumn=3
     set fillchars=vert:\|
-    let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
+    let g:foldCCtext_tail = 'printf("{%4d lines Lv%-2d}", v:foldend-v:foldstart+1, v:foldlevel)'
     let g:foldCCtext_head = ''
 
 endif
@@ -1420,7 +1431,9 @@ colorscheme lucius
 set background =dark
 
 autocmd MyVimrc VimEnter,BufWinEnter,WinEnter * setlocal cursorline
-autocmd MyVimrc WinLeave * setlocal nocursorline
+autocmd MyVimrc WinLeave                      * setlocal nocursorline
+autocmd MyVimrc InsertEnter                   * setlocal list
+autocmd MyVimrc InsertLeave                   * setlocal nolist
 
 " }}}
 
