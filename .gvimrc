@@ -76,6 +76,7 @@ if has('multi_byte_ime') || has('xim')
     inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 endif
 
+
 " }}}
 
 " === base settings ========================================================================================== {{{
@@ -89,8 +90,11 @@ set mousehide
 set guioptions =         " disable GUI options
 set cmdheight  =2        " height of commandline
 
-colorscheme lucius
+" colorscheme
+colorscheme Tomorrow-Night-Eighties
 set background =dark
+" highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+" highlight CursorLine gui=underline guifg=NONE guibg=NONE
 
 " }}}
 

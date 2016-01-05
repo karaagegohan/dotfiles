@@ -191,7 +191,7 @@ nnoremap <silent><F7>  <Nop>
 nnoremap <silent><F8>  <Nop>
 nnoremap <silent><F9>  <Nop>
 nnoremap <silent><F10> <Nop>
-nnoremap <silent><F11> <Nop>
+nnoremap <silent><F11> :<C-u>MyFullscreen<CR>
 nnoremap <silent><F12> <Nop>
 
 " View
@@ -202,7 +202,6 @@ nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 if isdirectory(expand('~/dotfiles')) 
     nnoremap <silent>[func].    :<C-u>tabedit ~/dotfiles/.vimrc<CR>
     nnoremap <silent>[func],    :<C-u>tabedit ~/dotfiles/.gvimrc<CR>
-    nnoremap <silent>[func]/    :<C-u>tabedit ~/dotfiles/AutoHotKey.ahk<CR>
 else 
     nnoremap <silent>[func].    :<C-u>tabedit $MYVIMRC<CR>
     nnoremap <silent>[func],    :<C-u>tabedit $MYGVIMRC<CR>
@@ -376,6 +375,7 @@ NeoBundle 'vim-scripts/Wombat'
 NeoBundle 'vim-scripts/rdark'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
+NeoBundle 'whatyouhide/vim-gotham'
 
 " dictionary
 NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
