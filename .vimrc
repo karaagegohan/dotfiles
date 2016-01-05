@@ -180,7 +180,19 @@ cnoremap <C-p>              <UP>
 nnoremap zz                 za
 
 " function keys
-nnoremap <silent><F3> :set autochdir!<CR>:echo &autochdir==0 ? "[autochdir] off" : "[autochdir] on"<CR>
+" p
+nnoremap <silent><F1>  :set number!<CR>:echo &number==0 ? "[number] off" : "[number] on"<CR>
+nnoremap <silent><F2>  :set relativenumber!<CR>:echo &relativenumber==0 ? "[relativenumber] off" : "[relativenumber] on"<CR>
+nnoremap <silent><F3>  :set autochdir!<CR>:echo &autochdir==0 ? "[autochdir] off" : "[autochdir] on"<CR>
+nnoremap <silent><F4>  <Nop>
+nnoremap <silent><F5>  <Nop>
+nnoremap <silent><F6>  <Nop>
+nnoremap <silent><F7>  <Nop>
+nnoremap <silent><F8>  <Nop>
+nnoremap <silent><F9>  <Nop>
+nnoremap <silent><F10> <Nop>
+nnoremap <silent><F11> <Nop>
+nnoremap <silent><F12> <Nop>
 
 " View
 nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
