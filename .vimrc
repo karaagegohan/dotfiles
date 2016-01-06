@@ -296,7 +296,7 @@ NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 " NeoBundle 'AndrewRadev/sideways.vim'
 NeoBundle 'dhruvasagar/vim-table-mode'
 " NeoBundle 'thinca/vim-splash'
-NeoBundle 'deris/vim-gothrough-jk'
+" NeoBundle 'deris/vim-gothrough-jk'
 if has('python')
     NeoBundle 'kakkyz81/evervim'
 endif
@@ -353,6 +353,9 @@ NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'c
 NeoBundleLazy 'tpope/vim-dispatch', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 NeoBundleLazy 'osyo-manga/vim-stargate', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
+
+" Go
+NeoBundle 'fatih/vim-go'
 
 " Vim script
 NeoBundleLazy 'mopp/layoutplugin.vim', { 'autoload' : { 'commands' : 'LayoutPlugin'} }
@@ -1348,6 +1351,20 @@ if neobundle#tap('vim-operator-flashy') " {{{
 
     map y <Plug>(operator-flashy)
     nmap Y <Plug>(operator-flashy)$   
+
+endif
+" }}}
+
+if neobundle#tap('fatih/vim-go') " {{{
+
+    " key_mappings {{{
+    nmap [go]      <Nop>
+    nmap [plugin]g [go]
+    " autocmd MyVimrc FileType go nmap <leader>r <Plug>(go-run)
+    " autocmd MyVimrc FileType go nmap <leader>b <Plug>(go-build)
+    " autocmd MyVimrc FileType go nmap <leader>t <Plug>(go-test)
+    " autocmd MyVimrc FileType go nmap <leader>c <Plug>(go-coverage)
+    " }}}
 
 endif
 " }}}
