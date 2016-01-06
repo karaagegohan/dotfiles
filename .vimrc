@@ -304,7 +304,7 @@ NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'LeafCage/foldCC.vim'
 " NeoBundle 'shikato/keysender.vim'
-NeoBundle 'haya14busa/vim-operator-flashy'
+" NeoBundle 'haya14busa/vim-operator-flashy'
 NeoBundle 'tyru/restart.vim'
 
 " Textobject
@@ -354,13 +354,15 @@ NeoBundleLazy 'tpope/vim-dispatch', { 'autoload': { 'filetypes': [ 'cs', 'csi', 
 NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 NeoBundleLazy 'osyo-manga/vim-stargate', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 
+" Vim script
+NeoBundleLazy 'mopp/layoutplugin.vim', { 'autoload' : { 'commands' : 'LayoutPlugin'} }
+
 " Twitter
 NeoBundleLazy 'basyura/TweetVim'
 NeoBundleLazy 'basyura/bitly.vim'
 NeoBundleLazy 'basyura/twibill.vim'
 
 " colorscheme 
-"
 NeoBundle 'rhysd/try-colorscheme.vim'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
@@ -1432,15 +1434,14 @@ set foldcolumn  =0        " Width of folding guide
 set foldmethod  =marker   " Folding by {{{.}}}
 
 " directories
-cd ~
 call s:My_mkdir('~/.vimfiles')
-set browsedir  =current       " Directiry to save editing files
-set backup                    " Make backup file
-set backupdir  =~/.vimfiles   " Directiry to save backup files
-set undofile                  " Make undo file
-set undodir    =~/.vimfiles   " Directiry to save undo files
-set swapfile                  " Make swap file
-set directory  =~/.vimfiles   " Directiry to save swap files
+set browsedir  =current     " Directiry to save editing files
+set backup                  " Make backup file
+set backupdir  =~/.vimfiles " Directiry to save backup files
+set undofile                " Make undo file
+set undodir    =~/.vimfiles " Directiry to save undo files
+set swapfile                " Make swap file
+set directory  =~/.vimfiles " Directiry to save swap files
 
 " colorscheme
 let g:gruvbox_italic = 0
