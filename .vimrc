@@ -1415,7 +1415,7 @@ set noerrorbells              " Diable error bell
 set completeopt   =longest,menuone,preview
 set splitbelow
 set hidden
-set cursorline
+set nocursorline
 set hlsearch
 
 " indent
@@ -1465,8 +1465,6 @@ let g:gruvbox_italic = 0
 colorscheme Tomorrow-Night-Eighties
 set background =dark
 
-autocmd MyVimrc VimEnter,BufWinEnter,WinEnter * setlocal cursorline
-autocmd MyVimrc WinLeave                      * setlocal nocursorline
 autocmd MyVimrc InsertEnter                   * setlocal list
 autocmd MyVimrc InsertLeave                   * setlocal nolist
 autocmd MyVimrc FileType help                   setlocal nofoldenable
