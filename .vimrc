@@ -213,6 +213,7 @@ end
 nnoremap <silent>[func]km   :<C-u>/key_mappings<CR>zO
 nnoremap [func]h            :<C-u>help<Space><C-r><C-w><CR>
 nnoremap [func]e            :<C-u>edit<CR> 
+nnoremap [func]ch           q:
 
 " }}}
 
@@ -1255,6 +1256,7 @@ endif
 
 if neobundle#tap('vim-sound') " {{{
 
+    autocmd MyVimrc InsertCharPre * call sound#play_wav(expand("~/typewriter.wav"))
 
 endif
 " }}}
