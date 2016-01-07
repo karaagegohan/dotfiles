@@ -1,5 +1,5 @@
 " INITIALIZATION {{{
-augroup MyVimrc
+augroup vimrc
     autocmd!
 augroup END
 
@@ -423,12 +423,12 @@ if neobundle#tap('neocomplete.vim') " {{{
     let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
     " enable omni completion.
-    autocmd MyVimrc filetype css           setlocal omnifunc=csscomplete#completecss
-    autocmd MyVimrc filetype html,markdown setlocal omnifunc=htmlcomplete#completetags
-    autocmd MyVimrc filetype javascript    setlocal omnifunc=javascriptcomplete#completejs
-    autocmd MyVimrc filetype python        setlocal omnifunc=pythoncomplete#complete
-    autocmd MyVimrc filetype xml           setlocal omnifunc=xmlcomplete#completetags
-    autocmd MyVimrc filetype cs            setlocal omnifunc=omnisharp#complete
+    autocmd vimrc filetype css           setlocal omnifunc=csscomplete#completecss
+    autocmd vimrc filetype html,markdown setlocal omnifunc=htmlcomplete#completetags
+    autocmd vimrc filetype javascript    setlocal omnifunc=javascriptcomplete#completejs
+    autocmd vimrc filetype python        setlocal omnifunc=pythoncomplete#complete
+    autocmd vimrc filetype xml           setlocal omnifunc=xmlcomplete#completetags
+    autocmd vimrc filetype cs            setlocal omnifunc=omnisharp#complete
 
     let g:neocomplete#force_overwrite_completefunc=1
 
@@ -732,7 +732,7 @@ endif
 
 if neobundle#tap('vim-smartchr') " {{{
 
-    autocmd MyVimrc FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
+    autocmd vimrc FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
     inoremap <expr>=  smartchr#loop(' = ', ' == ', '=')
     inoremap <expr>\| smartchr#loop(' \| ', ' \|\| ', '\|')
     inoremap <expr>&  smartchr#loop(' & ', ' && ', '&')
@@ -978,7 +978,7 @@ if neobundle#tap('java_getset.vim') " {{{
     let b:javagetset_add_this       = 1   " add this.
 
     " key_mappings {{{
-    autocmd MyVimrc Filetype java call s:java_getset_mappings()
+    autocmd vimrc Filetype java call s:java_getset_mappings()
 
     function! s:java_getset_mappings()
         " prefix
@@ -1146,19 +1146,19 @@ if neobundle#tap('VimCalc') " {{{
     " key_mappings {{{
     nnoremap [plugin]ca :<C-u>Calc<CR>
 
-    autocmd MyVimrc FileType vimcalc inoremap <buffer><silent><C-c> <ESC>:<C-u>quit<CR>
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>N 0
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>M 1
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>< 2
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>> 3
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>J 4
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>K 5
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>L 6
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>U 7
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>I 8
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>O 9
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>_ -
-    " autocmd MyVimrc FileType vimcalc inoremap <buffer><silent>& /
+    autocmd vimrc FileType vimcalc inoremap <buffer><silent><C-c> <ESC>:<C-u>quit<CR>
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>N 0
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>M 1
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>< 2
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>> 3
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>J 4
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>K 5
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>L 6
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>U 7
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>I 8
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>O 9
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>_ -
+    " autocmd vimrc FileType vimcalc inoremap <buffer><silent>& /
 
     " }}}
 
@@ -1256,7 +1256,10 @@ endif
 
 if neobundle#tap('vim-sound') " {{{
 
-    autocmd MyVimrc InsertCharPre * call sound#play_wav(expand("~/typewriter.wav"))
+    let s:soundfilename = expand("~/typewriter.wav")
+    if exists(s:soundfilename)
+        autocmd vimrc InsertCharPre * call sound#play_wav(s:soundfilename)
+    endif
 
 endif
 " }}}
@@ -1345,10 +1348,10 @@ if neobundle#tap('fatih/vim-go') " {{{
     " key_mappings {{{
     nmap [go]      <Nop>
     nmap [plugin]g [go]
-    " autocmd MyVimrc FileType go nmap <leader>r <Plug>(go-run)
-    " autocmd MyVimrc FileType go nmap <leader>b <Plug>(go-build)
-    " autocmd MyVimrc FileType go nmap <leader>t <Plug>(go-test)
-    " autocmd MyVimrc FileType go nmap <leader>c <Plug>(go-coverage)
+    " autocmd vimrc FileType go nmap <leader>r <Plug>(go-run)
+    " autocmd vimrc FileType go nmap <leader>b <Plug>(go-build)
+    " autocmd vimrc FileType go nmap <leader>t <Plug>(go-test)
+    " autocmd vimrc FileType go nmap <leader>c <Plug>(go-coverage)
     " }}}
 
 endif
@@ -1462,9 +1465,9 @@ let g:gruvbox_italic = 0
 colorscheme Tomorrow-Night-Eighties
 set background =dark
 
-autocmd MyVimrc InsertEnter                   * setlocal list
-autocmd MyVimrc InsertLeave                   * setlocal nolist
-autocmd MyVimrc FileType help                   setlocal nofoldenable
+autocmd vimrc InsertEnter                   * setlocal list
+autocmd vimrc InsertLeave                   * setlocal nolist
+autocmd vimrc FileType help                   setlocal nofoldenable
 
 " }}}
 
