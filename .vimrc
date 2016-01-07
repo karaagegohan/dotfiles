@@ -128,7 +128,6 @@ inoremap kk                 <Esc>
 nnoremap Y                  y$
 nnoremap R                  J
 nnoremap x                  "_x
-nnoremap <C-,>              <BS>
 
 " cursor
 nnoremap j                  gj
@@ -181,9 +180,9 @@ nnoremap zz                 za
 
 " function keys
 " p
-nnoremap <silent><F1>  :set number!<CR>:echo &number==0 ? "[number] off" : "[number] on"<CR>
-nnoremap <silent><F2>  :set relativenumber!<CR>:echo &relativenumber==0 ? "[relativenumber] off" : "[relativenumber] on"<CR>
-nnoremap <silent><F3>  :set autochdir!<CR>:echo &autochdir==0 ? "[autochdir] off" : "[autochdir] on"<CR>
+nnoremap <silent><F1>  :<C-u>set number!<CR>:echo &number==0 ? "[number] off" : "[number] on"<CR>
+nnoremap <silent><F2>  :<C-u>set relativenumber!<CR>:echo &relativenumber==0 ? "[relativenumber] off" : "[relativenumber] on"<CR>
+nnoremap <silent><F3>  :<C-u>set autochdir!<CR>:echo &autochdir==0 ? "[autochdir] off" : "[autochdir] on"<CR>
 nnoremap <silent><F4>  <Nop>
 nnoremap <silent><F5>  :<C-u>Restart<CR>
 nnoremap <silent><F6>  <Nop>
@@ -200,11 +199,11 @@ nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
 " hafndy
 if isdirectory(expand('~/dotfiles')) 
-    nnoremap <silent>[func].    :<C-u>tabedit ~/dotfiles/.vimrc<CR>
-    nnoremap <silent>[func],    :<C-u>tabedit ~/dotfiles/.gvimrc<CR>
+    nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
+    nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
 else 
-    nnoremap <silent>[func].    :<C-u>tabedit $MYVIMRC<CR>
-    nnoremap <silent>[func],    :<C-u>tabedit $MYGVIMRC<CR>
+    nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
+    nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
 if s:is_terminal
     nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>
@@ -271,7 +270,7 @@ NeoBundle 'tpope/vim-fugitive'                 " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim'       " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'             " Paste yank history
 NeoBundle 'Lokaltog/vim-easymotion'            " Powerful motion
-NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
+" NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'                " Change font size
 NeoBundle 'AndrewRadev/switch.vim'             " Switch segments
 NeoBundle 't9md/vim-quickhl'                   " Highlight any words
@@ -646,6 +645,7 @@ if neobundle#tap('unite.vim') " {{{
     let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
     let g:unite_source_file_mru_filename_format = ''    " Maximum number of mru list
     let g:unite_enable_start_insert             = 1     " Start in insert mode
+    let g:unite_source_history_yank_enable      = 1
 
     " key_mappings {{{
     " prefix
@@ -668,23 +668,6 @@ if neobundle#tap('unite.vim') " {{{
     nnoremap [unite]nb :<C-u>Unite neobundle<CR>
     nnoremap [unite]co :<C-u>Unite command<CR>
     " }}}
-
-    function! neobundle#tapped.hooks.on_source(bundle)
-        "" source/neobundleでプラグインの有効無効を切り替える
-        let neobundle_toggle = { 'is_selectable': 1 }
-
-        function! neobundle_toggle.func(candidates)
-            for candidate in a:candidates
-                let bundle = candidate.action__bundle_name
-                let cmd = neobundle#is_sourced(bundle) ?
-                    \ 'NeoBundleDisable ' : 'NeoBundleSource '
-                exec cmd . bundle
-            endfor
-        endfunction
-
-        call unite#custom#action('neobundle', 'source', neobundle_toggle)
-        call unite#custom#default_action('neobundle', 'source')
-    endfunction
 
 endif
 " }}}
@@ -1066,8 +1049,8 @@ endif
 if neobundle#tap('tcomment_vim') " {{{
 
     " key_mappings {{{
-    nmap \c <Plug>TComment_gcc<Esc><Esc>
-    vmap \c <Plug>TComment_gcc<Esc><Esc>
+    nmap cc <Plug>TComment_gcc<Esc><Esc>
+    vmap cc <Plug>TComment_gcc<Esc><Esc>
     " }}}
 
 endif
@@ -1364,6 +1347,18 @@ if neobundle#tap('fatih/vim-go') " {{{
     " autocmd MyVimrc FileType go nmap <leader>b <Plug>(go-build)
     " autocmd MyVimrc FileType go nmap <leader>t <Plug>(go-test)
     " autocmd MyVimrc FileType go nmap <leader>c <Plug>(go-coverage)
+    " }}}
+
+endif
+" }}}
+
+if neobundle#tap('rking/ag.vim') " {{{
+
+    " key_mappings {{{
+    " nmap [ag]      <Nop>
+    " nmap [plugin]a [ag]
+    " nmap [ag]a :Ag <c-r>=expand("<cword>")<cr><cr>
+    " nnoremap <space>/ :Ag
     " }}}
 
 endif
