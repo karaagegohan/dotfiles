@@ -15,13 +15,13 @@ let s:is_terminal = !has('gui_running')
 let s:is_windows  = has('win16') || has('win32') || has('win64')
 let s:is_mac      = has('mac')
 
-function! s:My_mkdir(name) abort
+function! s:My_mkdir(name) abort "{{{
     if !isdirectory(expand(a:name))
         call mkdir(expand(a:name))
     endif
-endfunction
+endfunction "}}}
 
-function! s:transparancy_up()
+function! s:transparancy_up() "{{{
     if !s:is_terminal
         if s:is_mac
             if &transparency - 5 > 1
@@ -38,9 +38,9 @@ function! s:transparancy_up()
         endif
     endif
 endfunction 
-command! MyTransparancyUp call s:transparancy_up()
+command! MyTransparancyUp call s:transparancy_up() "}}}
 
-function! s:transparancy_down()
+function! s:transparancy_down() "{{{
     if !s:is_terminal
         if s:is_mac
             if &transparency + 5 < 100
@@ -57,9 +57,9 @@ function! s:transparancy_down()
         endif
     endif
 endfunction 
-command! MyTransparancyDown call s:transparancy_down()
+command! MyTransparancyDown call s:transparancy_down() "}}}
 
-function! s:fullscreen()
+function! s:fullscreen() "{{{
     if !s:is_terminal
         if s:is_mac
             set fullscreen!
@@ -69,13 +69,13 @@ function! s:fullscreen()
         endif
     endif
 endfunction
-command! MyFullscreen call s:fullscreen()
+command! MyFullscreen call s:fullscreen() "}}}
 
-function! s:autchdir()
-    set autochdir!
-    echo &autochdir==0 ? "autochdir off" : "autochdir on"
+function! s:toggleopt(optname) " {{{
+    exec( 'set ' . a:optname . '!')
+    exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==0 ? "on" : "off"')
 endfunction
-command! MyFullscreen call s:fullscreen()
+command! -nargs=1 Toggleopt call s:toggleopt(<f-args>) " }}}
 
 " }}}
 
@@ -178,11 +178,23 @@ cnoremap <C-p>              <UP>
 " fold
 nnoremap zz                 za
 
+" toggle
+nnoremap [toggle]   <Nop>
+nmap     [plugin]t [toggle]
+nnoremap <silent>[toggle]1 :<C-u>Toggleopt number<CR>
+nnoremap <silent>[toggle]2 :<C-u>Toggleopt relativenumber<CR>
+nnoremap <silent>[toggle]3 :<C-u>Toggleopt autochdir<CR>
+nnoremap <silent>[toggle]4 :<C-u>Toggleopt list<CR>
+nnoremap <silent>[toggle]5 <Nop>
+nnoremap <silent>[toggle]6 <Nop>
+nnoremap <silent>[toggle]7 <Nop>
+nnoremap <silent>[toggle]8 <Nop>
+nnoremap <silent>[toggle]9 <Nop>
+
 " function keys
-" p
-nnoremap <silent><F1>  :<C-u>set number!<CR>:echo &number==0 ? "[number] off" : "[number] on"<CR>
-nnoremap <silent><F2>  :<C-u>set relativenumber!<CR>:echo &relativenumber==0 ? "[relativenumber] off" : "[relativenumber] on"<CR>
-nnoremap <silent><F3>  :<C-u>set autochdir!<CR>:echo &autochdir==0 ? "[autochdir] off" : "[autochdir] on"<CR>
+nnoremap <silent><F1>  <Nop>
+nnoremap <silent><F2>  <Nop>
+nnoremap <silent><F3>  <Nop>
 nnoremap <silent><F4>  <Nop>
 nnoremap <silent><F5>  :<C-u>Restart<CR>
 nnoremap <silent><F6>  <Nop>
@@ -383,7 +395,7 @@ NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'whatyouhide/vim-gotham'
 
 " dictionary
-NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
+" NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'ujihisa/neco-look'
 NeoBundle 'mitsuse/kompl'
@@ -1257,9 +1269,7 @@ endif
 if neobundle#tap('vim-sound') " {{{
 
     let s:soundfilename = expand("~/typewriter.wav")
-    if exists(s:soundfilename)
-        autocmd vimrc InsertCharPre * call sound#play_wav(s:soundfilename)
-    endif
+    autocmd vimrc InsertCharPre * call sound#play_wav(expand("~/typewriter.wav"))
 
 endif
 " }}}
@@ -1465,8 +1475,6 @@ let g:gruvbox_italic = 0
 colorscheme Tomorrow-Night-Eighties
 set background =dark
 
-autocmd vimrc InsertEnter                   * setlocal list
-autocmd vimrc InsertLeave                   * setlocal nolist
 autocmd vimrc FileType help                   setlocal nofoldenable
 
 " }}}
