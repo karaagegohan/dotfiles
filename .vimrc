@@ -77,6 +77,19 @@ function! s:toggleopt(optname) " {{{
 endfunction
 command! -nargs=1 Toggleopt call s:toggleopt(<f-args>) " }}}
 
+function! s:copyandmove() " {{{
+    function! s:matchcount(expr, pat, ...)
+        let start = get(a:, "1", 0)
+        let result = match(a:expr, a:pat, start)
+        return result == -1 ? 0 : s:matchcount(a:expr, a:pat, result+1) + 1
+    endfunction
+    let s:reg = @"
+    let s:cnt = s:matchcount(s:reg,  "\n") - 1
+    execute ":normal p"
+    execute ":normal " . s:cnt . "j"
+endfunction
+command! CopyAndMove call s:copyandmove() " }}}
+
 " }}}
 
 " KEY MAPPINGS {{{
@@ -128,6 +141,7 @@ inoremap kk                 <Esc>
 nnoremap Y                  y$
 nnoremap R                  J
 nnoremap x                  "_x
+nnoremap `                  :<C-u>CopyAndMove<CR>
 
 " cursor
 nnoremap j                  gj
@@ -1339,6 +1353,7 @@ if neobundle#tap('foldCC.vim') " {{{
     set foldtext=FoldCCtext()
     set foldcolumn=3
     set fillchars=vert:\|
+    let s:space = ''
     let g:foldCCtext_tail = 'printf("{%4d lines Lv%-2d}", v:foldend-v:foldstart+1, v:foldlevel)'
     let g:foldCCtext_head = ''
 
@@ -1475,7 +1490,7 @@ let g:gruvbox_italic = 0
 colorscheme Tomorrow-Night-Eighties
 set background =dark
 
-autocmd vimrc FileType help                   setlocal nofoldenable
+autocmd vimrc FileType help setlocal nofoldenable
 
 " }}}
 
