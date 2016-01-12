@@ -72,8 +72,12 @@ endfunction
 command! MyFullscreen call s:fullscreen() "}}}
 
 function! s:toggleopt(optname) " {{{
-    exec( 'set ' . a:optname . '!')
-    exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==0 ? "on" : "off"')
+    try
+        exec( 'set ' . a:optname . '!')
+        exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==0 ? "on" : "off"')
+    catch
+        echo a:optname . " does not exist."
+    endtry
 endfunction
 command! -nargs=1 Toggleopt call s:toggleopt(<f-args>) " }}}
 
