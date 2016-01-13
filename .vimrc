@@ -79,7 +79,7 @@ function! s:toggleopt(optname) " {{{
         echo a:optname . " does not exist."
     endtry
 endfunction
-command! -nargs=1 Toggleopt call s:toggleopt(<f-args>) " }}}
+command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>) " }}}
 
 function! s:copyandmove() " {{{
     function! s:matchcount(expr, pat, ...)
