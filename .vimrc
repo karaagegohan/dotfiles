@@ -19,7 +19,8 @@ function! s:My_mkdir(name) abort "{{{
     if !isdirectory(expand(a:name))
         call mkdir(expand(a:name))
     endif
-endfunction "}}}
+endfunction 
+"}}}
 
 function! s:transparancy_up() "{{{
     if !s:is_terminal
@@ -38,7 +39,8 @@ function! s:transparancy_up() "{{{
         endif
     endif
 endfunction 
-command! MyTransparancyUp call s:transparancy_up() "}}}
+command! MyTransparancyUp call s:transparancy_up() 
+"}}}
 
 function! s:transparancy_down() "{{{
     if !s:is_terminal
@@ -57,7 +59,8 @@ function! s:transparancy_down() "{{{
         endif
     endif
 endfunction 
-command! MyTransparancyDown call s:transparancy_down() "}}}
+command! MyTransparancyDown call s:transparancy_down() 
+"}}}
 
 function! s:fullscreen() "{{{
     if !s:is_terminal
@@ -69,7 +72,8 @@ function! s:fullscreen() "{{{
         endif
     endif
 endfunction
-command! MyFullscreen call s:fullscreen() "}}}
+command! MyFullscreen call s:fullscreen() 
+"}}}
 
 function! s:toggleopt(optname) " {{{
     try
@@ -79,20 +83,48 @@ function! s:toggleopt(optname) " {{{
         echo a:optname . " does not exist."
     endtry
 endfunction
-command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>) " }}}
+command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>) 
+" }}}
 
 function! s:copyandmove() " {{{
     function! s:matchcount(expr, pat, ...)
-        let start = get(a:, "1", 0)
-        let result = match(a:expr, a:pat, start)
-        return result == -1 ? 0 : s:matchcount(a:expr, a:pat, result+1) + 1
+        let a:start = get(a:, "1", 0)
+        let a:result = match(a:expr, a:pat, a:start)
+        return a:result == -1 ? 0 : s:matchcount(a:expr, a:pat, a:result+1) + 1
     endfunction
     let s:reg = @"
     let s:cnt = s:matchcount(s:reg,  "\n") - 1
     execute ":normal p"
     execute ":normal " . s:cnt . "j"
 endfunction
-command! CopyAndMove call s:copyandmove() " }}}
+command! CopyAndMove call s:copyandmove()
+" }}}
+
+function! s:translateword() abort " {{{
+    let a:word = expand("<cword>")
+    if 1
+        let a:words = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word=' . a:word . '&Scope=HEADWORD&Match=EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0').content, 'utf-8', &encoding)).findAll('ItemID')
+        if len(a:words) == 0
+            echo '"' . a:word . '" ' . 'is not exist.'
+        else
+            for a:j in range(0, len(a:words) - 1)
+                let a:item_id = a:words[a:j]['child'][0]
+                let a:means = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/GetDicItemLite?Dic=EJdict&Item=' . a:item_id . '&Loc=&Prof=XHTML').content, 'utf-8', &encoding)).findAll('div')[1]['child'][1]['child'][0]
+                let a:tokens = split(a:means, '\v\t\zs')
+                echo '【' . a:word . '】'  
+                for a:i in range(0,  len(a:tokens) - 1)
+                    echo a:i + 1 . ': ' . a:tokens[a:i]
+                endfor
+            endfor
+        endif
+    else
+        let a:dom = webapi#html#parse(iconv(webapi#http#get('http://ejje.weblio.jp/content/means').content, 'utf-8', &encoding)).find('body')
+        echo a:dom 
+    endif
+endfunction
+command! TranslateWord call s:translateword()
+nnoremap 0 :TranslateWord<CR>
+" }}}
 
 " }}}
 
@@ -199,11 +231,11 @@ nnoremap zz                 za
 " toggle
 nnoremap [toggle]   <Nop>
 nmap     [plugin]t [toggle]
-nnoremap <silent>[toggle]1 :<C-u>Toggleopt number<CR>
-nnoremap <silent>[toggle]2 :<C-u>Toggleopt relativenumber<CR>
-nnoremap <silent>[toggle]3 :<C-u>Toggleopt autochdir<CR>
-nnoremap <silent>[toggle]4 :<C-u>Toggleopt list<CR>
-nnoremap <silent>[toggle]5 <Nop>
+nnoremap <silent>[toggle]1 :<C-u>ToggleOpt number<CR>
+nnoremap <silent>[toggle]2 :<C-u>ToggleOpt relativenumber<CR>
+nnoremap <silent>[toggle]3 :<C-u>ToggleOpt autochdir<CR>
+nnoremap <silent>[toggle]4 :<C-u>ToggleOpt list<CR>
+nnoremap <silent>[toggle]5 :<C-u>ToggleOpt foldenable<CR>
 nnoremap <silent>[toggle]6 <Nop>
 nnoremap <silent>[toggle]7 <Nop>
 nnoremap <silent>[toggle]8 <Nop>
@@ -1346,14 +1378,14 @@ endif
 " }}}
 
 if neobundle#tap('evervim') " {{{
-    
+
     let g:evervim_devtoken="S=s301:U=2974e26:E=15901eda381:C=151aa3c76a0:P=1cd:A=en-devtoken:V=2:H=5fa185eb79a527ff40b094679f07657c"
 
 endif
 " }}}
 
 if neobundle#tap('foldCC.vim') " {{{
-    
+
     set foldtext=FoldCCtext()
     set foldcolumn=3
     set fillchars=vert:\|
