@@ -123,7 +123,7 @@ function! s:translateword() abort " {{{
     endif
 endfunction
 command! TranslateWord call s:translateword()
-nnoremap 0 :TranslateWord<CR>
+nnoremap <silent>0 :TranslateWord<CR>
 " }}}
 
 " }}}
