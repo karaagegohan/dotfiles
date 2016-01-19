@@ -124,15 +124,19 @@ command! TranslateWord call s:translateword()
 nnoremap <silent>0 :TranslateWord<CR>
 
 function! s:closewindow(force) " {{{
-    let a:ex = a:force == 1 ? '!' : ''
-    if winnr('$') == 1 && tabpagenr('$') == 1
-        execute(':enew')
-    else 
-        execute(':normal quit') 
+    let a:bufname = expand('%:p')
+    if len(a:bufname) == 0
+        let a:bufname = '[No name]'
     endif
+    if winnr('$') == 1 && tabpagenr('$') == 1
+        :enew
+    else 
+        :quit
+    endif
+    echo 'quit "' . a:bufname . '"'
 endfunction
 " }}}
-command! CloseWindow call s:closewindow(0)
+command! -nargs=1 CloseWindow call s:closewindow(<f-args>)
 
 " }}}
 
@@ -173,8 +177,8 @@ noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <CR>               :<C-u>write<CR>
 nnoremap <S-CR>             :<C-u>write!<CR>
-nnoremap <BS>               :<C-u>quit<CR>
-nnoremap <S-BS>             :<C-u>quit!<CR>
+nnoremap <BS>               :<C-u>CloseWindow 0<CR>
+nnoremap <S-BS>             :<C-u>CloseWindow 1<CR>
 nnoremap U                  <C-r>
 inoremap jj                 <Esc>
 inoremap kj                 <Esc>
