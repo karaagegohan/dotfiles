@@ -1,4 +1,5 @@
 " INITIALIZATION {{{
+"
 augroup vimrc
     autocmd!
 augroup END
@@ -6,6 +7,7 @@ augroup END
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
+
 " }}}
 
 " FUNCTIONS AND CONSTANTS {{{
@@ -100,30 +102,37 @@ endfunction
 command! CopyAndMove call s:copyandmove()
 
 function! s:translateword() abort " {{{
-    let a:word = expand("<cword>")
-    if 1
-        let a:words = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word=' . a:word . '&Scope=HEADWORD&Match=EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0').content, 'utf-8', &encoding)).findAll('ItemID')
-        if len(a:words) == 0
-            echo '"' . a:word . '" ' . 'is not exist.'
-        else
-            for a:j in range(0, len(a:words) - 1)
-                let a:item_id = a:words[a:j]['child'][0]
-                let a:means = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/GetDicItemLite?Dic=EJdict&Item=' . a:item_id . '&Loc=&Prof=XHTML').content, 'utf-8', &encoding)).findAll('div')[1]['child'][1]['child'][0]
-                let a:tokens = split(a:means, '\v\t\zs')
-                echo '【' . a:word . ' (' . (a:j + 1) . ')】'  
-                for a:i in range(0,  len(a:tokens) - 1)
-                    echo a:i + 1 . ': ' . a:tokens[a:i]
-                endfor
-            endfor
-        endif
+    let a:word = matchstr(expand("<cword>"), '[a-z]*', 0)
+    let a:words = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word=' . a:word . '&Scope=HEADWORD&Match=EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0').content, 'utf-8', &encoding)).findAll('ItemID')
+    if len(a:words) == 0
+        echo '"' . a:word . '" ' . 'is not exist.'
     else
-        let a:dom = webapi#html#parse(iconv(webapi#http#get('http://ejje.weblio.jp/content/means').content, 'utf-8', &encoding)).find('body')
-        echo a:dom 
+        for a:j in range(0, len(a:words) - 1)
+            let a:item_id = a:words[a:j]['child'][0]
+            let a:means = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/GetDicItemLite?Dic=EJdict&Item=' . a:item_id . '&Loc=&Prof=XHTML').content, 'utf-8', &encoding)).findAll('div')[1]['child'][1]['child'][0]
+            let a:tokens = split(a:means, '\v\t\zs')
+            let a:num = len(a:words) == 1 ? '' : ' (' . (a:j + 1) . ')'
+            echo '【' . a:word . a:num . '】'  
+            for a:i in range(0,  len(a:tokens) - 1)
+                echo (a:i + 1) . ': ' . a:tokens[a:i]
+            endfor
+        endfor
     endif
 endfunction
 " }}}
 command! TranslateWord call s:translateword()
 nnoremap <silent>0 :TranslateWord<CR>
+
+function! s:closewindow(force) " {{{
+    let a:ex = a:force == 1 ? '!' : ''
+    if winnr('$') == 1 && tabpagenr('$') == 1
+        execute(':enew')
+    else 
+        execute(':normal quit') 
+    endif
+endfunction
+" }}}
+command! CloseWindow call s:closewindow(0)
 
 " }}}
 
