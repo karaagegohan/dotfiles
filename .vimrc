@@ -177,13 +177,14 @@ noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <CR>               :<C-u>write<CR>
 nnoremap <S-CR>             :<C-u>write!<CR>
-nnoremap <BS>               :<C-u>CloseWindow 0<CR>
-nnoremap <S-BS>             :<C-u>CloseWindow 1<CR>
+nnoremap <silent><BS>       :<C-u>CloseWindow 0<CR>
+nnoremap <silent><S-BS>     :<C-u>CloseWindow 1<CR>
 nnoremap U                  <C-r>
 inoremap jj                 <Esc>
 inoremap kj                 <Esc>
 inoremap jk                 <Esc>
 inoremap kk                 <Esc>
+nnoremap <Esc>              ZQ
 
 " edit
 nnoremap Y                  y$
@@ -218,6 +219,10 @@ nnoremap gh                 <C-w>h
 nnoremap gj                 <C-w>j
 nnoremap gk                 <C-w>k
 nnoremap gl                 <C-w>l
+nnoremap gy                 <C-w>H
+nnoremap gu                 <C-w>J
+nnoremap gi                 <C-w>K
+nnoremap go                 <C-w>L
 nnoremap <silent>[func]n    :<C-u>new<CR>
 nnoremap <silent>[func]v    :<C-u>vnew<CR>
 nnoremap <silent>[func]N    :<C-u>split<CR>
@@ -241,17 +246,15 @@ cnoremap <C-p>              <UP>
 nnoremap zz                 za
 
 " toggle
-nnoremap [toggle]   <Nop>
-nmap     [plugin]t [toggle]
-nnoremap <silent>[toggle]1 :<C-u>ToggleOpt number<CR>
-nnoremap <silent>[toggle]2 :<C-u>ToggleOpt relativenumber<CR>
-nnoremap <silent>[toggle]3 :<C-u>ToggleOpt autochdir<CR>
-nnoremap <silent>[toggle]4 :<C-u>ToggleOpt list<CR>
-nnoremap <silent>[toggle]5 :<C-u>ToggleOpt foldenable<CR>
-nnoremap <silent>[toggle]6 <Nop>
-nnoremap <silent>[toggle]7 <Nop>
-nnoremap <silent>[toggle]8 <Nop>
-nnoremap <silent>[toggle]9 <Nop>
+nnoremap <silent>1 :<C-u>ToggleOpt number<CR>
+nnoremap <silent>2 :<C-u>ToggleOpt relativenumber<CR>
+nnoremap <silent>3 :<C-u>ToggleOpt autochdir<CR>
+nnoremap <silent>4 :<C-u>ToggleOpt list<CR>
+nnoremap <silent>5 :<C-u>ToggleOpt foldenable<CR>
+nnoremap <silent>6 <Nop>
+nnoremap <silent>7 <Nop>
+nnoremap <silent>8 <Nop>
+nnoremap <silent>9 <Nop>
 
 " function keys
 nnoremap <silent><F1>  <Nop>
@@ -514,9 +517,6 @@ if neobundle#tap('neocomplete.vim') " {{{
     let g:neocomplete#sources#omni#input_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
     let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
     let g:neocomplete#sources#omni#input_patterns.cs  = '.*[^=\);]'
-
-
-
 
     " plugin key-mappings.
     inoremap <expr><c-g>     neocomplete#undo_completion()
@@ -1330,8 +1330,8 @@ endif
 
 if neobundle#tap('vim-sound') " {{{
 
-    let s:soundfilename = expand("~/typewriter.wav")
-    autocmd vimrc InsertCharPre * call sound#play_wav(expand("~/typewriter.wav"))
+    " let s:soundfilename = expand("~/typewriter.wav")
+    " autocmd vimrc InsertCharPre * call sound#play_wav(expand("~/typewriter.wav"))
 
 endif
 " }}}
