@@ -6,7 +6,6 @@ augroup END
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-
 " }}}
 
 " FUNCTIONS AND CONSTANTS {{{
@@ -39,8 +38,8 @@ function! s:transparancy_up() "{{{
         endif
     endif
 endfunction 
-command! MyTransparancyUp call s:transparancy_up() 
 "}}}
+command! MyTransparancyUp call s:transparancy_up() 
 
 function! s:transparancy_down() "{{{
     if !s:is_terminal
@@ -59,8 +58,8 @@ function! s:transparancy_down() "{{{
         endif
     endif
 endfunction 
-command! MyTransparancyDown call s:transparancy_down() 
 "}}}
+command! MyTransparancyDown call s:transparancy_down() 
 
 function! s:fullscreen() "{{{
     if !s:is_terminal
@@ -72,8 +71,8 @@ function! s:fullscreen() "{{{
         endif
     endif
 endfunction
-command! MyFullscreen call s:fullscreen() 
 "}}}
+command! MyFullscreen call s:fullscreen() 
 
 function! s:toggleopt(optname) " {{{
     try
@@ -83,8 +82,8 @@ function! s:toggleopt(optname) " {{{
         echo a:optname . " does not exist."
     endtry
 endfunction
-command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>) 
 " }}}
+command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>) 
 
 function! s:copyandmove() " {{{
     function! s:matchcount(expr, pat, ...)
@@ -97,8 +96,8 @@ function! s:copyandmove() " {{{
     execute ":normal p"
     execute ":normal " . s:cnt . "j"
 endfunction
-command! CopyAndMove call s:copyandmove()
 " }}}
+command! CopyAndMove call s:copyandmove()
 
 function! s:translateword() abort " {{{
     let a:word = expand("<cword>")
@@ -111,7 +110,7 @@ function! s:translateword() abort " {{{
                 let a:item_id = a:words[a:j]['child'][0]
                 let a:means = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/GetDicItemLite?Dic=EJdict&Item=' . a:item_id . '&Loc=&Prof=XHTML').content, 'utf-8', &encoding)).findAll('div')[1]['child'][1]['child'][0]
                 let a:tokens = split(a:means, '\v\t\zs')
-                echo '【' . a:word . '】'  
+                echo '【' . a:word . ' (' . (a:j + 1) . ')】'  
                 for a:i in range(0,  len(a:tokens) - 1)
                     echo a:i + 1 . ': ' . a:tokens[a:i]
                 endfor
@@ -122,9 +121,9 @@ function! s:translateword() abort " {{{
         echo a:dom 
     endif
 endfunction
+" }}}
 command! TranslateWord call s:translateword()
 nnoremap <silent>0 :TranslateWord<CR>
-" }}}
 
 " }}}
 
