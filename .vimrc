@@ -384,6 +384,7 @@ NeoBundle 'LeafCage/foldCC.vim'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'mattn/googlesuggest-complete-vim'
 NeoBundle 'easymotion/vim-easymotion'
+NeoBundle 'terryma/vim-expand-region'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -437,6 +438,7 @@ NeoBundle 'fatih/vim-go'
 
 " Vim script
 NeoBundleLazy 'mopp/layoutplugin.vim', { 'autoload' : { 'commands' : 'LayoutPlugin'} }
+NeoBundle 'tpope/vim-endwise'
 
 " Twitter
 NeoBundleLazy 'basyura/TweetVim'
@@ -1439,6 +1441,23 @@ if neobundle#tap('rking/ag.vim') " {{{
     " nmap [ag]a :Ag <c-r>=expand("<cword>")<cr><cr>
     " nnoremap <space>/ :Ag
     " }}}
+
+endif
+" }}}
+
+if neobundle#tap('vim-expand-region') " {{{
+
+    " key_mappings {{{
+    vmap v     <Plug>(expand_region_expand)
+    vmap <C-v> <Plug>(expand_region_shrink)
+    " }}}
+
+endif
+" }}}
+
+if neobundle#tap('googlesuggest-complete-vim') " {{{
+
+    set completefunc=googlesuggest#Complete
 
 endif
 " }}}
