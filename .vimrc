@@ -1,5 +1,5 @@
 " INITIALIZATION {{{
-"
+
 augroup vimrc
     autocmd!
 augroup END
@@ -184,7 +184,6 @@ inoremap jj                 <Esc>
 inoremap kj                 <Esc>
 inoremap jk                 <Esc>
 inoremap kk                 <Esc>
-nnoremap <Esc>              ZQ
 
 " edit
 nnoremap Y                  y$
