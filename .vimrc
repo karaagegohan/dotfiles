@@ -346,7 +346,7 @@ NeoBundle 'tpope/vim-repeat'                   " Enable to repeat plugins by '.'
 NeoBundle 'tpope/vim-fugitive'                 " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim'       " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'             " Paste yank history
-NeoBundle 'Lokaltog/vim-easymotion'            " Powerful motion
+" NeoBundle 'Lokaltog/vim-easymotion'            " Powerful motion
 " NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'                " Change font size
 NeoBundle 'AndrewRadev/switch.vim'             " Switch segments
@@ -382,6 +382,8 @@ NeoBundle 'LeafCage/foldCC.vim'
 " NeoBundle 'shikato/keysender.vim'
 " NeoBundle 'haya14busa/vim-operator-flashy'
 NeoBundle 'tyru/restart.vim'
+NeoBundle 'mattn/googlesuggest-complete-vim'
+NeoBundle 'easymotion/vim-easymotion'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -787,7 +789,7 @@ if neobundle#tap('vim-fugitive') " {{{
     nnoremap [git]ch :<C-u>Git checkout 
     nnoremap [git]me :<C-u>Git merge 
     nnoremap [git]br :<C-u>Git branch 
-    nnoremap [git]up :<C-u>Gwrite<CR>:<C-u>Gcommit -m "Update"<CR>:<C-u>Git push origin master<CR>
+    nnoremap [git]up :<C-u>Gwrite<CR>:<C-u>Gcommit -m "update"<CR>:<C-u>Git push origin master<CR>
     " }}}
 
 endif
@@ -1102,7 +1104,7 @@ if neobundle#tap('vim-easymotion') " {{{
 
     " key_mappings {{{
     map m <Plug>(easymotion-prefix)
-    map f <Plug>(easymotion-fl)
+    map f <Plug>(easymotion-overwin-f)
     map t <Plug>(easymotion-tl)
     map F <Plug>(easymotion-Fl)
     map T <Plug>(easymotion-Tl)
@@ -1452,7 +1454,11 @@ set laststatus=2
 
 " function
 set history  =1024   " Number of history
-set helplang =en     " Language to read help
+if 1
+    set helplang =ja     " Language to read help
+else
+    set helplang =en     " Language to read help
+endif
 
 " encoding
 set encoding        =utf-8           " Character code for .vimrc
