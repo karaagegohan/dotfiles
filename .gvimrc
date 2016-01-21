@@ -28,7 +28,7 @@ if has('vim_starting')
         set guifontset     =a13,r13,k13
     endif
     " }}}
-    "
+    
 endif
 
 " }}}
@@ -65,20 +65,6 @@ endif
 
 " }}}
 
-" === input settings ========================================================================================= {{{
-
-if has('multi_byte_ime') || has('xim')
-    highlight CursorIM guibg=Purple guifg=NONE
-    set iminsert=0 imsearch=0
-    if has('xim') && has('GUI_GTK')
-        "set imactivatekey=s-space
-    endif
-    inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-endif
-
-
-" }}}
-
 " === base settings ========================================================================================== {{{
 
 " mouse settings
@@ -95,8 +81,12 @@ colorscheme Tomorrow-Night-Eighties
 set background =dark
 " highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 " highlight CursorLine gui=underline guifg=NONE guibg=NONE
+if has('multi_byte_ime')
+  highlight Cursor guifg=NONE guibg=White
+  highlight CursorIM guifg=NONE guibg=Purple
+endif
 
 " cursol
-set guicursor=n-v-c:hor10-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor, i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor -blinkwait175-blinkoff150-blinkon175
+set guicursor=n-v-c:hor10-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
 " }}}
 
