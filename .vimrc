@@ -897,8 +897,9 @@ if neobundle#tap('lightline.vim') " {{{
         try
             if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
                 let _ = fugitive#head()
-                return strlen(_) ? ' '._ : ''
+                return strlen(_) ? _ : ''
             endif
+
         catch
         endtry
         return ''
@@ -1245,6 +1246,8 @@ endif
 if neobundle#tap('vim-anzu') " {{{
 
     let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
+    nmap n <Plug>(anzu-mode-n)
+    nmap N <Plug>(anzu-mode-N)
     nnoremap <expr> n anzu#mode#mapexpr("n", "", "zzzv")
     nnoremap <expr> N anzu#mode#mapexpr("N", "", "zzzv")
 
