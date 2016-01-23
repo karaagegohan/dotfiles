@@ -77,7 +77,8 @@ set guioptions =         " disable GUI options
 set cmdheight  =2        " height of commandline
 
 " colorscheme
-colorscheme Tomorrow-Night-Eighties
+" colorscheme Tomorrow-Night-Eighties
+colorscheme onedark
 set background =dark
 " highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 " highlight CursorLine gui=underline guifg=NONE guibg=NONE
