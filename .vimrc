@@ -273,7 +273,7 @@ nnoremap <silent><F12> <Nop>
 nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
 nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
-" hafndy
+" handy
 if isdirectory(expand('~/dotfiles')) 
     nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
     nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
@@ -290,6 +290,7 @@ nnoremap <silent>[func]km   :<C-u>/key_mappings<CR>zO
 nnoremap [func]h            :<C-u>help<Space><C-r><C-w><CR>
 nnoremap [func]e            :<C-u>edit<CR> 
 nnoremap [func]ch           q:
+nnoremap :                  :<C-u><UP><CR>
 
 " }}}
 
@@ -831,10 +832,10 @@ if neobundle#tap('vimshell.vim') " {{{
     nnoremap [shell]   <Nop>
     nmap     [plugin]s [shell]
 
-    nnoremap [shell]s :<C-u>VimShell<CR>
-    nnoremap [shell]n :<C-u>VimShellPop<CR>
-    nnoremap [shell]p :<C-u>VimShellInteractive python<CR>
-    nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
+    nnoremap [shell]s :<C-u>set<space>noautochdir<CR>:<C-u>VimShell<CR>
+    nnoremap [shell]n :<C-u>set<space>noautochdir<CR>:<C-u>VimShellPop<CR>
+    nnoremap [shell]p :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive python<CR>
+    nnoremap [shell]r :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive irb<CR>
     " }}}
 
 endif
@@ -1563,7 +1564,7 @@ set directory  =~/.vimfiles " Directiry to save swap files
 
 " colorscheme
 let g:gruvbox_italic = 0
-colorscheme Tomorrow-Night-Eighties
+colorscheme onedark
 set background =dark
 
 autocmd vimrc FileType help setlocal nofoldenable
