@@ -231,8 +231,6 @@ nnoremap <S-Left>           <C-w><<CR>
 nnoremap <S-Right>          <C-w>><CR>
 nnoremap <S-Up>             <C-w>-<CR>
 nnoremap <S-Down>           <C-w>+<CR>
-nnoremap <C-]>              <C-w>l
-nnoremap <C-[>              <C-w>h
 
 " tab
 nnoremap <TAB>              gt
@@ -463,6 +461,7 @@ NeoBundle 'vim-scripts/rdark'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'whatyouhide/vim-gotham'
+NeoBundle 'joshdick/onedark.vim'
 
 " dictionary
 " NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
@@ -837,8 +836,6 @@ if neobundle#tap('vimshell.vim') " {{{
     nnoremap [shell]p :<C-u>VimShellInteractive python<CR>
     nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
     " }}}
-
-    autocmd vimrc FileType vimshell WinEnter execute "normal" i
 
 endif
 " }}}
