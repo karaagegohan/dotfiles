@@ -463,6 +463,7 @@ NeoBundle 'vim-scripts/rdark'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'whatyouhide/vim-gotham'
+NeoBundle 'joshdick/onedark.vim'
 
 " dictionary
 " NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
@@ -832,13 +833,11 @@ if neobundle#tap('vimshell.vim') " {{{
     nnoremap [shell]   <Nop>
     nmap     [plugin]s [shell]
 
-    nnoremap [shell]s :<C-u>VimShell<CR>
-    nnoremap [shell]n :<C-u>VimShellPop<CR>
-    nnoremap [shell]p :<C-u>VimShellInteractive python<CR>
-    nnoremap [shell]r :<C-u>VimShellInteractive irb<CR>
+    nnoremap [shell]s :set noautochdir<CR>:<C-u>VimShell<CR>
+    nnoremap [shell]n :set noautochdir<CR>:<C-u>VimShellPop<CR>
+    nnoremap [shell]p :set noautochdir<CR>:<C-u>VimShellInteractive python<CR>
+    nnoremap [shell]r :set noautochdir<CR>:<C-u>VimShellInteractive irb<CR>
     " }}}
-
-    autocmd vimrc FileType vimshell WinEnter execute "normal" i
 
 endif
 " }}}
@@ -1566,7 +1565,8 @@ set directory  =~/.vimfiles " Directiry to save swap files
 
 " colorscheme
 let g:gruvbox_italic = 0
-colorscheme Tomorrow-Night-Eighties
+" colorscheme Tomorrow-Night-Eighties
+colorscheme onedark
 set background =dark
 
 autocmd vimrc FileType help setlocal nofoldenable
