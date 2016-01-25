@@ -79,7 +79,7 @@ command! MyFullscreen call s:fullscreen()
 function! s:toggleopt(optname) " {{{
     try
         exec( 'set ' . a:optname . '!')
-        exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==0 ? "on" : "off"')
+        exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==1 ? "on" : "off"')
     catch
         echo a:optname . " does not exist."
     endtry
@@ -812,12 +812,13 @@ endif
 if neobundle#tap('vim-smartchr') " {{{
 
     autocmd vimrc FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
-    inoremap <expr>=  smartchr#loop(' = ', ' == ', '=')
+    inoremap <expr>=  smartchr#loop(' = ', '=', ' == ')
     inoremap <expr>\| smartchr#loop(' \| ', ' \|\| ', '\|')
     inoremap <expr>&  smartchr#loop(' & ', ' && ', '&')
     inoremap <expr>,  smartchr#loop(', ', ',')
-    inoremap <expr>(  smartchr#loop('( ', '(')
-    inoremap <expr>:  smartchr#loop('; ', ';')
+    inoremap <expr>(  smartchr#loop('(', '( ')
+    inoremap <expr>)  smartchr#loop(')', ' )')
+    inoremap <expr>:  smartchr#loop(';', '; ')
 
 endif
 " }}}
@@ -1344,7 +1345,7 @@ if neobundle#tap('vim-sound') " {{{
 endif
 " }}}
 
-if neobundle#tap('nathanaelkane/vim-indent-guides') " {{{
+if neobundle#tap('vim-indent-guides') " {{{
 
     let g:indent_guides_enable_on_vim_startup=1
     let g:indent_guides_start_level=2
