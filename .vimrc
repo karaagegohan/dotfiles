@@ -381,6 +381,7 @@ NeoBundle 'tyru/restart.vim'
 NeoBundle 'mattn/googlesuggest-complete-vim'
 NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 'terryma/vim-expand-region'
+NeoBundle 'moznion/hateblo.vim'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -1564,6 +1565,7 @@ colorscheme onedark
 set background =dark
 
 autocmd vimrc FileType help setlocal nofoldenable
+autocmd vimrc BufRead,BufNewFile *.md set filetype=markdown
 
 " }}}
 
