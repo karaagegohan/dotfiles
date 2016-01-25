@@ -167,19 +167,17 @@ nmap     ,                  [func]
 nnoremap [plugin]           <Nop>
 nmap     <Space>            [plugin]
 
-" base mappimgs
+" basic
 noremap  ;                  :
 noremap  :                  ;
 noremap! ;                  :
 noremap! :                  ;
-noremap! <C-c>              <Esc>
-noremap  <C-c>              <Esc>
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <CR>               :<C-u>write<CR>
 nnoremap <S-CR>             :<C-u>write!<CR>
-nnoremap <silent><BS>       :<C-u>CloseWindow 0<CR>
-nnoremap <silent><S-BS>     :<C-u>CloseWindow 1<CR>
 nnoremap U                  <C-r>
+noremap! <C-c>              <Esc>
+noremap  <C-c>              <Esc>
 inoremap jj                 <Esc>
 inoremap kj                 <Esc>
 inoremap jk                 <Esc>
@@ -208,10 +206,6 @@ nnoremap #                  #NzO
 nmap     '                  *
 nmap     "                  #
 
-" increment, decrement
-nnoremap +                  <C-a>
-nnoremap _                  <C-x>
-
 " window
 nnoremap gh                 <C-w>h
 nnoremap gj                 <C-w>j
@@ -230,6 +224,8 @@ nnoremap <S-Left>           <C-w><<CR>
 nnoremap <S-Right>          <C-w>><CR>
 nnoremap <S-Up>             <C-w>-<CR>
 nnoremap <S-Down>           <C-w>+<CR>
+nnoremap <silent><BS>       :<C-u>CloseWindow 0<CR>
+nnoremap <silent><S-BS>     :<C-u>CloseWindow 1<CR>
 
 " tab
 nnoremap <TAB>              gt
@@ -272,7 +268,7 @@ nnoremap <silent><F12> <Nop>
 nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
 nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
-" handy
+" other
 if isdirectory(expand('~/dotfiles')) 
     nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
     nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
@@ -289,7 +285,7 @@ nnoremap <silent>[func]km   :<C-u>/key_mappings<CR>zO
 nnoremap [func]h            :<C-u>help<Space><C-r><C-w><CR>
 nnoremap [func]e            :<C-u>edit<CR> 
 nnoremap [func]ch           q:
-nnoremap :                  :<C-u><UP><CR>
+nnoremap <silent>(          :<C-u>source %<CR> 
 
 " }}}
 
