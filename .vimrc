@@ -189,7 +189,6 @@ inoremap kk                 <Esc>
 nnoremap Y                  y$
 nnoremap R                  J
 nnoremap x                  "_x
-nnoremap `                  :<C-u>CopyAndMove<CR>
 
 " cursor
 nnoremap j                  gj
