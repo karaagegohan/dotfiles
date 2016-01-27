@@ -382,6 +382,8 @@ NeoBundle 'mattn/googlesuggest-complete-vim'
 NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'moznion/hateblo.vim'
+NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
+NeoBundleLazy 'scrooloose/syntastic.git'     " Powerful syntax
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -397,12 +399,6 @@ NeoBundle 'rhysd/vim-operator-surround'
 NeoBundle 'tpope/vim-surround'           " Surround text obj with any word
 NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 
-" Syntax
-NeoBundleLazy 'scrooloose/syntastic.git'     " Powerful syntax
-
-" search
-NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
-
 " Unite
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
@@ -416,6 +412,9 @@ NeoBundleLazy 'LeafCage/unite-gvimrgb', { 'autoload' : { 'unite_source' : ['gvim
 NeoBundleLazy 'LeafCage/unite-recording', { 'autoload' : { 'unite_source' : ['recording'] } }
 " NeoBundleLazy 'LeafCage/unite-highlight', { 'autoload' : { 'unite_source' : ['highlight'] } }
 " NeoBundleLazy 'LeafCage/unite-webcolorname', { 'autoload' : { 'unite_source' : ['webcolorname'] } }
+
+" all languages
+NeoBundle 'mattn/sonictemplate-vim'
 
 " Java 
 NeoBundleLazy 'vim-scripts/javacomplete', { 'build': { 'cygwin': 'javac autoload/Reflection.java', 'mac' : 'javac autoload/Reflection.java', 'unix' : 'javac autoload/Reflection.java', }, 'autoload' : { 'filetypes' : ['java'] } }
@@ -431,7 +430,7 @@ NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 
 NeoBundleLazy 'osyo-manga/vim-stargate', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 
 " Go
-NeoBundle 'fatih/vim-go'
+NeoBundleLazy 'fatih/vim-go', { 'autoload' : { 'filetypes' : ['go'] } }
 
 " Vim script
 NeoBundleLazy 'mopp/layoutplugin.vim', { 'autoload' : { 'commands' : 'LayoutPlugin'} }
@@ -1421,11 +1420,13 @@ if neobundle#tap('vim-operator-flashy') " {{{
 endif
 " }}}
 
-if neobundle#tap('fatih/vim-go') " {{{
+if neobundle#tap('vim-go') " {{{
 
+    let g:go_def_mapping_enabled = 0
+    let g:go_doc_keywordprg_enabled = 0
     " key_mappings {{{
     nmap [go]      <Nop>
-    nmap [plugin]g [go]
+    nmap [plugin]go [go]
     " autocmd vimrc FileType go nmap <leader>r <Plug>(go-run)
     " autocmd vimrc FileType go nmap <leader>b <Plug>(go-build)
     " autocmd vimrc FileType go nmap <leader>t <Plug>(go-test)
@@ -1435,7 +1436,7 @@ if neobundle#tap('fatih/vim-go') " {{{
 endif
 " }}}
 
-if neobundle#tap('rking/ag.vim') " {{{
+if neobundle#tap('ag.vim') " {{{
 
     " key_mappings {{{
     " nmap [ag]      <Nop>
