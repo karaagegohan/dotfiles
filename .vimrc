@@ -1473,6 +1473,15 @@ if neobundle#tap('googlesuggest-complete-vim') " {{{
 endif
 " }}}
 
+if neobundle#tap('vim-ref') " {{{
+
+    " key_mappings {{{
+    nnoremap ' <Plug>(ref-keyword)
+    " }}}
+
+endif
+" }}}
+
 " SETTINGS {{{
 
 " modeline
@@ -1502,6 +1511,9 @@ set fileencodings  +=euc-jisx0213    " Character code to read file
 set fileencodings  +=euc-jp          " Character code to read file
 set fileencodings  +=cp932           " Character code to read file
 set fileformats     =unix,dos,mac    " Newline character
+if has('win32') || has('win64')
+    let &termencoding = &encoding
+endif
 
 " view
 syntax on                     " Show syntax hilight
