@@ -138,6 +138,13 @@ endfunction
 " }}}
 command! -nargs=1 CloseWindow call s:closewindow(<f-args>)
 
+function! s:add_if_neobundle_tap() abort "{{{
+    let a:plugin_name = matchstr(getline('.'), "/.\*'", 0)
+    let a:plugin_name = 
+    echo a:plugin_name
+endfunction "}}}
+command! -nargs=0 AddIfNeoBundeTap call s:add_if_neobundle_tap()
+
 " }}}
 
 " KEY MAPPINGS {{{
@@ -481,6 +488,117 @@ nmap     [plugin]nb    [neobundle]
 
 nnoremap [neobundle]cu  :<C-u>NeoBundleCheckUpdate<CR>
 " }}}
+
+" }}}
+
+" SETTINGS {{{
+
+" modeline
+set modeline
+set modelines =3
+
+" statusline
+set laststatus=2
+
+" function
+set history  =1024   " Number of history
+if 1
+    set helplang =ja     " Language to read help
+else
+    set helplang =en     " Language to read help
+endif
+
+" encoding
+set encoding        =utf-8           " Character code for .vimrc
+set fileencoding    =utf-8           " Character code to write files
+set fileencodings   =utf-8,sjis      " Character code to read file (default)
+set fileencodings  +=ucs-bom         " Character code to read file
+set fileencodings  +=iso-2022-jp-3   " Character code to read file
+set fileencodings  +=iso-2022-jp     " Character code to read file
+set fileencodings  +=eucjp-ms        " Character code to read file
+set fileencodings  +=euc-jisx0213    " Character code to read file
+set fileencodings  +=euc-jp          " Character code to read file
+set fileencodings  +=cp932           " Character code to read file
+set fileformats     =unix,dos,mac    " Newline character
+if has('win32') || has('win64')
+    let &termencoding = &encoding
+endif
+
+" view
+syntax on                     " Show syntax hilight
+set number                    " Show line number
+set ruler                     " Show current line number
+set title                     " Show title of the file
+set showmatch                 " Show matching bracket
+set noshowmatch
+set matchtime     =1          " Time of matching paren
+set virtualedit  +=block      " Expand bounds in visual mode
+set nowrap                    " Nowrap
+set t_Co          =256        " Terminal color
+set equalalways               " Adjust window size
+set display       =lastline   " Display
+set pumheight     =10         " Height of popup
+set t_vb=                     " Visual bell of terminal
+set visualbell                " Show visualbell
+set noerrorbells              " Diable error bell
+set completeopt   =longest,menuone,preview
+set splitbelow
+set hidden
+set nocursorline
+set hlsearch
+
+" indent
+set backspace         =indent,eol,start    " More powerful backspacing
+set smartindent                            " Indent automatically
+set autoindent                             " Indent automatically
+set shiftwidth        =4                   " Width of indent for autoindent
+set tabstop           =4                   " Width of TAB
+set expandtab                              " Change TAB to space
+set textwidth         =0                   " Text width
+set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
+let g:vim_indent_cont =4                   " Space before \
+
+" edit
+set switchbuf=useopen   " use an existing buffer instaed of creating a new one
+
+" searching
+set incsearch   " Disable increment search
+set wrapscan    " Searchrs wrap around
+
+" command line
+set timeoutlen =2000      " time to wait for a key code
+
+" action
+set autoread                              " Reload file automatically when it is updated
+set scrolloff      =10                    " Scrooloff
+set sidescroll     =1                     " Unit of left and right scroll
+set sidescrolloff  =8                     " Scrooloff
+set clipboard     +=unnamedplus,unnamed   " Sharing clipboard
+set nrformats      =
+set autochdir
+
+" fold
+set foldenable            " Enable fold
+set foldcolumn  =0        " Width of folding guide
+set foldmethod  =marker   " Folding by {{{.}}}
+
+" directories
+call s:My_mkdir('~/.vimfiles')
+set browsedir  =current     " Directiry to save editing files
+set backup                  " Make backup file
+set backupdir  =~/.vimfiles " Directiry to save backup files
+set undofile                " Make undo file
+set undodir    =~/.vimfiles " Directiry to save undo files
+set swapfile                " Make swap file
+set directory  =~/.vimfiles " Directiry to save swap files
+
+" colorscheme
+let g:gruvbox_italic = 0
+colorscheme onedark
+set background =dark
+
+autocmd vimrc FileType help setlocal nofoldenable
+autocmd vimrc BufRead,BufNewFile *.md set filetype=markdown
 
 " }}}
 
@@ -1481,116 +1599,5 @@ if neobundle#tap('vim-ref') " {{{
     " }}}
 
 endif
-" }}}
-
-" SETTINGS {{{
-
-" modeline
-set modeline
-set modelines =3
-
-" statusline
-set laststatus=2
-
-" function
-set history  =1024   " Number of history
-if 1
-    set helplang =ja     " Language to read help
-else
-    set helplang =en     " Language to read help
-endif
-
-" encoding
-set encoding        =utf-8           " Character code for .vimrc
-set fileencoding    =utf-8           " Character code to write files
-set fileencodings   =utf-8,sjis      " Character code to read file (default)
-set fileencodings  +=ucs-bom         " Character code to read file
-set fileencodings  +=iso-2022-jp-3   " Character code to read file
-set fileencodings  +=iso-2022-jp     " Character code to read file
-set fileencodings  +=eucjp-ms        " Character code to read file
-set fileencodings  +=euc-jisx0213    " Character code to read file
-set fileencodings  +=euc-jp          " Character code to read file
-set fileencodings  +=cp932           " Character code to read file
-set fileformats     =unix,dos,mac    " Newline character
-if has('win32') || has('win64')
-    let &termencoding = &encoding
-endif
-
-" view
-syntax on                     " Show syntax hilight
-set number                    " Show line number
-set ruler                     " Show current line number
-set title                     " Show title of the file
-set showmatch                 " Show matching bracket
-set noshowmatch
-set matchtime     =1          " Time of matching paren
-set virtualedit  +=block      " Expand bounds in visual mode
-set nowrap                    " Nowrap
-set t_Co          =256        " Terminal color
-set equalalways               " Adjust window size
-set display       =lastline   " Display
-set pumheight     =10         " Height of popup
-set t_vb=                     " Visual bell of terminal
-set visualbell                " Show visualbell
-set noerrorbells              " Diable error bell
-set completeopt   =longest,menuone,preview
-set splitbelow
-set hidden
-set nocursorline
-set hlsearch
-
-" indent
-set backspace         =indent,eol,start    " More powerful backspacing
-set smartindent                            " Indent automatically
-set autoindent                             " Indent automatically
-set shiftwidth        =4                   " Width of indent for autoindent
-set tabstop           =4                   " Width of TAB
-set expandtab                              " Change TAB to space
-set textwidth         =0                   " Text width
-set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
-let g:vim_indent_cont =4                   " Space before \
-
-" edit
-set switchbuf=useopen   " use an existing buffer instaed of creating a new one
-
-" searching
-set incsearch   " Disable increment search
-set wrapscan    " Searchrs wrap around
-
-" command line
-set timeoutlen =2000      " time to wait for a key code
-
-" action
-set autoread                              " Reload file automatically when it is updated
-set scrolloff      =10                    " Scrooloff
-set sidescroll     =1                     " Unit of left and right scroll
-set sidescrolloff  =8                     " Scrooloff
-set clipboard     +=unnamedplus,unnamed   " Sharing clipboard
-set nrformats      =
-set autochdir
-
-" fold
-set foldenable            " Enable fold
-set foldcolumn  =0        " Width of folding guide
-set foldmethod  =marker   " Folding by {{{.}}}
-
-" directories
-call s:My_mkdir('~/.vimfiles')
-set browsedir  =current     " Directiry to save editing files
-set backup                  " Make backup file
-set backupdir  =~/.vimfiles " Directiry to save backup files
-set undofile                " Make undo file
-set undodir    =~/.vimfiles " Directiry to save undo files
-set swapfile                " Make swap file
-set directory  =~/.vimfiles " Directiry to save swap files
-
-" colorscheme
-let g:gruvbox_italic = 0
-colorscheme onedark
-set background =dark
-
-autocmd vimrc FileType help setlocal nofoldenable
-autocmd vimrc BufRead,BufNewFile *.md set filetype=markdown
-
 " }}}
 
