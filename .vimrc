@@ -384,6 +384,7 @@ NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'moznion/hateblo.vim'
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 NeoBundleLazy 'scrooloose/syntastic.git'     " Powerful syntax
+NeoBundle 'miyakogi/livemark.vim'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -1548,6 +1549,9 @@ set expandtab                              " Change TAB to space
 set textwidth         =0                   " Text width
 set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
 let g:vim_indent_cont =4                   " Space before \
+
+" edit
+set switchbuf=useopen   " use an existing buffer instaed of creating a new one
 
 " searching
 set incsearch   " Disable increment search
