@@ -140,12 +140,17 @@ command! -nargs=1 CloseWindow call s:closewindow(<f-args>)
 
 function! s:add_if_neobundle_tap() abort "{{{
     let a:plugin_name = matchstr(getline('.'), "/.\*'", 0)
-    let a:plugin_name = 
-    echo a:plugin_name
+    if a:plugin_name != ''
+        let a:plugin_name = substitute(a:plugin_name, "/", "'", "g")
+        let a:plugin_name = 'if neobundle#tap(' . a:plugin_name . ') "{' . '{' . '{'
+        call append(line("$"), a:plugin_name)
+        call append(line("$"), 'endif' . ' "}' . '}' . '}')
+        call append(line("$"), '')
+    endif
 endfunction "}}}
 command! -nargs=0 AddIfNeoBundeTap call s:add_if_neobundle_tap()
 
-" }}}
+"}}}
 
 " KEY MAPPINGS {{{
 
