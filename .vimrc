@@ -194,6 +194,8 @@ inoremap jj                 <Esc>
 inoremap kj                 <Esc>
 inoremap jk                 <Esc>
 inoremap kk                 <Esc>
+nnoremap <Esc>              <Nop>
+nnoremap <silent><Esc>      :<C-u>exit<CR>
 
 " edit
 nnoremap Y                  y$
@@ -565,6 +567,8 @@ let g:vim_indent_cont =4                   " Space before \
 
 " edit
 set switchbuf=useopen   " use an existing buffer instaed of creating a new one
+set iminsert=0
+set imsearch=-1
 
 " searching
 set incsearch   " Disable increment search
