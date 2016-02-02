@@ -1595,7 +1595,7 @@ endif
 if neobundle#tap('vim-ref') " {{{
 
     " key_mappings {{{
-    nnoremap ' <Plug>(ref-keyword)
+    nmap ' <Plug>(ref-keyword)
     " }}}
 
 endif
