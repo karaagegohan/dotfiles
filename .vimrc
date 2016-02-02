@@ -8,7 +8,7 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-" }}}
+"}}}
 
 " FUNCTIONS AND CONSTANTS {{{
 
@@ -76,7 +76,7 @@ endfunction
 "}}}
 command! MyFullscreen call s:fullscreen() 
 
-function! s:toggleopt(optname) " {{{
+function! s:toggleopt(optname) "{{{
     try
         exec( 'set ' . a:optname . '!')
         exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==1 ? "on" : "off"')
@@ -84,10 +84,10 @@ function! s:toggleopt(optname) " {{{
         echo a:optname . " does not exist."
     endtry
 endfunction
-" }}}
+"}}}
 command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>) 
 
-function! s:copyandmove() " {{{
+function! s:copyandmove() "{{{
     function! s:matchcount(expr, pat, ...)
         let a:start = get(a:, "1", 0)
         let a:result = match(a:expr, a:pat, a:start)
@@ -98,10 +98,10 @@ function! s:copyandmove() " {{{
     execute ":normal p"
     execute ":normal " . s:cnt . "j"
 endfunction
-" }}}
+"}}}
 command! CopyAndMove call s:copyandmove()
 
-function! s:translateword() abort " {{{
+function! s:translateword() abort "{{{
     let a:word = matchstr(expand("<cword>"), '[a-z]*', 0)
     let a:words = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word=' . a:word . '&Scope=HEADWORD&Match=EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0').content, 'utf-8', &encoding)).findAll('ItemID')
     if len(a:words) == 0
@@ -119,11 +119,11 @@ function! s:translateword() abort " {{{
         endfor
     endif
 endfunction
-" }}}
+"}}}
 command! TranslateWord call s:translateword()
 nnoremap <silent>0 :TranslateWord<CR>
 
-function! s:closewindow(force) " {{{
+function! s:closewindow(force) "{{{
     let a:bufname = expand('%:p')
     if len(a:bufname) == 0
         let a:bufname = '[No name]'
@@ -135,7 +135,7 @@ function! s:closewindow(force) " {{{
     endif
     echo 'quit "' . a:bufname . '"'
 endfunction
-" }}}
+"}}}
 command! -nargs=1 CloseWindow call s:closewindow(<f-args>)
 
 function! s:add_if_neobundle_tap() abort "{{{
@@ -299,7 +299,7 @@ nnoremap [func]e            :<C-u>edit<CR>
 nnoremap [func]ch           q:
 nnoremap <silent>(          :<C-u>source %<CR> 
 
-" }}}
+"}}}
 
 " PLUGINS {{{
 
@@ -492,9 +492,9 @@ nnoremap [neobundle]   <Nop>
 nmap     [plugin]nb    [neobundle]
 
 nnoremap [neobundle]cu  :<C-u>NeoBundleCheckUpdate<CR>
-" }}}
+"}}}
 
-" }}}
+"}}}
 
 " SETTINGS {{{
 
@@ -605,9 +605,9 @@ set background =dark
 autocmd vimrc FileType help setlocal nofoldenable
 autocmd vimrc BufRead,BufNewFile *.md set filetype=markdown
 
-" }}}
+"}}}
 
-if neobundle#tap('neocomplete.vim') " {{{
+if neobundle#tap('neocomplete.vim') "{{{
 
     let g:neocomplete#enable_at_startup                 = 1         " use neocomplete.
     let g:neocomplete#enable_smart_case                 = 1         " use smartcase.
@@ -669,10 +669,9 @@ if neobundle#tap('neocomplete.vim') " {{{
     inoremap <expr><bs> neocomplete#smart_close_popup()."\<c-h>"
     inoremap <expr><c-y>  neocomplete#close_popup()
     inoremap <expr><c-e>  neocomplete#cancel_popup()
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('neocomplcache.vim') " {{{
+if neobundle#tap('neocomplcache.vim') "{{{
 
     let g:neocomplcache_enable_at_startup = 1
     let g:neocomplcache_enable_ignore_case = 1
@@ -684,17 +683,15 @@ if neobundle#tap('neocomplcache.vim') " {{{
     let g:neocomplcache_enable_camel_case_completion = 1
     let g:neocomplcache_enable_underbar_completion = 1
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('deoplete.nvim') " {{{
+if neobundle#tap('deoplete.nvim') "{{{
 
     let g:deoplete#enable_at_startup = 1 
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('neosnippet') " {{{
+if neobundle#tap('neosnippet') "{{{
 
     " For snippet_complete marker.
     if has('conceal')
@@ -709,12 +706,11 @@ if neobundle#tap('neosnippet') " {{{
     imap <C-k> <Plug>(neosnippet_expand_or_jump)
     smap <C-k> <Plug>(neosnippet_expand_or_jump)
     xmap <C-k> <Plug>(neosnippet_expand_target)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('omnisharp-vim') " {{{
+if neobundle#tap('omnisharp-vim') "{{{
     "
     " " OmniSharp won't work without this setting
     " filetype plugin on
@@ -843,10 +839,9 @@ if neobundle#tap('omnisharp-vim') " {{{
     "     nnoremap <silent><buffer>[omnishar]a :<C-u>OmniSharpGetCodeActions<CR>
     " endfunction
     "
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('unite.vim') " {{{
+if neobundle#tap('unite.vim') "{{{
 
     let g:unite_source_history_yank_enable      = 1     " Enable history yank
     let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
@@ -874,19 +869,17 @@ if neobundle#tap('unite.vim') " {{{
     nnoremap [unite]yr :<C-u>Unite yankround<CR>
     nnoremap [unite]nb :<C-u>Unite neobundle<CR>
     nnoremap [unite]co :<C-u>Unite command<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('unite-outline') " {{{
+if neobundle#tap('unite-outline') "{{{
 
     let g:unite_split_rule = 'botright'
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vimfiler.vim') " {{{
+if neobundle#tap('vimfiler.vim') "{{{
 
     let g:vimfiler_enable_auto_cd = 1
 
@@ -896,12 +889,11 @@ if neobundle#tap('vimfiler.vim') " {{{
     nmap     [plugin]f [filer]
 
     nnoremap [filer]  :<C-u>VimFiler<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-fugitive') " {{{
+if neobundle#tap('vim-fugitive') "{{{
 
     " key_mappings {{{
     " prefix
@@ -921,22 +913,20 @@ if neobundle#tap('vim-fugitive') " {{{
     nnoremap [git]me :<C-u>Git merge
     nnoremap [git]br :<C-u>Git branch
     nnoremap <silent>[git]up :<C-u>Gwrite<CR>:<C-u>Gcommit -m "update"<CR>:<C-u>Git push origin master<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-gitgutter') " {{{
+if neobundle#tap('vim-gitgutter') "{{{
 
     " key_mappings {{{
     nnoremap <silent>[git]gt   :<C-u>GitGutterToggle<CR>
     nnoremap <silent>[git]gh   :<C-u>GitGutterLineHighlightsToggle<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-smartchr') " {{{
+if neobundle#tap('vim-smartchr') "{{{
 
     autocmd vimrc FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
     inoremap <expr>=  smartchr#loop(' = ', '=', ' == ')
@@ -947,10 +937,9 @@ if neobundle#tap('vim-smartchr') " {{{
     " inoremap <expr>)  smartchr#loop(')', ' )')
     " inoremap <expr>:  smartchr#loop(';', '; ')
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vimshell.vim') " {{{
+if neobundle#tap('vimshell.vim') "{{{
 
     let g:vimshell_prompt_expr = 'getcwd()." > "'
     let g:vimshell_prompt_pattern = '^\f\+ > '
@@ -964,12 +953,11 @@ if neobundle#tap('vimshell.vim') " {{{
     nnoremap [shell]n :<C-u>set<space>noautochdir<CR>:<C-u>VimShellPop<CR>
     nnoremap [shell]p :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive python<CR>
     nnoremap [shell]r :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive irb<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('lightline.vim') " {{{
+if neobundle#tap('lightline.vim') "{{{
 
     let g:lightline = {
         \ 'mode_map': {'c': 'NORMAL'},
@@ -1107,10 +1095,9 @@ if neobundle#tap('lightline.vim') " {{{
 
         return "'". char ."' ". nr
     endfunction
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('qfixhowm') " {{{
+if neobundle#tap('qfixhowm') "{{{
 
     if isdirectory(expand('~/Google\ Drive'))
         if s:is_windows
@@ -1146,12 +1133,11 @@ if neobundle#tap('qfixhowm') " {{{
     nmap     [hown]n     g,c
     nmap     [hown]q     g,q
     nmap     [hown],     g,,
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('rainbow_parentheses.vim') " {{{
+if neobundle#tap('rainbow_parentheses.vim') "{{{
 
     " color
     let g:rbpt_colorpairs = [
@@ -1177,10 +1163,9 @@ if neobundle#tap('rainbow_parentheses.vim') " {{{
     let g:rbpt_max            = 16
     let g:rbpt_loadcmd_toggle = 0
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('java_getset.vim') " {{{
+if neobundle#tap('java_getset.vim') "{{{
 
     let b:javagetset_enable_K_and_R = 1   " K$R style
     let b:javagetset_add_this       = 1   " add this.
@@ -1199,12 +1184,11 @@ if neobundle#tap('java_getset.vim') " {{{
         vmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
         vmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
     endfunction
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('syntastic.git') " {{{
+if neobundle#tap('syntastic.git') "{{{
 
     let g:syntastic_enable_signs  = 1
     let g:syntastic_auto_loc_list = 2
@@ -1213,10 +1197,9 @@ if neobundle#tap('syntastic.git') " {{{
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('yankround.vim') " {{{
+if neobundle#tap('yankround.vim') "{{{
 
     let g:yankround_max_history = 100
 
@@ -1225,12 +1208,11 @@ if neobundle#tap('yankround.vim') " {{{
     nmap P     <Plug>(yankround-P)
     nmap <C-p> <Plug>(yankround-prev)
     nmap <C-n> <Plug>(yankround-next)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-easymotion') " {{{
+if neobundle#tap('vim-easymotion') "{{{
 
     let g:EasyMotion_keys       = 'jfurmvhgytnbkdieclsowxapqzJFURMVHGYTNBKDIECLSOWXAPQZ'
     let g:EasyMotion_grouping   = 1
@@ -1241,42 +1223,38 @@ if neobundle#tap('vim-easymotion') " {{{
     map t <Plug>(easymotion-tl)
     map F <Plug>(easymotion-Fl)
     map T <Plug>(easymotion-Tl)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('excitetranslate-vim') " {{{
+if neobundle#tap('excitetranslate-vim') "{{{
 
     " key_mappings {{{
     nnoremap [plugin]t :<C-u>ExciteTranslate<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('tcomment_vim') " {{{
+if neobundle#tap('tcomment_vim') "{{{
 
     " key_mappings {{{
     nmap cc <Plug>TComment_gcc<Esc><Esc>
     vmap cc <Plug>TComment_gcc<Esc><Esc>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-easy-align') " {{{
+if neobundle#tap('vim-easy-align') "{{{
 
     " key_mappings {{{
     vmap <Enter> <Plug>(EasyAlign)
     nmap ga      <Plug>(EasyAlign)
     xmap ga      <Plug>(EasyAlign)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-quickrun') " {{{
+if neobundle#tap('vim-quickrun') "{{{
 
     let g:quickrun_config = {
         \   "_" : {
@@ -1287,24 +1265,22 @@ if neobundle#tap('vim-quickrun') " {{{
 
     " key_mappings {{{
     nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('incsearch.vim') " {{{
+if neobundle#tap('incsearch.vim') "{{{
 
     let g:incsearch#magic = '\v'
 
     " key_mappings {{{
     nmap / <Plug>(incsearch-forward)
     nmap ? <Plug>(incsearch-backward)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-fontzoom') " {{{
+if neobundle#tap('vim-fontzoom') "{{{
 
     " key_mappings {{{
     nnoremap + <Nop>
@@ -1312,44 +1288,40 @@ if neobundle#tap('vim-fontzoom') " {{{
 
     nmap <RIGHT> <Plug>(fontzoom-larger)
     nmap <LEFT>  <Plug>(fontzoom-smaller)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('switch.vim') " {{{
+if neobundle#tap('switch.vim') "{{{
 
     let g:switch_custom_definitions = [ ['NeoBundle', 'NeoBundleLazy'] ]
 
     " key_mappings {{{
     nnoremap <silent>- :<C-u>Switch<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-quickhl') " {{{
+if neobundle#tap('vim-quickhl') "{{{
 
     " key_mappings {{{
     nmap { <Plug>(quickhl-manual-this)
     xmap { <Plug>(quickhl-manual-this)
     nmap } <Plug>(quickhl-manual-reset)
     xmap } <Plug>(quickhl-manual-reset)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-multiple-cursors') " {{{
+if neobundle#tap('vim-multiple-cursors') "{{{
 
     " key_mappings {{{
     nnoremap [plugin]mc :<C-u>MultipleCursorsFind 
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('VimCalc') " {{{
+if neobundle#tap('VimCalc') "{{{
 
     " key_mappings {{{
     nnoremap [plugin]ca :<C-u>Calc<CR>
@@ -1368,12 +1340,11 @@ if neobundle#tap('VimCalc') " {{{
     " autocmd vimrc FileType vimcalc inoremap <buffer><silent>_ -
     " autocmd vimrc FileType vimcalc inoremap <buffer><silent>& /
 
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-anzu') " {{{
+if neobundle#tap('vim-anzu') "{{{
 
     let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
     nmap n <Plug>(anzu-mode-n)
@@ -1381,24 +1352,21 @@ if neobundle#tap('vim-anzu') " {{{
     nnoremap <expr> n anzu#mode#mapexpr("n", "", "zzzv")
     nnoremap <expr> N anzu#mode#mapexpr("N", "", "zzzv")
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-over') " {{{
+if neobundle#tap('vim-over') "{{{
 
     " key_mappings {{{
     nnoremap [func]s :<C-u>OverCommandLine<CR>%s/
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('TweetVim') " {{{
+if neobundle#tap('TweetVim') "{{{
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vinarise.vim') " {{{
+if neobundle#tap('vinarise.vim') "{{{
 
     " key_mappings {{{
     " prefixes
@@ -1407,12 +1375,11 @@ if neobundle#tap('vinarise.vim') " {{{
 
     nnoremap [vinarise]v :<C-u>Vinarise<CR>
     nnoremap [vinarise]b :<C-u>VinarisePluginBitmapView<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('undotree') " {{{
+if neobundle#tap('undotree') "{{{
 
     let g:undotree_SetFocusWhenToggle   = 1
     let g:undotree_WindowLayout         = 'topleft'
@@ -1430,12 +1397,11 @@ if neobundle#tap('undotree') " {{{
     nmap     [plugin]U [undotr]
 
     nnoremap [undotr]  :<C-u>UndotreeToggle<CR>
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-submode') " {{{
+if neobundle#tap('vim-submode') "{{{
 
     " winsize mode
     call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
@@ -1447,10 +1413,9 @@ if neobundle#tap('vim-submode') " {{{
     call submode#map('winsize', 'n', '', '+', '<C-w>-')
     call submode#map('winsize', 'n', '', '-', '<C-w>+')
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('w3m.vim') " {{{
+if neobundle#tap('w3m.vim') "{{{
 
     " key_mappings {{{
     " prefixes
@@ -1459,20 +1424,18 @@ if neobundle#tap('w3m.vim') " {{{
 
     nnoremap [w3m]g :<C-u>W3m google<CR>
     nnoremap [w3m]w :<C-u>W3m 
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-sound') " {{{
+if neobundle#tap('vim-sound') "{{{
 
     " let s:soundfilename = expand("~/typewriter.wav")
     " autocmd vimrc InsertCharPre * call sound#play_wav(expand("~/typewriter.wav"))
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-indent-guides') " {{{
+if neobundle#tap('vim-indent-guides') "{{{
 
     let g:indent_guides_enable_on_vim_startup=1
     let g:indent_guides_start_level=2
@@ -1480,59 +1443,51 @@ if neobundle#tap('vim-indent-guides') " {{{
     let g:indent_guides_color_change_percent = 30
     let g:indent_guides_guide_size = 1
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-operator-replace') " {{{
+if neobundle#tap('vim-operator-replace') "{{{
 
     " key_mappings {{{
     nmap s <Plug>(operator-replace)
     nmap S <Plug>(operator-replace)$
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-operator-surround') " {{{
+if neobundle#tap('vim-operator-surround') "{{{
 
     nmap <silent>ys <Plug>(operator-surround-append)
     nmap <silent>ds <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
     nmap <silent>cs <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('sideways.vim') " {{{
+if neobundle#tap('sideways.vim') "{{{
 
     nnoremap <silent><c-h> :<C-u>SidewaysJumpLeft<cr>
     nnoremap <silent><c-l> :<C-u>SidewaysJumpRight<cr>
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-table-mode') " {{{
+if neobundle#tap('vim-table-mode') "{{{
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('open-browser.vim') " {{{
+if neobundle#tap('open-browser.vim') "{{{
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-gothrough-jk') " {{{
+if neobundle#tap('vim-gothrough-jk') "{{{
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('evervim') " {{{
+if neobundle#tap('evervim') "{{{
 
     let g:evervim_devtoken="S=s301:U=2974e26:E=15901eda381:C=151aa3c76a0:P=1cd:A=en-devtoken:V=2:H=5fa185eb79a527ff40b094679f07657c"
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('foldCC.vim') " {{{
+if neobundle#tap('foldCC.vim') "{{{
 
     set foldtext=FoldCCtext()
     set foldcolumn=3
@@ -1541,18 +1496,16 @@ if neobundle#tap('foldCC.vim') " {{{
     let g:foldCCtext_tail = 'printf("{%4d lines Lv%-2d}", v:foldend-v:foldstart+1, v:foldlevel)'
     let g:foldCCtext_head = ''
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-operator-flashy') " {{{
+if neobundle#tap('vim-operator-flashy') "{{{
 
     map y <Plug>(operator-flashy)
     nmap Y <Plug>(operator-flashy)$   
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-go') " {{{
+if neobundle#tap('vim-go') "{{{
 
     let g:go_def_mapping_enabled = 0
     let g:go_doc_keywordprg_enabled = 0
@@ -1563,46 +1516,41 @@ if neobundle#tap('vim-go') " {{{
     " autocmd vimrc FileType go nmap <leader>b <Plug>(go-build)
     " autocmd vimrc FileType go nmap <leader>t <Plug>(go-test)
     " autocmd vimrc FileType go nmap <leader>c <Plug>(go-coverage)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('ag.vim') " {{{
+if neobundle#tap('ag.vim') "{{{
 
     " key_mappings {{{
     " nmap [ag]      <Nop>
     " nmap [plugin]a [ag]
     " nmap [ag]a :Ag <c-r>=expand("<cword>")<cr><cr>
     " nnoremap <space>/ :Ag
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-expand-region') " {{{
+if neobundle#tap('vim-expand-region') "{{{
 
     " key_mappings {{{
     vmap v     <Plug>(expand_region_expand)
     vmap <C-v> <Plug>(expand_region_shrink)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('googlesuggest-complete-vim') " {{{
+if neobundle#tap('googlesuggest-complete-vim') "{{{
 
     set completefunc=googlesuggest#Complete
 
-endif
-" }}}
+endif "}}}
 
-if neobundle#tap('vim-ref') " {{{
+if neobundle#tap('vim-ref') "{{{
 
     " key_mappings {{{
     nmap ' <Plug>(ref-keyword)
-    " }}}
+    "}}}
 
-endif
-" }}}
+endif "}}}
 
