@@ -5,16 +5,16 @@ augroup vimrc
 augroup END
 
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+  if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
+    echo "install neobundle..."
+    :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+  endif
+  set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
 "}}}
 
 " FUNCTIONS AND CONSTANTS {{{
-
-let s:is_terminal = !has('gui_running')
-let s:is_windows  = has('win16') || has('win32') || has('win64')
-let s:is_mac      = has('mac')
 
 function! s:My_mkdir(name) abort "{{{
     if !isdirectory(expand(a:name))
@@ -24,14 +24,14 @@ endfunction
 "}}}
 
 function! s:transparancy_up() "{{{
-    if !s:is_terminal
-        if s:is_mac
+    if !!has('gui_running')
+        if has('mac')
             if &transparency - 5 > 1
                 set transparency-=5
             else
                 set transparency =0
             endif
-        elseif s:is_windows 
+        elseif has('win32') || has('win64') 
             if &transparency - 5 > 1
                 set transparency-=5
             else
@@ -41,17 +41,17 @@ function! s:transparancy_up() "{{{
     endif
 endfunction 
 "}}}
-command! MyTransparancyUp call s:transparancy_up() 
+command! -nargs=0 MyTransparancyUp call s:transparancy_up() 
 
 function! s:transparancy_down() "{{{
-    if !s:is_terminal
-        if s:is_mac
+    if !!has('gui_running')
+        if has('mac')
             if &transparency + 5 < 100
                 set transparency+=5
             else
                 set transparency =100
             endif
-        elseif s:is_windows
+        elseif has('win32') || has('win64')
             if &transparency + 5 < 255
                 set transparency+=5
             else
@@ -61,11 +61,11 @@ function! s:transparancy_down() "{{{
     endif
 endfunction 
 "}}}
-command! MyTransparancyDown call s:transparancy_down() 
+command! -nargs=0 MyTransparancyDown call s:transparancy_down() 
 
 function! s:fullscreen() "{{{
-    if !s:is_terminal
-        if s:is_mac
+    if !!has('gui_running')
+        if has('mac')
             set fullscreen!
         else
             set columns =999
@@ -74,7 +74,7 @@ function! s:fullscreen() "{{{
     endif
 endfunction
 "}}}
-command! MyFullscreen call s:fullscreen() 
+command! -nargs=0 MyFullscreen call s:fullscreen() 
 
 function! s:toggleopt(optname) "{{{
     try
@@ -99,7 +99,7 @@ function! s:copyandmove() "{{{
     execute ":normal " . s:cnt . "j"
 endfunction
 "}}}
-command! CopyAndMove call s:copyandmove()
+command! -nargs=0 CopyAndMove call s:copyandmove()
 
 function! s:translateword() abort "{{{
     let a:word = matchstr(expand("<cword>"), '[a-z]*', 0)
@@ -120,8 +120,7 @@ function! s:translateword() abort "{{{
     endif
 endfunction
 "}}}
-command! TranslateWord call s:translateword()
-nnoremap <silent>0 :TranslateWord<CR>
+command! -nargs=0 TranslateWord call s:translateword()
 
 function! s:closewindow(force) "{{{
     let a:bufname = expand('%:p')
@@ -150,6 +149,11 @@ function! s:add_if_neobundle_tap() abort "{{{
 endfunction "}}}
 command! -nargs=0 AddIfNeoBundeTap call s:add_if_neobundle_tap()
 
+function! s:add_prefix(prefix, keymap) abort "{{{
+    exec ('nnoremap [' . a:prefix . '] <Nop>')
+    exec ('nmap ' . a:keymap . ' [' . a:prefix . ']')
+endfunction "}}}
+
 "}}}
 
 " KEY MAPPINGS {{{
@@ -174,10 +178,8 @@ command! -nargs=0 AddIfNeoBundeTap call s:add_if_neobundle_tap()
 "  }}}
 
 " prefixes
-nnoremap [func]             <Nop>
-nmap     ,                  [func]
-nnoremap [plugin]           <Nop>
-nmap     <Space>            [plugin]
+call s:add_prefix('func', ',')
+call s:add_prefix('plugin', '<Space>')
 
 " basic
 noremap  ;                  :
@@ -290,12 +292,11 @@ else
     nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
-if s:is_terminal
+if !has('gui_running')
     nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>
 else 
     nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 end
-nnoremap <silent>[func]km   :<C-u>/key_mappings<CR>zO
 nnoremap [func]h            :<C-u>help<Space><C-r><C-w><CR>
 nnoremap [func]e            :<C-u>edit<CR> 
 nnoremap [func]ch           q:
@@ -1104,7 +1105,7 @@ endif "}}}
 if neobundle#tap('qfixhowm') "{{{
 
     if isdirectory(expand('~/Google\ Drive'))
-        if s:is_windows
+        if has('win32') || has('win64')
             if !isdirectory(expand('~/Google\ Drive/Memo'))
                 call mkdir('~/Google\ Drive/Memo', 'p')
             endif
