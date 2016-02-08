@@ -20,7 +20,7 @@ function! s:My_mkdir(name) abort "{{{
     if !isdirectory(expand(a:name))
         call mkdir(expand(a:name))
     endif
-endfunction 
+endfunction
 "}}}
 
 function! s:transparancy_up() "{{{
@@ -31,7 +31,7 @@ function! s:transparancy_up() "{{{
             else
                 set transparency =0
             endif
-        elseif has('win32') || has('win64') 
+        elseif has('win32') || has('win64')
             if &transparency - 5 > 1
                 set transparency-=5
             else
@@ -39,9 +39,9 @@ function! s:transparancy_up() "{{{
             endif
         endif
     endif
-endfunction 
+endfunction
 "}}}
-command! -nargs=0 MyTransparancyUp call s:transparancy_up() 
+command! -nargs=0 MyTransparancyUp call s:transparancy_up()
 
 function! s:transparancy_down() "{{{
     if !!has('gui_running')
@@ -59,9 +59,9 @@ function! s:transparancy_down() "{{{
             endif
         endif
     endif
-endfunction 
+endfunction
 "}}}
-command! -nargs=0 MyTransparancyDown call s:transparancy_down() 
+command! -nargs=0 MyTransparancyDown call s:transparancy_down()
 
 function! s:fullscreen() "{{{
     if !!has('gui_running')
@@ -74,7 +74,7 @@ function! s:fullscreen() "{{{
     endif
 endfunction
 "}}}
-command! -nargs=0 MyFullscreen call s:fullscreen() 
+command! -nargs=0 MyFullscreen call s:fullscreen()
 
 function! s:toggleopt(optname) "{{{
     try
@@ -85,7 +85,7 @@ function! s:toggleopt(optname) "{{{
     endtry
 endfunction
 "}}}
-command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>) 
+command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>)
 
 function! s:copyandmove() "{{{
     function! s:matchcount(expr, pat, ...)
@@ -112,7 +112,7 @@ function! s:translateword() abort "{{{
             let a:means = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/GetDicItemLite?Dic=EJdict&Item=' . a:item_id . '&Loc=&Prof=XHTML').content, 'utf-8', &encoding)).findAll('div')[1]['child'][1]['child'][0]
             let a:tokens = split(a:means, '\v\t\zs')
             let a:num = len(a:words) == 1 ? '' : ' (' . (a:j + 1) . ')'
-            echo '【' . a:word . a:num . '】'  
+            echo '【' . a:word . a:num . '】'
             for a:i in range(0,  len(a:tokens) - 1)
                 echo (a:i + 1) . ': ' . a:tokens[a:i]
             endfor
@@ -129,7 +129,7 @@ function! s:closewindow(force) "{{{
     endif
     if winnr('$') == 1 && tabpagenr('$') == 1
         :enew
-    else 
+    else
         :quit
     endif
     echo 'quit "' . a:bufname . '"'
@@ -149,10 +149,21 @@ function! s:add_if_neobundle_tap() abort "{{{
 endfunction "}}}
 command! -nargs=0 AddIfNeoBundeTap call s:add_if_neobundle_tap()
 
-function! s:add_prefix(prefix, keymap) abort "{{{
-    exec ('nnoremap [' . a:prefix . '] <Nop>')
-    exec ('nmap ' . a:keymap . ' [' . a:prefix . ']')
+let s:prefix_list = {}
+function! s:add_prefix(keymap, prefix) abort "{{{
+    exec ('nnoremap ' . a:prefix . ' <Nop>')
+    exec ('nmap ' . a:keymap . ' ' . a:prefix . '')
+    let s:prefix_list[a:keymap] = a:prefix
 endfunction "}}}
+command! -nargs=+ Nnoremap call s:add_prefix(<f-args>)
+
+function! s:show_prefix() abort "{{{
+    let a:prefixes = sort(keys(s:prefix_list))
+    for a:i in range(0, len(a:prefixes) - 1)
+        echo a:prefixes[a:i] . "\t" . s:prefix_list[a:prefixes[a:i]]
+    endfor
+endfunction "}}}
+command! -nargs=0 ShowPrefix call s:show_prefix()
 
 "}}}
 
@@ -178,8 +189,8 @@ endfunction "}}}
 "  }}}
 
 " prefixes
-call s:add_prefix('func', ',')
-call s:add_prefix('plugin', '<Space>')
+Nnoremap ,                  [func]
+Nnoremap <Space>            [plugin]
 
 " basic
 noremap  ;                  :
@@ -285,22 +296,22 @@ nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
 nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
 " other
-if isdirectory(expand('~/dotfiles')) 
+if isdirectory(expand('~/dotfiles'))
     nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
     nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
-else 
+else
     nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
 if !has('gui_running')
     nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>
-else 
+else
     nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 end
 nnoremap [func]h            :<C-u>help<Space><C-r><C-w><CR>
-nnoremap [func]e            :<C-u>edit<CR> 
+nnoremap [func]e            :<C-u>edit<CR>
 nnoremap [func]ch           q:
-nnoremap <silent>(          :<C-u>source %<CR> 
+nnoremap <silent>(          :<C-u>source %<CR>
 
 "}}}
 
@@ -329,12 +340,12 @@ NeoBundle 'Shougo/neobundle.vim'
 " great asynchronous execution
 NeoBundle 'Shougo/vimproc.vim', { 'build' : { 'windows' : 'make -f make_mingw32.mak', 'cygwin' : 'make -f make_cygwin.mak ', 'mac' : 'make -f make_mac.mak ', 'unix' : 'make -f make_unix.mak ', }, }
 
-" complement 
-if has('lua') 
+" complement
+if has('lua')
     NeoBundleLazy 'Shougo/neocomplete.vim', { 'autoload' : { 'insert' : 1 } }
 elseif has('nvim')
     NeoBundleLazy 'Shougo/deoplete.nvim', { 'autoload' : { 'insert' : 1 } }
-else 
+else
     NeoBundleLazy 'Shougo/neocomplcache.vim', { 'autoload' : { 'insert' : 1 } }
 endif
 NeoBundleLazy 'Shougo/neosnippet', { 'autoload' : { 'insert' : 1 } }
@@ -365,7 +376,7 @@ NeoBundle 't9md/vim-quickhl'                   " Highlight any words
 NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
 NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
 NeoBundle 'rking/ag.vim'                       " Use ag command in vim
-NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline 
+NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline
 " NeoBundle 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'              " Make opening beowser easier
@@ -432,15 +443,15 @@ NeoBundleLazy 'LeafCage/unite-recording', { 'autoload' : { 'unite_source' : ['re
 " all languages
 NeoBundle 'mattn/sonictemplate-vim'
 
-" Java 
+" Java
 NeoBundleLazy 'vim-scripts/javacomplete', { 'build': { 'cygwin': 'javac autoload/Reflection.java', 'mac' : 'javac autoload/Reflection.java', 'unix' : 'javac autoload/Reflection.java', }, 'autoload' : { 'filetypes' : ['java'] } }
 NeoBundleLazy 'moznion/java_getset.vim', { 'autoload': { 'filetypes': ['java'] } }
 
-" Swift 
+" Swift
 NeoBundleLazy 'keith/swift.vim', { 'autoload' : { 'filetypes' : ['swift'] } }
 
 " C#
-NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] }, 'build': { 'mac': 'xbuild server/OmniSharp.sln', 'unix': 'xbuild server/OmniSharp.sln', }, } 
+NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] }, 'build': { 'mac': 'xbuild server/OmniSharp.sln', 'unix': 'xbuild server/OmniSharp.sln', }, }
 NeoBundleLazy 'tpope/vim-dispatch', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 NeoBundleLazy 'OrangeT/vim-csharp', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
 NeoBundleLazy 'osyo-manga/vim-stargate', { 'autoload': { 'filetypes': [ 'cs', 'csi', 'csx' ] } }
@@ -457,7 +468,7 @@ NeoBundleLazy 'basyura/TweetVim'
 NeoBundleLazy 'basyura/bitly.vim'
 NeoBundleLazy 'basyura/twibill.vim'
 
-" colorscheme 
+" colorscheme
 NeoBundle 'rhysd/try-colorscheme.vim'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
@@ -619,7 +630,7 @@ if neobundle#tap('neocomplete.vim') "{{{
     let g:neocomplete#enable_camel_case                 = 1         " use camelcase.
     let g:neocomplete#enable_fuzzy_completion           = 1         " use fuzzy completion.
     let g:neocomplete#use_vimproc                       = 1
-    let g:neocomplete#lock_iminsert                     = 1         " 
+    let g:neocomplete#lock_iminsert                     = 1         "
     let g:neocomplete#sources#syntax#min_keyword_length = 2
     let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " file name to lock buffer
 
@@ -692,7 +703,7 @@ endif "}}}
 
 if neobundle#tap('deoplete.nvim') "{{{
 
-    let g:deoplete#enable_at_startup = 1 
+    let g:deoplete#enable_at_startup = 1
 
 endif "}}}
 
@@ -700,7 +711,7 @@ if neobundle#tap('neosnippet') "{{{
 
     " For snippet_complete marker.
     if has('conceal')
-        set conceallevel=2 
+        set conceallevel=2
         set concealcursor=i
     endif
 
@@ -855,10 +866,7 @@ if neobundle#tap('unite.vim') "{{{
     let g:unite_source_history_yank_enable      = 1
 
     " key_mappings {{{
-    " prefix
-    nnoremap [unite]   <Nop>
-    nmap     [plugin]u [unite]
-
+    Nnoremap [plugin]u [unite]
     nnoremap [unite]u  :<C-u>Unite<CR>
     nnoremap [unite]s  :<C-u>Unite source<CR>
     nnoremap [unite]hy :<C-u>Unite history/yank<CR>
@@ -889,10 +897,7 @@ if neobundle#tap('vimfiler.vim') "{{{
     let g:vimfiler_enable_auto_cd = 1
 
     " key_mappings {{{
-    " prefix
-    nnoremap [filer]   <Nop>
-    nmap     [plugin]f [filer]
-
+    Nnoremap [plugin]f [filer]
     nnoremap [filer]  :<C-u>VimFiler<CR>
     "}}}
 
@@ -901,10 +906,7 @@ endif "}}}
 if neobundle#tap('vim-fugitive') "{{{
 
     " key_mappings {{{
-    " prefix
-    nnoremap [git]     <Nop>
-    nmap     [plugin]g [git]
-
+    Nnoremap [plugin]g [git]
     nnoremap [git]it :<C-u>Git
     nnoremap [git]ad :<C-u>Gwrite<CR>
     nnoremap [git]di :<C-u>Gdiff<CR>
@@ -950,10 +952,7 @@ if neobundle#tap('vimshell.vim') "{{{
     let g:vimshell_prompt_pattern = '^\f\+ > '
 
     " key_mappings {{{
-    " prefix
-    nnoremap [shell]   <Nop>
-    nmap     [plugin]s [shell]
-
+    Nnoremap [plugin]s [shell]
     nnoremap [shell]s :<C-u>set<space>noautochdir<CR>:<C-u>VimShell<CR>
     nnoremap [shell]n :<C-u>set<space>noautochdir<CR>:<C-u>VimShellPop<CR>
     nnoremap [shell]p :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive python<CR>
@@ -1176,19 +1175,13 @@ if neobundle#tap('java_getset.vim') "{{{
     let b:javagetset_add_this       = 1   " add this.
 
     " key_mappings {{{
-    autocmd vimrc Filetype java call s:java_getset_mappings()
-
-    function! s:java_getset_mappings()
-        " prefix
-        nnoremap [getset]  <Nop>
-        nmap     [plugin]j [getset]
-        nmap     <buffer>[getset]g <Plug>JavagetsetInsertGetterOnly
-        nmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
-        nmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
-        vmap     <buffer>[getset]g <Plug>JavagetsetInsertGetterOnly
-        vmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
-        vmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
-    endfunction
+    autocmd vimrc Filetype java Nnoremap [plugin]j [getset]
+    autocmd vimrc Filetype java nmap     <buffer>[getset]g <Plug>JavagetsetInsertGetterOnly
+    autocmd vimrc Filetype java nmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
+    autocmd vimrc Filetype java nmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
+    autocmd vimrc Filetype java vmap     <buffer>[getset]g <Plug>JavagetsetInsertGetterOnly
+    autocmd vimrc Filetype java vmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
+    autocmd vimrc Filetype java vmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
     "}}}
 
 endif "}}}
@@ -1197,7 +1190,7 @@ if neobundle#tap('syntastic.git') "{{{
 
     let g:syntastic_enable_signs  = 1
     let g:syntastic_auto_loc_list = 2
-    let g:syntastic_mode_map = {'mode': 'passive'} 
+    let g:syntastic_mode_map = {'mode': 'passive'}
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
@@ -1288,9 +1281,6 @@ endif "}}}
 if neobundle#tap('vim-fontzoom') "{{{
 
     " key_mappings {{{
-    nnoremap + <Nop>
-    nnoremap - <Nop>
-
     nmap <RIGHT> <Plug>(fontzoom-larger)
     nmap <LEFT>  <Plug>(fontzoom-smaller)
     "}}}
@@ -1321,7 +1311,7 @@ endif "}}}
 if neobundle#tap('vim-multiple-cursors') "{{{
 
     " key_mappings {{{
-    nnoremap [plugin]mc :<C-u>MultipleCursorsFind 
+    nnoremap [plugin]mc :<C-u>MultipleCursorsFind
     "}}}
 
 endif "}}}
@@ -1374,10 +1364,7 @@ endif "}}}
 if neobundle#tap('vinarise.vim') "{{{
 
     " key_mappings {{{
-    " prefixes
-    nmap [vinarise] <Nop>
-    nmap [plugin]v  [vinarise]
-
+    Nnoremap [plugin]v [vinarise]
     nnoremap [vinarise]v :<C-u>Vinarise<CR>
     nnoremap [vinarise]b :<C-u>VinarisePluginBitmapView<CR>
     "}}}
@@ -1397,10 +1384,7 @@ if neobundle#tap('undotree') "{{{
     let g:undotree_HighlightSyntax      = "UnderLined"
 
     " key_mappings {{{
-    " prefix
-    nnoremap [undotr]   <Nop>
-    nmap     [plugin]U [undotr]
-
+    Nnoremap [plugin]U [undotr]
     nnoremap [undotr]  :<C-u>UndotreeToggle<CR>
     "}}}
 
@@ -1423,12 +1407,9 @@ endif "}}}
 if neobundle#tap('w3m.vim') "{{{
 
     " key_mappings {{{
-    " prefixes
-    nmap [w3m]     <Nop>
-    nmap [plugin]w [w3m]
-
+    Nnoremap [plugin]w [w3m]
     nnoremap [w3m]g :<C-u>W3m google<CR>
-    nnoremap [w3m]w :<C-u>W3m 
+    nnoremap [w3m]w :<C-u>W3m
     "}}}
 
 endif "}}}
@@ -1506,7 +1487,7 @@ endif "}}}
 if neobundle#tap('vim-operator-flashy') "{{{
 
     map y <Plug>(operator-flashy)
-    nmap Y <Plug>(operator-flashy)$   
+    nmap Y <Plug>(operator-flashy)$
 
 endif "}}}
 
@@ -1558,4 +1539,3 @@ if neobundle#tap('vim-ref') "{{{
     "}}}
 
 endif "}}}
-
