@@ -142,6 +142,9 @@ function! s:add_if_neobundle_tap() abort "{{{
     if a:plugin_name != ''
         let a:plugin_name = substitute(a:plugin_name, "/", "'", "g")
         let a:plugin_name = 'if neobundle#tap(' . a:plugin_name . ') "{' . '{' . '{'
+        if len(getline('$')) > 0 
+            call append(line("$"), '')
+        endif
         call append(line("$"), a:plugin_name)
         call append(line("$"), 'endif' . ' "}' . '}' . '}')
         call append(line("$"), '')
@@ -208,7 +211,7 @@ inoremap kj                 <Esc>
 inoremap jk                 <Esc>
 inoremap kk                 <Esc>
 nnoremap <Esc>              <Nop>
-nnoremap <silent><Esc>      :<C-u>exit<CR>
+" nnoremap <silent><Esc>      :<C-u>exit<CR>
 
 " edit
 nnoremap Y                  y$
@@ -1212,7 +1215,8 @@ endif "}}}
 
 if neobundle#tap('vim-easymotion') "{{{
 
-    let g:EasyMotion_keys       = 'jfurmvhgytnbkdieclsowxapqzJFURMVHGYTNBKDIECLSOWXAPQZ'
+    " let g:EasyMotion_keys       = 'jfurmvhgytnbkdieclsowxapqzJFURMVHGYTNBKDIECLSOWXAPQZ'
+    let g:EasyMotion_keys       = 'asdfghjkl'
     let g:EasyMotion_grouping   = 1
 
     " key_mappings {{{
@@ -1539,3 +1543,4 @@ if neobundle#tap('vim-ref') "{{{
     "}}}
 
 endif "}}}
+
