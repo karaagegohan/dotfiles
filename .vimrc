@@ -206,9 +206,7 @@ nnoremap <S-CR>             :<C-u>write!<CR>
 nnoremap U                  <C-r>
 noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
-inoremap jj                 <Esc>
-inoremap kj                 <Esc>
-inoremap jk                 <Esc>
+inoremap jj                 <CR>
 inoremap kk                 <Esc>
 nnoremap <Esc>              <Nop>
 " nnoremap <silent><Esc>      :<C-u>exit<CR>
