@@ -166,7 +166,7 @@ function! s:show_prefix() abort "{{{
         echo a:prefixes[a:i] . "\t" . s:prefix_list[a:prefixes[a:i]]
     endfor
 endfunction "}}}
-command! -nargs=0 ShowPrefix call s:show_prefix()
+command! -nargs=0 PrefixList call s:show_prefix()
 
 "}}}
 
