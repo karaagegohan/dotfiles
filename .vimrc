@@ -14,7 +14,7 @@ endif
 
 "}}}
 
-" FUNCTIONS AND CONSTANTS {{{
+" FUNCTIONS {{{
 
 function! s:My_mkdir(name) abort "{{{
     if !isdirectory(expand(a:name))
@@ -23,7 +23,7 @@ function! s:My_mkdir(name) abort "{{{
 endfunction
 "}}}
 
-function! s:transparancy_up() "{{{
+function! s:transparancy_up() abort "{{{
     if !!has('gui_running')
         if has('mac')
             if &transparency - 5 > 1
@@ -43,7 +43,7 @@ endfunction
 "}}}
 command! -nargs=0 MyTransparancyUp call s:transparancy_up()
 
-function! s:transparancy_down() "{{{
+function! s:transparancy_down() abort "{{{
     if !!has('gui_running')
         if has('mac')
             if &transparency + 5 < 100
@@ -63,7 +63,7 @@ endfunction
 "}}}
 command! -nargs=0 MyTransparancyDown call s:transparancy_down()
 
-function! s:fullscreen() "{{{
+function! s:fullscreen() abort "{{{
     if !!has('gui_running')
         if has('mac')
             set fullscreen!
@@ -76,7 +76,7 @@ endfunction
 "}}}
 command! -nargs=0 MyFullscreen call s:fullscreen()
 
-function! s:toggleopt(optname) "{{{
+function! s:toggleopt(optname) abort "{{{
     try
         exec( 'set ' . a:optname . '!')
         exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==1 ? "on" : "off"')
@@ -87,7 +87,7 @@ endfunction
 "}}}
 command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>)
 
-function! s:copyandmove() "{{{
+function! s:copyandmove() abort "{{{
     function! s:matchcount(expr, pat, ...)
         let a:start = get(a:, "1", 0)
         let a:result = match(a:expr, a:pat, a:start)
@@ -122,7 +122,7 @@ endfunction
 "}}}
 command! -nargs=0 TranslateWord call s:translateword()
 
-function! s:closewindow(force) "{{{
+function! s:closewindow(force) abort "{{{
     let a:bufname = expand('%:p')
     if len(a:bufname) == 0
         let a:bufname = '[No name]'
