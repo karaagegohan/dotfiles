@@ -923,10 +923,10 @@ if neobundle#tap('vim-fugitive') "{{{
     nnoremap [git]pl :<C-u>Git pull<CR>
     nnoremap [git]st :<C-u>Git status<CR>
     nnoremap [git]sh :<C-u>Git stash<CR>
-    nnoremap [git]ch :<C-u>Git checkout
-    nnoremap [git]me :<C-u>Git merge
-    nnoremap [git]br :<C-u>Git branch
-    nnoremap <silent>[git]up :<C-u>Gwrite<CR>:<C-u>Gcommit -m "update"<CR>:<C-u>Git push origin master<CR>
+    nnoremap [git]ch :<C-u>Git checkout 
+    nnoremap [git]me :<C-u>Git merge 
+    nnoremap [git]br :<C-u>Git branch 
+    nnoremap [git]up :<C-u>Gupdate 
     "}}}
 
 endif "}}}
