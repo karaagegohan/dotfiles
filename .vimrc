@@ -155,7 +155,7 @@ command! -nargs=0 AddIfNeoBundeTap call s:add_if_neobundle_tap()
 let s:prefix_list = {}
 function! s:add_prefix(keymap, prefix) abort "{{{
     exec ('nnoremap ' . a:prefix . ' <Nop>')
-    exec ('nmap ' . a:keymap . ' ' . a:prefix . '')
+    exec ('nmap ' . a:keymap . ' ' . a:prefix)
     let s:prefix_list[a:keymap] = a:prefix
 endfunction "}}}
 command! -nargs=+ Nnoremap call s:add_prefix(<f-args>)
@@ -209,7 +209,6 @@ noremap  <C-c>              <Esc>
 inoremap jj                 <CR>
 inoremap kk                 <Esc>
 nnoremap <Esc>              <Nop>
-" nnoremap <silent><Esc>      :<C-u>exit<CR>
 
 " edit
 nnoremap Y                  y$
@@ -1130,10 +1129,7 @@ if neobundle#tap('qfixhowm') "{{{
     let QFixHowm_MenuKey               = 1                                   " invalid default keymaps
 
     " key_mappings {{{
-    " prefix
-    nnoremap [hown]      <Nop>
-    nmap     [plugin]h   [hown]
-
+    Nnoremap [plugin]h   [hown
     nmap     [hown]l     g,m
     nmap     [hown]n     g,c
     nmap     [hown]q     g,q
@@ -1498,12 +1494,11 @@ if neobundle#tap('vim-go') "{{{
     let g:go_def_mapping_enabled = 0
     let g:go_doc_keywordprg_enabled = 0
     " key_mappings {{{
-    nmap [go]      <Nop>
-    nmap [plugin]go [go]
-    " autocmd vimrc FileType go nmap <leader>r <Plug>(go-run)
-    " autocmd vimrc FileType go nmap <leader>b <Plug>(go-build)
-    " autocmd vimrc FileType go nmap <leader>t <Plug>(go-test)
-    " autocmd vimrc FileType go nmap <leader>c <Plug>(go-coverage)
+    autocmd vimrc filetype go Nnoremap [plugin]go [go]
+    autocmd vimrc filetype go nmap     <leader>r  <Plug>(go-run)
+    autocmd vimrc FileType go nmap     <leader>b  <Plug>(go-build)
+    autocmd vimrc FileType go nmap     <leader>t  <Plug>(go-test)
+    autocmd vimrc FileType go nmap     <leader>c  <Plug>(go-coverage)
     "}}}
 
 endif "}}}
@@ -1537,7 +1532,8 @@ endif "}}}
 if neobundle#tap('vim-ref') "{{{
 
     " key_mappings {{{
-    nmap ' <Plug>(ref-keyword)
+    Nnoremap [plugin]d [vim-ref]
+    nmap [vim-ref] <Plug>(ref-keyword)
     "}}}
 
 endif "}}}
