@@ -1,4 +1,4 @@
-" INITIALIZATION {{{
+" initialization {{{
 
 augroup vimrc
     autocmd!
@@ -14,7 +14,7 @@ endif
 
 "}}}
 
-" FUNCTIONS {{{
+" functions {{{
 
 function! s:My_mkdir(name) abort "{{{
     if !isdirectory(expand(a:name))
@@ -170,7 +170,7 @@ command! -nargs=0 PrefixList call s:show_prefix()
 
 "}}}
 
-" KEY MAPPINGS {{{
+" key mappings {{{
 
 " ***NOTE*** {{{
 " --------------------------------------------------------------------------------
@@ -308,14 +308,14 @@ if !has('gui_running')
 else
     nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 end
-nnoremap [func]h            :<C-u>help<Space><C-r><C-w><CR>
+nnoremap [func]h            :<C-u>help <C-r><C-w><CR>
 nnoremap [func]e            :<C-u>edit<CR>
 nnoremap [func]ch           q:
 nnoremap <silent>(          :<C-u>source %<CR>
 
 "}}}
 
-" PLUGINS {{{
+" plugins {{{
 
 " ***NOTE*** {{{
 "
@@ -463,10 +463,8 @@ NeoBundleLazy 'fatih/vim-go', { 'autoload' : { 'filetypes' : ['go'] } }
 NeoBundleLazy 'mopp/layoutplugin.vim', { 'autoload' : { 'commands' : 'LayoutPlugin'} }
 NeoBundle 'tpope/vim-endwise'
 
-" Twitter
-NeoBundle 'basyura/TweetVim'
-NeoBundle 'basyura/bitly.vim'
-NeoBundle 'basyura/twibill.vim'
+" Tex
+NeoBundle 'vim-latex/vim-latex'
 
 " colorscheme
 NeoBundle 'rhysd/try-colorscheme.vim'
@@ -486,14 +484,15 @@ NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'whatyouhide/vim-gotham'
 NeoBundle 'joshdick/onedark.vim'
 
-" dictionary
-" NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
+" tools
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'ujihisa/neco-look'
 NeoBundle 'mitsuse/kompl'
-
-" iTunes
 NeoBundleLazy 'VimItunes.vim'
+" NeoBundleLazy 'mattn/excitetranslate-vim', { 'depends' : 'mattn/webapi-vim', 'autoload' : { 'commands': ['ExciteTranslate']} }
+NeoBundle 'basyura/TweetVim'
+NeoBundle 'basyura/bitly.vim'
+NeoBundle 'basyura/twibill.vim'
 
 call neobundle#end()
 
@@ -508,7 +507,7 @@ nnoremap [neobundle]cu  :<C-u>NeoBundleCheckUpdate<CR>
 
 "}}}
 
-" SETTINGS {{{
+" settings {{{
 
 " modeline
 set modeline
@@ -616,8 +615,8 @@ let g:gruvbox_italic = 0
 colorscheme onedark
 set background =dark
 
-autocmd vimrc FileType help setlocal nofoldenable
-autocmd vimrc BufRead,BufNewFile *.md set filetype=markdown
+autocmd vimrc BufRead, FileType help setlocal nofoldenable
+autocmd vimrc BufRead, BufNewFile *.md set filetype=markdown
 
 "}}}
 
