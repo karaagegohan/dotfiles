@@ -905,6 +905,13 @@ endif "}}}
 
 if neobundle#tap('vim-fugitive') "{{{
 
+    function! s:git_update(comment) abort
+        exec('Gwrite')
+        exec('Gcommit -m "' . a:comment . '"')
+        exec('Git push origin master')
+    endfunction
+    command! -nargs=1 Gupdate call s:git_update(<f-args>)
+
     " key_mappings {{{
     Nnoremap [plugin]g [git]
     nnoremap [git]it :<C-u>Git
