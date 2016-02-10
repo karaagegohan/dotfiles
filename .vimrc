@@ -138,10 +138,9 @@ endfunction
 command! -nargs=1 CloseWindow call s:closewindow(<f-args>)
 
 function! s:add_if_neobundle_tap() abort "{{{
-    let a:plugin_name = matchstr(getline('.'), "/.\*'", 0)
+    let a:plugin_name = matchstr(getline('.'), '/\zs.\{-}\ze' . "'", 0)
     if a:plugin_name != ''
-        let a:plugin_name = substitute(a:plugin_name, "/", "'", "g")
-        let a:plugin_name = 'if neobundle#tap(' . a:plugin_name . ') "{' . '{' . '{'
+        let a:plugin_name = 'if neobundle#tap(' . "'" . a:plugin_name . "'" . ') "{' . '{' . '{'
         if len(getline('$')) > 0
             call append(line("$"), '')
         endif
