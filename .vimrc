@@ -142,7 +142,7 @@ function! s:add_if_neobundle_tap() abort "{{{
     if a:plugin_name != ''
         let a:plugin_name = substitute(a:plugin_name, "/", "'", "g")
         let a:plugin_name = 'if neobundle#tap(' . a:plugin_name . ') "{' . '{' . '{'
-        if len(getline('$')) > 0 
+        if len(getline('$')) > 0
             call append(line("$"), '')
         endif
         call append(line("$"), a:plugin_name)
@@ -464,9 +464,9 @@ NeoBundleLazy 'mopp/layoutplugin.vim', { 'autoload' : { 'commands' : 'LayoutPlug
 NeoBundle 'tpope/vim-endwise'
 
 " Twitter
-NeoBundleLazy 'basyura/TweetVim'
-NeoBundleLazy 'basyura/bitly.vim'
-NeoBundleLazy 'basyura/twibill.vim'
+NeoBundle 'basyura/TweetVim'
+NeoBundle 'basyura/bitly.vim'
+NeoBundle 'basyura/twibill.vim'
 
 " colorscheme
 NeoBundle 'rhysd/try-colorscheme.vim'
@@ -502,9 +502,7 @@ filetype plugin indent on
 
 " key_mappings {{{
 " prefix
-nnoremap [neobundle]   <Nop>
-nmap     [plugin]nb    [neobundle]
-
+Nnoremap [plugin]nb    [neobundle]
 nnoremap [neobundle]cu  :<C-u>NeoBundleCheckUpdate<CR>
 "}}}
 
@@ -1129,7 +1127,7 @@ if neobundle#tap('qfixhowm') "{{{
     let QFixHowm_MenuKey               = 1                                   " invalid default keymaps
 
     " key_mappings {{{
-    Nnoremap [plugin]h   [hown
+    Nnoremap [plugin]h   [hown]
     nmap     [hown]l     g,m
     nmap     [hown]n     g,c
     nmap     [hown]q     g,q
@@ -1537,4 +1535,3 @@ if neobundle#tap('vim-ref') "{{{
     "}}}
 
 endif "}}}
-
