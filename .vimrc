@@ -192,8 +192,8 @@ command! -nargs=0 PrefixList call s:show_prefix()
 "  }}}
 
 " prefixes
-Nnoremap ,                  ˇfuncˇ
-Nnoremap <Space>            ˇpluginˇ
+Nnoremap ,                  lfuncl
+Nnoremap <Space>            lpluginl
 
 " basic
 noremap  ;                  :
