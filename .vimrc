@@ -135,7 +135,8 @@ function! s:closewindow(force) abort "{{{
     echo 'quit "' . a:bufname . '"'
 endfunction
 "}}}
-command! -nargs=1 CloseWindow call s:closewindow(<f-args>)
+command! -nargs=0 CloseWindow call s:closewindow(0)
+command! -nargs=0 CloseWindowForce call s:closewindow(1)
 
 function! s:add_if_neobundle_tap() abort "{{{
     let a:plugin_name = matchstr(getline('.'), '/\zs.\{-}\ze' . "'", 0)
@@ -200,8 +201,6 @@ noremap  ;                  :
 noremap  :                  ;
 noremap! ;                  :
 noremap! :                  ;
-lnoremap ;                  :
-lnoremap :                  ;
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <CR>               :<C-u>write<CR>
 nnoremap <S-CR>             :<C-u>write!<CR>
@@ -253,8 +252,8 @@ nnoremap <S-Left>           <C-w><<CR>
 nnoremap <S-Right>          <C-w>><CR>
 nnoremap <S-Up>             <C-w>-<CR>
 nnoremap <S-Down>           <C-w>+<CR>
-nnoremap <silent><BS>       :<C-u>CloseWindow 0<CR>
-nnoremap <silent><S-BS>     :<C-u>CloseWindow 1<CR>
+nnoremap <silent><BS>       :<C-u>CloseWindow<CR>
+nnoremap <silent><S-BS>     :<C-u>CloseWindowForce<CR>
 
 " tab
 nnoremap <TAB>              gt
@@ -1513,10 +1512,9 @@ endif "}}}
 if neobundle#tap('ag.vim') "{{{
 
     " key_mappings {{{
-    " nmap `ag`      <Nop>
-    " nmap `plugin`a `ag`
-    " nmap `ag`a :Ag <c-r>=expand("<cword>")<cr><cr>
-    " nnoremap <space>/ :Ag
+    Nnoremap `plugin`a `ag`
+    nmap     `ag`a     :Ag <c-r>=expand("<cword>")<cr><cr>
+    nnoremap <space>/  :Ag
     "}}}
 
 endif "}}}
@@ -1540,7 +1538,7 @@ if neobundle#tap('vim-ref') "{{{
 
     " key_mappings {{{
     Nnoremap `plugin`d `vim-ref`
-    nmap `vim-ref` <Plug>(ref-keyword)
+    nmap     `vim-ref` <Plug>(ref-keyword)
     "}}}
 
 endif "}}}
