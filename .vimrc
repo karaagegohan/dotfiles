@@ -193,7 +193,7 @@ command! -nargs=0 PrefixList call s:show_prefix()
 
 " prefixes
 Nnoremap ,                  [func]
-Nnoremap <Space>            [plugin]
+Nnoremap <Space>            《plugin》
 
 " basic
 noremap  ;                  :
