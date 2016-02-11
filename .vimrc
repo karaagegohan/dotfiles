@@ -192,7 +192,7 @@ command! -nargs=0 PrefixList call s:show_prefix()
 "  }}}
 
 " prefixes
-Nnoremap ,                  [func]
+Nnoremap ,                  θfuncθ
 Nnoremap <Space>            [plugin]
 
 " basic
