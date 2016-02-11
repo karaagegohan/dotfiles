@@ -192,8 +192,8 @@ command! -nargs=0 PrefixList call s:show_prefix()
 "  }}}
 
 " prefixes
-Nnoremap ,                  θfuncθ
-Nnoremap <Space>            [plugin]
+Nnoremap ,                  ˇfuncˇ
+Nnoremap <Space>            ˇpluginˇ
 
 " basic
 noremap  ;                  :
@@ -564,7 +564,7 @@ set splitbelow
 set hidden
 set nocursorline
 set hlsearch
-set ambiwidth     =double
+set ambiwidth     =single
 
 " indent
 set backspace         =indent,eol,start    " More powerful backspacing
