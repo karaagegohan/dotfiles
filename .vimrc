@@ -239,10 +239,6 @@ nnoremap gh                 <C-w>h
 nnoremap gj                 <C-w>j
 nnoremap gk                 <C-w>k
 nnoremap gl                 <C-w>l
-nnoremap gy                 <C-w>H
-nnoremap gu                 <C-w>J
-nnoremap gi                 <C-w>K
-nnoremap go                 <C-w>L
 nnoremap <silent>`func`n    :<C-u>new<CR>
 nnoremap <silent>`func`v    :<C-u>vnew<CR>
 nnoremap <silent>`func`N    :<C-u>split<CR>
@@ -387,7 +383,7 @@ NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
 NeoBundle 'kana/vim-submode'                   " Use submode
-NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : { 'command' : ['W3m'] } }
+NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
@@ -396,9 +392,7 @@ NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 NeoBundle 'dhruvasagar/vim-table-mode'
 " NeoBundle 'thinca/vim-splash'
 " NeoBundle 'deris/vim-gothrough-jk'
-if has('python')
-    NeoBundle 'kakkyz81/evervim'
-endif
+NeoBundle 'kakkyz81/evervim'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'LeafCage/foldCC.vim'
@@ -410,7 +404,7 @@ NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'moznion/hateblo.vim'
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
-NeoBundleLazy 'scrooloose/syntastic.git'     " Powerful syntax
+NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 NeoBundle 'miyakogi/livemark.vim'
 
 " Textobject
@@ -430,16 +424,16 @@ NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 " Unite
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
-NeoBundleLazy 'Shougo/unite-outline', { 'autoload' : { 'unite_source' : ['outline'] } }
-NeoBundleLazy 'ujihisa/unite-colorscheme', { 'autoload' : { 'unite_source' : ['colorscheme'] } }
-NeoBundleLazy 'ujihisa/unite-font', { 'autoload' : { 'unite_source' : ['font'] } }
-NeoBundleLazy 'ujihisa/unite-help', { 'autoload' : { 'unite_source' : ['help'] } }
-NeoBundleLazy 'todashuta/unite-transparency', { 'autoload' : { 'unite_source' : ['transparency'] } }
+NeoBundleLazy 'Shougo/unite-outline',          { 'autoload' : { 'unite_source' : ['outline'] } }
+NeoBundleLazy 'ujihisa/unite-colorscheme',     { 'autoload' : { 'unite_source' : ['colorscheme'] } }
+NeoBundleLazy 'ujihisa/unite-font',            { 'autoload' : { 'unite_source' : ['font'] } }
+NeoBundleLazy 'ujihisa/unite-help',            { 'autoload' : { 'unite_source' : ['help'] } }
+NeoBundleLazy 'todashuta/unite-transparency',  { 'autoload' : { 'unite_source' : ['transparency'] } }
 NeoBundleLazy 'osyo-manga/unite-quickfix.git', { 'autoload' : { 'unite_source' : ['quickfix'] } }
-NeoBundleLazy 'LeafCage/unite-gvimrgb', { 'autoload' : { 'unite_source' : ['gvimrgb'] } }
-NeoBundleLazy 'LeafCage/unite-recording', { 'autoload' : { 'unite_source' : ['recording'] } }
-" NeoBundleLazy 'LeafCage/unite-highlight', { 'autoload' : { 'unite_source' : ['highlight'] } }
-" NeoBundleLazy 'LeafCage/unite-webcolorname', { 'autoload' : { 'unite_source' : ['webcolorname'] } }
+NeoBundleLazy 'LeafCage/unite-gvimrgb',        { 'autoload' : { 'unite_source' : ['gvimrgb'] } }
+NeoBundleLazy 'LeafCage/unite-recording',      { 'autoload' : { 'unite_source' : ['recording'] } }
+" NeoBundleLazy 'LeafCage/unite-highlight',      { 'autoload' : { 'unite_source' : ['highlight'] } }
+" NeoBundleLazy 'LeafCage/unite-webcolorname',   { 'autoload' : { 'unite_source' : ['webcolorname'] } }
 
 " all languages
 NeoBundle 'mattn/sonictemplate-vim'
@@ -959,10 +953,10 @@ if neobundle#tap('vimshell.vim') "{{{
 
     " key_mappings {{{
     Nnoremap `plugin`s `shell`
-    nnoremap `shell`s :<C-u>set<space>noautochdir<CR>:<C-u>VimShell<CR>
-    nnoremap `shell`n :<C-u>set<space>noautochdir<CR>:<C-u>VimShellPop<CR>
-    nnoremap `shell`p :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive python<CR>
-    nnoremap `shell`r :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive irb<CR>
+    nnoremap `shell`s  :<C-u>set<space>noautochdir<CR>:<C-u>VimShell<CR>
+    nnoremap `shell`n  :<C-u>set<space>noautochdir<CR>:<C-u>VimShellPop<CR>
+    nnoremap `shell`p  :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive python<CR>
+    nnoremap `shell`r  :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive irb<CR>
     "}}}
 
 endif "}}}
@@ -1396,7 +1390,6 @@ endif "}}}
 
 if neobundle#tap('vim-submode') "{{{
 
-    " winsize mode
     call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
     call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
     call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
@@ -1446,16 +1439,20 @@ endif "}}}
 
 if neobundle#tap('vim-operator-surround') "{{{
 
+    " key_mappings {{{
     nmap <silent>ys <Plug>(operator-surround-append)
     nmap <silent>ds <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
     nmap <silent>cs <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+    "}}}
 
 endif "}}}
 
 if neobundle#tap('sideways.vim') "{{{
 
+    " key_mappings {{{
     nnoremap <silent><c-h> :<C-u>SidewaysJumpLeft<cr>
     nnoremap <silent><c-l> :<C-u>SidewaysJumpRight<cr>
+    "}}}
 
 endif "}}}
 
@@ -1490,8 +1487,10 @@ endif "}}}
 
 if neobundle#tap('vim-operator-flashy') "{{{
 
+    " key_mappings {{{
     map y <Plug>(operator-flashy)
     nmap Y <Plug>(operator-flashy)$
+    "}}}
 
 endif "}}}
 
@@ -1499,12 +1498,13 @@ if neobundle#tap('vim-go') "{{{
 
     let g:go_def_mapping_enabled = 0
     let g:go_doc_keywordprg_enabled = 0
+
     " key_mappings {{{
     autocmd vimrc filetype go Nnoremap `plugin`go `go`
-    autocmd vimrc filetype go nmap     <leader>r  <Plug>(go-run)
-    autocmd vimrc FileType go nmap     <leader>b  <Plug>(go-build)
-    autocmd vimrc FileType go nmap     <leader>t  <Plug>(go-test)
-    autocmd vimrc FileType go nmap     <leader>c  <Plug>(go-coverage)
+    autocmd vimrc filetype go nmap     `go`r      <Plug>(go-run)
+    autocmd vimrc FileType go nmap     `go`b      <Plug>(go-build)
+    autocmd vimrc FileType go nmap     `go`t      <Plug>(go-test)
+    autocmd vimrc FileType go nmap     `go`c      <Plug>(go-coverage)
     "}}}
 
 endif "}}}
