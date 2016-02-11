@@ -564,6 +564,7 @@ set splitbelow
 set hidden
 set nocursorline
 set hlsearch
+set ambiwidth     =double
 
 " indent
 set backspace         =indent,eol,start    " More powerful backspacing
