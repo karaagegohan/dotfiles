@@ -135,13 +135,13 @@ function! s:closewindow(force) abort "{{{
     echo 'close "' . a:bufname . '"'
 endfunction
 "}}}
-command! -nargs=1 CloseWindow call s:closewindow(<f-args>)
+command! -nargs=0 CloseWindow call s:closewindow(0)
+command! -nargs=0 CloseWindowForce call s:closewindow(1)
 
 function! s:add_if_neobundle_tap() abort "{{{
-    let a:plugin_name = matchstr(getline('.'), "/.\*'", 0)
+    let a:plugin_name = matchstr(getline('.'), '/\zs.\{-}\ze' . "'", 0)
     if a:plugin_name != ''
-        let a:plugin_name = substitute(a:plugin_name, "/", "'", "g")
-        let a:plugin_name = 'if neobundle#tap(' . a:plugin_name . ') "{' . '{' . '{'
+        let a:plugin_name = 'if neobundle#tap(' . "'" . a:plugin_name . "'" . ') "{' . '{' . '{'
         if len(getline('$')) > 0
             call append(line("$"), '')
         endif
@@ -193,16 +193,14 @@ command! -nargs=0 PrefixList call s:show_prefix()
 "  }}}
 
 " prefixes
-Nnoremap ,                  [func]
-Nnoremap <Space>            [plugin]
+Nnoremap ,                  `func`
+Nnoremap <Space>            `plugin`
 
 " basic
 noremap  ;                  :
 noremap  :                  ;
 noremap! ;                  :
 noremap! :                  ;
-lnoremap ;                  :
-lnoremap :                  ;
 nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <CR>               :<C-u>write<CR>
 nnoremap <S-CR>             :<C-u>write!<CR>
@@ -241,26 +239,22 @@ nnoremap gh                 <C-w>h
 nnoremap gj                 <C-w>j
 nnoremap gk                 <C-w>k
 nnoremap gl                 <C-w>l
-nnoremap gy                 <C-w>H
-nnoremap gu                 <C-w>J
-nnoremap gi                 <C-w>K
-nnoremap go                 <C-w>L
-nnoremap <silent>[func]n    :<C-u>new<CR>
-nnoremap <silent>[func]v    :<C-u>vnew<CR>
-nnoremap <silent>[func]N    :<C-u>split<CR>
-nnoremap <silent>[func]V    :<C-u>vsplit<CR>
-nnoremap <silent>[func]fs   :<C-u>MyFullscreen<CR>
+nnoremap <silent>`func`n    :<C-u>new<CR>
+nnoremap <silent>`func`v    :<C-u>vnew<CR>
+nnoremap <silent>`func`N    :<C-u>split<CR>
+nnoremap <silent>`func`V    :<C-u>vsplit<CR>
+nnoremap <silent>`func`fs   :<C-u>MyFullscreen<CR>
 nnoremap <S-Left>           <C-w><<CR>
 nnoremap <S-Right>          <C-w>><CR>
 nnoremap <S-Up>             <C-w>-<CR>
 nnoremap <S-Down>           <C-w>+<CR>
-nnoremap <silent><BS>       :<C-u>CloseWindow 0<CR>
-nnoremap <silent><S-BS>     :<C-u>CloseWindow 1<CR>
+nnoremap <silent><BS>       :<C-u>CloseWindow<CR>
+nnoremap <silent><S-BS>     :<C-u>CloseWindowForce<CR>
 
 " tab
 nnoremap <TAB>              gt
 nnoremap <S-TAB>            gT
-nnoremap [func]t            :<C-u>tabnew<CR>
+nnoremap `func`t            :<C-u>tabnew<CR>
 
 " command mode
 cnoremap <C-n>              <DOWN>
@@ -300,20 +294,20 @@ nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
 " other
 if isdirectory(expand('~/dotfiles'))
-    nnoremap <silent>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
-    nnoremap <silent>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
+    nnoremap <silent>`func`.    :<C-u>edit ~/dotfiles/.vimrc<CR>
+    nnoremap <silent>`func`,    :<C-u>edit ~/dotfiles/.gvimrc<CR>
 else
-    nnoremap <silent>[func].    :<C-u>edit $MYVIMRC<CR>
-    nnoremap <silent>[func],    :<C-u>edit $MYGVIMRC<CR>
+    nnoremap <silent>`func`.    :<C-u>edit $MYVIMRC<CR>
+    nnoremap <silent>`func`,    :<C-u>edit $MYGVIMRC<CR>
 endif
 if !has('gui_running')
-    nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>
+    nnoremap <silent>`func`r    :<C-u>source $MYVIMRC<CR>
 else
-    nnoremap <silent>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
+    nnoremap <silent>`func`r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
 end
-nnoremap [func]h            :<C-u>help <C-r><C-w><CR>
-nnoremap [func]e            :<C-u>edit<CR>
-nnoremap [func]ch           q:
+nnoremap `func`h            :<C-u>help <C-r><C-w><CR>
+nnoremap `func`e            :<C-u>edit<CR>
+nnoremap `func`ch           q:
 nnoremap <silent>(          :<C-u>source %<CR>
 
 "}}}
@@ -389,7 +383,7 @@ NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
 NeoBundle 'kana/vim-submode'                   " Use submode
-NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : { 'command' : ['W3m'] } }
+NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
 NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
@@ -398,9 +392,7 @@ NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 NeoBundle 'dhruvasagar/vim-table-mode'
 " NeoBundle 'thinca/vim-splash'
 " NeoBundle 'deris/vim-gothrough-jk'
-if has('python')
-    NeoBundle 'kakkyz81/evervim'
-endif
+NeoBundle 'kakkyz81/evervim'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'LeafCage/foldCC.vim'
@@ -412,7 +404,7 @@ NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'moznion/hateblo.vim'
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
-NeoBundleLazy 'scrooloose/syntastic.git'     " Powerful syntax
+NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 NeoBundle 'miyakogi/livemark.vim'
 
 " Textobject
@@ -432,16 +424,16 @@ NeoBundle 'kana/vim-operator-replace'    " Replace text obj with yanked word
 " Unite
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
-NeoBundleLazy 'Shougo/unite-outline', { 'autoload' : { 'unite_source' : ['outline'] } }
-NeoBundleLazy 'ujihisa/unite-colorscheme', { 'autoload' : { 'unite_source' : ['colorscheme'] } }
-NeoBundleLazy 'ujihisa/unite-font', { 'autoload' : { 'unite_source' : ['font'] } }
-NeoBundleLazy 'ujihisa/unite-help', { 'autoload' : { 'unite_source' : ['help'] } }
-NeoBundleLazy 'todashuta/unite-transparency', { 'autoload' : { 'unite_source' : ['transparency'] } }
+NeoBundleLazy 'Shougo/unite-outline',          { 'autoload' : { 'unite_source' : ['outline'] } }
+NeoBundleLazy 'ujihisa/unite-colorscheme',     { 'autoload' : { 'unite_source' : ['colorscheme'] } }
+NeoBundleLazy 'ujihisa/unite-font',            { 'autoload' : { 'unite_source' : ['font'] } }
+NeoBundleLazy 'ujihisa/unite-help',            { 'autoload' : { 'unite_source' : ['help'] } }
+NeoBundleLazy 'todashuta/unite-transparency',  { 'autoload' : { 'unite_source' : ['transparency'] } }
 NeoBundleLazy 'osyo-manga/unite-quickfix.git', { 'autoload' : { 'unite_source' : ['quickfix'] } }
-NeoBundleLazy 'LeafCage/unite-gvimrgb', { 'autoload' : { 'unite_source' : ['gvimrgb'] } }
-NeoBundleLazy 'LeafCage/unite-recording', { 'autoload' : { 'unite_source' : ['recording'] } }
-" NeoBundleLazy 'LeafCage/unite-highlight', { 'autoload' : { 'unite_source' : ['highlight'] } }
-" NeoBundleLazy 'LeafCage/unite-webcolorname', { 'autoload' : { 'unite_source' : ['webcolorname'] } }
+NeoBundleLazy 'LeafCage/unite-gvimrgb',        { 'autoload' : { 'unite_source' : ['gvimrgb'] } }
+NeoBundleLazy 'LeafCage/unite-recording',      { 'autoload' : { 'unite_source' : ['recording'] } }
+" NeoBundleLazy 'LeafCage/unite-highlight',      { 'autoload' : { 'unite_source' : ['highlight'] } }
+" NeoBundleLazy 'LeafCage/unite-webcolorname',   { 'autoload' : { 'unite_source' : ['webcolorname'] } }
 
 " all languages
 NeoBundle 'mattn/sonictemplate-vim'
@@ -504,8 +496,8 @@ filetype plugin indent on
 
 " key_mappings {{{
 " prefix
-Nnoremap [plugin]nb    [neobundle]
-nnoremap [neobundle]cu  :<C-u>NeoBundleCheckUpdate<CR>
+Nnoremap `plugin`nb    `neobundle`
+nnoremap `neobundle`cu  :<C-u>NeoBundleCheckUpdate<CR>
 "}}}
 
 "}}}
@@ -565,6 +557,7 @@ set splitbelow
 set hidden
 set nocursorline
 set hlsearch
+set ambiwidth     =single
 
 " indent
 set backspace         =indent,eol,start    " More powerful backspacing
@@ -841,7 +834,7 @@ if neobundle#tap('omnisharp-vim') "{{{
     " function! s:km_omnisharp()
     "     " prefix
     "     nnoremap [omnishar] <Nop>
-    "     nmap     [plugin]o   [omnishar]
+    "     nmap     `plugin`o   [omnishar]
     "
     "     nnoremap <silent><buffer>[omnishar]a :<C-u>OmniSharpAddToProject<CR>
     "     nnoremap <silent><buffer>[omnishar]b :<C-u>OmniSharpBuild<CR>
@@ -866,22 +859,22 @@ if neobundle#tap('unite.vim') "{{{
     let g:unite_source_history_yank_enable      = 1
 
     " key_mappings {{{
-    Nnoremap [plugin]u [unite]
-    nnoremap [unite]u  :<C-u>Unite<CR>
-    nnoremap [unite]s  :<C-u>Unite source<CR>
-    nnoremap [unite]hy :<C-u>Unite history/yank<CR>
-    nnoremap [unite]he :<C-u>Unite help<CR>
-    nnoremap [unite]hf :<C-u>Unite file_mru buffer<CR>
-    nnoremap [unite]b  :<C-u>Unite buffer<CR>
-    nnoremap [unite]r  :<C-u>Unite -buffer-name=register register<CR>
-    nnoremap [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-    nnoremap [unite]qf :<C-u>Unite -no-quit -direction=botright quickfix<CR>
-    nnoremap [unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
-    nnoremap [unite]pf :<C-u>Unite -auto-preview font<CR>
-    nnoremap [unite]pt :<C-u>Unite -auto-preview transparency<CR>
-    nnoremap [unite]yr :<C-u>Unite yankround<CR>
-    nnoremap [unite]nb :<C-u>Unite neobundle<CR>
-    nnoremap [unite]co :<C-u>Unite command<CR>
+    Nnoremap `plugin`u `unite`
+    nnoremap `unite`u  :<C-u>Unite<CR>
+    nnoremap `unite`s  :<C-u>Unite source<CR>
+    nnoremap `unite`hy :<C-u>Unite history/yank<CR>
+    nnoremap `unite`he :<C-u>Unite help<CR>
+    nnoremap `unite`hf :<C-u>Unite file_mru buffer<CR>
+    nnoremap `unite`b  :<C-u>Unite buffer<CR>
+    nnoremap `unite`r  :<C-u>Unite -buffer-name=register register<CR>
+    nnoremap `unite`f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    nnoremap `unite`qf :<C-u>Unite -no-quit -direction=botright quickfix<CR>
+    nnoremap `unite`pc :<C-u>Unite -auto-preview colorscheme<CR>
+    nnoremap `unite`pf :<C-u>Unite -auto-preview font<CR>
+    nnoremap `unite`pt :<C-u>Unite -auto-preview transparency<CR>
+    nnoremap `unite`yr :<C-u>Unite yankround<CR>
+    nnoremap `unite`nb :<C-u>Unite neobundle<CR>
+    nnoremap `unite`co :<C-u>Unite command<CR>
     "}}}
 
 endif "}}}
@@ -897,29 +890,36 @@ if neobundle#tap('vimfiler.vim') "{{{
     let g:vimfiler_enable_auto_cd = 1
 
     " key_mappings {{{
-    Nnoremap [plugin]f [filer]
-    nnoremap [filer]  :<C-u>VimFiler<CR>
+    Nnoremap `plugin`f `filer`
+    nnoremap `filer`  :<C-u>VimFiler<CR>
     "}}}
 
 endif "}}}
 
 if neobundle#tap('vim-fugitive') "{{{
 
+    function! s:git_update(comment) abort
+        exec('Gwrite')
+        exec('Gcommit -m "' . a:comment . '"')
+        exec('Git push origin master')
+    endfunction
+    command! -nargs=1 Gupdate call s:git_update(<f-args>)
+
     " key_mappings {{{
-    Nnoremap [plugin]g [git]
-    nnoremap [git]it :<C-u>Git
-    nnoremap [git]ad :<C-u>Gwrite<CR>
-    nnoremap [git]di :<C-u>Gdiff<CR>
-    nnoremap [git]bl :<C-u>Gblame<CR>
-    nnoremap [git]co :<C-u>Gcommit -m ""<LEFT>
-    nnoremap [git]ps :<C-u>Git push origin master<CR>
-    nnoremap [git]pl :<C-u>Git pull<CR>
-    nnoremap [git]st :<C-u>Git status<CR>
-    nnoremap [git]sh :<C-u>Git stash<CR>
-    nnoremap [git]ch :<C-u>Git checkout
-    nnoremap [git]me :<C-u>Git merge
-    nnoremap [git]br :<C-u>Git branch
-    nnoremap <silent>[git]up :<C-u>Gwrite<CR>:<C-u>Gcommit -m "update"<CR>:<C-u>Git push origin master<CR>
+    Nnoremap `plugin`g `git`
+    nnoremap `git`it :<C-u>Git
+    nnoremap `git`ad :<C-u>Gwrite<CR>
+    nnoremap `git`di :<C-u>Gdiff<CR>
+    nnoremap `git`bl :<C-u>Gblame<CR>
+    nnoremap `git`co :<C-u>Gcommit -m ""<LEFT>
+    nnoremap `git`ps :<C-u>Git push origin master<CR>
+    nnoremap `git`pl :<C-u>Git pull<CR>
+    nnoremap `git`st :<C-u>Git status<CR>
+    nnoremap `git`sh :<C-u>Git stash<CR>
+    nnoremap `git`ch :<C-u>Git checkout 
+    nnoremap `git`me :<C-u>Git merge 
+    nnoremap `git`br :<C-u>Git branch 
+    nnoremap `git`up :<C-u>Gupdate 
     "}}}
 
 endif "}}}
@@ -927,8 +927,8 @@ endif "}}}
 if neobundle#tap('vim-gitgutter') "{{{
 
     " key_mappings {{{
-    nnoremap <silent>[git]gt   :<C-u>GitGutterToggle<CR>
-    nnoremap <silent>[git]gh   :<C-u>GitGutterLineHighlightsToggle<CR>
+    nnoremap <silent>`git`gt   :<C-u>GitGutterToggle<CR>
+    nnoremap <silent>`git`gh   :<C-u>GitGutterLineHighlightsToggle<CR>
     "}}}
 
 endif "}}}
@@ -952,11 +952,11 @@ if neobundle#tap('vimshell.vim') "{{{
     let g:vimshell_prompt_pattern = '^\f\+ > '
 
     " key_mappings {{{
-    Nnoremap [plugin]s [shell]
-    nnoremap [shell]s :<C-u>set<space>noautochdir<CR>:<C-u>VimShell<CR>
-    nnoremap [shell]n :<C-u>set<space>noautochdir<CR>:<C-u>VimShellPop<CR>
-    nnoremap [shell]p :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive python<CR>
-    nnoremap [shell]r :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive irb<CR>
+    Nnoremap `plugin`s `shell`
+    nnoremap `shell`s  :<C-u>set<space>noautochdir<CR>:<C-u>VimShell<CR>
+    nnoremap `shell`n  :<C-u>set<space>noautochdir<CR>:<C-u>VimShellPop<CR>
+    nnoremap `shell`p  :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive python<CR>
+    nnoremap `shell`r  :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive irb<CR>
     "}}}
 
 endif "}}}
@@ -1129,11 +1129,11 @@ if neobundle#tap('qfixhowm') "{{{
     let QFixHowm_MenuKey               = 1                                   " invalid default keymaps
 
     " key_mappings {{{
-    Nnoremap [plugin]h   [hown]
-    nmap     [hown]l     g,m
-    nmap     [hown]n     g,c
-    nmap     [hown]q     g,q
-    nmap     [hown],     g,,
+    Nnoremap `plugin`h   `hown`
+    nmap     `hown`l     g,m
+    nmap     `hown`n     g,c
+    nmap     `hown`q     g,q
+    nmap     `hown`,     g,,
     "}}}
 
 endif "}}}
@@ -1172,13 +1172,13 @@ if neobundle#tap('java_getset.vim') "{{{
     let b:javagetset_add_this       = 1   " add this.
 
     " key_mappings {{{
-    autocmd vimrc Filetype java Nnoremap [plugin]j [getset]
-    autocmd vimrc Filetype java nmap     <buffer>[getset]g <Plug>JavagetsetInsertGetterOnly
-    autocmd vimrc Filetype java nmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
-    autocmd vimrc Filetype java nmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
-    autocmd vimrc Filetype java vmap     <buffer>[getset]g <Plug>JavagetsetInsertGetterOnly
-    autocmd vimrc Filetype java vmap     <buffer>[getset]s <Plug>JavagetsetInsertSetterOnly
-    autocmd vimrc Filetype java vmap     <buffer>[getset]b <Plug>JavagetsetInsertBothGetterSetter
+    autocmd vimrc Filetype java Nnoremap `plugin`j `getset`
+    autocmd vimrc Filetype java nmap     <buffer>`getset`g <Plug>JavagetsetInsertGetterOnly
+    autocmd vimrc Filetype java nmap     <buffer>`getset`s <Plug>JavagetsetInsertSetterOnly
+    autocmd vimrc Filetype java nmap     <buffer>`getset`b <Plug>JavagetsetInsertBothGetterSetter
+    autocmd vimrc Filetype java vmap     <buffer>`getset`g <Plug>JavagetsetInsertGetterOnly
+    autocmd vimrc Filetype java vmap     <buffer>`getset`s <Plug>JavagetsetInsertSetterOnly
+    autocmd vimrc Filetype java vmap     <buffer>`getset`b <Plug>JavagetsetInsertBothGetterSetter
     "}}}
 
 endif "}}}
@@ -1226,7 +1226,7 @@ endif "}}}
 if neobundle#tap('excitetranslate-vim') "{{{
 
     " key_mappings {{{
-    nnoremap [plugin]t :<C-u>ExciteTranslate<CR>
+    nnoremap `plugin`t :<C-u>ExciteTranslate<CR>
     "}}}
 
 endif "}}}
@@ -1260,7 +1260,7 @@ if neobundle#tap('vim-quickrun') "{{{
         \}
 
     " key_mappings {{{
-    nnoremap [plugin]r :<C-u>QuickRun -runner vimproc<CR>
+    nnoremap `plugin`r :<C-u>QuickRun -runner vimproc<CR>
     "}}}
 
 endif "}}}
@@ -1309,7 +1309,7 @@ endif "}}}
 if neobundle#tap('vim-multiple-cursors') "{{{
 
     " key_mappings {{{
-    nnoremap [plugin]mc :<C-u>MultipleCursorsFind
+    nnoremap `plugin`mc :<C-u>MultipleCursorsFind
     "}}}
 
 endif "}}}
@@ -1317,7 +1317,7 @@ endif "}}}
 if neobundle#tap('VimCalc') "{{{
 
     " key_mappings {{{
-    nnoremap [plugin]ca :<C-u>Calc<CR>
+    nnoremap `plugin`ca :<C-u>Calc<CR>
 
     autocmd vimrc FileType vimcalc inoremap <buffer><silent><C-c> <ESC>:<C-u>quit<CR>
     " autocmd vimrc FileType vimcalc inoremap <buffer><silent>N 0
@@ -1350,7 +1350,7 @@ endif "}}}
 if neobundle#tap('vim-over') "{{{
 
     " key_mappings {{{
-    nnoremap [func]s :<C-u>OverCommandLine<CR>%s/
+    nnoremap `func`s :<C-u>OverCommandLine<CR>%s/
     "}}}
 
 endif "}}}
@@ -1362,9 +1362,9 @@ endif "}}}
 if neobundle#tap('vinarise.vim') "{{{
 
     " key_mappings {{{
-    Nnoremap [plugin]v [vinarise]
-    nnoremap [vinarise]v :<C-u>Vinarise<CR>
-    nnoremap [vinarise]b :<C-u>VinarisePluginBitmapView<CR>
+    Nnoremap `plugin`v `vinarise`
+    nnoremap `vinarise`v :<C-u>Vinarise<CR>
+    nnoremap `vinarise`b :<C-u>VinarisePluginBitmapView<CR>
     "}}}
 
 endif "}}}
@@ -1382,15 +1382,14 @@ if neobundle#tap('undotree') "{{{
     let g:undotree_HighlightSyntax      = "UnderLined"
 
     " key_mappings {{{
-    Nnoremap [plugin]U [undotr]
-    nnoremap [undotr]  :<C-u>UndotreeToggle<CR>
+    Nnoremap `plugin`U `undotr`
+    nnoremap `undotr`  :<C-u>UndotreeToggle<CR>
     "}}}
 
 endif "}}}
 
 if neobundle#tap('vim-submode') "{{{
 
-    " winsize mode
     call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
     call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
     call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
@@ -1405,9 +1404,9 @@ endif "}}}
 if neobundle#tap('w3m.vim') "{{{
 
     " key_mappings {{{
-    Nnoremap [plugin]w [w3m]
-    nnoremap [w3m]g :<C-u>W3m google<CR>
-    nnoremap [w3m]w :<C-u>W3m
+    Nnoremap `plugin`w `w3m`
+    nnoremap `w3m`g :<C-u>W3m google<CR>
+    nnoremap `w3m`w :<C-u>W3m
     "}}}
 
 endif "}}}
@@ -1440,16 +1439,20 @@ endif "}}}
 
 if neobundle#tap('vim-operator-surround') "{{{
 
+    " key_mappings {{{
     nmap <silent>ys <Plug>(operator-surround-append)
     nmap <silent>ds <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
     nmap <silent>cs <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+    "}}}
 
 endif "}}}
 
 if neobundle#tap('sideways.vim') "{{{
 
+    " key_mappings {{{
     nnoremap <silent><c-h> :<C-u>SidewaysJumpLeft<cr>
     nnoremap <silent><c-l> :<C-u>SidewaysJumpRight<cr>
+    "}}}
 
 endif "}}}
 
@@ -1484,8 +1487,10 @@ endif "}}}
 
 if neobundle#tap('vim-operator-flashy') "{{{
 
+    " key_mappings {{{
     map y <Plug>(operator-flashy)
     nmap Y <Plug>(operator-flashy)$
+    "}}}
 
 endif "}}}
 
@@ -1493,12 +1498,13 @@ if neobundle#tap('vim-go') "{{{
 
     let g:go_def_mapping_enabled = 0
     let g:go_doc_keywordprg_enabled = 0
+
     " key_mappings {{{
-    autocmd vimrc filetype go Nnoremap [plugin]go [go]
-    autocmd vimrc filetype go nmap     <leader>r  <Plug>(go-run)
-    autocmd vimrc FileType go nmap     <leader>b  <Plug>(go-build)
-    autocmd vimrc FileType go nmap     <leader>t  <Plug>(go-test)
-    autocmd vimrc FileType go nmap     <leader>c  <Plug>(go-coverage)
+    autocmd vimrc filetype go Nnoremap `plugin`go `go`
+    autocmd vimrc filetype go nmap     `go`r      <Plug>(go-run)
+    autocmd vimrc FileType go nmap     `go`b      <Plug>(go-build)
+    autocmd vimrc FileType go nmap     `go`t      <Plug>(go-test)
+    autocmd vimrc FileType go nmap     `go`c      <Plug>(go-coverage)
     "}}}
 
 endif "}}}
@@ -1506,10 +1512,9 @@ endif "}}}
 if neobundle#tap('ag.vim') "{{{
 
     " key_mappings {{{
-    " nmap [ag]      <Nop>
-    " nmap [plugin]a [ag]
-    " nmap [ag]a :Ag <c-r>=expand("<cword>")<cr><cr>
-    " nnoremap <space>/ :Ag
+    Nnoremap `plugin`a `ag`
+    nmap     `ag`a     :Ag <c-r>=expand("<cword>")<cr><cr>
+    nnoremap <space>/  :Ag
     "}}}
 
 endif "}}}
@@ -1531,9 +1536,10 @@ endif "}}}
 
 if neobundle#tap('vim-ref') "{{{
 
-    " key_mappings {{{
-    Nnoremap [plugin]d [vim-ref]
-    nmap [vim-ref] <Plug>(ref-keyword)
+   " key_mappings {{{
+    Nnoremap `plugin`d `vim-ref`
+    nmap     `vim-ref`d <Plug>(ref-keyword)
+    nmap     `vim-ref`h :<C-u>help 
     "}}}
 
 endif "}}}
