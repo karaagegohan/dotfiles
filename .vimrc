@@ -132,7 +132,7 @@ function! s:closewindow(force) abort "{{{
     else
         :quit
     endif
-    echo 'quit "' . a:bufname . '"'
+    echo 'close "' . a:bufname . '"'
 endfunction
 "}}}
 command! -nargs=1 CloseWindow call s:closewindow(<f-args>)
