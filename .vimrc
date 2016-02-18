@@ -458,6 +458,10 @@ NeoBundleLazy 'fatih/vim-go', { 'autoload' : { 'filetypes' : ['go'] } }
 NeoBundleLazy 'mopp/layoutplugin.vim', { 'autoload' : { 'commands' : 'LayoutPlugin'} }
 NeoBundle 'tpope/vim-endwise'
 
+" PS
+NeoBundle 'PProvost/vim-ps1'
+NeoBundle 'ps1.vim'
+
 " Tex
 NeoBundle 'vim-latex/vim-latex'
 
@@ -612,7 +616,7 @@ colorscheme onedark
 set background =dark
 
 autocmd vimrc BufRead, FileType help setlocal nofoldenable
-autocmd vimrc BufRead, BufNewFile *.md set filetype=markdown
+autocmd vimrc BufRead, BufNewFile *.dcm setf vb
 
 "}}}
 
@@ -1541,6 +1545,13 @@ if neobundle#tap('vim-ref') "{{{
     nmap     `vim-ref`d <Plug>(ref-keyword)
     nmap     `vim-ref`h :<C-u>help 
     "}}}
+
+endif "}}}
+
+if neobundle#tap('vim-ps1') "{{{
+
+    let g:ps1_nofold_blocks = 1
+    let g:ps1_nofold_sig = 1
 
 endif "}}}
 
