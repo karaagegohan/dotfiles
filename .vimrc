@@ -132,7 +132,7 @@ function! s:closewindow(force) abort "{{{
     else
         :quit
     endif
-    echo 'quit "' . a:bufname . '"'
+    echo 'close "' . a:bufname . '"'
 endfunction
 "}}}
 command! -nargs=0 CloseWindow call s:closewindow(0)
@@ -201,7 +201,7 @@ noremap  ;                  :
 noremap  :                  ;
 noremap! ;                  :
 noremap! :                  ;
-nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>
+nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
 nnoremap <CR>               :<C-u>write<CR>
 nnoremap <S-CR>             :<C-u>write!<CR>
 nnoremap U                  <C-r>
@@ -359,8 +359,8 @@ NeoBundle 'thinca/vim-visualstar'              " Use * in visual mode
 NeoBundle 'rhysd/clever-f.vim'                 " Improve f{char}
 NeoBundle 'tomtom/tcomment_vim'                " Comment out easily
 NeoBundle 'junegunn/vim-easy-align'            " Align codes by delimiter
-NeoBundle 'fuenor/qfixgrep'                    " Make notes easily
-NeoBundle 'fuenor/qfixhowm'                    " Make notes easily
+" NeoBundle 'fuenor/qfixgrep'                    " Make notes easily
+" NeoBundle 'fuenor/qfixhowm'                    " Make notes easily
 NeoBundle 'tpope/vim-repeat'                   " Enable to repeat plugins by '.'
 NeoBundle 'tpope/vim-fugitive'                 " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim'       " Better rainbow parentheses
@@ -609,6 +609,7 @@ set undofile                " Make undo file
 set undodir    =~/.vimfiles " Directiry to save undo files
 set swapfile                " Make swap file
 set directory  =~/.vimfiles " Directiry to save swap files
+cd $HOME
 
 " colorscheme
 let g:gruvbox_italic = 0
