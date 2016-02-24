@@ -460,7 +460,6 @@ NeoBundle 'tpope/vim-endwise'
 
 " PS
 NeoBundle 'PProvost/vim-ps1'
-NeoBundle 'ps1.vim'
 
 " Tex
 NeoBundle 'vim-latex/vim-latex'
