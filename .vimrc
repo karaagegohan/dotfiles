@@ -209,7 +209,6 @@ noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 inoremap jj                 <CR>
 inoremap kk                 <Esc>
-nnoremap <Esc>              <Nop>
 
 " edit
 nnoremap Y                  y$
@@ -233,6 +232,10 @@ nnoremap *                  *NzO
 nnoremap #                  #NzO
 nmap     '                  *
 nmap     "                  #
+
+" buffer
+nnoremap [                  :<C-u>bprevioius<CR>
+nnoremap ]                  :<C-u>bnext<CR>
 
 " window
 nnoremap gh                 <C-w>h
@@ -369,7 +372,7 @@ NeoBundle 'LeafCage/yankround.vim'             " Paste yank history
 " NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'                " Change font size
 NeoBundle 'AndrewRadev/switch.vim'             " Switch segments
-NeoBundle 't9md/vim-quickhl'                   " Highlight any words
+" NeoBundle 't9md/vim-quickhl'                   " Highlight any words
 NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
 NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
 NeoBundle 'rking/ag.vim'                       " Use ag command in vim
@@ -459,8 +462,8 @@ NeoBundleLazy 'mopp/layoutplugin.vim', { 'autoload' : { 'commands' : 'LayoutPlug
 NeoBundle 'tpope/vim-endwise'
 
 " PS
-NeoBundle 'PProvost/vim-ps1'
-NeoBundle 'ps1.vim'
+" NeoBundle 'PProvost/vim-ps1'
+" NeoBundle 'ps1.vim'
 
 " Tex
 NeoBundle 'vim-latex/vim-latex'
