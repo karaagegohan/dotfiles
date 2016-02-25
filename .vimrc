@@ -462,8 +462,12 @@ NeoBundleLazy 'mopp/layoutplugin.vim', { 'autoload' : { 'commands' : 'LayoutPlug
 NeoBundle 'tpope/vim-endwise'
 
 " PS
+<<<<<<< HEAD
 " NeoBundle 'PProvost/vim-ps1'
 " NeoBundle 'ps1.vim'
+=======
+NeoBundle 'PProvost/vim-ps1'
+>>>>>>> eaf70fbff7f7731d8a9c5eb43a9ad886c5f1d730
 
 " Tex
 NeoBundle 'vim-latex/vim-latex'
