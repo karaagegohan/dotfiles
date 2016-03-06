@@ -168,6 +168,12 @@ function! s:show_prefix() abort "{{{
 endfunction "}}}
 command! -nargs=0 PrefixList call s:show_prefix()
 
+function! s:run_pandoc(output) abort "{{{
+    let a:extension =  matchstr(a:output, '\.\zs.*', 0)
+    exec '!pandoc % -t ' . a:extension . ' -o ' . a:output
+endfunction "}}}
+command! -nargs=1 Pandoc call s:run_pandoc(<f-args>)
+
 "}}}
 
 " key mappings {{{
