@@ -23,7 +23,6 @@ function! s:My_mkdir(name) abort "{{{
 endfunction
 "}}}
 
-" 実行環境に合わせて透過度を上げる
 function! s:transparancy_up() abort "{{{
     if has('gui_running')
         if has('mac')
@@ -44,7 +43,6 @@ endfunction
 "}}}
 command! -nargs=0 MyTransparancyUp call s:transparancy_up()
 
-" 実行環境に合わせて透過度を下げるげる
 function! s:transparancy_down() abort "{{{
     if has('gui_running')
         if has('mac')
@@ -65,7 +63,6 @@ endfunction
 "}}}
 command! -nargs=0 MyTransparancyDown call s:transparancy_down()
 
-" フルスクリーンのトグル
 function! s:fullscreen() abort "{{{
     if !!has('gui_running')
         if has('mac')
@@ -79,7 +76,6 @@ endfunction
 "}}}
 command! -nargs=0 MyFullscreen call s:fullscreen()
 
-" オプションのトグル
 function! s:toggleopt(optname) abort "{{{
     try
         exec( 'set ' . a:optname . '!')
@@ -91,7 +87,6 @@ endfunction
 "}}}
 command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>)
 
-" 複数行をペーストしたときに、その文字列の最下行に移動する
 function! s:copyandmove() abort "{{{
     function! s:matchcount(expr, pat, ...)
         let a:start = get(a:, "1", 0)
@@ -106,7 +101,6 @@ endfunction
 "}}}
 command! -nargs=0 CopyAndMove call s:copyandmove()
 
-" カーソル下の単語を翻訳する
 function! s:translateword() abort "{{{
     let a:word = matchstr(expand("<cword>"), '[a-z]*', 0)
     let a:words = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word=' . a:word . '&Scope=HEADWORD&Match=EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0').content, 'utf-8', &encoding)).findAll('ItemID')
@@ -128,7 +122,6 @@ endfunction
 "}}}
 command! -nargs=0 TranslateWord call s:translateword()
 
-" 最後のタブを閉じても終了しない
 function! s:closewindow(force) abort "{{{
     let a:bufname = expand('%:p')
     if len(a:bufname) == 0
@@ -145,7 +138,6 @@ endfunction
 command! -nargs=0 CloseWindow call s:closewindow(0)
 command! -nargs=0 CloseWindowForce call s:closewindow(1)
 
-" Neobundle 'xxx/yyy' を if neobundle#tap('yyy') に変換し、vimrcの最下行に追加する
 function! s:add_if_neobundle_tap() abort "{{{
     let a:plugin_name = matchstr(getline('.'), '/\zs.\{-}\ze' . "'", 0)
     if a:plugin_name != ''
@@ -160,7 +152,6 @@ function! s:add_if_neobundle_tap() abort "{{{
 endfunction "}}}
 command! -nargs=0 AddIfNeoBundeTap call s:add_if_neobundle_tap()
 
-" prefix の管理
 let s:prefix_list = {}
 function! s:add_prefix(keymap, prefix) abort "{{{
     exec ('nnoremap ' . a:prefix . ' <Nop>')
@@ -169,7 +160,6 @@ function! s:add_prefix(keymap, prefix) abort "{{{
 endfunction "}}}
 command! -nargs=+ Nnoremap call s:add_prefix(<f-args>)
 
-" prefix の一覧を表示
 function! s:show_prefix() abort "{{{
     let a:prefixes = sort(keys(s:prefix_list))
     for a:i in range(0, len(a:prefixes) - 1)
@@ -178,7 +168,6 @@ function! s:show_prefix() abort "{{{
 endfunction "}}}
 command! -nargs=0 PrefixList call s:show_prefix()
 
-" pandoc を実行する
 function! s:run_pandoc(output) abort "{{{
     let a:extension =  matchstr(a:output, '\.\zs.*', 0)
     exec '!pandoc % -t ' . a:extension . ' -o ' . a:output
