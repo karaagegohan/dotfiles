@@ -1549,7 +1549,7 @@ if neobundle#tap('vim-ref') "{{{
    " key_mappings {{{
     Nnoremap <SID>[plugin]d <SID>[vim-ref]
     nmap     <SID>[vim-ref]d <Plug>(ref-keyword)
-    nmap     <SID>[vim-ref]h :<C-u>help 
+    nnoremap <SID>[vim-ref]h :<C-u>help 
     "}}}
 
 endif "}}}
