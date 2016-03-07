@@ -23,8 +23,9 @@ function! s:My_mkdir(name) abort "{{{
 endfunction
 "}}}
 
+" 実行環境に合わせて透過度を上げる
 function! s:transparancy_up() abort "{{{
-    if !!has('gui_running')
+    if has('gui_running')
         if has('mac')
             if &transparency - 5 > 1
                 set transparency-=5
@@ -43,8 +44,9 @@ endfunction
 "}}}
 command! -nargs=0 MyTransparancyUp call s:transparancy_up()
 
+" 実行環境に合わせて透過度を下げるげる
 function! s:transparancy_down() abort "{{{
-    if !!has('gui_running')
+    if has('gui_running')
         if has('mac')
             if &transparency + 5 < 100
                 set transparency+=5
