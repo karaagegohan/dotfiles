@@ -216,7 +216,6 @@ noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 inoremap jj                 <CR>
 inoremap kk                 <Esc>
-nnoremap <Esc>              <Nop>
 
 " edit
 nnoremap Y                  y$
