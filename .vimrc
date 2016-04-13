@@ -305,11 +305,7 @@ else
     nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
-if !has('gui_running')
-    nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>
-else
-    nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
-end
+nnoremap <silent><SID>[func]r    :<C-u>source %<CR>
 nnoremap <SID>[func]h            :<C-u>help <C-r><C-w><CR>
 nnoremap <SID>[func]e            :<C-u>edit<CR>
 nnoremap <SID>[func]ch           q:
@@ -616,9 +612,8 @@ set directory  =~/.vimfiles " Directiry to save swap files
 cd $HOME
 
 " colorscheme
-let g:gruvbox_italic = 0
-colorscheme onedark
 set background =dark
+colorscheme onedark
 
 autocmd vimrc BufRead, FileType help setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.dcm setf vb
@@ -687,6 +682,14 @@ if neobundle#tap('neocomplete.vim') "{{{
     inoremap <expr><bs> neocomplete#smart_close_popup()."\<c-h>"
     inoremap <expr><c-y>  neocomplete#close_popup()
     inoremap <expr><c-e>  neocomplete#cancel_popup()
+
+    if !isdirectory(expand("~/Dicts/dicts/dicts/ruby.dict"))
+        call system("git clone https://github.com/pocke/dicts")
+    end
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \   'ruby': $HOME . '/Dicts/dicts/ruby.dict',
+        \ }
+
 endif "}}}
 
 if neobundle#tap('neocomplcache.vim') "{{{
