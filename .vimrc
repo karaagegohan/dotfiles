@@ -221,6 +221,7 @@ inoremap kk                 <Esc>
 nnoremap Y                  y$
 nnoremap R                  J
 nnoremap x                  "_x
+nnoremap X                  x
 
 " cursor
 nnoremap j                  gj
@@ -684,9 +685,6 @@ if neobundle#tap('neocomplete.vim') "{{{
     inoremap <expr><c-y>  neocomplete#close_popup()
     inoremap <expr><c-e>  neocomplete#cancel_popup()
 
-    if isdirectory(expand("~/Dicts/dicts"))
-        call system("git clone https://github.com/pocke/dicts")
-    end
     let g:neocomplete#sources#dictionary#dictionaries = {
         \   'ruby': $HOME . '/Dicts/dicts/ruby.dict',
         \ }
