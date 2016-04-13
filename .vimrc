@@ -5,11 +5,12 @@ augroup vimrc
 augroup END
 
 if has('vim_starting')
-  if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
-    echo "install neobundle..."
-    call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
-  endif
-  set runtimepath+=~/.vim/bundle/neobundle.vim
+    if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
+        echo "install neobundle..."
+        call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+    endif
+    set runtimepath+=~/.vim/bundle/neobundle.vim
+    set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 endif
 
 "}}}
@@ -215,6 +216,7 @@ noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 inoremap jj                 <CR>
 inoremap kk                 <Esc>
+nnoremap <Esc>              <Nop>
 
 " edit
 nnoremap Y                  y$
@@ -269,15 +271,15 @@ cnoremap <C-p>              <UP>
 nnoremap zz                 za
 
 " toggle
-nnoremap <silent>1 :<C-u>ToggleOpt number<CR>
-nnoremap <silent>2 :<C-u>ToggleOpt relativenumber<CR>
-nnoremap <silent>3 :<C-u>ToggleOpt autochdir<CR>
-nnoremap <silent>4 :<C-u>ToggleOpt list<CR>
-nnoremap <silent>5 :<C-u>ToggleOpt foldenable<CR>
-nnoremap <silent>6 <Nop>
-nnoremap <silent>7 <Nop>
-nnoremap <silent>8 <Nop>
-nnoremap <silent>9 <Nop>
+nnoremap <silent><SID>[func]1 :<C-u>ToggleOpt number<CR>
+nnoremap <silent><SID>[func]2 :<C-u>ToggleOpt relativenumber<CR>
+nnoremap <silent><SID>[func]3 :<C-u>ToggleOpt autochdir<CR>
+nnoremap <silent><SID>[func]4 :<C-u>ToggleOpt list<CR>
+nnoremap <silent><SID>[func]5 :<C-u>ToggleOpt foldenable<CR>
+nnoremap <silent><SID>[func]6 <Nop>
+nnoremap <silent><SID>[func]7 <Nop>
+nnoremap <silent><SID>[func]8 <Nop>
+nnoremap <silent><SID>[func]9 <Nop>
 
 " function keys
 nnoremap <silent><F1>  <Nop>
@@ -683,7 +685,7 @@ if neobundle#tap('neocomplete.vim') "{{{
     inoremap <expr><c-y>  neocomplete#close_popup()
     inoremap <expr><c-e>  neocomplete#cancel_popup()
 
-    if !isdirectory(expand("~/Dicts/dicts/dicts/ruby.dict"))
+    if isdirectory(expand("~/Dicts/dicts"))
         call system("git clone https://github.com/pocke/dicts")
     end
     let g:neocomplete#sources#dictionary#dictionaries = {
@@ -919,7 +921,7 @@ if neobundle#tap('vim-fugitive') "{{{
 
     " key_mappings {{{
     Nnoremap <SID>[plugin]g <SID>[git]
-    nnoremap <SID>[git]it :<C-u>Git
+    nnoremap <SID>[git]it :<C-u>Git<Space>
     nnoremap <SID>[git]ad :<C-u>Gwrite<CR>
     nnoremap <SID>[git]di :<C-u>Gdiff<CR>
     nnoremap <SID>[git]bl :<C-u>Gblame<CR>
@@ -928,10 +930,10 @@ if neobundle#tap('vim-fugitive') "{{{
     nnoremap <SID>[git]pl :<C-u>Git pull<CR>
     nnoremap <SID>[git]st :<C-u>Git status<CR>
     nnoremap <SID>[git]sh :<C-u>Git stash<CR>
-    nnoremap <SID>[git]ch :<C-u>Git checkout 
-    nnoremap <SID>[git]me :<C-u>Git merge 
-    nnoremap <SID>[git]br :<C-u>Git branch 
-    nnoremap <SID>[git]up :<C-u>Gupdate 
+    nnoremap <SID>[git]ch :<C-u>Git checkout<Space>
+    nnoremap <SID>[git]me :<C-u>Git merge<Space>
+    nnoremap <SID>[git]br :<C-u>Git branch<Space>
+    nnoremap <SID>[git]up :<C-u>Gupdate<Space>
     "}}}
 
 endif "}}}
@@ -1548,10 +1550,10 @@ endif "}}}
 
 if neobundle#tap('vim-ref') "{{{
 
-   " key_mappings {{{
+    " key_mappings {{{
     Nnoremap <SID>[plugin]d <SID>[vim-ref]
     nmap     <SID>[vim-ref]d <Plug>(ref-keyword)
-    nnoremap <SID>[vim-ref]h :<C-u>help 
+    nnoremap <SID>[vim-ref]h :<C-u>help
     "}}}
 
 endif "}}}
