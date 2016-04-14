@@ -916,6 +916,7 @@ if neobundle#tap('vim-fugitive') "{{{
         exec('Gwrite')
         exec('Gcommit -m "' . a:comment . '"')
         exec('Git push origin master')
+        exec('write')
     endfunction
     command! -nargs=1 Gupdate call s:git_update(<f-args>)
 
