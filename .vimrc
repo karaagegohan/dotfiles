@@ -216,12 +216,12 @@ noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 inoremap jj                 <CR>
 inoremap kk                 <Esc>
-nnoremap <Esc>              <Nop>
 
 " edit
 nnoremap Y                  y$
 nnoremap R                  J
 nnoremap x                  "_x
+nnoremap X                  x
 
 " cursor
 nnoremap j                  gj
@@ -307,15 +307,10 @@ else
     nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
-if !has('gui_running')
-    nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>
-else
-    nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>source $MYGVIMRC<CR>
-end
+nnoremap <silent><SID>[func]r    :<C-u>source %<CR>
 nnoremap <SID>[func]h            :<C-u>help <C-r><C-w><CR>
 nnoremap <SID>[func]e            :<C-u>edit<CR>
 nnoremap <SID>[func]ch           q:
-nnoremap <silent>(          :<C-u>source %<CR>
 
 "}}}
 
@@ -385,7 +380,7 @@ NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'              " Make opening beowser easier
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
-NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit search
+" NeoBundle 'osyo-manga/vim-anzu'                " Show a number of words hit search
 NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
@@ -448,6 +443,11 @@ NeoBundle 'mattn/sonictemplate-vim'
 " Java
 NeoBundleLazy 'vim-scripts/javacomplete', { 'build': { 'cygwin': 'javac autoload/Reflection.java', 'mac' : 'javac autoload/Reflection.java', 'unix' : 'javac autoload/Reflection.java', }, 'autoload' : { 'filetypes' : ['java'] } }
 NeoBundleLazy 'moznion/java_getset.vim', { 'autoload': { 'filetypes': ['java'] } }
+
+" ruby
+NeoBundle 'todesking/ruby_hl_lvar.vim'
+NeoBundle 'rhysd/unite-ruby-require.vim'
+NeoBundle 'rhysd/vim-textobj-ruby'
 
 " Swift
 NeoBundleLazy 'keith/swift.vim', { 'autoload' : { 'filetypes' : ['swift'] } }
@@ -550,7 +550,7 @@ syntax on                     " Show syntax hilight
 set number                    " Show line number
 set ruler                     " Show current line number
 set title                     " Show title of the file
-set showmatch                 " Show matching bracket
+" set showmatch                 " Show matching bracket
 set noshowmatch
 set matchtime     =1          " Time of matching paren
 set virtualedit  +=block      " Expand bounds in visual mode
@@ -566,7 +566,6 @@ set completeopt   =longest,menuone,preview
 set splitbelow
 set hidden
 set nocursorline
-set hlsearch
 set ambiwidth     =single
 
 " indent
@@ -618,9 +617,8 @@ set directory  =~/.vimfiles " Directiry to save swap files
 cd $HOME
 
 " colorscheme
-let g:gruvbox_italic = 0
-colorscheme onedark
 set background =dark
+colorscheme onedark
 
 autocmd vimrc BufRead, FileType help setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.dcm setf vb
@@ -690,6 +688,11 @@ if neobundle#tap('neocomplete.vim') "{{{
     inoremap <expr><bs> neocomplete#smart_close_popup()."\<c-h>"
     inoremap <expr><c-y>  neocomplete#close_popup()
     inoremap <expr><c-e>  neocomplete#cancel_popup()
+
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \   'ruby': $HOME . '/Dicts/dicts/ruby.dict',
+        \ }
+
 endif "}}}
 
 if neobundle#tap('neocomplcache.vim') "{{{
@@ -914,6 +917,7 @@ if neobundle#tap('vim-fugitive') "{{{
         exec('Gwrite')
         exec('Gcommit -m "' . a:comment . '"')
         exec('Git push origin master')
+        exec('write')
     endfunction
     command! -nargs=1 Gupdate call s:git_update(<f-args>)
 
