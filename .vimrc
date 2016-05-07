@@ -308,9 +308,10 @@ else
     nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
 nnoremap <silent><SID>[func]r    :<C-u>source %<CR>
-nnoremap <SID>[func]h            :<C-u>help <C-r><C-w><CR>
-nnoremap <SID>[func]e            :<C-u>edit<CR>
-nnoremap <SID>[func]ch           q:
+nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
+nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
+nnoremap <silent><SID>[func]ch   q:
+nnoremap <silent><SID>[func]x    :exit<CR>
 
 "}}}
 
