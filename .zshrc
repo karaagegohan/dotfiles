@@ -36,14 +36,16 @@ function prompt-git-current-branch {
         echo "%F{$color}[$name]%f"
 }
 
-# aliases # {{{
+# alias # {{{
 
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias cdd='cd ~'
-alias ..='cd ..'
-alias ~='cd ~'
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ,='cd ~'
+alias v='vim'
 
 # }}}
 
