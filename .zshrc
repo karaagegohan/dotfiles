@@ -1,12 +1,19 @@
+export PATH=$PATH:$HOME/bin
+export DOTPATH=$HOME/dotfiles
 setopt prompt_subst
 
+# 重複を記録しない
+setopt hist_ignore_dups
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
+# 参考：http://tegetegekibaru.blogspot.jp/2012/08/zsh_2.html
 PROMPT='
-[%n: %d] `prompt-git-current-branch`
+%F{cyan}[%m@%n]%f %d
 %(!.# .$ )'
+
+RPROMPT=' `prompt-git-current-branch`'
 
 function prompt-git-current-branch {
         local name st color
@@ -39,3 +46,4 @@ alias ..='cd ..'
 alias ~='cd ~'
 
 # }}}
+

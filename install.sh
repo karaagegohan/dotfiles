@@ -41,3 +41,5 @@ do
     rm "$HOME"/"$f"
     ln -s "$HOME"/dotfiles/"$f" "$HOME"/"$f"
 done
+
+ln -s "$HOME"/dotfiles/bin "$HOME"/bin
