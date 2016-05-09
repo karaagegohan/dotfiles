@@ -937,6 +937,7 @@ if neobundle#tap('vim-fugitive') "{{{
     nnoremap <SID>[git]me :<C-u>Git merge<Space>
     nnoremap <SID>[git]br :<C-u>Git branch<Space>
     nnoremap <SID>[git]up :<C-u>Gupdate<Space>
+    nnoremap <SID>[git]uu :<C-u>Gupdate update<CR>
     "}}}
 
 endif "}}}
