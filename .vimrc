@@ -915,7 +915,7 @@ endif "}}}
 if neobundle#tap('vim-fugitive') "{{{
 
     function! s:git_update(comment) abort
-        exec('Gwrite')
+        exec('Git add .')
         exec('Gcommit -m "' . a:comment . '"')
         exec('Git push origin master')
         exec('write')
