@@ -133,7 +133,7 @@ function! s:closewindow(force) abort "{{{
     else
         :quit
     endif
-    echo 'close "' . a:bufname . '"'
+    echo '"' . a:bufname . '" closed'
 endfunction
 "}}}
 command! -nargs=0 CloseWindow call s:closewindow(0)
@@ -307,7 +307,7 @@ else
     nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
-nnoremap <silent><SID>[func]r    :<C-u>source %<CR>:<C-u>echo "\"" . expand("%") . "\" " . "Reloaded"<CR>
+nnoremap <silent><SID>[func]r    :<C-u>source %<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
 nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
 nnoremap <silent><SID>[func]ch   q:
