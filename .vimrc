@@ -446,7 +446,7 @@ NeoBundleLazy 'vim-scripts/javacomplete', { 'build': { 'cygwin': 'javac autoload
 NeoBundleLazy 'moznion/java_getset.vim', { 'autoload': { 'filetypes': ['java'] } }
 
 " ruby
-NeoBundle 'todesking/ruby_hl_lvar.vim'
+" NeoBundle 'todesking/ruby_hl_lvar.vim'
 NeoBundle 'rhysd/unite-ruby-require.vim'
 NeoBundle 'rhysd/vim-textobj-ruby'
 
