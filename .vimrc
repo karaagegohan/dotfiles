@@ -1407,7 +1407,15 @@ if neobundle#tap('undotree') "{{{
 endif "}}}
 
 if neobundle#tap('vim-submode') "{{{
+    
+    function! s:my_x()
+        undojoin
+        normal! "_x
+    endfunction
 
+    nnoremap <silent> <Plug>(my-x) :<C-u>call <SID>my_x()<CR>
+    call submode#enter_with('my_x', 'n', '', 'x', '"_x')
+    call submode#map('my_x', 'n', 'r', 'x', '<Plug>(my-x)')
     call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
     call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
     call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
