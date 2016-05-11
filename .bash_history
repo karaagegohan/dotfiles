@@ -38,3 +38,5 @@ tmux -2 attach || tmux -2 new-session \; source-file ~/.tmux/new-session
 tmux
 tmux -2 attach || tmux -2 new-session \; source-file ~/dotfiles/.tmux/new-session
 tmux -2 attach || tmux -2 new-session \; source-file ~/dotfiles/.tmux/new-session 
+tmux -1 attach || tmux -1 new-session \; source-file ~/.tmux/new-session
+tmux
