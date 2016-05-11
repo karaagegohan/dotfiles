@@ -385,7 +385,7 @@ NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
 NeoBundle 'osyo-manga/vim-over'                " Show words in substitude mode
 NeoBundle 'mbbill/undotree'                    " Make undo tree
 NeoBundle 'Shougo/vinarise.vim'                " Editing binary data
-NeoBundle 'kana/vim-submode'                   " Use submode
+NeoBundle 'thinca/vim-submode'                 " Use submode
 NeoBundle 'yuratomo/w3m.vim'
 NeoBundle 'thinca/vim-ref'                     " Reference
 NeoBundle 'ringogirl/unite-w3m'                " Use w3m in Unite
@@ -409,6 +409,7 @@ NeoBundle 'moznion/hateblo.vim'
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 NeoBundle 'miyakogi/livemark.vim'
+NeoBundle 'tyru/nextfile.vim'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject
@@ -1408,12 +1409,13 @@ endif "}}}
 
 if neobundle#tap('vim-submode') "{{{
     
+    let g:submode_leave_with_key = 1
+    
     function! s:my_x()
         undojoin
         normal! "_x
     endfunction
 
-    nnoremap <silent> <Plug>(my-x) :<C-u>call <SID>my_x()<CR>
     call submode#enter_with('my_x', 'n', '', 'x', '"_x')
     call submode#map('my_x', 'n', 'r', 'x', '<Plug>(my-x)')
     call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
@@ -1574,6 +1576,13 @@ if neobundle#tap('vim-ps1') "{{{
 
     let g:ps1_nofold_blocks = 1
     let g:ps1_nofold_sig = 1
+
+endif "}}}
+
+if neobundle#tap('nextfile.vim') "{{{
+
+    nmap [ <Plug>(nextfile-next)
+    nmap ] <Plug>(nextfile-previous)
 
 endif "}}}
 
