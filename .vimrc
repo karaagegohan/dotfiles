@@ -242,21 +242,21 @@ nmap     '                  *
 nmap     "                  #
 
 " window
-nnoremap gh                 <C-w>h
-nnoremap gj                 <C-w>j
-nnoremap gk                 <C-w>k
-nnoremap gl                 <C-w>l
-nnoremap <silent><SID>[func]n    :<C-u>new<CR>
-nnoremap <silent><SID>[func]v    :<C-u>vnew<CR>
-nnoremap <silent><SID>[func]N    :<C-u>split<CR>
-nnoremap <silent><SID>[func]V    :<C-u>vsplit<CR>
-nnoremap <silent><SID>[func]fs   :<C-u>MyFullscreen<CR>
-nnoremap <S-Left>           <C-w><<CR>
-nnoremap <S-Right>          <C-w>><CR>
-nnoremap <S-Up>             <C-w>-<CR>
-nnoremap <S-Down>           <C-w>+<CR>
-nnoremap <silent><BS>       :<C-u>CloseWindow<CR>
-nnoremap <silent><S-BS>     :<C-u>CloseWindowForce<CR>
+nnoremap gh                    <C-w>h
+nnoremap gj                    <C-w>j
+nnoremap gk                    <C-w>k
+nnoremap gl                    <C-w>l
+nnoremap <silent><SID>[func]n  :<C-u>new<CR>
+nnoremap <silent><SID>[func]v  :<C-u>vnew<CR>
+nnoremap <silent><SID>[func]N  :<C-u>split<CR>
+nnoremap <silent><SID>[func]V  :<C-u>vsplit<CR>
+nnoremap <silent><SID>[func]fs :<C-u>MyFullscreen<CR>
+nnoremap <S-Left>              <C-w><<CR>
+nnoremap <S-Right>             <C-w>><CR>
+nnoremap <S-Up>                <C-w>-<CR>
+nnoremap <S-Down>              <C-w>+<CR>
+nnoremap <silent><BS>          :<C-u>CloseWindow<CR>
+nnoremap <silent><S-BS>        :<C-u>CloseWindowForce<CR>
 
 " tab
 nnoremap <TAB>              gt
