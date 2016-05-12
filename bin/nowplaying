@@ -1,0 +1,23 @@
+#!/usr/bin/ruby
+
+def width(word)
+    return word.chars.map{|c|  c.ascii_only? ? 1 : 2 }.inject(0, &:+)
+end
+
+s = `ithief information`
+if md = s.match(/playing "(.+?)" by/)
+    name = md[1]
+end
+if md = s.match(/by (.+?) in/)
+    artist = md[1]
+end
+s = name + ' [' + artist + ']' 
+# if width(s) > 40
+#     s += ' ' * 10
+#     s = s[( Time.now.sec + 60 * Time.now.min ) % s.length..s.length] + s[0..40 - ( Time.now.sec + Time.now.min ) % s.length]
+# else
+#     puts s
+# end
+puts s
+# puts s[( Time.now.sec + Time.now.min ) % name.length..name.length]
+
