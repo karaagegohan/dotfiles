@@ -242,21 +242,21 @@ nmap     '                  *
 nmap     "                  #
 
 " window
-nnoremap gh                    <C-w>h
-nnoremap gj                    <C-w>j
-nnoremap gk                    <C-w>k
-nnoremap gl                    <C-w>l
-nnoremap <silent><SID>[func]n  :<C-u>new<CR>
-nnoremap <silent><SID>[func]v  :<C-u>vnew<CR>
-nnoremap <silent><SID>[func]N  :<C-u>split<CR>
-nnoremap <silent><SID>[func]V  :<C-u>vsplit<CR>
-nnoremap <silent><SID>[func]fs :<C-u>MyFullscreen<CR>
-nnoremap <S-Left>              <C-w><<CR>
-nnoremap <S-Right>             <C-w>><CR>
-nnoremap <S-Up>                <C-w>-<CR>
-nnoremap <S-Down>              <C-w>+<CR>
-nnoremap <silent><BS>          :<C-u>CloseWindow<CR>
-nnoremap <silent><S-BS>        :<C-u>CloseWindowForce<CR>
+nnoremap gh                 <C-w>h
+nnoremap gj                 <C-w>j
+nnoremap gk                 <C-w>k
+nnoremap gl                 <C-w>l
+nnoremap <silent><SID>[func]n    :<C-u>new<CR>
+nnoremap <silent><SID>[func]v    :<C-u>vnew<CR>
+nnoremap <silent><SID>[func]N    :<C-u>split<CR>
+nnoremap <silent><SID>[func]V    :<C-u>vsplit<CR>
+nnoremap <silent><SID>[func]fs   :<C-u>MyFullscreen<CR>
+nnoremap <S-Left>           <C-w><<CR>
+nnoremap <S-Right>          <C-w>><CR>
+nnoremap <S-Up>             <C-w>-<CR>
+nnoremap <S-Down>           <C-w>+<CR>
+nnoremap <silent><BS>       :<C-u>CloseWindow<CR>
+nnoremap <silent><S-BS>     :<C-u>CloseWindowForce<CR>
 
 " tab
 nnoremap <TAB>              gt
@@ -307,7 +307,7 @@ else
     nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
     nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
 endif
-nnoremap <silent><SID>[func]r    :<C-u>source %<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
+nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
 nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
 nnoremap <silent><SID>[func]ch   q:
@@ -1409,15 +1409,6 @@ endif "}}}
 
 if neobundle#tap('vim-submode') "{{{
     
-    let g:submode_leave_with_key = 1
-    
-    function! s:my_x()
-        undojoin
-        normal! "_x
-    endfunction
-
-    call submode#enter_with('my_x', 'n', '', 'x', '"_x')
-    call submode#map('my_x', 'n', 'r', 'x', '<Plug>(my-x)')
     call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
     call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
     call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
