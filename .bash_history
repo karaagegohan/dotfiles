@@ -40,3 +40,14 @@ tmux -2 attach || tmux -2 new-session \; source-file ~/dotfiles/.tmux/new-sessio
 tmux -2 attach || tmux -2 new-session \; source-file ~/dotfiles/.tmux/new-session 
 tmux -1 attach || tmux -1 new-session \; source-file ~/.tmux/new-session
 tmux
+tmux
+tmux
+tmux
+tmux
+tmux showenv -g
+tmux
+tmux showenv -g
+tmux
+tmux
+tmux showenv -g
+exit
