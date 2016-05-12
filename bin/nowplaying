@@ -7,17 +7,36 @@ end
 s = `ithief information`
 if md = s.match(/playing "(.+?)" by/)
     name = md[1]
+else
+    name = '-----'
 end
 if md = s.match(/by (.+?) in/)
     artist = md[1]
+else
+    artist = '-----'
 end
-s = name + ' [' + artist + ']' 
-# if width(s) > 40
-#     s += ' ' * 10
-#     s = s[( Time.now.sec + 60 * Time.now.min ) % s.length..s.length] + s[0..40 - ( Time.now.sec + Time.now.min ) % s.length]
-# else
-#     puts s
-# end
-puts s
-# puts s[( Time.now.sec + Time.now.min ) % name.length..name.length]
+colors = [
+    'colour40',
+    'colour41',
+    'colour42',
+    'colour43',
+    'colour44',
+    'colour45',
+]
+
+w = 30
+charnum = 20
+str = ''
+s = (name + '／' + artist)
+if width(s) >= w
+    s += ' ' * 18
+    for i in 0 .. charnum
+        str += s[( Time.now.sec + Time.now.min * 60 + i ) % s.length]
+    end
+else
+    str = s
+end
+colors += colors.reverse[1..colors.length-2]
+ret = '#[bg=dark]' + '#[fg=' + colors[Time.now.sec % colors.length] + ']' + '♪ ' + str
+puts ret + ' ' * ( w - width(str))
 
