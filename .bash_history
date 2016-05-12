@@ -51,3 +51,31 @@ tmux
 tmux
 tmux showenv -g
 exit
+tmux showenv -g
+tmux
+tmux
+tmux
+tmux
+tmux
+exit
+v .zshrc
+vim .zshrc
+exit
+source .bashrc 
+vim .zshrc
+source .bashrc 
+exit
+source .bashrc 
+source .bashrc 
+source .bashrc 
+source .bashrc 
+vim .bashrc 
+vim .bash_profile
+vim .bash_profile
+exit
+exit
+exit
+exitexit
+exit
+exit
+exit
