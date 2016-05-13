@@ -1,0 +1,18 @@
+#!/usr/bin/ruby
+
+out_vol = `osascript -e "(get volume settings)'s output volume"`
+if    out_vol.to_i == 0 
+    graph =  'mute '
+elsif out_vol.to_i < 20 
+    graph =  '█    '
+elsif out_vol.to_i < 40 
+    graph =  '██   '
+elsif out_vol.to_i < 60 
+    graph =  '███  '
+elsif out_vol.to_i < 80 
+    graph =  '████ '
+elsif out_vol.to_i <= 100 
+    graph =  '█████'
+end
+print 'volume[' + graph + ']'
+

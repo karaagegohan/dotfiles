@@ -80,3 +80,10 @@ exit
 exit
 exit
 tmux
+tmux
+exit
+/Users/Yoneoka/dotfiles/bin/wifi ; exit;
+/Users/Yoneoka/dotfiles/bin/wifi ; exit;
+tmux
+exit
+vim .bashrc 
