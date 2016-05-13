@@ -45,6 +45,7 @@ alias ...='cd ../../'
 alias ,='cd ~'
 alias v='vim'
 alias e='exit'
+alias guu='git add . && git commit -m "update" && git push'
 
 # }}}
 
