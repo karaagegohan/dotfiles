@@ -1,0 +1,25 @@
+#!/usr/bin/ruby
+
+def width(word)
+    return word.chars.map{|c|  c.ascii_only? ? 1 : 2 }.inject(0, &:+)
+end
+
+s = `osascript -e "get the clipboard"`.gsub(/(\r\n|\r|\n|\f|^ +)/,"")
+
+w = 35
+str = ''
+if width(s) > w
+    s += ' ' * 10
+    for i in 0 .. s.length * 2
+        str += s[( ( Time.now.sec + Time.now.min * 60 ) * 3 + i ) % s.length]
+        if width(str) > w
+            break
+        end
+    end
+    s = str
+end
+space_num = w - width(s) >= 0 ? w - width(s) : 0
+s = s + ' ' * ( space_num )
+
+print s
+

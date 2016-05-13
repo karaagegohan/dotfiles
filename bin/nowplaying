@@ -17,23 +17,23 @@ if md = s.match(/by (.+?) in/)
 else
     artist = '-----'
 end
-
-w = 44
 s = (name + ' ／ ' + artist)
+
+w = 35
+str = ''
 if width(s) > w
-    s = s[0..w - 4] + '...'
-elsif
-    s = s + ' ' * ( w - width(s) )
+    s += ' ' * 10
+    for i in 0 .. s.length * 2
+        str += s[( ( Time.now.sec + Time.now.min * 60 ) * 1 + i ) % s.length]
+        if width(str) > w - 3
+            break
+        end
+    end
+    s = str
 end
-# if width(s) >= w
-#     s += ' ' * 18
-#     for i in 0 .. charnum
-#         str += s[( Time.now.sec + Time.now.min * 60 + i ) % s.length]
-#     end
-# else
-#     str = s
-# end
-#
+space_num = w - width(s) >= 0 ? w - width(s) : 0
+s = s + ' ' * ( space_num )
+
 colors = [
     'colour40',
     'colour41',
