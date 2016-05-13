@@ -175,6 +175,14 @@ function! s:run_pandoc(output) abort "{{{
 endfunction "}}}
 command! -nargs=1 Pandoc call s:run_pandoc(<f-args>)
 
+function! s:rm_swp() abort "{{{
+    let a:currentfile = fnamemodify(expand('%'), ":t")
+    let a:directory = &directory 
+    echo a:directory
+    exec '!rm ' . a:directory . '/' . a:currentfile . '.sw*'
+endfunction "}}}
+command! -nargs=0 RmSwp call s:rm_swp()
+
 "}}}
 
 " key mappings {{{
@@ -626,6 +634,9 @@ autocmd vimrc BufRead, FileType help setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.dcm setf vb
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
 
+" Insertモードのときカーソルの形状を変更
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 inoremap <Esc> <Esc>
 
 "}}}

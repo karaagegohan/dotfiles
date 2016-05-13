@@ -1,3 +1,5 @@
 [user]
 	name = ynoca
 	email = usahillbanana@gmail.com
+[push]
+	default = simple
