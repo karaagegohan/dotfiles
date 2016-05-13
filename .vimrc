@@ -626,6 +626,8 @@ autocmd vimrc BufRead, FileType help setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.dcm setf vb
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
 
+inoremap <Esc> <Esc>
+
 "}}}
 
 if neobundle#tap('neocomplete.vim') "{{{
