@@ -10,10 +10,8 @@ SAVEHIST=1000000
 
 # 参考：http://tegetegekibaru.blogspot.jp/2012/08/zsh_2.html
 PROMPT='
-%F{cyan}[%m@%n]%f %d
+%F{cyan}[%m@%n]%f %d `prompt-git-current-branch`
 %(!.# .$ )'
-
-RPROMPT=' `prompt-git-current-branch`'
 
 function prompt-git-current-branch {
         local name st color
