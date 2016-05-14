@@ -1,0 +1,21 @@
+#!/usr/bin/ruby
+
+bin_dir = File.expand_path(File.dirname(__FILE__))
+urls = []
+while true
+    out_vol = `osascript #{bin_dir}/url-get-chrome.scpt`
+    if md = out_vol.match(/(https:\/\/www\.youtube\.com\/watch.+)/) 
+        if !urls.include?(md[1])
+            urls.push(md[1])
+            puts 'URL of Youtube was detected.(' + md[1] + ')'
+            t = Thread.new do
+                Thread.pass    # メインスレッドが確実にjoinするように
+                puts `youtube-dl "#{md[1]}"`
+                puts 'Download finished(' + md[1] + ')'
+            end
+        end
+    end
+    sleep(1)
+end
+
+t.join
