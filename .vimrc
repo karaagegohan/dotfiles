@@ -509,6 +509,8 @@ NeoBundle 'basyura/TweetVim'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
 
+NeoBundle 'vim-scripts/applescript.vim'
+
 call neobundle#end()
 
 NeoBundleCheck
