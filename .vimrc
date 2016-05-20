@@ -633,9 +633,7 @@ set background =dark
 colorscheme onedark
 
 autocmd vimrc BufRead, FileType help setlocal nofoldenable
-autocmd vimrc BufRead, BufNewFile *.dcm setf vb
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
-autocmd vimrc BufRead, BufNewFile *.applescript :setl filetype=applescript
 
 "}}}
 
