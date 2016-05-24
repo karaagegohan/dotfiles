@@ -17,7 +17,7 @@ endif
 
 " functions {{{
 
-function! s:My_mkdir(name) abort "{{{
+function! s:my_mkdir(name) abort "{{{
     if !isdirectory(expand(a:name))
         call mkdir(expand(a:name))
     endif
@@ -403,7 +403,7 @@ NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 NeoBundle 'dhruvasagar/vim-table-mode'
 " NeoBundle 'thinca/vim-splash'
 " NeoBundle 'deris/vim-gothrough-jk'
-NeoBundle 'kakkyz81/evervim'
+" NeoBundle 'kakkyz81/evervim'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'LeafCage/foldCC.vim'
@@ -618,15 +618,19 @@ set foldcolumn  =0        " Width of folding guide
 set foldmethod  =marker   " Folding by {{{.}}}
 
 " directories
-call s:My_mkdir('~/.vimfiles')
 set browsedir  =current     " Directiry to save editing files
+
+call s:my_mkdir('~/.vim/bak')
 set backup                  " Make backup file
-set backupdir  =~/.vimfiles " Directiry to save backup files
-set undofile                " Make undo file
-set undodir    =~/.vimfiles " Directiry to save undo files
+set backupdir  =~/.vim/bak  " Directiry to save backup files
+
+call s:my_mkdir('~/.vim/undo')
+set undofile                 " Make undo file
+set undodir    =~/.vimf/undo " Directiry to save undo files
+
+call s:my_mkdir('~/.vim/swp')
 set swapfile                " Make swap file
-set directory  =~/.vimfiles " Directiry to save swap files
-cd $HOME
+set directory  =~/.vimf/swp " Directiry to save swap files
 
 " colorscheme
 set background =dark
