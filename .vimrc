@@ -930,7 +930,7 @@ if neobundle#tap('vim-fugitive') "{{{
 
     function! s:git_update(comment) abort
         exec('Git add .')
-        exec('Git commit -m "' . a:comment . '"')
+        exec("Git commit -m '" . a:comment . "'")
         exec('Git push origin master')
         exec('write')
     endfunction
