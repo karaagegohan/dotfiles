@@ -308,13 +308,8 @@ nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
 nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
 " other
-if isdirectory(expand('~/dotfiles'))
-    nnoremap <silent><SID>[func].    :<C-u>edit ~/dotfiles/.vimrc<CR>
-    nnoremap <silent><SID>[func],    :<C-u>edit ~/dotfiles/.gvimrc<CR>
-else
-    nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
-    nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
-endif
+nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
 nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
 nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
@@ -417,7 +412,9 @@ NeoBundle 'moznion/hateblo.vim'
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 NeoBundle 'miyakogi/livemark.vim'
-NeoBundle 'tyru/nextfile.vim'
+" NeoBundle 'tyru/nextfile.vim'
+NeoBundle 'itchyny/dictionary.vim'
+NeoBundle 'cespare/vim-toml'
 
 " Textobject
 NeoBundle 'kana/vim-textobj-user'               " Base plugin of textobject

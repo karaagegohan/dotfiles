@@ -1,5 +1,8 @@
 export PATH=$PATH:$HOME/bin
 export DOTPATH=$HOME/dotfiles
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 setopt prompt_subst
 
 # 重複を記録しない
