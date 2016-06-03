@@ -1,5 +1,4 @@
 " initialization {{{
-" let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
 augroup vimrc
     autocmd!
 augroup END

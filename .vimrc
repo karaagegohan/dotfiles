@@ -365,14 +365,10 @@ NeoBundle 'thinca/vim-visualstar'              " Use * in visual mode
 NeoBundle 'rhysd/clever-f.vim'                 " Improve f{char}
 NeoBundle 'tomtom/tcomment_vim'                " Comment out easily
 NeoBundle 'junegunn/vim-easy-align'            " Align codes by delimiter
-" NeoBundle 'fuenor/qfixgrep'                    " Make notes easily
-" NeoBundle 'fuenor/qfixhowm'                    " Make notes easily
 NeoBundle 'tpope/vim-repeat'                   " Enable to repeat plugins by '.'
 NeoBundle 'tpope/vim-fugitive'                 " A Git wrapper
 NeoBundle 'kien/rainbow_parentheses.vim'       " Better rainbow parentheses
 NeoBundle 'LeafCage/yankround.vim'             " Paste yank history
-" NeoBundle 'Lokaltog/vim-easymotion'            " Powerful motion
-" NeoBundle 'Shougo/vimfiler.vim'                " Filer in vim
 NeoBundle 'thinca/vim-fontzoom'                " Change font size
 NeoBundle 'AndrewRadev/switch.vim'             " Switch segments
 NeoBundle 't9md/vim-quickhl'                   " Highlight any words
@@ -380,7 +376,6 @@ NeoBundle 'airblade/vim-gitgutter'             " Viauallize diff of git
 NeoBundle 'supermomonga/shaberu.vim'           " Shaberu in vim
 NeoBundle 'rking/ag.vim'                       " Use ag command in vim
 NeoBundle 'AndrewRadev/splitjoin.vim'          " Convert singlline to multiline
-" NeoBundle 'terryma/vim-multiple-cursors'   " Multiple cursol
 NeoBundle 'mattn/unite-advent_calendar'        " View advent calendar
 NeoBundle 'tyru/open-browser.vim'              " Make opening beowser easier
 NeoBundle 'gregsexton/VimCalc'                 " Calculator in vim
@@ -398,12 +393,9 @@ NeoBundle 'osyo-manga/vim-sound'               " play sound in vim
 NeoBundle 'dhruvasagar/vim-table-mode'
 " NeoBundle 'thinca/vim-splash'
 " NeoBundle 'deris/vim-gothrough-jk'
-" NeoBundle 'kakkyz81/evervim'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'LeafCage/foldCC.vim'
-" NeoBundle 'shikato/keysender.vim'
-" NeoBundle 'haya14busa/vim-operator-flashy'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'mattn/googlesuggest-complete-vim'
 NeoBundle 'easymotion/vim-easymotion'
@@ -412,7 +404,6 @@ NeoBundle 'moznion/hateblo.vim'
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
 NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 NeoBundle 'miyakogi/livemark.vim'
-" NeoBundle 'tyru/nextfile.vim'
 NeoBundle 'itchyny/dictionary.vim'
 NeoBundle 'cespare/vim-toml'
 
