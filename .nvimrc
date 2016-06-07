@@ -355,7 +355,7 @@ endif
 " encoding
 set encoding        =utf-8           " Character code for .vimrc
 set fileencoding    =utf-8           " Character code to write files
-set fileencodings   =utf-8,sjis      " Character code to read file (default)
+" set fileencodings   =utf-8,sjis      " Character code to read file (default)
 set fileencodings  +=ucs-bom         " Character code to read file
 set fileencodings  +=iso-2022-jp-3   " Character code to read file
 set fileencodings  +=iso-2022-jp     " Character code to read file

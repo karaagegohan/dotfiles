@@ -6,3 +6,4 @@ tmux
 exit
 exit
 exit
+exit

@@ -16,6 +16,9 @@ PROMPT='
 %F{cyan}[%m@%n]%f %d `prompt-git-current-branch`
 %(!.# .$ )'
 
+autoload -U compinit; compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
 function prompt-git-current-branch {
         local name st color
  
@@ -37,6 +40,15 @@ function prompt-git-current-branch {
         echo "%F{$color}[$name]%f"
 }
 
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
+
 # alias # {{{
 
 alias ll='ls -l'
@@ -50,6 +62,7 @@ alias v='vim'
 alias nv='nvim'
 alias e='exit'
 alias guu='git add . && git commit -m "update" && git push'
+alias vlc='open /Applications/VLC.app -n'
 
 # }}}
 
