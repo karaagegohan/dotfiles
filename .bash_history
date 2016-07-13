@@ -7,3 +7,8 @@ exit
 exit
 exit
 exit
+exit
+d
+exit
+exit
+exit

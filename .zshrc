@@ -2,6 +2,7 @@ export PATH=$PATH:$HOME/bin
 export DOTPATH=$HOME/dotfiles
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+export TERM=xterm-256color
 eval "$(pyenv init -)"
 setopt prompt_subst
 
@@ -63,6 +64,7 @@ alias nv='nvim'
 alias e='exit'
 alias guu='git add . && git commit -m "update" && git push'
 alias vlc='open /Applications/VLC.app -n'
+alias graph='log --graph --oneline --decorate=full'
 
 # }}}
 

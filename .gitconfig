@@ -3,3 +3,6 @@
 	email = usahillbanana@gmail.com
 [push]
 	default = simple
+[alias]
+    graph=log --graph --oneline --decorate=full
+

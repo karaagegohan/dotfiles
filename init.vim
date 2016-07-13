@@ -8,6 +8,7 @@ if !&compatible
 endif
 
 if has('vim_starting')
+    " dein settings 
     let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
     let s:dein_dir = s:cache_home . '/dein'
     let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -15,19 +16,24 @@ if has('vim_starting')
         call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
     endif
     let &runtimepath = s:dein_repo_dir .",". &runtimepath
+    let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
+    let s:toml_file = expand('~/.config/nvim/dein.toml')
+    if dein#load_state(s:dein_dir)
+        call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
+        call dein#load_toml(s:toml_file)
+        call dein#end()
+        call dein#save_state()
+    endif
+
+    if dein#check_install()
+        call dein#install()
+    endif
+
+    set encoding        =utf-8           " Character code for .vimrc
 endif
 
-" dein settings 
-let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
-if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
-    call dein#load_toml(s:toml_file)
-    call dein#end()
-    call dein#save_state()
-endif
 
 if has('vim_starting') && dein#check_install()
-    call dein#install()
 endif
 
 " }}}
@@ -239,12 +245,12 @@ noremap  ;                  :
 noremap  :                  ;
 noremap! ;                  :
 noremap! :                  ;
-nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
 nnoremap <CR>               :<C-u>write<CR>
 nnoremap <S-CR>             :<C-u>write!<CR>
 nnoremap U                  <C-r>
 noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
+nnoremap <C-c><C-c>         :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
 inoremap jj                 <CR>
 inoremap kk                 <Esc>
 
@@ -273,21 +279,21 @@ nmap     '                  *
 nmap     "                  #
 
 " window
-nnoremap gh                 <C-w>h
-nnoremap gj                 <C-w>j
-nnoremap gk                 <C-w>k
-nnoremap gl                 <C-w>l
-nnoremap <silent><SID>[func]n    :<C-u>new<CR>
-nnoremap <silent><SID>[func]v    :<C-u>vnew<CR>
-nnoremap <silent><SID>[func]N    :<C-u>split<CR>
-nnoremap <silent><SID>[func]V    :<C-u>vsplit<CR>
-nnoremap <silent><SID>[func]fs   :<C-u>MyFullscreen<CR>
-nnoremap <S-Left>           <C-w><<CR>
-nnoremap <S-Right>          <C-w>><CR>
-nnoremap <S-Up>             <C-w>-<CR>
-nnoremap <S-Down>           <C-w>+<CR>
-nnoremap <silent><BS>       :<C-u>CloseWindow<CR>
-nnoremap <silent><S-BS>     :<C-u>CloseWindowForce<CR>
+nnoremap gh                    <C-w>h
+nnoremap gj                    <C-w>j
+nnoremap gk                    <C-w>k
+nnoremap gl                    <C-w>l
+nnoremap <silent><SID>[func]n  :<C-u>new<CR>
+nnoremap <silent><SID>[func]v  :<C-u>vnew<CR>
+nnoremap <silent><SID>[func]N  :<C-u>split<CR>
+nnoremap <silent><SID>[func]V  :<C-u>vsplit<CR>
+nnoremap <silent><SID>[func]fs :<C-u>MyFullscreen<CR>
+nnoremap <S-Left>              <C-w><<CR>
+nnoremap <S-Right>             <C-w>><CR>
+nnoremap <S-Up>                <C-w>-<CR>
+nnoremap <S-Down>              <C-w>+<CR>
+nnoremap <silent><BS>          :<C-u>CloseWindow<CR>
+nnoremap <silent><S-BS>        :<C-u>CloseWindowForce<CR>
 
 " tab
 nnoremap <TAB>              gt
@@ -331,8 +337,8 @@ nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
 nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
 " other
-    nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
-    nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
+nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
 nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
 nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
@@ -360,7 +366,6 @@ else
 endif
 
 " encoding
-set encoding        =utf-8           " Character code for .vimrc
 set fileencoding    =utf-8           " Character code to write files
 " set fileencodings   =utf-8,sjis      " Character code to read file (default)
 set fileencodings  +=ucs-bom         " Character code to read file
@@ -444,14 +449,14 @@ set backupdir  =~/.vim/bak  " Directiry to save backup files
 
 call s:my_mkdir('~/.vim/undo')
 set undofile                 " Make undo file
-set undodir    =~/.vimf/undo " Directiry to save undo files
+set undodir    =~/.vim/undo " Directiry to save undo files
 
 call s:my_mkdir('~/.vim/swp')
 set swapfile                " Make swap file
-set directory  =~/.vimf/swp " Directiry to save swap files
+set directory  =~/.vim/swp " Directiry to save swap files
 
 " colorscheme
-set background =dark
+" set background =dark
 colorscheme onedark
 
 autocmd vimrc BufRead, FileType help setlocal nofoldenable
@@ -1405,6 +1410,43 @@ if dein#tap('nextfile.vim') "{{{
 
     nmap [ <Plug>(nextfile-next)
     nmap ] <Plug>(nextfile-previous)
+
+endif "}}}
+
+if dein#tap('vim-latex') "{{{
+
+    set shellslash
+    set grepprg=grep\ -nH\ $*
+    let g:tex_flavor='latex'
+    let g:Imap_UsePlaceHolders = 1
+    let g:Imap_DeleteEmptyPlaceHolders = 1
+    let g:Imap_StickyPlaceHolders = 0
+    let g:Tex_DefaultTargetFormat = 'pdf'
+    let g:Tex_MultipleCompileFormats='dvi,pdf'
+    "let g:Tex_FormatDependency_pdf = 'pdf'
+    let g:Tex_FormatDependency_pdf = 'dvi,pdf'
+    "let g:Tex_FormatDependency_pdf = 'dvi,ps,pdf'
+    let g:Tex_FormatDependency_ps = 'dvi,ps'
+    let g:Tex_CompileRule_pdf = 'ptex2pdf -u -l -ot "-synctex=1 -interaction=nonstopmode -file-line-error-style" $*'
+    "let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -interaction=nonstopmode -file-line-error-style $*'
+    "let g:Tex_CompileRule_pdf = 'lualatex -synctex=1 -interaction=nonstopmode -file-line-error-style $*'
+    "let g:Tex_CompileRule_pdf = 'luajitlatex -synctex=1 -interaction=nonstopmode -file-line-error-style $*'
+    "let g:Tex_CompileRule_pdf = 'xelatex -synctex=1 -interaction=nonstopmode -file-line-error-style $*'
+    "let g:Tex_CompileRule_pdf = 'ps2pdf $*.ps'
+    let g:Tex_CompileRule_ps = 'dvips -Ppdf -o $*.ps $*.dvi'
+    let g:Tex_CompileRule_dvi = 'uplatex -synctex=1 -interaction=nonstopmode -file-line-error-style $*'
+    let g:Tex_BibtexFlavor = 'upbibtex'
+    let g:Tex_MakeIndexFlavor = 'upmendex $*.idx'
+    let g:Tex_UseEditorSettingInDVIViewer = 1
+    let g:Tex_ViewRule_pdf = 'xdg-open'
+    "let g:Tex_ViewRule_pdf = 'evince'
+    "let g:Tex_ViewRule_pdf = 'okular --unique'
+    "let g:Tex_ViewRule_pdf = 'zathura -x "vim --servername synctex -n --remote-silent +\%{line} \%{input}"'
+    "let g:Tex_ViewRule_pdf = 'qpdfview --unique'
+    "let g:Tex_ViewRule_pdf = 'texworks'
+    "let g:Tex_ViewRule_pdf = 'mupdf'
+    "let g:Tex_ViewRule_pdf = 'firefox -new-window'
+    "let g:Tex_ViewRule_pdf = 'chromium --new-window'
 
 endif "}}}
 
