@@ -1,14 +1,19 @@
+[core]
+    editor = nvim
 [user]
 	name = ynoca
 	email = usahillbanana@gmail.com
 [push]
 	default = simple
+[color]
+    ui = true
 [alias]
     graph=log --graph --oneline --decorate=full
     sh = stash
     st = status
     ad = add
-    co = commit -m
+    cm = commit -m
+    co = commit
     ps = push
     pl = pull
     ch = checkout
@@ -17,4 +22,5 @@
     fe = fetch
     rs = reset
     rb = rebase
+    rm = rm --cached
 
