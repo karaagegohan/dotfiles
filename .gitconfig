@@ -1,5 +1,6 @@
 [core]
     editor = nvim
+	quotepath = false
 [user]
 	name = ynoca
 	email = usahillbanana@gmail.com
@@ -7,9 +8,13 @@
 	default = simple
 [color]
     ui = true
+	diff = auto
+	status = auto
+	branch = auto
 [alias]
     graph=log --graph --oneline --decorate=full
     sh = stash
+    di = diff
     st = status
     ad = add
     cm = commit -m
