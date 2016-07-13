@@ -5,4 +5,16 @@
 	default = simple
 [alias]
     graph=log --graph --oneline --decorate=full
+    sh = stash
+    st = status
+    ad = add
+    co = commit
+    ps = push
+    pl = pull
+    ch = checkout
+    br = branch
+    me = merge
+    fe = fetch
+    rs = reset
+    rb = rebase
 
