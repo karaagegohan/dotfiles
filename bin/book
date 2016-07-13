@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+def conv_alias(s)
+    aliases = {}
+    File.open(Dir.home + '/.zshrc') do |file|
+        file.each_line do |line|
+            if md = line.match(/alias/)
+                if line =~ /alias\s([\s\w\.\\&\\'"\/,~]+)='([\s\w\.\-\&\\'"\/,~]+)'/
+                    aliases[$1] = $2
+                end
+            end
+        end
+    end
+    if aliases.has_key?(s)
+        return aliases[s]
+    else
+        return s
+    end
+end
+
+keyword = nil
+number  = nil
+program = nil
+
+keyword = ARGV[0]      
+number  = ARGV[1].to_i
+program = ARGV[2]    
+program = conv_alias(program)
+
+list = `mdfind -name '#{keyword}' -onlyin ~/`.split(/\n/)
+
+if ARGV.length == 0
+elsif ARGV.length == 1
+    list.each_with_index do |path, index|
+        puts "#{index}: #{path}"
+    end
+elsif ARGV.length == 2
+    `open '#{list[number]}'`
+elsif ARGV.length == 3
+    `#{program} '#{list[number]}'`
+end
+
+
