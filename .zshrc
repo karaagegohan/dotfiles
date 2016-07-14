@@ -64,7 +64,7 @@ alias nv='nvim'
 alias e='exit'
 alias guu='git add . && git commit -m "update" && git push'
 alias vlc='open /Applications/VLC.app -n'
-alias graph='log --graph --oneline --decorate=full'
+alias yd='youtube-dl'
 
 # }}}
 
