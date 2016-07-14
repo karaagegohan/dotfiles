@@ -31,8 +31,8 @@
     rb = rebase
     rm = rm --cached
     lo = log --reverse --decorate
-    ud = reset --hard HEAD^
     ma = checkout master
+    ud = git reset --hard HEAD^
 
     today = "!f () {\
                  git log --oneline --reverse --branches \
@@ -42,4 +42,4 @@
              };f"
 
 [pretty]
-	medium-reverse = format:%C(white reverse) %h %Creset %C(cyan reverse) %ar %Creset %C(green reverse) %an %Creset %C(white)｡o( %s ) %Creset%n
+	medium-reverse = format:%C(white reverse) %h %Creset %C(cyan reverse) %ar %Creset %C(green reverse) %an %Creset %C(white)｡o( %s ) %Creset %C(red reverse)%d%Creset%n 
