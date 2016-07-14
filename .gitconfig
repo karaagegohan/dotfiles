@@ -30,4 +30,11 @@
     rs = reset
     rb = rebase
     rm = rm --cached
+    lo = log --reverse --decorate
+    today = "!f () {\
+                 git log --oneline --reverse --branches \
+                 --since=midnight --date=iso \
+                 --author=\"$(git config user.name)\" \
+                 --format=\" - %C(auto)%h%Creset : %s %C(green)(%ad)%Creset\";\
+             };f"
 
