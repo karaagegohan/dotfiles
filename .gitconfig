@@ -12,7 +12,7 @@
 	status = auto
 	branch = auto
 [alias]
-    gr = log --graph --oneline --decorate=full
+    gr = log --graph --decorate=full
     sh = stash
     di = diff
     st = status
