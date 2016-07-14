@@ -40,4 +40,4 @@
              };f"
 
 [pretty]
-	medium-reverse = format:%C(red reverse)%d%Creset%C(white reverse) %h %Creset %C(green reverse) %an %Creset %C(cyan reverse) %ar %Creset %C(white)%w(80) %s %Creset%w(80,2,2)%b
+	medium-reverse = format:%C(red reverse)%d%Creset%C(white reverse) %h %Creset %C(cyan reverse) %ar %Creset %C(green reverse) %an %Creset %C(white)｡o( %s ) %Creset%n
