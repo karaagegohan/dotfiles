@@ -2,7 +2,6 @@
 
 keyword = nil
 number = nil
-program = nil
 
 if ARGV.length != 1 and ARGV.length != 2 and ARGV.length != 3
   puts "Usage (1): book keyword"
@@ -14,11 +13,10 @@ end
 
 keyword = ARGV[0]
 number  = ARGV[1].to_i if ARGV.length == 2
-program = ARGV[2] if ARGV.length == 3
 
 list = `mdfind -name '#{keyword}'`.split(/\n/)
 if number and number < list.size
-  system("#{program} '#{list[number]}'")
+  system("open '#{list[number]}'")
 else
   list.each_with_index do |path, index|
     puts "#{index}: #{path}"
