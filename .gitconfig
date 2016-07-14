@@ -22,7 +22,7 @@
     ps = push
     pl = pull
     ch = checkout
-    cb = checkout -B
+    cb = checkout -b
     br = branch
     bd = branch -d
     me = merge
@@ -40,4 +40,4 @@
              };f"
 
 [pretty]
-	medium-reverse = format:%C(red reverse)%d%Creset%C(white reverse) %h %Creset %C(cyan reverse) %ar %Creset %C(green reverse) %an %Creset %C(white)｡o( %s ) %Creset%n
+	medium-reverse = format:%C(white reverse) %h %Creset %C(cyan reverse) %ar %Creset %C(green reverse) %an %Creset %C(white)｡o( %s ) %Creset %C(red reverse)%d%Creset%n
