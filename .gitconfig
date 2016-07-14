@@ -12,7 +12,7 @@
 	status = auto
 	branch = auto
 [alias]
-    graph=log --graph --oneline --decorate=full
+    gr = log --graph --oneline --decorate=full
     sh = stash
     di = diff
     st = status
@@ -22,7 +22,9 @@
     ps = push
     pl = pull
     ch = checkout
+    cb = checkout -B
     br = branch
+    bd = branch -d
     me = merge
     fe = fetch
     rs = reset
