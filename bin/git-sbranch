@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+
+number = nil
+
+number  = ARGV[0].to_i if ARGV.length == 1
+
+list = `git branch`.gsub("*", "").gsub(" ", "").split(/\n/)
+if number && number < list.size
+  system("git checkout '#{list[number]}'")
+else
+  list.each_with_index do |path, index|
+    puts "#{index}: #{path}"
+  end
+end
