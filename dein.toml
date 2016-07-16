@@ -16,3 +16,248 @@ hook_post_update = '''
   let g:dein#plugin.build = cmd
 '''
 
+[[plugins]]
+repo = 'Shougo/neosnippet'
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+[[plugins]]
+repo = 'Shougo/vimshell.vim'                
+[[plugins]]
+repo = 'kana/vim-smartchr'                  
+[[plugins]]
+repo = 'itchyny/lightline.vim'              
+[[plugins]]
+repo = 'cohama/vim-hier'                    
+[[plugins]]
+repo = 'thinca/vim-quickrun'                
+[[plugins]]
+repo = 'thinca/vim-qfreplace'               
+[[plugins]]
+repo = 'thinca/vim-visualstar'              
+[[plugins]]
+repo = 'rhysd/clever-f.vim'                 
+[[plugins]]
+repo = 'tomtom/tcomment_vim'                
+[[plugins]]
+repo = 'junegunn/vim-easy-align'            
+[[plugins]]
+repo = 'tpope/vim-repeat'                   
+[[plugins]]
+repo = 'tpope/vim-fugitive'                 
+[[plugins]]
+repo = 'kien/rainbow_parentheses.vim'       
+[[plugins]]
+repo = 'LeafCage/yankround.vim'             
+[[plugins]]
+repo = 'thinca/vim-fontzoom'                
+[[plugins]]
+repo = 'AndrewRadev/switch.vim'             
+[[plugins]]
+repo = 't9md/vim-quickhl'                   
+[[plugins]]
+repo = 'airblade/vim-gitgutter'             
+[[plugins]]
+repo = 'supermomonga/shaberu.vim'           
+[[plugins]]
+repo = 'rking/ag.vim'                       
+[[plugins]]
+repo = 'AndrewRadev/splitjoin.vim'          
+[[plugins]]
+repo = 'mattn/unite-advent_calendar'        
+[[plugins]]
+repo = 'tyru/open-browser.vim'              
+[[plugins]]
+repo = 'gregsexton/VimCalc'                 
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'              
+[[plugins]]
+repo = 'osyo-manga/vim-over'                
+[[plugins]]
+repo = 'mbbill/undotree'                    
+[[plugins]]
+repo = 'Shougo/vinarise.vim'                
+[[plugins]]
+repo = 'thinca/vim-submode'                 
+[[plugins]]
+repo = 'yuratomo/w3m.vim'
+[[plugins]]
+repo = 'thinca/vim-ref'                     
+[[plugins]]
+repo = 'ringogirl/unite-w3m'                
+[[plugins]]
+repo = 'osyo-manga/vim-sound'               
+[[plugins]]
+repo = 'rhysd/committia.vim'
+[[plugins]]
+repo = 'AndrewRadev/sideways.vim'
+[[plugins]]
+repo = 'dhruvasagar/vim-table-mode'
+# [[plugins]]
+# repo = 'thinca/vim-splash'
+[[plugins]]
+repo = 'deris/vim-gothrough-jk'
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+[[plugins]]
+repo = 'kannokanno/previm'
+[[plugins]]
+repo = 'LeafCage/foldCC.vim'
+[[plugins]]
+repo = 'tyru/restart.vim'
+[[plugins]]
+repo = 'mattn/googlesuggest-complete-vim'
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+[[plugins]]
+repo = 'moznion/hateblo.vim'
+[[plugins]]
+repo = 'haya14busa/incsearch.vim' 
+[[plugins]]
+repo = 'scrooloose/syntastic.git'
+[[plugins]]
+repo = 'miyakogi/livemark.vim'
+[[plugins]]
+repo = 'itchyny/dictionary.vim'
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+# Textobject
+[[plugins]]
+repo = 'kana/vim-textobj-user'             
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter'        
+[[plugins]]
+repo = 'kana/vim-textobj-indent'           
+[[plugins]]
+repo = 'kana/vim-textobj-fold'             
+[[plugins]]
+repo = 'kana/vim-textobj-underscore'       
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multiblock' 
+
+# Operator
+[[plugins]]
+repo = 'kana/vim-operator-user'     
+[[plugins]]
+repo = 'rhysd/vim-operator-surround'
+[[plugins]]
+repo = 'tpope/vim-surround'         
+[[plugins]]
+repo = 'kana/vim-operator-replace'  
+
+# Unite
+[[plugins]]
+repo = 'Shougo/unite.vim'
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+[[plugins]]
+repo = 'Shougo/unite-outline'
+[[plugins]]
+repo = 'ujihisa/unite-colorscheme'
+[[plugins]]
+repo = 'ujihisa/unite-font'
+[[plugins]]
+repo = 'ujihisa/unite-help'
+[[plugins]]
+repo = 'todashuta/unite-transparency'
+[[plugins]]
+repo = 'osyo-manga/unite-quickfix.git'
+[[plugins]]
+repo = 'LeafCage/unite-gvimrgb'
+[[plugins]]
+repo = 'LeafCage/unite-recording'
+
+# all languages
+[[plugins]]
+repo = 'mattn/sonictemplate-vim'
+
+# Java
+[[plugins]]
+repo = 'vim-scripts/javacomplete'
+[[plugins]]
+repo = 'moznion/java_getset.vim'
+
+# ruby
+[[plugins]]
+repo = 'rhysd/unite-ruby-require.vim'
+[[plugins]]
+repo = 'rhysd/vim-textobj-ruby'
+
+# Swift
+[[plugins]]
+repo = 'keith/swift.vim'
+
+# C#
+# [[plugins]]
+# repo = 'OmniSharp/omnisharp-vim'
+[[plugins]]
+repo = 'tpope/vim-dispatch'
+[[plugins]]
+repo = 'OrangeT/vim-csharp'
+[[plugins]]
+repo = 'osyo-manga/vim-stargate'
+
+# Go
+[[plugins]]
+repo = 'fatih/vim-go'
+
+# Vim script
+# [[plugins]]
+# repo = 'mopp/layoutplugin.vim'
+[[plugins]]
+repo = 'tpope/vim-endwise'
+
+# Tex
+[[plugins]]
+repo = 'vim-latex/vim-latex'
+
+# colorscheme
+[[plugins]]
+repo = 'rhysd/try-colorscheme.vim'
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+[[plugins]]
+repo = 'nanotech/jellybeans.vim'
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'
+[[plugins]]
+repo = 'morhetz/gruvbox'
+[[plugins]]
+repo = 'buttercream.vim'
+[[plugins]]
+repo = 'tomasr/molokai'
+[[plugins]]
+repo = 'vim-scripts/twilight'
+[[plugins]]
+repo = 'jonathanfilip/vim-lucius'
+[[plugins]]
+repo = 'jpo/vim-railscasts-theme'
+[[plugins]]
+repo = 'vim-scripts/Wombat'
+[[plugins]]
+repo = 'vim-scripts/rdark'
+[[plugins]]
+repo = 'vim-scripts/newspaper.vim'
+[[plugins]]
+repo = 'chriskempson/vim-tomorrow-theme'
+[[plugins]]
+repo = 'whatyouhide/vim-gotham'
+[[plugins]]
+repo = 'joshdick/onedark.vim'
+
+# tools
+[[plugins]]
+repo = 'mattn/webapi-vim'
+[[plugins]]
+repo = 'ujihisa/neco-look'
+[[plugins]]
+repo = 'mitsuse/kompl'
+# [[plugins]]
+# repo = 'VimItunes.vim'
+
+# applescript
+[[plugins]]
+repo = 'vim-scripts/applescript.vim'
+

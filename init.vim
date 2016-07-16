@@ -350,6 +350,9 @@ nnoremap <silent><SID>[func]d    :<C-u>DictionaryUnderWord<CR>
 
 " settings {{{
 
+" indent
+filetype plugin indent on
+
 " modeline
 set modeline
 set modelines =3
