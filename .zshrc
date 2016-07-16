@@ -1,11 +1,13 @@
 export PATH=$PATH:$HOME/bin
+export PATH="$RBENV_ROOT/bin:$PATH"
 export DOTPATH=$HOME/dotfiles
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export TERM=xterm-256color
-eval "$(pyenv init -)"
-setopt prompt_subst
+eval "$(rbenv init -)"
 
+setopt prompt_subst
+export RBENV_ROOT="$HOME/.rbenv"
 # 重複を記録しない
 setopt hist_ignore_dups
 HISTFILE=~/.zsh_history

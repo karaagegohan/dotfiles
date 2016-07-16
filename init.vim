@@ -15,6 +15,7 @@ if has('vim_starting')
     if !isdirectory(s:dein_repo_dir)
         call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
     endif
+
     let &runtimepath = s:dein_repo_dir .",". &runtimepath
     let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
     let s:toml_file = expand('~/.config/nvim/dein.toml')
@@ -29,7 +30,7 @@ if has('vim_starting')
         call dein#install()
     endif
 
-    set encoding        =utf-8           " Character code for .vimrc
+    set encoding =utf-8           " Character code for .vimrc
 endif
 
 
@@ -1452,4 +1453,12 @@ if dein#tap('vim-latex') "{{{
     "let g:Tex_ViewRule_pdf = 'chromium --new-window'
 
 endif "}}}
+
+if dein#tap('rsense') "{{{
+
+    let g:rsenseHome = '/usr/local/lib/rsense-0.3'
+    let g:rsenseUseOmniFunc = 1
+
+endif "}}}
+
 
