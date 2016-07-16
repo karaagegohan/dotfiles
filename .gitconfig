@@ -24,7 +24,7 @@
     ch = checkout
     cb = checkout -B
     br = branch
-    bd = branch -d
+    db = branch -d
     me = merge
     fe = fetch
     rs = reset
