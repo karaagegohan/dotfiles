@@ -254,6 +254,10 @@ noremap  <C-c>              <Esc>
 nnoremap <C-c><C-c>         :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
 inoremap jj                 <CR>
 inoremap kk                 <Esc>
+nnoremap <C-h>              <Nop>
+nnoremap <C-j>              <Nop>
+nnoremap <C-k>              <Nop>
+nnoremap <C-l>              <Nop>
 
 " edit
 nnoremap Y                  y$
