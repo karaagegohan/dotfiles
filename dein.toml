@@ -1,3 +1,4 @@
+# basic# {{{
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -182,7 +183,12 @@ depends = ['context_filetype.vim']
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
-# Textobject
+[[plugins]]
+repo = 'terryma/vim-multiple-cursors'
+
+# }}}
+
+# Textobject# {{{
 [[plugins]]
 repo = 'kana/vim-textobj-user'             
 
@@ -200,8 +206,9 @@ repo = 'kana/vim-textobj-underscore'
 
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock' 
+# }}}
 
-# Operator
+# Operator# {{{
 [[plugins]]
 repo = 'kana/vim-operator-user'     
 
@@ -213,8 +220,9 @@ repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'kana/vim-operator-replace'  
+# }}}
 
-# Unite
+# Unite# {{{
 [[plugins]]
 repo = 'Shougo/unite.vim'
 
@@ -244,12 +252,14 @@ repo = 'LeafCage/unite-gvimrgb'
 
 [[plugins]]
 repo = 'LeafCage/unite-recording'
+# }}}
 
-# all languages
+# all languages# {{{
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
+# }}}
 
-# Java
+# Java# {{{
 [[plugins]]
 repo = 'vim-scripts/javacomplete'
 on_ft = 'java'
@@ -257,8 +267,9 @@ on_ft = 'java'
 [[plugins]]
 repo = 'moznion/java_getset.vim'
 on_ft = 'java'
+# }}}
 
-# ruby
+# ruby# {{{
 [[plugins]]
 repo = 'rhysd/unite-ruby-require.vim'
 on_ft = 'ruby'
@@ -274,15 +285,18 @@ on_ft = 'ruby'
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
 on_ft = 'ruby'
+# }}}
 
-# Swift
+# Swift# {{{
 [[plugins]]
 repo = 'keith/swift.vim'
 on_ft = 'swift'
+# }}}
 
-# C#
+# C## {{{
 # [[plugins]]
 # repo = 'OmniSharp/omnisharp-vim'
+
 [[plugins]]
 repo = 'tpope/vim-dispatch'
 on_ft = 'cpp'
@@ -294,34 +308,41 @@ on_ft = 'cpp'
 [[plugins]]
 repo = 'osyo-manga/vim-stargate'
 on_ft = 'cpp'
+# }}}
 
-# Go
+# Go# {{{
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
+# }}}
 
-# Vim script
+# Vim script# {{{
 # [[plugins]]
 # repo = 'mopp/layoutplugin.vim'
+
 [[plugins]]
 repo = 'tpope/vim-endwise'
 on_ft = 'vimscript'
+# }}}
 
-# Tex
+# Tex# {{{
 [[plugins]]
 repo = 'vim-latex/vim-latex'
 on_ft = 'tex'
+# }}}
 
-# applescript
+# applescript# {{{
 [[plugins]]
 repo = 'vim-scripts/applescript.vim'
 on_ft = 'applescript'
+# }}}
 
-#toml
+# toml# {{{
 [[plugins]]
 repo = 'cespare/vim-toml'
+# }}}
 
-# colorscheme
+# colorscheme# {{{
 [[plugins]]
 repo = 'rhysd/try-colorscheme.vim'
 
@@ -369,8 +390,9 @@ repo = 'whatyouhide/vim-gotham'
 
 [[plugins]]
 repo = 'joshdick/onedark.vim'
+# }}}
 
-# tools
+# tools# {{{
 [[plugins]]
 repo = 'mattn/webapi-vim'
 
@@ -382,4 +404,4 @@ repo = 'mitsuse/kompl'
 
 # [[plugins]]
 # repo = 'VimItunes.vim'
-
+# }}}
