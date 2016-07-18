@@ -797,16 +797,58 @@ if dein#tap('vim-gitgutter') "{{{
 endif "}}}
 
 if dein#tap('vim-smartchr') "{{{
-
-    autocmd vimrc FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
-    inoremap <expr>=  smartchr#loop(' = ', '=', ' == ')
-    inoremap <expr>\| smartchr#loop(' \| ', ' \|\| ', '\|')
-    inoremap <expr>&  smartchr#loop(' & ', ' && ', '&')
+    " inoremap <expr>=  smartchr#loop(' = ', '=', ' == ')
+    " inoremap <expr>\| smartchr#loop(' \| ', ' \|\| ', '\|')
+    " inoremap <expr>&  smartchr#loop(' & ', ' && ', '&')
     " inoremap <expr>,  smartchr#loop(', ', ',')
-    " inoremap <expr>(  smartchr#loop('(', '( ')
-    " inoremap <expr>)  smartchr#loop(')', ' )')
-    " inoremap <expr>:  smartchr#loop(';', '; ')
+    " inoremap <expr>(  smartchr#loop('( ', '(')
+    " inoremap <expr>)  smartchr#loop(' )', ')')
+    " inoremap <expr>:  smartchr#loop('; ', ';')
+    "
+    " autocmd vimrc FileType swift inoremap <buffer><expr>- smartchr#loop('-', ' -> ')
 
+    if dein#tap('vim-smartinput') "{{{
+        let lst = [  
+            \ ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
+            \ ['>',     "smartchr#loop(' > ', ' >> ', ' >>> ', '>')"],
+            \ ['+',     "smartchr#loop(' + ', ' ++ ', '+')"],
+            \ ['-',     "smartchr#loop(' - ', ' -- ', '-')"],
+            \ ['/',     "smartchr#loop(' / ', '//', '/')"],
+            \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
+            \ ['%',     "smartchr#loop(' % ', '%')"],
+            \ ['*',     "smartchr#loop(' * ', '*')"],
+            \ ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
+            \ [',',     "smartchr#loop(', ', ',')"]]
+
+        for i in lst
+            call smartinput#map_to_trigger('i', i[0], i[0], i[0])
+            call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
+            call smartinput#define_rule({'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
+            call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
+        endfor
+
+        call smartinput#define_rule({'char' : '>', 'at' : ' < \%#', 'input' : '<BS><BS><BS><><Left>'})
+
+        call smartinput#map_to_trigger('i', '=', '=', '=')
+        call smartinput#define_rule({ 'char' : '=', 'at' : '\%#',                                       'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>"})
+        call smartinput#define_rule({ 'char' : '=', 'at' : '[&+-/<>|] \%#',                             'input' : '<BS>= '})
+        call smartinput#define_rule({ 'char' : '=', 'at' : '!\%#',                                      'input' : '= '})
+        call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : '='})
+        call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',   'input' : '='})
+        call smartinput#map_to_trigger('i', '<BS>', '<BS>', '<BS>')
+        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '(\s*)\%#'   , 'input' : '<C-O>dF(<BS>'})
+        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '{\s*}\%#'   , 'input' : '<C-O>dF{<BS>'})
+        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '<\s*>\%#'   , 'input' : '<C-O>dF<<BS>'})
+        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '\[\s*\]\%#' , 'input' : '<C-O>dF[<BS>'})
+
+        for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
+            call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
+        endfor
+        ()   
+
+    endif "}}}
+
+    
 endif "}}}
 
 if dein#tap('vimshell.vim') "{{{

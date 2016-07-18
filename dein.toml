@@ -33,6 +33,9 @@ repo = 'Shougo/vimshell.vim'
 repo = 'kana/vim-smartchr'                  
 
 [[plugins]]
+repo = 'kana/vim-smartinput'                  
+
+[[plugins]]
 repo = 'itchyny/lightline.vim'              
 
 [[plugins]]
