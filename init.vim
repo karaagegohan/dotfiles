@@ -844,7 +844,6 @@ if dein#tap('vim-smartchr') "{{{
         for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
             call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
         endfor
-        ()   
 
     endif "}}}
 

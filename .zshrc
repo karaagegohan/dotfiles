@@ -52,6 +52,31 @@ function peco-history-selection() {
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
 
+git_commit_automatically_loop() {
+  local action message
+  while read line; do
+    action=$(echo $line | awk '{print $1}' | sed "s/://")
+    case $action in
+      "new" ) added_changes="[add] $(echo $line | awk '{print $3}')" ;;
+      "deleted" ) added_changes="[remove] $(echo $line | awk '{print $2}')" ;;
+      "renamed" ) added_changes="[rename] $(echo $line | awk '{print $2 $3 $4}')" ;;
+      "modified" ) added_changes="[improve] $(echo $line | awk '{print $2}')" ;;
+    esac
+    message="$message $added_changes"
+  done
+  echo $message
+}
+
+git_commit_automatically() {
+  commit_message=$( git status \
+    | sed '1,/Changes to be committed/ d' \
+    | sed '1,/^$/ d' \
+    | sed '/^$/,$ d' \
+    | git_commit_automatically_loop
+  )
+  git commit -m "$commit_message | $*"
+}
+
 # alias # {{{
 
 alias ll='ls -l'
