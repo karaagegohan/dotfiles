@@ -60,7 +60,7 @@ do
         for ff in ${files[@]}
         do
             if [[ $ff =~ (.+)/.+ ]]; then
-                mkdir -p ${BASH_REMATCH[1]}
+                echo mkdir -p $HOME/${BASH_REMATCH[1]}
             fi
             ln -s -f $DOTPATH/$ff $HOME/$ff
             echo [ln] $DOTPATH/$ff '\t->' $HOME/$ff
