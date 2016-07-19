@@ -964,7 +964,7 @@ on_ft = 'swift'
 
 # }}}
 
-# C## {{{
+# C# # {{{
 
 # [[plugins]]
 # repo = 'OmniSharp/omnisharp-vim'# {{{
