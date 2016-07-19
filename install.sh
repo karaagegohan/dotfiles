@@ -1,12 +1,30 @@
 DOTPATH=$HOME/dotfiles
 GITHUB_URL=https://github.com/ynoca/dotfiles
 
-# #files and folders excepting dotfiles
-# others=()
-# others+=(init.vim,$HOME/.config/nvim/init.vim)
-# others+=(dein.toml,$HOME/.config/nvim/dein.toml)
-# others+=(bin,$HOME/bin)
-# others+=(applescript,$HOME/applescript)
+files=()
+get_final_file()
+{
+    for f in $1/* 
+    do
+        [[ $f == .git ]] && continue
+        [[ $f == .DS_Store ]] && continue
+
+        # [[ -f $f || -d $f ]] && rm -r $HOME/$f
+        # ln -s -i $DOTPATH/$f $HOME/$f
+        # echo $DOTPATH/$f
+        if [ -d $f ]; then
+            if [ -z "`ls $f`" ]; then
+            files+= $f
+            else
+                get_final_file $f 
+            fi
+        else
+            files+=($f)
+        fi
+        # fi
+        # echo [ln] $DOTPATH/$f '\t->' $HOME/$f
+    done
+}
 
 # use git if you has it
 echo [git] Cloning $GITHUB_URL.
@@ -34,27 +52,16 @@ do
     [[ $f == .git ]] && continue
     [[ $f == .DS_Store ]] && continue
 
-    # [[ -f $f || -d $f ]] && rm -r $HOME/$f
-    ln -s -i $DOTPATH/$f $HOME/$f
-    # echo [ln] $DOTPATH/$f '\t->' $HOME/$f
+    if [ -f $f ]; then
+        ln -s -f $DOTPATH/$f $HOME/$f
+        echo [ln] $DOTPATH/$f '\t->' $HOME/$f
+    elif [ -d $f ]; then
+        get_final_file .config
+        for ff in ${files[@]}
+        do
+            ln -s -f $DOTPATH/$ff $HOME/$ff
+            echo [ln] $DOTPATH/$ff '\t->' $HOME/$ff
+        done
+    fi
 done
 
-# # make symbolic links of other files
-# for f in *
-# do
-#     for o in ${others[@]}
-#     do
-#         arr=( `echo $o | tr -s ',' ' '`)
-#         if [ $f = ${arr[0]} ]; then 
-#             [[ -f ${arr[1]} ]] && rm ${arr[1]}
-#             if [ -d ${arr[1]} ]; then
-#                 rm -r ${arr[1]}
-#             else
-#                 mkdir -p ${arr[1]}
-#                 rm -r ${arr[1]}
-#             fi
-#             ln -s $DOTPATH/${arr[0]} ${arr[1]} 
-#             echo [ln] $DOTPATH/${arr[0]} '\t->' ${arr[1]} 
-#         fi
-#     done
-# done
