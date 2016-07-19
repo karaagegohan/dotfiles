@@ -614,11 +614,11 @@ set backupdir  =~/.vim/bak  " Directiry to save backup files
 
 call s:my_mkdir('~/.vim/undo')
 set undofile                 " Make undo file
-set undodir    =~/.vimf/undo " Directiry to save undo files
+set undodir    =~/.vim/undo " Directiry to save undo files
 
 call s:my_mkdir('~/.vim/swp')
 set swapfile                " Make swap file
-set directory  =~/.vimf/swp " Directiry to save swap files
+set directory  =~/.vim/swp " Directiry to save swap files
 
 " colorscheme
 set background =dark
