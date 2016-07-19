@@ -2,9 +2,9 @@ export PATH=$PATH:$HOME/bin
 export PATH="$RBENV_ROOT/bin:$PATH"
 export DOTPATH=$HOME/dotfiles
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+# export PATH="$PYENV_ROOT/bin:$PATH"
 export TERM=xterm-256color
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 setopt prompt_subst
 export RBENV_ROOT="$HOME/.rbenv"
