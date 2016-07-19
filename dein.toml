@@ -2,11 +2,85 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
+# [[plugins]]
+repo = 'Shougo/deoplete.nvim' # {{{
+hook_post_source = '''
+    let g:deoplete#enable_at_startup = 1
+''' # }}}
+
+[[plugin]]
+repo = 'Shougo/neocomplete.vim' # {{{
+hook_post_source = '''
+
+    let g:neocomplete#enable_at_startup                 = 1         " use neocomplete.
+    let g:neocomplete#enable_smart_case                 = 1         " use smartcase.
+    let g:neocomplete#enable_camel_case                 = 1         " use camelcase.
+    let g:neocomplete#enable_fuzzy_completion           = 1         " use fuzzy completion.
+    let g:neocomplete#use_vimproc                       = 1
+    let g:neocomplete#lock_iminsert                     = 1         "
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
+    let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " file name to lock buffer
+
+    " define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $home.'/.vimshell_hist',
+        \ 'scheme' : $home.'/.gosh_completions'
+        \ }
+
+    " define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+    " enable omni completion.
+    autocmd vimrc filetype css           setlocal omnifunc=csscomplete#completecss
+    autocmd vimrc filetype html,markdown setlocal omnifunc=htmlcomplete#completetags
+    autocmd vimrc filetype javascript    setlocal omnifunc=javascriptcomplete#completejs
+    autocmd vimrc filetype python        setlocal omnifunc=pythoncomplete#complete
+    autocmd vimrc filetype xml           setlocal omnifunc=xmlcomplete#completetags
+    autocmd vimrc filetype cs            setlocal omnifunc=omnisharp#complete
+
+    let g:neocomplete#force_overwrite_completefunc=1
+
+    " enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplete#sources#omni#input_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
+    let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+    let g:neocomplete#sources#omni#input_patterns.cs  = '.*[^=\);]'
+
+    " plugin key-mappings.
+    inoremap <expr><c-g>     neocomplete#undo_completion()
+    inoremap <expr><c-l>     neocomplete#complete_common_string()
+
+    " recommended key-mappings.
+    " <cr>: close popup and save indent.
+    inoremap <silent> <cr> <c-r>=<sid>my_cr_function()<cr>
+    function! s:my_cr_function()
+        return neocomplete#close_popup() . "\<cr>"
+        " for no inserting <cr> key.
+        "return pumvisible() ? neocomplete#close_popup() : "\<cr>"
+    endfunction
+    " <tab>: completion.
+    inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
+    " <c-h>, <bs>: close popup and delete backword char.
+    inoremap <expr><c-h> neocomplete#smart_close_popup()."\<c-h>"
+    inoremap <expr><bs> neocomplete#smart_close_popup()."\<c-h>"
+    inoremap <expr><c-y>  neocomplete#close_popup()
+    inoremap <expr><c-e>  neocomplete#cancel_popup()
+
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \   'ruby': $HOME . '/Dicts/dicts/ruby.dict',
+        \ }
+
+''' # }}}
 
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
+repo = 'Shougo/vimproc.vim' # {{{
 hook_post_update = '''
   if dein#util#_is_windows()
     let cmd = 'tools\\update-dll-mingw'
@@ -18,7 +92,7 @@ hook_post_update = '''
     let cmd = 'make'
   endif
   let g:dein#plugin.build = cmd
-'''
+''' # }}}
 
 [[plugins]]
 repo = 'Shougo/neosnippet'
@@ -97,9 +171,6 @@ repo = 'mattn/unite-advent_calendar'
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'              
-
-[[plugins]]
-repo = 'gregsexton/VimCalc'                 
 
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'              

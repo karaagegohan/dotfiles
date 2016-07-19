@@ -34,7 +34,7 @@ do
     [[ $f == .git ]] && continue
     [[ $f == .DS_Store ]] && continue
 
-    [[ -f $f || -d $f ]] && rm $HOME/$f
+    [[ -f $f || -d $f ]] && rm -r $HOME/$f
     ln -s $DOTPATH/$f $HOME/$f
     echo [ln] $DOTPATH/$f '\t->' $HOME/$f
 done
@@ -47,7 +47,12 @@ do
         arr=( `echo $o | tr -s ',' ' '`)
         if [ $f = ${arr[0]} ]; then 
             [[ -f ${arr[1]} ]] && rm ${arr[1]}
-            [[ -d ${arr[1]} ]] && rm -r ${arr[1]}
+            if [ -d ${arr[1]} ]; then
+                rm -r ${arr[1]}
+            else
+                mkdir -p ${arr[1]}
+                rm -r ${arr[1]}
+            fi
             ln -s $DOTPATH/${arr[0]} ${arr[1]} 
             echo [ln] $DOTPATH/${arr[0]} '\t->' ${arr[1]} 
         fi
