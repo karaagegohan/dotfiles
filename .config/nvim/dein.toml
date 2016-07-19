@@ -4,7 +4,7 @@ repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim' # {{{
-hook_post_source = '''
+hook_source = '''
     let g:deoplete#enable_at_startup = 1
 ''' # }}}
 
@@ -95,7 +95,17 @@ hook_post_update = '''
 ''' # }}}
 
 [[plugins]]
-repo = 'Shougo/neosnippet'
+repo = 'Shougo/neosnippet'# {{{
+hook_add = '''
+
+    " key_mappings {{{
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_target)
+    "}}}
+    
+'''
+# }}}
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
@@ -329,11 +339,17 @@ repo = 'LeafCage/unite-recording'
 # }}}
 
 # all languages# {{{
+
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+
 # }}}
 
 # Java# {{{
+
 [[plugins]]
 repo = 'vim-scripts/javacomplete'
 on_ft = 'java'
@@ -341,9 +357,11 @@ on_ft = 'java'
 [[plugins]]
 repo = 'moznion/java_getset.vim'
 on_ft = 'java'
+
 # }}}
 
 # ruby# {{{
+
 [[plugins]]
 repo = 'rhysd/unite-ruby-require.vim'
 on_ft = 'ruby'
@@ -359,15 +377,19 @@ on_ft = 'ruby'
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
 on_ft = 'ruby'
+
 # }}}
 
 # Swift# {{{
+
 [[plugins]]
 repo = 'keith/swift.vim'
 on_ft = 'swift'
+
 # }}}
 
 # C## {{{
+
 # [[plugins]]
 # repo = 'OmniSharp/omnisharp-vim'
 
@@ -382,91 +404,120 @@ on_ft = 'cpp'
 [[plugins]]
 repo = 'osyo-manga/vim-stargate'
 on_ft = 'cpp'
+
 # }}}
 
 # Go# {{{
+
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
+
 # }}}
 
 # Vim script# {{{
+
 # [[plugins]]
 # repo = 'mopp/layoutplugin.vim'
 
-[[plugins]]
-repo = 'tpope/vim-endwise'
-on_ft = 'vimscript'
 # }}}
 
 # Tex# {{{
+
 [[plugins]]
 repo = 'vim-latex/vim-latex'
 on_ft = 'tex'
+
 # }}}
 
 # applescript# {{{
+
 [[plugins]]
 repo = 'vim-scripts/applescript.vim'
 on_ft = 'applescript'
+
 # }}}
 
 # toml# {{{
+
 [[plugins]]
 repo = 'cespare/vim-toml'
+
 # }}}
 
 # colorscheme# {{{
+
 [[plugins]]
 repo = 'rhysd/try-colorscheme.vim'
+if = '''0'''
 
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
+if = '''0'''
 
 [[plugins]]
 repo = 'nanotech/jellybeans.vim'
+if = '''0'''
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
+if = '''0'''
 
 [[plugins]]
 repo = 'morhetz/gruvbox'
+if = '''0'''
 
 [[plugins]]
 repo = 'buttercream.vim'
+if = '''0'''
 
 [[plugins]]
 repo = 'tomasr/molokai'
+if = '''0'''
 
 [[plugins]]
 repo = 'vim-scripts/twilight'
+if = '''0'''
 
 [[plugins]]
 repo = 'jonathanfilip/vim-lucius'
+if = '''0'''
 
 [[plugins]]
 repo = 'jpo/vim-railscasts-theme'
+if = '''0'''
 
 [[plugins]]
 repo = 'vim-scripts/Wombat'
+if = '''0'''
 
 [[plugins]]
 repo = 'vim-scripts/rdark'
+if = '''0'''
 
 [[plugins]]
 repo = 'vim-scripts/newspaper.vim'
+if = '''0'''
 
 [[plugins]]
 repo = 'chriskempson/vim-tomorrow-theme'
+if = '''0'''
 
 [[plugins]]
 repo = 'whatyouhide/vim-gotham'
+if = '''0'''
 
 [[plugins]]
 repo = 'joshdick/onedark.vim'
+hook_add = '''
+  set background=dark
+  au vimrc VimEnter * nested colorscheme onedark
+'''
+
 # }}}
 
 # tools# {{{
+
 [[plugins]]
 repo = 'mattn/webapi-vim'
 
@@ -478,4 +529,5 @@ repo = 'mitsuse/kompl'
 
 # [[plugins]]
 # repo = 'VimItunes.vim'
+
 # }}}

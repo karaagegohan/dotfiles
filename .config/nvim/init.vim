@@ -465,83 +465,10 @@ call s:my_mkdir('~/.vim/swp')
 set swapfile                " Make swap file
 set directory  =~/.vim/swp " Directiry to save swap files
 
-" colorscheme
-" set background =dark
-colorscheme onedark
-
 autocmd vimrc BufRead, FileType help setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
 
 "}}}
-
-if dein#tap('neocomplete.vim') "{{{
-
-    let g:neocomplete#enable_at_startup                 = 1         " use neocomplete.
-    let g:neocomplete#enable_smart_case                 = 1         " use smartcase.
-    let g:neocomplete#enable_camel_case                 = 1         " use camelcase.
-    let g:neocomplete#enable_fuzzy_completion           = 1         " use fuzzy completion.
-    let g:neocomplete#use_vimproc                       = 1
-    let g:neocomplete#lock_iminsert                     = 1         "
-    let g:neocomplete#sources#syntax#min_keyword_length = 2
-    let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'  " file name to lock buffer
-
-    " define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $home.'/.vimshell_hist',
-        \ 'scheme' : $home.'/.gosh_completions'
-        \ }
-
-    " define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-    " enable omni completion.
-    autocmd vimrc filetype css           setlocal omnifunc=csscomplete#completecss
-    autocmd vimrc filetype html,markdown setlocal omnifunc=htmlcomplete#completetags
-    autocmd vimrc filetype javascript    setlocal omnifunc=javascriptcomplete#completejs
-    autocmd vimrc filetype python        setlocal omnifunc=pythoncomplete#complete
-    autocmd vimrc filetype xml           setlocal omnifunc=xmlcomplete#completetags
-    autocmd vimrc filetype cs            setlocal omnifunc=omnisharp#complete
-
-    let g:neocomplete#force_overwrite_completefunc=1
-
-    " enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplete#sources#omni#input_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
-    let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-    let g:neocomplete#sources#omni#input_patterns.cs  = '.*[^=\);]'
-
-    " plugin key-mappings.
-    inoremap <expr><c-g>     neocomplete#undo_completion()
-    inoremap <expr><c-l>     neocomplete#complete_common_string()
-
-    " recommended key-mappings.
-    " <cr>: close popup and save indent.
-    inoremap <silent> <cr> <c-r>=<sid>my_cr_function()<cr>
-    function! s:my_cr_function()
-        return neocomplete#close_popup() . "\<cr>"
-        " for no inserting <cr> key.
-        "return pumvisible() ? neocomplete#close_popup() : "\<cr>"
-    endfunction
-    " <tab>: completion.
-    inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
-    " <c-h>, <bs>: close popup and delete backword char.
-    inoremap <expr><c-h> neocomplete#smart_close_popup()."\<c-h>"
-    inoremap <expr><bs> neocomplete#smart_close_popup()."\<c-h>"
-    inoremap <expr><c-y>  neocomplete#close_popup()
-    inoremap <expr><c-e>  neocomplete#cancel_popup()
-
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \   'ruby': $HOME . '/Dicts/dicts/ruby.dict',
-        \ }
-
-endif "}}}
 
 if dein#tap('neocomplcache.vim') "{{{
 
@@ -557,33 +484,8 @@ if dein#tap('neocomplcache.vim') "{{{
 
 endif "}}}
 
-if dein#tap('deoplete.nvim') "{{{
-
-    let g:deoplete#enable_at_startup = 1
-
-endif "}}}
-
-if dein#tap('neosnippet') "{{{
-
-    " For snippet_complete marker.
-    if has('conceal')
-        set conceallevel=2
-        set concealcursor=i
-    endif
-
-    " other snippets
-    let g:neosnippet#snippets_directory='~/.vim/bundle/my-snippets/snippets'
-
-    " key_mappings {{{
-    imap <C-k> <Plug>(neosnippet_expand_or_jump)
-    smap <C-k> <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k> <Plug>(neosnippet_expand_target)
-    "}}}
-
-endif "}}}
-
 if dein#tap('omnisharp-vim') "{{{
-    "
+    
     " " OmniSharp won't work without this setting
     " filetype plugin on
     "
