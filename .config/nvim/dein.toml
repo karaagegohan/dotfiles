@@ -187,14 +187,14 @@ repo = 'Shougo/vinarise.vim'
 [[plugins]]
 repo = 'thinca/vim-submode'                 
 
-[[plugins]]
-repo = 'yuratomo/w3m.vim'
+# [[plugins]]
+# repo = 'yuratomo/w3m.vim'
 
 [[plugins]]
 repo = 'thinca/vim-ref'                     
 
-[[plugins]]
-repo = 'ringogirl/unite-w3m'                
+# [[plugins]]
+# repo = 'ringogirl/unite-w3m'                
 
 [[plugins]]
 repo = 'osyo-manga/vim-sound'               

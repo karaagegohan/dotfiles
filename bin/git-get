@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+user = ARGV.length >= 1 ? ARGV[0] : ""
+repo = ARGV.length >= 2 ? ARGV[1] : ""
+dir  = ARGV.length >= 3 ? ARGV[2] : ""
+
+if ARGV.length >= 2
+    url  = 'https://github.com/' + user + '/' + repo
+    `git clone #{url} #{dir}`
+end

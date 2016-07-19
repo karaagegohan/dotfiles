@@ -68,3 +68,12 @@ do
     fi
 done
 
+# make symbolic links of each folder
+echo [ln] make symbolic links of each folder
+for f in *
+do
+    if [ -d $f ]; then
+        ln -s -f $DOTPATH/$f $HOME/$f
+        echo [ln] $DOTPATH/$f '\t->' $HOME/$f
+    fi
+done
