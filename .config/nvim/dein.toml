@@ -400,14 +400,6 @@ repo = 'tpope/vim-repeat'
 repo = 'tpope/vim-fugitive'                 # {{{
 hook_add = '''
 
-    function! s:git_update(comment) abort
-        exec('Git add .')
-        exec('Gcommit -m "' . a:comment . '"')
-        exec('Git push origin master')
-        exec('write')
-    endfunction
-    command! -nargs=1 Gupdate call s:git_update(<f-args>)
-
     " key_mappings {{{
     nnoremap <SID>[git] <Nop>
     nmap     <SID>[plugin]g <SID>[git]
@@ -423,8 +415,6 @@ hook_add = '''
     nnoremap <SID>[git]ch :<C-u>Git checkout<Space>
     nnoremap <SID>[git]me :<C-u>Git merge<Space>
     nnoremap <SID>[git]br :<C-u>Git branch<Space>
-    nnoremap <SID>[git]up :<C-u>Gupdate<Space>
-    nnoremap <SID>[git]uu :<C-u>Gupdate update<CR>
     "}}}
 
 '''
