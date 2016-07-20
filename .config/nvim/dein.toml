@@ -29,6 +29,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim' # {{{
+if = '''has('lua')'''
 hook_add = '''
 
     let g:neocomplete#enable_at_startup                 = 1         " use neocomplete.
@@ -97,6 +98,7 @@ hook_add = '''
         \ }
 
 ''' # }}}
+
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim' # {{{
@@ -342,9 +344,6 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'cohama/vim-hier'                    
-
-[[plugins]]
 repo = 'thinca/vim-quickrun' # {{{
 hook_add = '''
 
@@ -525,6 +524,8 @@ hook_add = '''
 repo = 'airblade/vim-gitgutter' # {{{
 hook_add = '''
 
+    let g:gitgutter_map_keys = 0
+
     " key_mappings {{{
     nnoremap <silent><SID>[git]gt   :<C-u>GitGutterToggle<CR>
     nnoremap <silent><SID>[git]gh   :<C-u>GitGutterLineHighlightsToggle<CR>
@@ -688,19 +689,24 @@ hook_add = '''
 '''
 # }}}
 
-[[plugins]]
-repo = 'scrooloose/syntastic.git' # {{{
-hook_add = '''
-
-    let g:syntastic_enable_signs  = 1
-    let g:syntastic_auto_loc_list = 2
-    let g:syntastic_mode_map = {'mode': 'passive'}
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-
-'''
-# }}}
+# [[plugins]]
+# repo = 'scrooloose/syntastic.git' # {{{
+# hook_add = '''
+#
+#     " let g:syntastic_enable_signs=1
+#     " let g:syntastic_auto_loc_list=2
+#     " let g:syntastic_mode_map = {'mode': 'passive'} 
+#     " augroup AutoSyntastic
+#     "     autocmd!
+#     "     autocmd InsertLeave,TextChanged * call s:syntastic() 
+#     " augroup END
+#     " function! s:syntastic()
+#     "     w
+#     "     SyntasticCheck
+#     " endfunction
+#
+# '''
+# # }}}
 
 [[plugins]]
 repo = 'itchyny/dictionary.vim'
@@ -745,6 +751,10 @@ hook_add = '''
 
 '''
 # }}}
+
+# }}}
+
+# Git # {{{
 
 # }}}
 
@@ -847,15 +857,21 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
+depends = ['Shougo/unite.vim']
 
 [[plugins]]
-repo = 'Shougo/unite-outline'# {{{
+repo = 'Shougo/unite-outline' # {{{
+depends = ['Shougo/unite.vim']
 hook_add = '''
 
     let g:unite_split_rule = 'botright'
 
 '''
 # }}}
+
+[[plugins]]
+repo = 'kmnk/vim-unite-giti.git'
+depends = ['Shougo/unite.vim']
 
 [[plugins]]
 repo = 'ujihisa/unite-colorscheme'
@@ -879,13 +895,27 @@ repo = 'LeafCage/unite-gvimrgb'
 repo = 'LeafCage/unite-recording'
 # }}}
 
-# all languages# {{{
+# All languages# {{{
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
 
 [[plugins]]
 repo = 'tpope/vim-endwise'
+
+[[plugins]]
+repo = 'neomake/neomake'
+hook_add = '''
+    autocmd vimrc BufWritePost * Neomake
+    let g:neomake_warning_sign = {
+        \ 'text': '!',
+        \ 'texthl': 'WarningMsg',
+        \ }
+    let g:neomake_error_sign = {
+        \ 'text': '>',
+        \ 'texthl': 'ErrorMsg',
+        \ }
+'''
 
 # }}}
 
