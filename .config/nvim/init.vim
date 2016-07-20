@@ -345,7 +345,7 @@ nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 " other
 nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
-nnoremap <silent><SID>[func]/    :<C-u>edit ~/.config/nvim/dein.toml<CR>
+nnoremap <silent><SID>[func]/    :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
 nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
 nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
