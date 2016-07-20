@@ -1,0 +1,3 @@
+# disable "Line is too long"
+Metrics/LineLength:
+  Enabled: false

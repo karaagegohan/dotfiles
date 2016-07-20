@@ -34,7 +34,6 @@ if has('vim_starting')
     set encoding =utf-8           " Character code for .vimrc
 endif
 
-
 if has('vim_starting') && dein#check_install()
 endif
 
@@ -239,7 +238,7 @@ command! -nargs=0 DictionaryUnderWord call s:dic_under()
 "  }}}
 
 " prefixes
-nnoremap <SID>[func] <Nop>
+nnoremap <SID>[func]        <Nop>
 nmap     ,                  <SID>[func]
 
 " basic
@@ -344,8 +343,11 @@ nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
 
 " other
 nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
-nnoremap <silent><SID>[func]/    :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
+if has('nvim')
+    nnoremap <silent><SID>[func],    :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
+else
+    nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
+endif
 nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
 nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
@@ -359,6 +361,7 @@ nnoremap <silent><SID>[func]d    :<C-u>DictionaryUnderWord<CR>
 
 " indent
 filetype plugin indent on
+syntax on
 
 " modeline
 set modeline
@@ -369,11 +372,7 @@ set laststatus=2
 
 " function
 set history  =1024   " Number of history
-if 1
-    set helplang =ja     " Language to read help
-else
-    set helplang =en     " Language to read help
-endif
+set helplang =en     " Language to read help
 
 " encoding
 set fileencoding    =utf-8           " Character code to write files
@@ -412,6 +411,7 @@ set splitbelow
 set hidden
 set nocursorline
 set ambiwidth     =single
+set updatetime    =250
 
 " indent
 set backspace         =indent,eol,start    " More powerful backspacing
@@ -419,10 +419,13 @@ set smartindent                            " Indent automatically
 set autoindent                             " Indent automatically
 set shiftwidth        =4                   " Width of indent for autoindent
 set tabstop           =4                   " Width of TAB
+set softtabstop       =4
 set expandtab                              " Change TAB to space
 set textwidth         =0                   " Text width
 set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
 let g:vim_indent_cont =4                   " Space before \
+
+autocmd vimrc BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " edit
 set switchbuf=useopen   " use an existing buffer instaed of creating a new one

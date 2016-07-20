@@ -402,7 +402,7 @@ NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'moznion/hateblo.vim'
 NeoBundle 'haya14busa/incsearch.vim'    " Make searching powerful
-NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
+" NeoBundle 'scrooloose/syntastic.git'     " Powerful syntax
 NeoBundle 'miyakogi/livemark.vim'
 NeoBundle 'itchyny/dictionary.vim'
 NeoBundle 'cespare/vim-toml'

@@ -25,6 +25,9 @@ repo = 'Shougo/deoplete.nvim' # {{{
 if = '''has('nvim')'''
 hook_add = '''
     let g:deoplete#enable_at_startup = 1
+    let g:deoplete#sources#omni#input_patterns = {
+    \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+    \}
 ''' # }}}
 
 [[plugins]]
@@ -98,7 +101,6 @@ hook_add = '''
         \ }
 
 ''' # }}}
-
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim' # {{{
@@ -408,9 +410,9 @@ hook_add = '''
     nnoremap <SID>[git]bl :<C-u>Gblame<CR>
     nnoremap <SID>[git]cm :<C-u>Gcommit -m ""<LEFT>
     nnoremap <SID>[git]co :<C-u>Gcommit<CR>
+    nnoremap <SID>[git]st :<C-u>Gstatus<CR>
     nnoremap <SID>[git]ps :<C-u>Git push<CR>
     nnoremap <SID>[git]pl :<C-u>Git pull<CR>
-    nnoremap <SID>[git]st :<C-u>Git status<CR>
     nnoremap <SID>[git]sh :<C-u>Git stash<CR>
     nnoremap <SID>[git]ch :<C-u>Git checkout<Space>
     nnoremap <SID>[git]me :<C-u>Git merge<Space>
@@ -951,6 +953,9 @@ on_ft = 'ruby'
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
 on_ft = 'ruby'
+hook_add = '''
+    " let g:monster#completion#rcodetools#backend = "async_rct_complete"
+'''
 
 # }}}
 
