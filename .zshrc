@@ -22,7 +22,7 @@ PROMPT='
 autoload -U compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-function prompt-git-current-branch {
+function prompt-git-current-branch { # {{{
         local name st color
  
         name=`git symbolic-ref HEAD 2> /dev/null`
@@ -41,18 +41,15 @@ function prompt-git-current-branch {
         fi
  
         echo "%F{$color}[$name]%f"
-}
+} # }}}
 
-function peco-history-selection() {
+function peco-history-selection() { # {{{
     BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER
     zle reset-prompt
-}
+} # }}}
 
-zle -N peco-history-selection
-bindkey '^R' peco-history-selection
-
-git_commit_automatically_loop() {
+git_commit_automatically_loop() { # {{{
   local action message
   while read line; do
     action=$(echo $line | awk '{print $1}' | sed "s/://")
@@ -65,9 +62,9 @@ git_commit_automatically_loop() {
     message="$message $added_changes"
   done
   echo $message
-}
+} # }}}
 
-git_commit_automatically() {
+git_commit_automatically() { # {{{
   commit_message=$( git status \
     | sed '1,/Changes to be committed/ d' \
     | sed '1,/^$/ d' \
@@ -75,7 +72,42 @@ git_commit_automatically() {
     | git_commit_automatically_loop
   )
   git commit -m "$commit_message | $*"
-}
+} # }}}
+
+function chpwd() { # {{{
+  powered_cd_add_log
+} # }}}
+
+function powered_cd_add_log() { # {{{
+  local i=0
+  cat ~/.powered_cd.log | while read line; do
+    (( i++ ))
+    if [ i = 30 ]; then
+      sed -i -e "30,30d" ~/.powered_cd.log
+    elif [ "$line" = "$PWD" ]; then
+      sed -i -e "${i},${i}d" ~/.powered_cd.log 
+    fi
+  done
+  echo "$PWD" >> ~/.powered_cd.log
+} # }}}
+
+function powered_cd() { # {{{
+  if [ $# = 0 ]; then
+    cd $(gtac ~/.powered_cd.log | peco)
+  elif [ $# = 1 ]; then
+    cd $1
+  else
+    echo "powered_cd: too many arguments"
+  fi
+} # }}}
+
+_powered_cd() { # {{{
+  _files -/
+} # }}}
+
+compdef _powered_cd powered_cd
+
+[ -e ~/.powered_cd.log ] || touch ~/.powered_cd.log
 
 # alias # {{{
 
@@ -93,6 +125,14 @@ alias guu='git add . && git commit -m "update" && git push'
 alias vlc='open /Applications/VLC.app -n'
 alias yd='youtube-dl'
 
-
 # }}}
 
+# bindkey # {{{
+
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
+
+zle -N powered_cd
+bindkey '^f' powered_cd
+
+# }}}
