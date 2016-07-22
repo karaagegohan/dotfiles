@@ -32,7 +32,8 @@
     rm = rm --cached
     lo = log --reverse --decorate
     ma = checkout master
-    ud = git reset --hard HEAD^
+    ud = reset --hard HEAD^
+    mb = branch -f
 
     today = "!f () {\
                  git log --oneline --reverse --branches \
