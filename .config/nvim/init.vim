@@ -252,8 +252,8 @@ nnoremap U                  <C-r>
 noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 nnoremap <C-c><C-c>         :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
-inoremap jj                 <CR>
-inoremap kk                 <Esc>
+inoremap jj                 <Esc>
+inoremap kk                 <CR>
 nnoremap <C-h>              <Nop>
 nnoremap <C-j>              <Nop>
 nnoremap <C-k>              <Nop>

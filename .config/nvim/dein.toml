@@ -533,10 +533,10 @@ repo = 'mattn/unite-advent_calendar'
 [[plugins]]
 repo = 'tyru/open-browser.vim'              
 
-[[plugins]]
+# [[plugins]]
 repo = 'osyo-manga/vim-anzu' # {{{
 hook_add = '''
-
+"
     let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
     nmap n <Plug>(anzu-mode-n)
     nmap N <Plug>(anzu-mode-N)
@@ -1253,5 +1253,4 @@ repo = 'ujihisa/neco-look'
 repo = 'mitsuse/kompl'
 
 # }}}
-
 
