@@ -292,7 +292,6 @@ nnoremap <silent><SID>[func]n  :<C-u>new<CR>
 nnoremap <silent><SID>[func]v  :<C-u>vnew<CR>
 nnoremap <silent><SID>[func]N  :<C-u>split<CR>
 nnoremap <silent><SID>[func]V  :<C-u>vsplit<CR>
-nnoremap <silent><SID>[func]fs :<C-u>MyFullscreen<CR>
 nnoremap <S-Left>              <C-w><<CR>
 nnoremap <S-Right>             <C-w>><CR>
 nnoremap <S-Up>                <C-w>-<CR>
@@ -337,26 +336,17 @@ nnoremap <silent><F10> <Nop>
 nnoremap <silent><F11> <Nop>
 nnoremap <silent><F12> <Nop>
 
-" View
-nnoremap <silent><UP>   :<C-u>MyTransparancyDown<CR>
-nnoremap <silent><DOWN> :<C-u>MyTransparancyUp<CR>
-
 " other
 nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
-if has('nvim')
-    nnoremap <silent><SID>[func],    :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
-else
-    nnoremap <silent><SID>[func],    :<C-u>edit $MYGVIMRC<CR>
-endif
+nnoremap <silent><SID>[func],    :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
 nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
 nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
-nnoremap <silent><SID>[func]ch   q:
+nnoremap <silent><SID>[func]c    q:
 nnoremap <silent><SID>[func]x    :<C-u>exit<CR>
 nnoremap <silent><SID>[func]d    :<C-u>DictionaryUnderWord<CR>
 
 " terminal for nvim
-
 tnoremap <silent>jj <C-\><C-n>
 
 "}}}
