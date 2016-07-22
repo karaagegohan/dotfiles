@@ -25,10 +25,8 @@ repo = 'Shougo/deoplete.nvim' # {{{
 if = '''has('nvim')'''
 hook_add = '''
     let g:deoplete#enable_at_startup = 1
-    let g:deoplete#sources#omni#input_patterns = {
-    \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-    \}
-''' # }}}
+''' 
+# }}}
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim' # {{{
@@ -476,6 +474,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'thinca/vim-fontzoom' # {{{
+if = '''has('gui')'''
 hook_add = '''
 
     " key_mappings {{{
@@ -500,7 +499,6 @@ hook_add = '''
 [[plugins]]
 repo = 't9md/vim-quickhl' # {{{
 hook_add = '''
-
 
     " key_mappings {{{
     nmap { <Plug>(quickhl-manual-this)
@@ -889,14 +887,14 @@ repo = 'LeafCage/unite-recording'
 
 # All languages# {{{
 
-[[plugins]]
-repo = 'mattn/sonictemplate-vim'
+# [[plugins]]
+# repo = 'mattn/sonictemplate-vim'
 
 [[plugins]]
 repo = 'tpope/vim-endwise'
 
 [[plugins]]
-repo = 'neomake/neomake'
+repo = 'neomake/neomake'# {{{
 hook_add = '''
     autocmd vimrc BufWritePost * Neomake
     let g:neomake_warning_sign = {
@@ -908,6 +906,7 @@ hook_add = '''
         \ 'texthl': 'ErrorMsg',
         \ }
 '''
+# }}}
 
 # }}}
 
@@ -954,7 +953,10 @@ on_ft = 'ruby'
 repo = 'osyo-manga/vim-monster'
 on_ft = 'ruby'
 hook_add = '''
-    " let g:monster#completion#rcodetools#backend = "async_rct_complete"
+    let g:monster#completion#rcodetools#backend = "async_rct_complete"
+    let g:deoplete#sources#omni#input_patterns = {
+    \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+    \}
 '''
 
 # }}}
@@ -1167,63 +1169,48 @@ repo = 'cespare/vim-toml'
 
 [[plugins]]
 repo = 'rhysd/try-colorscheme.vim'
-if = '''0'''
 
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
-if = '''0'''
 
 [[plugins]]
 repo = 'nanotech/jellybeans.vim'
-if = '''0'''
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
-if = '''0'''
 
 [[plugins]]
 repo = 'morhetz/gruvbox'
-if = '''0'''
 
 [[plugins]]
 repo = 'buttercream.vim'
-if = '''0'''
 
 [[plugins]]
 repo = 'tomasr/molokai'
-if = '''0'''
 
 [[plugins]]
 repo = 'vim-scripts/twilight'
-if = '''0'''
 
 [[plugins]]
 repo = 'jonathanfilip/vim-lucius'
-if = '''0'''
 
 [[plugins]]
 repo = 'jpo/vim-railscasts-theme'
-if = '''0'''
 
 [[plugins]]
 repo = 'vim-scripts/Wombat'
-if = '''0'''
 
 [[plugins]]
 repo = 'vim-scripts/rdark'
-if = '''0'''
 
 [[plugins]]
 repo = 'vim-scripts/newspaper.vim'
-if = '''0'''
 
 [[plugins]]
 repo = 'chriskempson/vim-tomorrow-theme'
-if = '''0'''
 
 [[plugins]]
 repo = 'whatyouhide/vim-gotham'
-if = '''0'''
 
 [[plugins]]
 repo = 'joshdick/onedark.vim'
@@ -1244,9 +1231,6 @@ repo = 'ujihisa/neco-look'
 
 [[plugins]]
 repo = 'mitsuse/kompl'
-
-# [[plugins]]
-# repo = 'VimItunes.vim'
 
 # }}}
 
