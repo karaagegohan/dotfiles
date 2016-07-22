@@ -24,7 +24,9 @@
     ch = checkout
     cb = checkout -B
     br = branch
-    db = branch -d
+    bd = branch -d
+    bf = branch -f
+    ba = branch -a
     me = merge
     fe = fetch
     rs = reset
@@ -33,7 +35,6 @@
     lo = log --reverse --decorate
     ma = checkout master
     ud = reset --hard HEAD^
-    mb = branch -f
 
     today = "!f () {\
                  git log --oneline --reverse --branches \
