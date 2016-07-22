@@ -643,11 +643,18 @@ hook_add = '''
     let g:EasyMotion_grouping   = 1
 
     " key_mappings {{{
-    map m <Plug>(easymotion-prefix)
-    map f <Plug>(easymotion-overwin-f)
-    map t <Plug>(easymotion-tl)
-    map F <Plug>(easymotion-Fl)
-    map T <Plug>(easymotion-Tl)
+    nmap m <Plug>(easymotion-prefix)
+    nmap f <Plug>(easymotion-overwin-f)
+    nmap t <Plug>(easymotion-tl)
+    nmap F <Plug>(easymotion-Fl)
+    nmap T <Plug>(easymotion-Tl)
+
+    omap m <Plug>(easymotion-prefix)
+    omap f <Plug>(easymotion-overwin-f)
+    omap t <Plug>(easymotion-tl)
+    omap F <Plug>(easymotion-Fl)
+    omap T <Plug>(easymotion-Tl)
+
     "}}}
 
 '''
