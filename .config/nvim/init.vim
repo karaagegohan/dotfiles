@@ -280,8 +280,8 @@ nnoremap n                  nzO
 nnoremap N                  NzO
 nnoremap *                  *NzO
 nnoremap #                  #NzO
-nmap     '                  *
-nmap     "                  #
+nnoremap '                  *NzO
+nnoremap "                  #NzO
 
 " window
 nnoremap gh                    <C-w>h
@@ -303,7 +303,7 @@ nnoremap <silent><S-BS>        :<C-u>CloseWindowForce<CR>
 " tab
 nnoremap <TAB>              gt
 nnoremap <S-TAB>            gT
-nnoremap <SID>[func]t            :<C-u>tabnew<CR>
+nnoremap <SID>[func]t       :<C-u>tabnew<CR>
 
 " command mode
 cnoremap <C-n>              <DOWN>
@@ -328,13 +328,13 @@ nnoremap <silent><F1>  <Nop>
 nnoremap <silent><F2>  <Nop>
 nnoremap <silent><F3>  <Nop>
 nnoremap <silent><F4>  <Nop>
-nnoremap <silent><F5>  :<C-u>Restart<CR>
+nnoremap <silent><F5>  <Nop>
 nnoremap <silent><F6>  <Nop>
 nnoremap <silent><F7>  <Nop>
 nnoremap <silent><F8>  <Nop>
 nnoremap <silent><F9>  <Nop>
 nnoremap <silent><F10> <Nop>
-nnoremap <silent><F11> :<C-u>MyFullscreen<CR>
+nnoremap <silent><F11> <Nop>
 nnoremap <silent><F12> <Nop>
 
 " View
@@ -354,6 +354,10 @@ nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
 nnoremap <silent><SID>[func]ch   q:
 nnoremap <silent><SID>[func]x    :<C-u>exit<CR>
 nnoremap <silent><SID>[func]d    :<C-u>DictionaryUnderWord<CR>
+
+" terminal for nvim
+
+tnoremap <silent>jj <C-\><C-n>
 
 "}}}
 
@@ -376,7 +380,7 @@ set helplang =en     " Language to read help
 
 " encoding
 set fileencoding    =utf-8           " Character code to write files
-" set fileencodings   =utf-8,sjis      " Character code to read file (default)
+set fileencodings   =utf-8,sjis      " Character code to read file (default)
 set fileencodings  +=ucs-bom         " Character code to read file
 set fileencodings  +=iso-2022-jp-3   " Character code to read file
 set fileencodings  +=iso-2022-jp     " Character code to read file
