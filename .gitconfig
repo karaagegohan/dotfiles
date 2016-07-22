@@ -20,6 +20,7 @@
     cm = commit -m
     co = commit
     ps = push
+    pm = push origin master
     pl = pull
     ch = checkout
     cb = checkout -B
