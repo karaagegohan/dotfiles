@@ -17,6 +17,7 @@
     di = diff
     st = status
     ad = add
+    ap = add -p
     cm = commit -m
     co = commit
     ps = push
