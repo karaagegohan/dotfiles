@@ -749,6 +749,13 @@ hook_add = '''
 '''
 # }}}
 
+[[plugins]]
+repo = 'kassio/neoterm'
+if = '''has('nvim')'''
+hook_add = '''
+
+'''
+
 # }}}
 
 # Git # {{{
@@ -903,7 +910,12 @@ repo = 'tpope/vim-endwise'
 [[plugins]]
 repo = 'neomake/neomake'# {{{
 hook_add = '''
-    autocmd vimrc BufWritePost * Neomake
+
+    if has('nvim')
+        autocmd vimrc BufWritePost * Neomake
+    else
+        nnoremap <SID>[plugin]n :<C-u>Neomake<CR>
+    end
     let g:neomake_warning_sign = {
         \ 'text': '!',
         \ 'texthl': 'WarningMsg',
@@ -913,6 +925,7 @@ hook_add = '''
         \ 'texthl': 'ErrorMsg',
         \ }
 '''
+
 # }}}
 
 # }}}
