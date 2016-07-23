@@ -4,7 +4,7 @@ augroup vimrc
 augroup END
 
 if !&compatible
-    " set nocompatible
+    set nocompatible
 endif
 
 if has('vim_starting')
