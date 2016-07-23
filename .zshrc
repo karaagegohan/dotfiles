@@ -1,5 +1,5 @@
 export PATH=$PATH:$HOME/bin
-export PATH="$RBENV_ROOT/bin:$PATH"
+export PATH="$RBENV_ROOT/shims:$PATH"
 export DOTPATH=$HOME/dotfiles
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
