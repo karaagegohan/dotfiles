@@ -1,16 +1,20 @@
 [core]
     editor = nvim
 	quotepath = false
+
 [user]
 	name = ynoca
 	email = usahillbanana@gmail.com
+
 [push]
 	default = simple
+
 [color]
     ui = true
 	diff = auto
 	status = auto
 	branch = auto
+
 [alias]
     gr = log --pretty='medium-reverse' --graph --name-status
     sh = stash
