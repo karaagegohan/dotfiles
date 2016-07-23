@@ -156,8 +156,8 @@ repo = 'kana/vim-smartchr' # {{{
 hook_add = '''
 
         let lst = [  
-            \ ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
-            \ ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
+            " \ ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
+            " \ ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
             \ ['+',     "smartchr#loop(' + ', ' ++ ', '+')"],
             \ ['-',     "smartchr#loop(' - ', ' -- ', '-')"],
             \ ['/',     "smartchr#loop(' / ', '//', '/')"],
