@@ -1,26 +1,12 @@
 export PATH=$PATH:$HOME/bin
-export PATH="$RBENV_ROOT/shims:$PATH"
-export DOTPATH=$HOME/dotfiles
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH=$RBENV_ROOT/shims:$PATH
+export PATH=$PYENV_ROOT/bin:$PATH
+export PYENV_ROOT=$HOME/.pyenv
+export RBENV_ROOT="$HOME/.rbenv"
 export TERM=xterm-256color
 eval "$(rbenv init -)"
 
-setopt prompt_subst
-export RBENV_ROOT="$HOME/.rbenv"
-# 重複を記録しない
-setopt hist_ignore_dups
-HISTFILE=~/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
-
-# 参考：http://tegetegekibaru.blogspot.jp/2012/08/zsh_2.html
-PROMPT='
-%F{cyan}[%m@%n]%f %d `prompt-git-current-branch`
-%(!.# .$ )'
-
-autoload -U compinit; compinit
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# functions# {{{
 
 function prompt-git-current-branch { # {{{
         local name st color
@@ -74,6 +60,27 @@ git_commit_automatically() { # {{{
   git commit -m "$commit_message | $*"
 } # }}}
 
+# }}}
+
+# history# {{{
+setopt hist_ignore_dups # idnore duplicates
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=1000000
+# }}}
+
+# promot# {{{
+setopt prompt_subst
+PROMPT='
+%F{cyan}[%m@%n]%f %d `prompt-git-current-branch`
+%(!.# .$ )'
+# }}}
+
+# completion# {{{
+autoload -U compinit; compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# }}}
+
 # alias # {{{
 
 alias ll='ls -l'
@@ -99,6 +106,7 @@ bindkey '^R' peco-history-selection
 
 # }}}
 
+# zplug# {{{
 source ~/.zplug/init.zsh
 
 zplug "b4b4r07/enhancd", use:init.sh
@@ -113,4 +121,4 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load --verbose
-
+# }}}
