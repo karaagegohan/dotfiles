@@ -1,11 +1,3 @@
-export PATH=$PATH:$HOME/bin
-export PATH=$RBENV_ROOT/shims:$PATH
-export PATH=$PYENV_ROOT/bin:$PATH
-export PYENV_ROOT=$HOME/.pyenv
-export RBENV_ROOT="$HOME/.rbenv"
-export TERM=xterm-256color
-eval "$(rbenv init -)"
-
 # functions# {{{
 
 function prompt-git-current-branch { # {{{
@@ -60,6 +52,29 @@ git_commit_automatically() { # {{{
   git commit -m "$commit_message | $*"
 } # }}}
 
+has() { #{{{
+    which $1 > /dev/null 2>&1 && true
+}
+#}}}
+
+# }}}
+
+# path# {{{
+export PATH=$PATH:$HOME/bin
+export TERM=xterm-256color
+
+if has pyrnv
+then
+    export PATH=$PYENV_ROOT/bin:$PATH
+    export PYENV_ROOT=$HOME/.pyenv
+fi
+
+if has rbenv
+then
+    eval "$(rbenv init -)"
+    export RBENV_ROOT="$HOME/.rbenv"
+    export PATH=$RBENV_ROOT/shims:$PATH
+fi
 # }}}
 
 # history# {{{
