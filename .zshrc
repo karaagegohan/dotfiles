@@ -121,7 +121,11 @@ bindkey '^R' peco-history-selection
 
 # }}}
 
-# zplug# {{{
+# zplug {{{
+if !(has zplug)
+then
+    curl -fLo ~/.zplug/zplug --create-dirs git.io/zplug
+fi
 source ~/.zplug/init.zsh
 
 zplug "b4b4r07/enhancd", use:init.sh
