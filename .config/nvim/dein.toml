@@ -156,11 +156,11 @@ repo = 'kana/vim-smartchr' # {{{
 hook_add = '''
 
         let lst = [  
-            " \ ['<',     "smartchr#loop(' < ', ' << ', '<')" ],
-            " \ ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
+            \ ['<',     "smartchr#loop(' < ', ' << ', '<')"],
+            \ ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
             \ ['+',     "smartchr#loop(' + ', ' ++ ', '+')"],
             \ ['-',     "smartchr#loop(' - ', ' -- ', '-')"],
-            \ ['/',     "smartchr#loop(' / ', '//', '/')"],
+            \ ['/',     "smartchr#loop(' / ', ' // ', '/')"],
             \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
             \ ['%',     "smartchr#loop(' % ', '%')"],
             \ ['*',     "smartchr#loop(' * ', '*')"],
@@ -170,7 +170,7 @@ hook_add = '''
         for i in lst
             call smartinput#map_to_trigger('i', i[0], i[0], i[0])
             call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
-            call smartinput#define_rule({'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
+            call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
             call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
         endfor
 
@@ -191,7 +191,6 @@ hook_add = '''
         for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
             call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
         endfor
-
     
 '''
 # }}}
