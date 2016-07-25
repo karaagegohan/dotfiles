@@ -1,6 +1,6 @@
 # functions# {{{
 
-function prompt-git-current-branch { # {{{
+prompt-git-current-branch { # {{{
         local name st color
  
         name=`git symbolic-ref HEAD 2> /dev/null`
@@ -21,7 +21,7 @@ function prompt-git-current-branch { # {{{
         echo "%F{$color}[$name]%f"
 } # }}}
 
-function peco-history-selection() { # {{{
+peco-history-selection() { # {{{
     BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER
     zle reset-prompt
@@ -51,11 +51,6 @@ git_commit_automatically() { # {{{
   )
   git commit -m "$commit_message | $*"
 } # }}}
-
-has() { #{{{
-    which $1 > /dev/null 2>&1 && true
-}
-#}}}
 
 # }}}
 
@@ -126,13 +121,10 @@ bindkey '^R' peco-history-selection
 # }}}
 
 # zplug {{{
-if !(has zplug)
-then
-    curl -fLo ~/.zplug/zplug --create-dirs git.io/zplug
-fi
-source ~/.zplug/init.zsh
+source ~/.zplug/init.zsh 
 
-zplug "b4b4r07/enhancd", use:init.sh
+zplug "b4b4r07/enhancd", at:v1
+zplug "mollifier/anyframe", at:4c23cb60
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
