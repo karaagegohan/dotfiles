@@ -62,11 +62,12 @@ has() { #{{{
 # path# {{{
 export PATH=$PATH:$HOME/bin
 export TERM=xterm-256color
+export PATH=$PATH:/opt/vagrant/bin
 
 if has pyrnv
 then
-    export PATH=$PYENV_ROOT/bin:$PATH
     export PYENV_ROOT=$HOME/.pyenv
+    export PATH=$PYENV_ROOT/bin:$PATH
 fi
 
 if has rbenv
@@ -75,6 +76,7 @@ then
     export RBENV_ROOT="$HOME/.rbenv"
     export PATH=$RBENV_ROOT/shims:$PATH
 fi
+
 # }}}
 
 # history# {{{
@@ -82,6 +84,8 @@ setopt hist_ignore_dups # idnore duplicates
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
+
+setopt share_history 
 # }}}
 
 # promot# {{{
