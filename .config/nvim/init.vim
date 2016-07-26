@@ -514,9 +514,9 @@ if has('gui') "{{{
 end "}}}
 
 " nvim
-if has('nvim')
+if has('nvim') "{{{
     autocmd vimrc WinEnter * if &buftype == 'terminal' | startinsert | endif 
-endif
+endif "}}}
 
 "}}}
 
