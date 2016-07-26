@@ -348,7 +348,9 @@ nnoremap <silent><SID>[func]x    :<C-u>exit<CR>
 nnoremap <silent><SID>[func]d    :<C-u>DictionaryUnderWord<CR>
 
 " terminal for nvim
-tnoremap <silent>jj <C-\><C-n>
+if has('nvim')
+    tnoremap <silent>jj <C-\><C-n>
+endif
 
 "}}}
 
