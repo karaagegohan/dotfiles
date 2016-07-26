@@ -1,6 +1,6 @@
 # functions# {{{
 
-prompt-git-current-branch { # {{{
+function prompt-git-current-branch { # {{{
         local name st color
  
         name=`git symbolic-ref HEAD 2> /dev/null`
@@ -21,13 +21,13 @@ prompt-git-current-branch { # {{{
         echo "%F{$color}[$name]%f"
 } # }}}
 
-peco-history-selection() { # {{{
+function peco-history-selection() { # {{{
     BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER
     zle reset-prompt
 } # }}}
 
-git_commit_automatically_loop() { # {{{
+function git_commit_automatically_loop() { # {{{
   local action message
   while read line; do
     action=$(echo $line | awk '{print $1}' | sed "s/://")
@@ -42,7 +42,7 @@ git_commit_automatically_loop() { # {{{
   echo $message
 } # }}}
 
-git_commit_automatically() { # {{{
+function git_commit_automatically() { # {{{
   commit_message=$( git status \
     | sed '1,/Changes to be committed/ d' \
     | sed '1,/^$/ d' \
@@ -59,13 +59,14 @@ export PATH=$PATH:$HOME/bin
 export TERM=xterm-256color
 export PATH=$PATH:/opt/vagrant/bin
 
-if has pyrnv
+
+if which pyenv > /dev/null 2>&1;
 then
     export PYENV_ROOT=$HOME/.pyenv
     export PATH=$PYENV_ROOT/bin:$PATH
 fi
 
-if has rbenv
+if which rbenv > /dev/null 2>&1;
 then
     eval "$(rbenv init -)"
     export RBENV_ROOT="$HOME/.rbenv"
@@ -104,8 +105,9 @@ alias cdd='cd ~'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ,='cd ~'
-alias v='vim'
-alias nv='nvim'
+# alias v='vim'
+alias v='nvim'
+alias g='git'
 alias e='exit'
 alias guu='git add . && git commit -m "update" && git push'
 alias vlc='open /Applications/VLC.app -n'
