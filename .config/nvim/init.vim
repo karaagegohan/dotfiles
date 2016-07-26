@@ -403,7 +403,7 @@ set pumheight     =10         " Height of popup
 set t_vb=                     " Visual bell of terminal
 set visualbell                " Show visualbell
 set noerrorbells              " Diable error bell
-set completeopt   =longest,menuone,preview
+set completeopt   =menu
 set splitbelow
 set hidden
 set nocursorline
@@ -512,6 +512,11 @@ if has('gui') "{{{
     set guicursor=n-v-c:hor10-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
 
 end "}}}
+
+" nvim
+if has('nvim')
+    autocmd vimrc WinEnter * if &buftype == 'terminal' | startinsert | endif 
+endif
 
 "}}}
 
