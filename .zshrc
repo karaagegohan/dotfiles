@@ -112,6 +112,8 @@ alias e='exit'
 alias guu='git add . && git commit -m "update" && git push'
 alias vlc='open /Applications/VLC.app -n'
 alias yd='youtube-dl'
+alias lx='latexmk -pdfdvi'
+
 
 # }}}
 
