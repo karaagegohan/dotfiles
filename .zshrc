@@ -59,6 +59,10 @@ export PATH=$PATH:$HOME/bin
 export TERM=xterm-256color
 export PATH=$PATH:/opt/vagrant/bin
 
+export PATH=$PATH:/opt/theos/bin
+export THEOS=/opt/theos
+export THEOS_MAKE_FILE=/opt/theos
+
 
 if which pyenv > /dev/null 2>&1;
 then

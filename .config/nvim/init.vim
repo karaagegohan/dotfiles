@@ -467,6 +467,7 @@ set directory  =~/.vim/swp " Directiry to save swap files
 
 autocmd vimrc BufRead, FileType help setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
+autocmd vimrc BufRead,BufNewFile *.xm setf objc
 
 " mouse
 set mouse=
