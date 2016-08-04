@@ -289,9 +289,9 @@ hook_add = '''
             return ''
         endif
         let symbols = [
-            \  g:gitgutter_sign_added . '✚', 
-            \  g:gitgutter_sign_modified . '➜', 
-            \  g:gitgutter_sign_removed . '✘'
+            \  g:gitgutter_sign_added, 
+            \  g:gitgutter_sign_modified, 
+            \  g:gitgutter_sign_removed
             \ ]
         let hunks = GitGutterGetHunkSummary()
         let ret = []
@@ -513,14 +513,22 @@ hook_add = '''
 repo = 'airblade/vim-gitgutter' # {{{
 hook_add = '''
 
-    let g:gitgutter_map_keys = 0
-    let g:gitgutter_sign_added = '✚'
-    let g:gitgutter_sign_modified = '➜'
-    let g:gitgutter_sign_removed = '✘'
+    let g:gitgutter_map_keys                = 0
+    let g:gitgutter_sign_added              = '✚ '
+    let g:gitgutter_sign_modified           = '➜ '
+    let g:gitgutter_sign_removed            = '✘ '
+    let g:gitgutter_sign_removed_first_line = '✘ '
+    let g:gitgutter_sign_modified_removed   = '✘➜'
 
     " key_mappings {{{
     nnoremap <silent><SID>[git]gt   :<C-u>GitGutterToggle<CR>
     nnoremap <silent><SID>[git]gh   :<C-u>GitGutterLineHighlightsToggle<CR>
+    nnoremap <silent><SID>[git]hn   :<C-u>GitGutterNextHunk<CR>
+    nnoremap <silent><SID>[git]hp   :<C-u>GitGutterPrevHunk<CR>
+    nnoremap <silent><SID>[git]ha   :<C-u>GitGutterStageHunk<CR>
+    nnoremap <silent><SID>[git]hh   :<C-u>GitGutterRevertHunk<CR>
+    nnoremap <silent><SID>[git]hp   :<C-u>GitGutterPrevHunk<CR>
+    nnoremap <silent><SID>[git]hn   :<C-u>GitGutterNextHunk<CR>
     "}}}
     
 '''
