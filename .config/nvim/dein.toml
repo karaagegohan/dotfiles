@@ -981,6 +981,10 @@ hook_add = '''
     \}
 '''
 
+[[plugins]]
+repo = 'alpaca-tc/alpaca_tags'
+on_ft = 'ruby'
+
 # }}}
 
 # Swift# {{{
@@ -1185,6 +1189,12 @@ on_ft = 'applescript'
 [[plugins]]
 repo = 'cespare/vim-toml'
 
+# }}}
+
+# tex {{{
+
+[[plugins]]
+repo = 'xuhdev/vim-latex-live-preview'
 # }}}
 
 # colorscheme# {{{
