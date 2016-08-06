@@ -34,9 +34,6 @@ if has('vim_starting')
     set encoding =utf-8           " Character code for .vimrc
 endif
 
-if has('vim_starting') && dein#check_install()
-endif
-
 " }}}
 
 " functions {{{
@@ -356,21 +353,6 @@ endif
 
 " settings {{{
 
-" indent
-filetype plugin indent on
-syntax on
-
-" modeline
-set modeline
-set modelines =3
-
-" statusline
-set laststatus=2
-
-" function
-set history  =1024   " Number of history
-set helplang =en     " Language to read help
-
 " encoding
 set fileencoding    =utf-8           " Character code to write files
 set fileencodings   =utf-8,sjis      " Character code to read file (default)
@@ -386,11 +368,37 @@ if has('win32') || has('win64')
     let &termencoding = &encoding
 endif
 
+" indent
+filetype plugin indent on
+set backspace         =indent,eol,start    " More powerful backspacing
+set smartindent                            " Indent automatically
+set autoindent                             " Indent automatically
+set shiftwidth        =4                   " Width of indent for autoindent
+set tabstop           =4                   " Width of TAB
+set softtabstop       =4
+set expandtab                              " Change TAB to space
+set textwidth         =0                   " Text width
+set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
+let g:vim_indent_cont =4                   " Space before \
+autocmd vimrc BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
+" modeline
+set modeline
+set modelines =3
+
+" statusline
+set laststatus=2
+
+" function
+set history  =1024   " Number of history
+set helplang =en     " Language to read help
+
 " view
 syntax on                     " Show syntax hilight
 set number                    " Show line number
 set ruler                     " Show current line number
 set title                     " Show title of the file
+
 " set showmatch                 " Show matching bracket
 set noshowmatch
 set matchtime     =1          " Time of matching paren
@@ -409,20 +417,6 @@ set hidden
 set nocursorline
 set ambiwidth     =single
 set updatetime    =250
-
-" indent
-set backspace         =indent,eol,start    " More powerful backspacing
-set smartindent                            " Indent automatically
-set autoindent                             " Indent automatically
-set shiftwidth        =4                   " Width of indent for autoindent
-set tabstop           =4                   " Width of TAB
-set softtabstop       =4
-set expandtab                              " Change TAB to space
-set textwidth         =0                   " Text width
-set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
-let g:vim_indent_cont =4                   " Space before \
-
-autocmd vimrc BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " edit
 set switchbuf=useopen   " use an existing buffer instaed of creating a new one
@@ -465,9 +459,9 @@ call s:my_mkdir('~/.vim/swp')
 set swapfile                " Make swap file
 set directory  =~/.vim/swp " Directiry to save swap files
 
-autocmd vimrc BufRead, FileType help setlocal nofoldenable
+autocmd vimrc BufRead, FileType   help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
-autocmd vimrc BufRead,BufNewFile *.xm setf objc
+autocmd vimrc BufRead, BufNewFile *.xm  setfiletype objc
 
 " mouse
 set mouse=
@@ -516,6 +510,8 @@ end "}}}
 
 " nvim
 if has('nvim') "{{{
+    nnoremap <SID>[func]tv :<C-u>vnew<CR>:<C-u>terminal<CR>
+    nnoremap <SID>[func]tn :<C-u>vnew<CR>:<C-u>terminal<CR>
     autocmd vimrc WinEnter * if &buftype == 'terminal' | startinsert | endif 
 endif "}}}
 
