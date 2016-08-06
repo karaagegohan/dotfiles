@@ -277,7 +277,7 @@ hook_add = '''
                 \    'input' : i[0],
                 \    'filetype' : filetype
                 \    })
-        end
+        endfor
         " }}}
 
     
