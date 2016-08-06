@@ -155,42 +155,131 @@ hook_add = '''
 repo = 'kana/vim-smartchr' # {{{
 hook_add = '''
 
+        let filetype = [
+            \    'vim',
+            \    'ruby',
+            \    'python',
+            \    'c',
+            \    'cpp',
+            \    'cs',
+            \    ]
+        "for all languages {{{
         let lst = [  
-            \ ['<',     "smartchr#loop(' < ', ' << ', '<')"],
-            \ ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
-            \ ['+',     "smartchr#loop(' + ', ' ++ ', '+')"],
-            \ ['-',     "smartchr#loop(' - ', ' -- ', '-')"],
-            \ ['/',     "smartchr#loop(' / ', ' // ', '/')"],
-            \ ['&',     "smartchr#loop(' & ', ' && ', '&')"],
-            \ ['%',     "smartchr#loop(' % ', '%')"],
-            \ ['*',     "smartchr#loop(' * ', '*')"],
-            \ ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
-            \ [',',     "smartchr#loop(', ', ',')"]]
+            \    ['<',     "smartchr#loop(' < ', ' << ', '<')"],
+            \    ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
+            \    ['+',     "smartchr#loop(' + ', ' ++ ', '+')"],
+            \    ['-',     "smartchr#loop(' - ', ' -- ', '-')"],
+            \    ['/',     "smartchr#loop(' / ', ' // ', '/')"],
+            \    ['&',     "smartchr#loop(' & ', ' && ', '&')"],
+            \    ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
+            \    ['%',     "smartchr#loop(' % ', '%')"],
+            \    ['*',     "smartchr#loop(' * ', '*')"],
+            \    [',',     "smartchr#loop(', ' , ',')"]
+            \    ]
 
         for i in lst
             call smartinput#map_to_trigger('i', i[0], i[0], i[0])
-            call smartinput#define_rule({ 'char' : i[0], 'at' : '\%#',                                      'input' : '<C-R>=' . i[1] . '<CR>'})
-            call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : i[0]})
-            call smartinput#define_rule({ 'char' : i[0], 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  'input' : i[0] })
+            call smartinput#define_rule({ 
+                \    'char' : i[0],
+                \    'at'   : '\%#',
+                \    'input': '<C-R>=' . i[1] . '<CR>',
+                \    'filetype' : filetype,
+                \    })
+
+            call smartinput#define_rule({ 
+                \    'char' : i[0],
+                \    'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',  
+                \    'input' : i[0],
+                \    'filetype' : filetype,
+                \    })
+
+            call smartinput#define_rule({
+                \    'char' : i[0],
+                \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  
+                \    'input' : i[0],
+                \    'filetype' : filetype,
+                \    })
         endfor
 
-        call smartinput#define_rule({'char' : '>', 'at' : ' < \%#', 'input' : '<BS><BS><BS><><Left>'})
+        call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
+        call smartinput#define_rule({
+            \   'at'    : '(\%#)',
+            \   'char'  : '<Space>',
+            \   'input' : '<Space><Space><Left>',
+            \    'filetype' : filetype,
+            \   })
+
+        call smartinput#define_rule({
+            \   'at'    : '( \%# )',
+            \   'char'  : '<BS>',
+            \   'input' : '<Del><BS>',
+            \   'filetype' : filetype,
+            \   })
+
+        call smartinput#define_rule({
+            \   'at': '\s\+\%#',
+            \   'char': '<CR>',
+            \   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+            \   'filetype' : filetype,
+            \   })
 
         call smartinput#map_to_trigger('i', '=', '=', '=')
-        call smartinput#define_rule({ 'char' : '=', 'at' : '\%#',                                       'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>"})
-        call smartinput#define_rule({ 'char' : '=', 'at' : '[&+-/<>|] \%#',                             'input' : '<BS>= '})
-        call smartinput#define_rule({ 'char' : '=', 'at' : '!\%#',                                      'input' : '= '})
-        call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',          'input' : '='})
-        call smartinput#define_rule({ 'char' : '=', 'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',   'input' : '='})
-        call smartinput#map_to_trigger('i', '<BS>', '<BS>', '<BS>')
-        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '(\s*)\%#'   , 'input' : '<C-O>dF(<BS>'})
-        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '{\s*}\%#'   , 'input' : '<C-O>dF{<BS>'})
-        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '<\s*>\%#'   , 'input' : '<C-O>dF<<BS>'})
-        call smartinput#define_rule({ 'char' : '<BS>' , 'at' : '\[\s*\]\%#' , 'input' : '<C-O>dF[<BS>'})
+        call smartinput#define_rule({ 
+            \    'char' : '=',
+            \    'at' : '\%#',
+            \    'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>",
+            \    'filetype' : filetype,
+            \    })
+        call smartinput#define_rule({ 
+            \    'char' : '=',
+            \    'at' : '[&+-/<>|] \%#', 
+            \    'input' : '<BS>= ',
+            \    'filetype' : filetype,
+            \    })
+        call smartinput#define_rule({
+            \    'char' : '=', 
+            \    'at' : '!\%#',                                      
+            \    'input' : '= ',
+            \    'filetype' : filetype,
+            \    })
+        call smartinput#define_rule({
+            \    'char' : '=', 
+            \    'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#', 
+            \    'input' : '=',
+            \    'filetype' : filetype,
+            \    })
+        call smartinput#define_rule({
+            \    'char' : '=', 
+            \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  
+            \    'input' : '=',
+            \    'filetype' : filetype,
+            \    })
 
         for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
-            call smartinput#define_rule({ 'char' : '<BS>' , 'at' : ' ' . op . ' \%#' , 'input' : '<BS><BS><BS>'})
+            call smartinput#define_rule({
+                \    'char' : '<BS>', 
+                \    'at' : ' ' . op . ' \%#',
+                \    'input' : '<BS><BS><BS>',
+                \    'filetype' : filetype,
+                \    })
         endfor
+
+        " }}}
+        
+        let filetype = [
+            \    'ruby',
+            \    ]
+        " for ruby {{{
+        for i in lst
+            call smartinput#define_rule({
+                \    'char' : i[0],
+                \    'at' : '^\([^\\]*\\[^\\]*\\\)*[^\\]*\\[^\\]*\%#', 
+                \    'input' : i[0],
+                \    'filetype' : filetype
+                \    })
+        end
+        " }}}
+
     
 '''
 # }}}
@@ -212,7 +301,7 @@ hook_add = '''
         \   'right': [
         \     ['lineinfo', 'syntastic'],
         \     ['percent'],
-        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+        \     ['fileformat', 'fileencoding', 'filetype'],
         \   ]
         \ },
         \ 'component_function': {
@@ -760,11 +849,9 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'kassio/neoterm'
+repo = 'kassio/neoterm'# {{{
 if = '''has('nvim')'''
-hook_add = '''
-
-'''
+# }}}
 
 # }}}
 
