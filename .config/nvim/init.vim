@@ -228,7 +228,7 @@ nnoremap U                  <C-r>
 noremap! <C-c>              <Esc>
 noremap  <C-c>              <Esc>
 cnoremap <C-c>              :<C-u>echo ""<CR>
-nnoremap <C-c><C-c>         :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
+nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
 inoremap jj                 <Esc>
 inoremap kk                 <CR>
 nnoremap <C-h>              <Nop>
@@ -281,6 +281,10 @@ nnoremap <TAB>              gt
 nnoremap <S-TAB>            gT
 nnoremap <SID>[func]t       :<C-u>tabnew<CR>
 
+" buffer
+nnoremap ( :<C-u>bprevious<CR>
+nnoremap ) :<C-u>bnext<CR>
+
 " command mode
 cnoremap <C-n>              <DOWN>
 cnoremap <C-p>              <UP>
@@ -325,6 +329,8 @@ nnoremap <silent><SID>[func]x    :<C-u>exit<CR>
 " terminal for nvim
 if has('nvim')
     tnoremap <silent>jj <C-\><C-n>
+    nnoremap <SID>[func]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
+    nnoremap <SID>[func]zn :<C-u>new<CR>:<C-u>terminal<CR>
 endif
 
 "}}}
@@ -490,8 +496,6 @@ end "}}}
 
 " nvim
 if has('nvim') "{{{
-    nnoremap <SID>[func]tv :<C-u>vnew<CR>:<C-u>terminal<CR>
-    nnoremap <SID>[func]tn :<C-u>vnew<CR>:<C-u>terminal<CR>
     autocmd vimrc WinEnter * if &buftype == 'terminal' | startinsert | endif 
 endif "}}}
 
