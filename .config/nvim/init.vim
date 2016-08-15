@@ -123,27 +123,6 @@ endfunction
 "}}}
 command! -nargs=0 CopyAndMove call s:copyandmove()
 
-function! s:translateword() abort "{{{
-    let a:word = matchstr(expand("<cword>"), '[a-z]*', 0)
-    let a:words = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word=' . a:word . '&Scope=HEADWORD&Match=EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0').content, 'utf-8', &encoding)).findAll('ItemID')
-    if len(a:words) == 0
-        echo '"' . a:word . '" ' . 'is not exist.'
-    else
-        for a:j in range(0, len(a:words) - 1)
-            let a:item_id = a:words[a:j]['child'][0]
-            let a:means = webapi#xml#parse(iconv(webapi#http#get('http://public.dejizo.jp/NetDicV09.asmx/GetDicItemLite?Dic=EJdict&Item=' . a:item_id . '&Loc=&Prof=XHTML').content, 'utf-8', &encoding)).findAll('div')[1]['child'][1]['child'][0]
-            let a:tokens = split(a:means, '\v\t\zs')
-            let a:num = len(a:words) == 1 ? '' : ' (' . (a:j + 1) . ')'
-            echo '【' . a:word . a:num . '】'
-            for a:i in range(0,  len(a:tokens) - 1)
-                echo (a:i + 1) . ': ' . a:tokens[a:i]
-            endfor
-        endfor
-    endif
-endfunction
-"}}}
-command! -nargs=0 TranslateWord call s:translateword()
-
 function! s:closewindow(force) abort "{{{
     let a:bufname = expand('%:p')
     if len(a:bufname) == 0
@@ -342,7 +321,6 @@ nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
 nnoremap <silent><SID>[func]c    q:
 nnoremap <silent><SID>[func]x    :<C-u>exit<CR>
-nnoremap <silent><SID>[func]d    :<C-u>DictionaryUnderWord<CR>
 
 " terminal for nvim
 if has('nvim')
@@ -379,6 +357,7 @@ set softtabstop       =4
 set expandtab                              " Change TAB to space
 set textwidth         =0                   " Text width
 set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
+set shiftround 
 let g:vim_indent_cont =4                   " Space before \
 autocmd vimrc BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
@@ -426,6 +405,7 @@ set imsearch=-1
 " searching
 set incsearch   " Disable increment search
 set wrapscan    " Searchrs wrap around
+set ignorecase
 
 " command line
 set timeoutlen =2000      " time to wait for a key code
