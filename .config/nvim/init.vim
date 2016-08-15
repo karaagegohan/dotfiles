@@ -3,10 +3,6 @@ augroup vimrc
     autocmd!
 augroup END
 
-if !&compatible
-    set nocompatible
-endif
-
 if has('vim_starting')
     " dein settings 
     let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
@@ -282,8 +278,8 @@ nnoremap <S-TAB>            gT
 nnoremap <SID>[func]t       :<C-u>tabnew<CR>
 
 " buffer
-nnoremap ( :<C-u>bprevious<CR>
-nnoremap ) :<C-u>bnext<CR>
+nnoremap < :<C-u>bprevious<CR>
+nnoremap > :<C-u>bnext<CR>
 
 " command mode
 cnoremap <C-n>              <DOWN>
