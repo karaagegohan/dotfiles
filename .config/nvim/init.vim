@@ -210,83 +210,83 @@ command! -nargs=0 DictionaryUnderWord call s:dic_under()
 "  }}}
 
 " prefixes
-nnoremap <SID>[func]        <Nop>
-nmap     ,                  <SID>[func]
+nnoremap <SID>[func]          <Nop>
+nmap     ,                    <SID>[func]
 
 " basic
-noremap  ;                  :
-noremap  :                  ;
-noremap! ;                  :
-noremap! :                  ;
-nnoremap <CR>               :<C-u>write<CR>
-nnoremap <S-CR>             :<C-u>write!<CR>
-nnoremap U                  <C-r>
-noremap! <C-c>              <Esc>
-noremap  <C-c>              <Esc>
-cnoremap <C-c>              :<C-u>echo ""<CR>
-nnoremap <silent><C-c><C-c> :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
-inoremap jj                 <Esc>
-inoremap kk                 <CR>
-nnoremap <C-h>              <Nop>
-nnoremap <C-j>              <Nop>
-nnoremap <C-k>              <Nop>
-nnoremap <C-l>              <Nop>
+noremap  ;                    :
+noremap  :                    ;
+noremap! ;                    :
+noremap! :                    ;
+nnoremap <CR>                 :<C-u>write<CR>
+nnoremap <S-CR>               :<C-u>write!<CR>
+nnoremap U                    <C-r>
+noremap! <C-c>                <Esc>
+noremap  <C-c>                <Esc>
+cnoremap <C-c>                :<C-u>echo ""<CR>
+nnoremap <silent><C-c><C-c>   :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
+inoremap jj                   <Esc>
+inoremap kk                   <CR>
+nnoremap <C-h>                <Nop>
+nnoremap <C-j>                <Nop>
+nnoremap <C-k>                <Nop>
+nnoremap <C-l>                <Nop>
 
 " edit
-nnoremap Y                  y$
-nnoremap R                  J
-nnoremap x                  "_x
-nnoremap X                  x
+nnoremap Y                    y$
+nnoremap R                    J
+nnoremap x                    "_x
+nnoremap X                    x
 
 " cursor
-nnoremap j                  gj
-nnoremap k                  gk
-vnoremap j                  gj
-vnoremap k                  gk
-noremap  H                  ^
-noremap  J                  }
-noremap  K                  {
-noremap  L                  $
+nnoremap j                    gj
+nnoremap k                    gk
+vnoremap j                    gj
+vnoremap k                    gk
+noremap  H                    ^
+noremap  J                    }
+noremap  K                    {
+noremap  L                    $
 
 " searching
-nnoremap n                  nzO
-nnoremap N                  NzO
-nnoremap *                  *NzO
-nnoremap #                  #NzO
-nnoremap '                  *NzO
-nnoremap "                  #NzO
+nnoremap n                    nzO
+nnoremap N                    NzO
+nnoremap *                    *NzO
+nnoremap #                    #NzO
+nnoremap '                    *NzO
+nnoremap "                    #NzO
 
 " window
-nnoremap gh                    <C-w>h
-nnoremap gj                    <C-w>j
-nnoremap gk                    <C-w>k
-nnoremap gl                    <C-w>l
-nnoremap <silent><SID>[func]n  :<C-u>new<CR>
-nnoremap <silent><SID>[func]v  :<C-u>vnew<CR>
-nnoremap <silent><SID>[func]N  :<C-u>split<CR>
-nnoremap <silent><SID>[func]V  :<C-u>vsplit<CR>
-nnoremap <S-Left>              <C-w><<CR>
-nnoremap <S-Right>             <C-w>><CR>
-nnoremap <S-Up>                <C-w>-<CR>
-nnoremap <S-Down>              <C-w>+<CR>
-nnoremap <silent><BS>          :<C-u>CloseWindow<CR>
-nnoremap <silent><S-BS>        :<C-u>CloseWindowForce<CR>
+nnoremap gh                   <C-w>h
+nnoremap gj                   <C-w>j
+nnoremap gk                   <C-w>k
+nnoremap gl                   <C-w>l
+nnoremap <silent><SID>[func]n :<C-u>new<CR>
+nnoremap <silent><SID>[func]v :<C-u>vnew<CR>
+nnoremap <silent><SID>[func]N :<C-u>split<CR>
+nnoremap <silent><SID>[func]V :<C-u>vsplit<CR>
+nnoremap <S-Left>             <C-w><<CR>
+nnoremap <S-Right>            <C-w>><CR>
+nnoremap <S-Up>               <C-w>-<CR>
+nnoremap <S-Down>             <C-w>+<CR>
+nnoremap <silent><BS>         :<C-u>CloseWindow<CR>
+nnoremap <silent><S-BS>       :<C-u>CloseWindowForce<CR>
 
 " tab
-nnoremap <TAB>              gt
-nnoremap <S-TAB>            gT
-nnoremap <SID>[func]t       :<C-u>tabnew<CR>
+nnoremap <TAB>                gt
+nnoremap <S-TAB>              gT
+nnoremap <SID>[func]t         :<C-u>tabnew<CR>
 
 " buffer
-nnoremap < :<C-u>bprevious<CR>
-nnoremap > :<C-u>bnext<CR>
+nnoremap <                    :<C-u>bprevious<CR>
+nnoremap >                    :<C-u>bnext<CR>
 
 " command mode
-cnoremap <C-n>              <DOWN>
-cnoremap <C-p>              <UP>
+cnoremap <C-n>                <DOWN>
+cnoremap <C-p>                <UP>
 
 " fold
-nnoremap zz                 za
+nnoremap zz                   za
 
 " toggle
 nnoremap <silent><SID>[func]1 :<C-u>ToggleOpt number<CR>
@@ -300,31 +300,31 @@ nnoremap <silent><SID>[func]8 <Nop>
 nnoremap <silent><SID>[func]9 <Nop>
 
 " function keys
-nnoremap <silent><F1>  <Nop>
-nnoremap <silent><F2>  <Nop>
-nnoremap <silent><F3>  <Nop>
-nnoremap <silent><F4>  <Nop>
-nnoremap <silent><F5>  <Nop>
-nnoremap <silent><F6>  <Nop>
-nnoremap <silent><F7>  <Nop>
-nnoremap <silent><F8>  <Nop>
-nnoremap <silent><F9>  <Nop>
-nnoremap <silent><F10> <Nop>
-nnoremap <silent><F11> <Nop>
-nnoremap <silent><F12> <Nop>
+nnoremap <silent><F1>         <Nop>
+nnoremap <silent><F2>         <Nop>
+nnoremap <silent><F3>         <Nop>
+nnoremap <silent><F4>         <Nop>
+nnoremap <silent><F5>         <Nop>
+nnoremap <silent><F6>         <Nop>
+nnoremap <silent><F7>         <Nop>
+nnoremap <silent><F8>         <Nop>
+nnoremap <silent><F9>         <Nop>
+nnoremap <silent><F10>        <Nop>
+nnoremap <silent><F11>        <Nop>
+nnoremap <silent><F12>        <Nop>
 
 " other
-nnoremap <silent><SID>[func].    :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent><SID>[func],    :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
-nnoremap <silent><SID>[func]r    :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
-nnoremap <silent><SID>[func]h    :<C-u>help <C-r><C-w><CR>
-nnoremap <silent><SID>[func]e    :<C-u>edit<CR>
-nnoremap <silent><SID>[func]c    q:
-nnoremap <silent><SID>[func]x    :<C-u>exit<CR>
+nnoremap <silent><SID>[func]. :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent><SID>[func], :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
+nnoremap <silent><SID>[func]r :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
+nnoremap <silent><SID>[func]h :<C-u>help <C-r><C-w><CR>
+nnoremap <silent><SID>[func]e :<C-u>edit<CR>
+nnoremap <silent><SID>[func]c q:
+nnoremap <silent><SID>[func]x :<C-u>exit<CR>
 
 " terminal for nvim
 if has('nvim')
-    tnoremap <silent>jj <C-\><C-n>
+    tnoremap <silent>jj    <C-\><C-n>
     nnoremap <SID>[func]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
     nnoremap <SID>[func]zn :<C-u>new<CR>:<C-u>terminal<CR>
 endif
@@ -349,7 +349,9 @@ if has('win32') || has('win64')
 endif
 
 " indent
-filetype plugin indent on
+filetype on
+filetype indent  on
+filetype plugin  on
 set backspace         =indent,eol,start    " More powerful backspacing
 set smartindent                            " Indent automatically
 set autoindent                             " Indent automatically
@@ -400,9 +402,9 @@ set ambiwidth     =single
 set updatetime    =250
 
 " edit
-set switchbuf=useopen   " use an existing buffer instaed of creating a new one
-set iminsert=0
-set imsearch=-1
+set switchbuf =useopen   " use an existing buffer instaed of creating a new one
+set iminsert  =0
+set imsearch  =-1
 
 " searching
 set incsearch   " Disable increment search
@@ -428,19 +430,17 @@ set foldmethod  =marker   " Folding by {{{.}}}
 
 " directories
 set browsedir  =current     " Directiry to save editing files
-
 call s:my_mkdir('~/.vim/bak')
 set backup                  " Make backup file
 set backupdir  =~/.vim/bak  " Directiry to save backup files
-
 call s:my_mkdir('~/.vim/undo')
 set undofile                 " Make undo file
 set undodir    =~/.vim/undo " Directiry to save undo files
-
 call s:my_mkdir('~/.vim/swp')
 set swapfile                " Make swap file
 set directory  =~/.vim/swp " Directiry to save swap files
 
+" filetype
 autocmd vimrc BufRead, FileType   help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
 autocmd vimrc BufRead, BufNewFile *.xm  setfiletype objc
@@ -451,7 +451,7 @@ set nomousefocus
 set mousehide
 
 " gui
-if has('gui') "{{{
+if has('gui_running') "{{{
 
     if has('vim_starting')
 
