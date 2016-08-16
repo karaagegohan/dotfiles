@@ -278,8 +278,8 @@ nnoremap <S-TAB>              gT
 nnoremap <SID>[func]t         :<C-u>tabnew<CR>
 
 " buffer
-nnoremap <                    :<C-u>bprevious<CR>
-nnoremap >                    :<C-u>bnext<CR>
+nnoremap (                    :<C-u>bprevious<CR>
+nnoremap )                    :<C-u>bnext<CR>
 
 " command mode
 cnoremap <C-n>                <DOWN>
