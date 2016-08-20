@@ -1,4 +1,4 @@
-# basic # {{{
+# basic {{{
 
 [[plugins]]
 repo = 'Shougo/dein.vim'# {{{
@@ -878,7 +878,7 @@ if = '''has('nvim')'''
 
 # }}}
 
-# textobject # {{{
+# textobject {{{
 
 [[plugins]]
 repo = 'kana/vim-textobj-user' # {{{
@@ -912,7 +912,7 @@ depends = ['kana/vim-textobj-user']
 
 # }}}
 
-# operator # {{{
+# operator {{{
 
 [[plugins]]
 repo = 'kana/vim-operator-user' # {{{
@@ -949,7 +949,7 @@ hook_add = '''
 
 # }}}
 
-# unite # {{{
+# unite {{{
 
 [[plugins]]
 repo = 'Shougo/unite.vim'# {{{
@@ -1056,7 +1056,7 @@ hook_add = '''
 
 # }}}
 
-# All languages # {{{
+# All languages {{{
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim' # {{{
@@ -1090,7 +1090,7 @@ hook_add = '''
 
 # }}}
 
-# Java # {{{
+# Java {{{
 
 [[plugins]]
 repo = 'vim-scripts/javacomplete' # {{{
@@ -1120,7 +1120,7 @@ hook_add = '''
 
 # }}}
 
-# ruby # {{{
+# ruby {{{
 
 [[plugins]]
 repo = 'rhysd/unite-ruby-require.vim' # {{{
@@ -1183,7 +1183,7 @@ hook_add = '''
 
 # }}}
 
-# python # {{{
+# python {{{
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'# {{{
@@ -1212,7 +1212,7 @@ let g:jedi#popup_on_dot        = 1
 
 # }}}
 
-# Swift # {{{
+# Swift {{{
 
 [[plugins]]
 repo = 'keith/swift.vim' # {{{
@@ -1221,7 +1221,7 @@ on_ft = 'swift'
 
 # }}}
 
-# C# # {{{
+# C# {{{
 
 [[plugins]]
 repo = 'OmniSharp/omnisharp-vim'# {{{
@@ -1375,7 +1375,7 @@ on_ft = 'cpp'
 
 # }}}
 
-# Go # {{{
+# Go {{{
 
 [[plugins]]
 repo = 'fatih/vim-go' # {{{
@@ -1399,7 +1399,7 @@ hook_add = '''
 
 # }}}
 
-# Vim script # {{{
+# Vim script {{{
 
 [[plugins]]
 repo = 'mopp/layoutplugin.vim' # {{{
@@ -1407,7 +1407,7 @@ repo = 'mopp/layoutplugin.vim' # {{{
 
 # }}}
 
-# applescript # {{{
+# applescript {{{
 
 [[plugins]]
 repo = 'vim-scripts/applescript.vim' # {{{
@@ -1416,7 +1416,7 @@ on_ft = 'applescript'
 
 # }}}
 
-# toml # {{{
+# toml {{{
 
 [[plugins]]
 repo = 'cespare/vim-toml' # {{{
@@ -1424,7 +1424,7 @@ repo = 'cespare/vim-toml' # {{{
 
 # }}}
 
-# tex # {{{
+# tex {{{
 
 [[plugins]]
 repo = 'xuhdev/vim-latex-live-preview' # {{{
@@ -1432,7 +1432,7 @@ repo = 'xuhdev/vim-latex-live-preview' # {{{
 
 # }}}
 
-# colorscheme # {{{
+# colorscheme {{{
 
 [[plugins]]
 repo = 'rhysd/try-colorscheme.vim' # {{{
@@ -1509,7 +1509,7 @@ hook_add = '''
 
 # }}}
 
-# tools # {{{
+# tools {{{
 
 [[plugins]]
 repo = 'mattn/webapi-vim' # {{{
