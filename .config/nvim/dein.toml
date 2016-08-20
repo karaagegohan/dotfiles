@@ -1221,7 +1221,7 @@ on_ft = 'swift'
 
 # }}}
 
-# C# {{{
+# Csharp {{{
 
 [[plugins]]
 repo = 'tpope/vim-dispatch' # {{{
