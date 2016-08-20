@@ -4,7 +4,7 @@ augroup vimrc
 augroup END
 
 if has('vim_starting')
-    " dein settings 
+    " dein settings
     let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
     let s:dein_dir = s:cache_home . '/dein'
     let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -464,5 +464,7 @@ autocmd vimrc BufRead, FileType   help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
 autocmd vimrc BufRead, BufNewFile *.xm  setlocal filetype=objc
 autocmd vimrc BufNewFile,BufRead *.rb call s:set_indent_options(2)
+autocmd vimrc VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
+autocmd vimrc VimEnter,WinEnter * match TrailingSpaces /\s\+$/
 
 "}}}
