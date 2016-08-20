@@ -123,7 +123,7 @@ command! -nargs=0 CloseWindowForce call s:closewindow(1)
 
 function! s:rm_swp() abort "{{{
     let a:currentfile = fnamemodify(expand('%'), ":t")
-    let a:directory = &directory 
+    let a:directory = &directory
     echo a:directory
     exec '!rm ' . a:directory . '/' . a:currentfile . '.sw*'
 endfunction "}}}
@@ -201,8 +201,6 @@ noremap  L                    $
 " searching
 nnoremap n                    nzO
 nnoremap N                    NzO
-nnoremap *                    *NzO
-nnoremap #                    #NzO
 nnoremap '                    *NzO
 nnoremap "                    #NzO
 
@@ -271,7 +269,8 @@ nnoremap <silent><SID>[func]h :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e :<C-u>edit<CR>
 nnoremap <silent><SID>[func]c q:
 nnoremap <silent><SID>[func]x :<C-u>exit<CR>
-nnoremap <silent><SID>[func]s :<C-u>%s///g<LEFT><LEFT>
+nnoremap <silent><SID>[func]sa :<C-u>%s///g<LEFT><LEFT>
+nnoremap <silent><SID>[func]sc :<C-u>%s///gc<LEFT><LEFT><LEFT>
 
 " terminal for nvim
 if has('nvim')
@@ -404,7 +403,6 @@ if &swapfile
     let &directory = s:swapdir
 endif
 
-
 " mouse
 set mouse=
 set nomousefocus
@@ -419,7 +417,7 @@ if has('gui_running') "{{{
         set columns    =999   " width of window
         set lines      =999   " height of window
 
-        " font 
+        " font
         if has('win32')
             set guifont        =Inconsolata:h13:cANSI
             set guifontwide    =Ricty_Diminished:h13:cSHIFTJIS
@@ -452,7 +450,7 @@ end "}}}
 
 " nvim
 if has('nvim') "{{{
-    autocmd vimrc WinEnter * if &buftype == 'terminal' | startinsert | endif 
+    autocmd vimrc WinEnter * if &buftype == 'terminal' | startinsert | endif
 endif "}}}
 
 "}}}
@@ -460,11 +458,12 @@ endif "}}}
 " autocmds {{{
 
 " filetype
-autocmd vimrc BufRead, FileType   help  setlocal nofoldenable
-autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
-autocmd vimrc BufRead, BufNewFile *.xm  setlocal filetype=objc
-autocmd vimrc BufNewFile,BufRead *.rb call s:set_indent_options(2)
+autocmd vimrc BufRead, FileType               help  setlocal nofoldenable
+autocmd vimrc BufRead, BufNewFile *.ahk       setlocal fileencoding=sjis
+autocmd vimrc BufRead, BufNewFile *.xm        setlocal filetype=objc
+autocmd vimrc BufNewFile,BufRead *.rb         call s:set_indent_options(2)
 autocmd vimrc VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
-autocmd vimrc VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+autocmd vimrc VimEnter,WinEnter *             match TrailingSpaces /\s\+$/
+autocmd vimrc BufWritePre *                   %s/\s\+$//ge
 
-"}}}
+" }}}
