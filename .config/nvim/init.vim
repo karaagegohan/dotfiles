@@ -363,22 +363,22 @@ set ignorecase
 set timeoutlen =2000      " time to wait for a key code
 
 " action
-set autoread                              " Reload file automatically when it is updated
-set scrolloff      =10                    " Scrooloff
-set sidescroll     =1                     " Unit of left and right scroll
-set sidescrolloff  =8                     " Scrooloff
-set clipboard     +=unnamedplus,unnamed   " Sharing clipboard
-set nrformats      =
-set autochdir
+set autoread                    " reload file automatically when it is updated
+set scrolloff      =10          " scrooloff
+set sidescroll     =1           " unit of left and right scroll
+set sidescrolloff  =8           " scrooloff
+set clipboard     +=unnamed     " sharing system clipboard
+set clipboard     +=unnamedplus " sharing system clipboard
+set nrformats      =            " incrementing and decrementing mode
+set autochdir                   " change automatically the current working directory
 
 " fold
-set foldenable            " Enable fold
-set foldcolumn  =0        " Width of folding guide
-set foldmethod  =marker   " Folding by {{{.}}}
+set foldenable            " enable fold
+set foldcolumn  =0        " width of folding guide
+set foldmethod  =marker   " folding by {{{,}}}
 
 " directories
 set browsedir  =current
-
 
 " backup file
 set backup
