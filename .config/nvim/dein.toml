@@ -806,14 +806,24 @@ hook_add = '''
 # # }}}
 
 [[plugins]]
-repo = 'itchyny/dictionary.vim'
+repo = 'itchyny/dictionary.vim'# {{{
+hook_add = '''
+    function! s:dic_under() abort "{{{
+        let a:word = matchstr(expand("<cword>"), '[a-z]*', 0)
+        exec 'Dictionary ' . a:word
+    endfunction "}}}
+    command! -nargs=0 DictionaryUnderWord call s:dic_under()
+'''
+# }}}
 
 [[plugins]]
-repo = 'osyo-manga/vim-precious'
+repo = 'osyo-manga/vim-precious'# {{{
 depends = ['context_filetype.vim']
+# }}}
 
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
+repo = 'Shougo/context_filetype.vim'# {{{
+# }}}
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'# {{{

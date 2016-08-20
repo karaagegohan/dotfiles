@@ -34,7 +34,7 @@ endif
 
 " functions {{{
 
-function! s:my_mkdir(name) abort "{{{
+function! s:mkdir(name) abort "{{{
     if !isdirectory(expand(a:name))
         call mkdir(expand(a:name))
     endif
@@ -149,22 +149,6 @@ function! s:add_if_dein_tap() abort "{{{
 endfunction "}}}
 command! -nargs=0 AddIfNeoBundeTap call s:add_if_dein_tap()
 
-let s:prefix_list = {}
-function! s:add_prefix(keymap, prefix) abort "{{{
-    exec ('nnoremap ' . a:prefix . ' <Nop>')
-    exec ('nmap ' . a:keymap . ' ' . a:prefix)
-    let s:prefix_list[a:keymap] = a:prefix
-endfunction "}}}
-command! -nargs=+ Nnoremap call s:add_prefix(<f-args>)
-
-function! s:show_prefix() abort "{{{
-    let a:prefixes = sort(keys(s:prefix_list))
-    for a:i in range(0, len(a:prefixes) - 1)
-        echo a:prefixes[a:i] . "\t" . s:prefix_list[a:prefixes[a:i]]
-    endfor
-endfunction "}}}
-command! -nargs=0 PrefixList call s:show_prefix()
-
 function! s:run_pandoc(output) abort "{{{
     let a:extension =  matchstr(a:output, '\.\zs.*', 0)
     exec '!pandoc % -t ' . a:extension . ' -o ' . a:output
@@ -179,11 +163,11 @@ function! s:rm_swp() abort "{{{
 endfunction "}}}
 command! -nargs=0 RmSwp call s:rm_swp()
 
-function! s:dic_under() abort "{{{
-    let a:word = matchstr(expand("<cword>"), '[a-z]*', 0)
-    exec 'Dictionary ' . a:word
-endfunction "}}}
-command! -nargs=0 DictionaryUnderWord call s:dic_under()
+function! s:replace() "{{{
+    let s:word = input("Replace " . expand('<cword>') . " with:") 
+    exec 'bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/ge' 
+endfun "}}}
+command! -nargs=0 Replace call s:replace()
 
 "}}}
 
@@ -349,7 +333,6 @@ if has('win32') || has('win64')
 endif
 
 " indent
-filetype on
 filetype indent  on
 filetype plugin  on
 set backspace         =indent,eol,start    " More powerful backspacing
@@ -429,21 +412,33 @@ set foldcolumn  =0        " Width of folding guide
 set foldmethod  =marker   " Folding by {{{.}}}
 
 " directories
-set browsedir  =current     " Directiry to save editing files
-call s:my_mkdir('~/.vim/bak')
-set backup                  " Make backup file
-set backupdir  =~/.vim/bak  " Directiry to save backup files
-call s:my_mkdir('~/.vim/undo')
-set undofile                 " Make undo file
-set undodir    =~/.vim/undo " Directiry to save undo files
-call s:my_mkdir('~/.vim/swp')
-set swapfile                " Make swap file
-set directory  =~/.vim/swp " Directiry to save swap files
+set browsedir  =current
+
+set backup
+if &backup
+    let s:backupdir = expand('~/.vim/bak')
+    call s:mkdir(s:backupdir)
+    let &backupdir = s:backupdir
+endif
+
+set undofile
+if &undofile
+    let s:undodir = expand('~/.vim/undo')
+    call s:mkdir(s:undodir)
+    let &undodir = s:undodir
+endif
+
+set noswapfile
+if &swapfile
+    let s:swapdir = expand('~/.vim/swp')
+    call s:mkdir(s:swapdir)
+    let &directory = s:swapdir
+endif
 
 " filetype
 autocmd vimrc BufRead, FileType   help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
-autocmd vimrc BufRead, BufNewFile *.xm  setfiletype objc
+autocmd vimrc BufRead, BufNewFile *.xm  setlocal filetype=objc
 
 " mouse
 set mouse=
