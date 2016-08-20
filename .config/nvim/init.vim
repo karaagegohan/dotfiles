@@ -269,8 +269,8 @@ nnoremap <silent><SID>[func]h :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e :<C-u>edit<CR>
 nnoremap <silent><SID>[func]c q:
 nnoremap <silent><SID>[func]x :<C-u>exit<CR>
-nnoremap <silent><SID>[func]sa :<C-u>%s///g<LEFT><LEFT>
-nnoremap <silent><SID>[func]sc :<C-u>%s///gc<LEFT><LEFT><LEFT>
+nnoremap <SID>[func]sa        :<C-u>%s///g<LEFT><LEFT>
+nnoremap <SID>[func]sc        :<C-u>%s///gc<LEFT><LEFT><LEFT>
 
 " terminal for nvim
 if has('nvim')
@@ -379,6 +379,7 @@ set foldmethod  =marker   " Folding by {{{.}}}
 " directories
 set browsedir  =current
 
+
 " backup file
 set backup
 if &backup
@@ -464,6 +465,9 @@ autocmd vimrc BufRead, BufNewFile *.xm        setlocal filetype=objc
 autocmd vimrc BufNewFile,BufRead *.rb         call s:set_indent_options(2)
 autocmd vimrc VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
 autocmd vimrc VimEnter,WinEnter *             match TrailingSpaces /\s\+$/
-autocmd vimrc BufWritePre *                   %s/\s\+$//ge
+" autocmd vimrc BufWritePre *                   %s/\s\+$//ge
+
+" comment
+autocmd vimrc BufRead * let &commentstring = ' ' . &commentstring
 
 " }}}

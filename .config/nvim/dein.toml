@@ -1,15 +1,5 @@
-# memo# {{{
-#######################################################################################
-# hook              | Usage                  |                                        #
-# ------------------------------------------------------------------------------------#
-# hook_add          | When added to dein.vim | for keymapping or setting global value #
-# hook_add          | When just before added |                                        #
-# hook_post_source  | When before added      |                                        #
-# hook_post_update  | When after added       |                                        #
-#######################################################################################
-# }}}
+# basic {{{
 
-# basic# {{{
 [[plugins]]
 repo = 'Shougo/dein.vim'# {{{
 hook_add = '''
@@ -25,7 +15,7 @@ repo = 'Shougo/deoplete.nvim' # {{{
 if = '''has('nvim')'''
 hook_add = '''
     let g:deoplete#enable_at_startup = 1
-''' 
+'''
 # }}}
 
 [[plugins]]
@@ -124,12 +114,13 @@ hook_add = '''
     smap <C-k> <Plug>(neosnippet_expand_or_jump)
     xmap <C-k> <Plug>(neosnippet_expand_target)
     "}}}
-    
+
 '''
 # }}}
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+repo = 'Shougo/neosnippet-snippets'# {{{
+# }}}
 
 [[plugins]]
 repo = 'Shougo/vimshell.vim' # {{{
@@ -165,7 +156,7 @@ hook_add = '''
             \    'toml',
             \    ]
         "for all languages {{{
-        let lst = [  
+        let lst = [
             \    ['<',     "smartchr#loop(' < ', ' << ', '<')"],
             \    ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
             \    ['+',     "smartchr#loop(' + ', ' ++ ', '+')"],
@@ -173,21 +164,23 @@ hook_add = '''
             \    ['/',     "smartchr#loop(' / ', ' // ', '/')"],
             \    ['&',     "smartchr#loop(' & ', ' && ', '&')"],
             \    ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
-            \    ['%',     "smartchr#loop(' % ', '%')"],
-            \    ['*',     "smartchr#loop(' * ', '*')"],
-            \    [',',     "smartchr#loop(', ' , ',')"]
+            \    ['%',     "smartchr#loop(' % ', '%'        )"],
+            \    ['*',     "smartchr#loop(' * ', '*'        )"],
+            \    [',',     "smartchr#loop(', ' , ','        )"]
             \    ]
 
+        call submode#enter_with('default', 'i', '', '<C-z>', '<Nop>')
         for i in lst
+            call submode#map('default', 'i', '', i[0], i[0])
             call smartinput#map_to_trigger('i', i[0], i[0], i[0])
-            call smartinput#define_rule({ 
+            call smartinput#define_rule({
                 \    'char' : i[0],
                 \    'at'   : '\%#',
                 \    'input': '<C-R>=' . i[1] . '<CR>',
                 \    'filetype' : filetype,
                 \    })
 
-            call smartinput#define_rule({ 
+            call smartinput#define_rule({
                 \    'char' : i[0],
                 \    'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',
                 \    'input' : i[0],
@@ -196,7 +189,7 @@ hook_add = '''
 
             call smartinput#define_rule({
                 \    'char' : i[0],
-                \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  
+                \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',
                 \    'input' : i[0],
                 \    'filetype' : filetype,
                 \    })
@@ -225,40 +218,40 @@ hook_add = '''
             \   })
 
         call smartinput#map_to_trigger('i', '=', '=', '=')
-        call smartinput#define_rule({ 
+        call smartinput#define_rule({
             \    'char' : '=',
             \    'at' : '\%#',
             \    'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>",
             \    'filetype' : filetype,
             \    })
-        call smartinput#define_rule({ 
+        call smartinput#define_rule({
             \    'char' : '=',
-            \    'at' : '[&+-/<>|] \%#', 
+            \    'at' : '[&+-/<>|] \%#',
             \    'input' : '<BS>= ',
             \    'filetype' : filetype,
             \    })
         call smartinput#define_rule({
-            \    'char' : '=', 
-            \    'at' : '!\%#',                                      
+            \    'char' : '=',
+            \    'at' : '!\%#',
             \    'input' : '= ',
             \    'filetype' : filetype,
             \    })
         call smartinput#define_rule({
-            \    'char' : '=', 
-            \    'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#', 
+            \    'char' : '=',
+            \    'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',
             \    'input' : '=',
             \    'filetype' : filetype,
             \    })
         call smartinput#define_rule({
-            \    'char' : '=', 
-            \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',  
+            \    'char' : '=',
+            \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',
             \    'input' : '=',
             \    'filetype' : filetype,
             \    })
 
         for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
             call smartinput#define_rule({
-                \    'char' : '<BS>', 
+                \    'char' : '<BS>',
                 \    'at' : ' ' . op . ' \%#',
                 \    'input' : '<BS><BS><BS>',
                 \    'filetype' : filetype,
@@ -266,7 +259,7 @@ hook_add = '''
         endfor
 
         " }}}
-        
+
         let filetype = [
             \    'ruby',
             \    ]
@@ -274,19 +267,27 @@ hook_add = '''
         for i in lst
             call smartinput#define_rule({
                 \    'char' : i[0],
-                \    'at' : '^\([^\\]*\\[^\\]*\\\)*[^\\]*\\[^\\]*\%#', 
+                \    'at' : '^\([^\\]*\\[^\\]*\\\)*[^\\]*\\[^\\]*\%#',
                 \    'input' : i[0],
                 \    'filetype' : filetype
                 \    })
         endfor
         " }}}
 
-    
+
 '''
 # }}}
 
 [[plugins]]
-repo = 'kana/vim-smartinput'                  
+repo = 'kana/vim-smartinput'# {{{
+# }}}
+
+[[plugins]]
+repo = 'thinca/vim-submode' # {{{
+hook_add = '''
+    let g:submode_timeout = 0
+'''
+# }}}
 
 [[plugins]]
 repo = 'itchyny/lightline.vim' # {{{
@@ -379,8 +380,8 @@ hook_add = '''
             return ''
         endif
         let symbols = [
-            \  g:gitgutter_sign_added, 
-            \  g:gitgutter_sign_modified, 
+            \  g:gitgutter_sign_added,
+            \  g:gitgutter_sign_modified,
             \  g:gitgutter_sign_removed
             \ ]
         let hunks = GitGutterGetHunkSummary()
@@ -451,13 +452,16 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'thinca/vim-qfreplace'               
+repo = 'thinca/vim-qfreplace'# {{{
+# }}}
 
 [[plugins]]
-repo = 'thinca/vim-visualstar'              
+repo = 'thinca/vim-visualstar'# {{{
+# }}}
 
 [[plugins]]
-repo = 'rhysd/clever-f.vim'                 
+repo = 'rhysd/clever-f.vim'# {{{
+# }}}
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim' # {{{
@@ -483,10 +487,11 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'tpope/vim-repeat'                   
+repo = 'tpope/vim-repeat' # {{{
+# }}}
 
 [[plugins]]
-repo = 'tpope/vim-fugitive'                 # {{{
+repo = 'tpope/vim-fugitive' # {{{
 hook_add = '''
 
     " key_mappings {{{
@@ -536,7 +541,7 @@ hook_add = '''
     let g:rbpt_max            = 16
     let g:rbpt_loadcmd_toggle = 0
 
-    autocmd vimrc ColorScheme * RainbowParenthesesToggle 
+    autocmd vimrc ColorScheme * RainbowParenthesesToggle
     autocmd vimrc ColorScheme * RainbowParenthesesLoadRound
     autocmd vimrc ColorScheme * RainbowParenthesesLoadSquare
     autocmd vimrc ColorScheme * RainbowParenthesesLoadBraces
@@ -620,21 +625,25 @@ hook_add = '''
     nnoremap <silent><SID>[git]hp   :<C-u>GitGutterPrevHunk<CR>
     nnoremap <silent><SID>[git]hn   :<C-u>GitGutterNextHunk<CR>
     "}}}
-    
+
 '''
 # }}}
 
 [[plugins]]
-repo = 'supermomonga/shaberu.vim'           
+repo = 'supermomonga/shaberu.vim'# {{{
+# }}}
 
 [[plugins]]
-repo = 'mattn/unite-advent_calendar'        
+repo = 'mattn/unite-advent_calendar'# {{{
+# }}}
 
 [[plugins]]
-repo = 'tyru/open-browser.vim'              
+repo = 'tyru/open-browser.vim'# {{{
+# }}}
 
-# [[plugins]]
+[[plugins]]
 repo = 'osyo-manga/vim-anzu' # {{{
+if = '''0'''
 hook_add = '''
 "
     let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
@@ -648,6 +657,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'osyo-manga/vim-over' # {{{
+if = '''0'''
 hook_add = '''
 
     " key_mappings {{{
@@ -695,9 +705,6 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'thinca/vim-submode'                 
-
-[[plugins]]
 repo = 'thinca/vim-ref' # {{{
 hook_add = '''
 
@@ -711,14 +718,19 @@ hook_add = '''
 '''
 # }}}
 
-# [[plugins]]
-# repo = 'ringogirl/unite-w3m'                
+[[plugins]]
+repo = 'ringogirl/unite-w3m'# {{{
+if = '''0'''
+# }}}
 
 [[plugins]]
-repo = 'rhysd/committia.vim'
+repo = 'rhysd/committia.vim'# {{{
+# }}}
 
-# [[plugins]]
-# repo = 'thinca/vim-splash'
+[[plugins]]
+repo = 'thinca/vim-splash'# {{{
+if = '''0'''
+# }}}
 
 [[plugins]]
 repo = 'LeafCage/foldCC.vim' # {{{
@@ -727,9 +739,8 @@ hook_add = '''
     set foldtext=FoldCCtext()
     set foldcolumn=3
     set fillchars=vert:\|
-    let s:space = ''
-    let g:foldCCtext_tail = 'printf("{%4d lines Lv%-2d}", v:foldend-v:foldstart+1, v:foldlevel)'
-    let g:foldCCtext_head = ''
+    let g:foldCCtext_tail = 'printf("--+  {%4d lines Lv%-2d}", v:foldend-v:foldstart+1, v:foldlevel)'
+    let g:foldCCtext_head = '"+-- "'
 
 '''
 # }}}
@@ -786,24 +797,25 @@ hook_add = '''
 '''
 # }}}
 
-# [[plugins]]
-# repo = 'scrooloose/syntastic.git' # {{{
-# hook_add = '''
-#
-#     " let g:syntastic_enable_signs=1
-#     " let g:syntastic_auto_loc_list=2
-#     " let g:syntastic_mode_map = {'mode': 'passive'} 
-#     " augroup AutoSyntastic
-#     "     autocmd!
-#     "     autocmd InsertLeave,TextChanged * call s:syntastic() 
-#     " augroup END
-#     " function! s:syntastic()
-#     "     w
-#     "     SyntasticCheck
-#     " endfunction
-#
-# '''
-# # }}}
+[[plugins]]
+repo = 'scrooloose/syntastic.git' # {{{
+if = '''0'''
+hook_add = '''
+
+    " let g:syntastic_enable_signs=1
+    " let g:syntastic_auto_loc_list=2
+    " let g:syntastic_mode_map = {'mode': 'passive'}
+    " augroup AutoSyntastic
+    "     autocmd!
+    "     autocmd InsertLeave,TextChanged * call s:syntastic()
+    " augroup END
+    " function! s:syntastic()
+    "     w
+    "     SyntasticCheck
+    " endfunction
+
+'''
+# }}}
 
 [[plugins]]
 repo = 'itchyny/dictionary.vim'# {{{
@@ -853,54 +865,58 @@ hook_add = '''
 
     nnoremap <SID>[spjoin]  <Nop>
     nmap     <SID>[plugin]s <SID>[spjoin]
-    nnoremap <SID>[spjoin]s :<C-u>SplitjoinSplit<CR> 
-    nnoremap <SID>[spjoin]j :<C-u>SplitjoinJoin<CR> 
+    nnoremap <SID>[spjoin]s :<C-u>SplitjoinSplit<CR>
+    nnoremap <SID>[spjoin]j :<C-u>SplitjoinJoin<CR>
 
 '''
 # }}}
 
 [[plugins]]
-repo = 'kassio/neoterm'# {{{
+repo = 'kassio/neoterm' # {{{
 if = '''has('nvim')'''
 # }}}
 
 # }}}
 
-# Git # {{{
+# Textobject {{{
 
+[[plugins]]
+repo = 'kana/vim-textobj-user' # {{{
+depends = ['kana/vim-textobj-user']
 # }}}
 
-# Textobject# {{{
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter' # {{{
+depends = ['kana/vim-textobj-user']
+# }}}
 
 [[plugins]]
-repo = 'kana/vim-textobj-user'             
+repo = 'kana/vim-textobj-indent' # {{{
 depends = ['kana/vim-textobj-user']
+# }}}
 
 [[plugins]]
-repo = 'sgur/vim-textobj-parameter'        
+repo = 'kana/vim-textobj-fold' # {{{
 depends = ['kana/vim-textobj-user']
+# }}}
 
 [[plugins]]
-repo = 'kana/vim-textobj-indent'           
+repo = 'kana/vim-textobj-underscore' # {{{
 depends = ['kana/vim-textobj-user']
+# }}}
 
 [[plugins]]
-repo = 'kana/vim-textobj-fold'             
+repo = 'osyo-manga/vim-textobj-multiblock' # {{{
 depends = ['kana/vim-textobj-user']
-
-[[plugins]]
-repo = 'kana/vim-textobj-underscore'       
-depends = ['kana/vim-textobj-user']
-
-[[plugins]]
-repo = 'osyo-manga/vim-textobj-multiblock' 
-depends = ['kana/vim-textobj-user']
+# }}}
 
 # }}}
 
 # Operator# {{{
+
 [[plugins]]
-repo = 'kana/vim-operator-user'     
+repo = 'kana/vim-operator-user' # {{{
+# }}}
 
 [[plugins]]
 repo = 'rhysd/vim-operator-surround' # {{{
@@ -916,7 +932,8 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'tpope/vim-surround'         
+repo = 'tpope/vim-surround' # {{{
+# }}}
 
 [[plugins]]
 repo = 'kana/vim-operator-replace' # {{{
@@ -982,8 +999,9 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'kmnk/vim-unite-giti.git'
+repo = 'kmnk/vim-unite-giti.git'# {{{
 depends = ['Shougo/unite.vim']
+# }}}
 
 [[plugins]]
 repo = 'ujihisa/unite-colorscheme'
@@ -1140,13 +1158,13 @@ hook_add = '''
     " key_mappings {{{
     nnoremap <SID>[unite]rb  :<C-u>Unite<CR>
     "}}}
-    
+
 '''
 
 
 # }}}
 
-# python # {{{
+# python {{{
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'# {{{
@@ -1175,7 +1193,7 @@ let g:jedi#popup_on_dot        = 1
 
 # }}}
 
-# Swift# {{{
+# Swift # {{{
 
 [[plugins]]
 repo = 'keith/swift.vim'
@@ -1188,7 +1206,7 @@ on_ft = 'swift'
 # [[plugins]]
 # repo = 'OmniSharp/omnisharp-vim'# {{{
 # hook_add = '''
-#     
+#
 #     " " OmniSharp won't work without this setting
 #     " filetype plugin on
 #     "
