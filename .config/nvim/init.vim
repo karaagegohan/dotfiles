@@ -467,7 +467,4 @@ autocmd vimrc VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=unde
 autocmd vimrc VimEnter,WinEnter *             match TrailingSpaces /\s\+$/
 " autocmd vimrc BufWritePre *                   %s/\s\+$//ge
 
-" comment
-autocmd vimrc BufRead * let &commentstring = ' ' . &commentstring
-
 " }}}
