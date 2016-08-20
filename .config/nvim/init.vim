@@ -344,7 +344,7 @@ set softtabstop       =4
 set expandtab                              " Change TAB to space
 set textwidth         =0                   " Text width
 set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
-set shiftround 
+set shiftround
 let g:vim_indent_cont =4                   " Space before \
 autocmd vimrc BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
@@ -414,6 +414,7 @@ set foldmethod  =marker   " Folding by {{{.}}}
 " directories
 set browsedir  =current
 
+" backup file
 set backup
 if &backup
     let s:backupdir = expand('~/.vim/bak')
@@ -421,6 +422,7 @@ if &backup
     let &backupdir = s:backupdir
 endif
 
+" undo file
 set undofile
 if &undofile
     let s:undodir = expand('~/.vim/undo')
@@ -428,6 +430,7 @@ if &undofile
     let &undodir = s:undodir
 endif
 
+" swap file
 set noswapfile
 if &swapfile
     let s:swapdir = expand('~/.vim/swp')
@@ -435,7 +438,7 @@ if &swapfile
     let &directory = s:swapdir
 endif
 
-" filetype
+" each filetype
 autocmd vimrc BufRead, FileType   help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
 autocmd vimrc BufRead, BufNewFile *.xm  setlocal filetype=objc
