@@ -105,20 +105,6 @@ endfunction
 "}}}
 command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>)
 
-function! s:copyandmove() abort "{{{
-    function! s:matchcount(expr, pat, ...)
-        let a:start = get(a:, "1", 0)
-        let a:result = match(a:expr, a:pat, a:start)
-        return a:result == -1 ? 0 : s:matchcount(a:expr, a:pat, a:result+1) + 1
-    endfunction
-    let s:reg = @"
-    let s:cnt = s:matchcount(s:reg,  "\n") - 1
-    execute ":normal p"
-    execute ":normal " . s:cnt . "j"
-endfunction
-"}}}
-command! -nargs=0 CopyAndMove call s:copyandmove()
-
 function! s:closewindow(force) abort "{{{
     let a:bufname = expand('%:p')
     if len(a:bufname) == 0
@@ -135,26 +121,6 @@ endfunction
 command! -nargs=0 CloseWindow call s:closewindow(0)
 command! -nargs=0 CloseWindowForce call s:closewindow(1)
 
-function! s:add_if_dein_tap() abort "{{{
-    let a:plugin_name = matchstr(getline('.'), '/\zs.\{-}\ze' . "'", 0)
-    if a:plugin_name != ''
-        let a:plugin_name = 'if dein#tap(' . "'" . a:plugin_name . "'" . ') "{' . '{' . '{'
-        if len(getline('$')) > 0
-            call append(line("$"), '')
-        endif
-        call append(line("$"), a:plugin_name)
-        call append(line("$"), 'endif' . ' "}' . '}' . '}')
-        call append(line("$"), '')
-    endif
-endfunction "}}}
-command! -nargs=0 AddIfNeoBundeTap call s:add_if_dein_tap()
-
-function! s:run_pandoc(output) abort "{{{
-    let a:extension =  matchstr(a:output, '\.\zs.*', 0)
-    exec '!pandoc % -t ' . a:extension . ' -o ' . a:output
-endfunction "}}}
-command! -nargs=1 Pandoc call s:run_pandoc(<f-args>)
-
 function! s:rm_swp() abort "{{{
     let a:currentfile = fnamemodify(expand('%'), ":t")
     let a:directory = &directory 
@@ -163,11 +129,11 @@ function! s:rm_swp() abort "{{{
 endfunction "}}}
 command! -nargs=0 RmSwp call s:rm_swp()
 
-function! s:replace() "{{{
-    let s:word = input("Replace " . expand('<cword>') . " with:") 
-    exec 'bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/ge' 
+function! s:set_indent_options(num) "{{{
+    exec('setlocal tabstop=' . a:num)
+    exec('setlocal softtabstop=' . a:num)
+    exec('setlocal shiftwidth=' . a:num)
 endfun "}}}
-command! -nargs=0 Replace call s:replace()
 
 "}}}
 
@@ -305,6 +271,7 @@ nnoremap <silent><SID>[func]h :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[func]e :<C-u>edit<CR>
 nnoremap <silent><SID>[func]c q:
 nnoremap <silent><SID>[func]x :<C-u>exit<CR>
+nnoremap <silent><SID>[func]s :<C-u>%s///g<LEFT><LEFT>
 
 " terminal for nvim
 if has('nvim')
@@ -315,7 +282,7 @@ endif
 
 "}}}
 
-" settings {{{
+" options {{{
 
 " encoding
 set fileencoding    =utf-8           " Character code to write files
@@ -346,7 +313,6 @@ set textwidth         =0                   " Text width
 set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
 set shiftround
 let g:vim_indent_cont =4                   " Space before \
-autocmd vimrc BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " modeline
 set modeline
@@ -438,10 +404,6 @@ if &swapfile
     let &directory = s:swapdir
 endif
 
-" each filetype
-autocmd vimrc BufRead, FileType   help  setlocal nofoldenable
-autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
-autocmd vimrc BufRead, BufNewFile *.xm  setlocal filetype=objc
 
 " mouse
 set mouse=
@@ -495,3 +457,12 @@ endif "}}}
 
 "}}}
 
+" autocmds {{{
+
+" filetype
+autocmd vimrc BufRead, FileType   help  setlocal nofoldenable
+autocmd vimrc BufRead, BufNewFile *.ahk setlocal fileencoding=sjis
+autocmd vimrc BufRead, BufNewFile *.xm  setlocal filetype=objc
+autocmd vimrc BufNewFile,BufRead *.rb call s:set_indent_options(2)
+
+"}}}
