@@ -301,7 +301,7 @@ hook_add = '''
         \     ['fugitive', 'gitgutter', 'filename'],
         \   ],
         \   'right': [
-        \     ['lineinfo', 'syntastic'],
+        \     ['lineinfo'],
         \     ['percent'],
         \     ['fileformat', 'fileencoding', 'filetype'],
         \   ]
@@ -324,28 +324,28 @@ hook_add = '''
         \ 'subseparator': {'left': '|', 'right': '|'}
         \ }
 
-    function! MyModified()
+    function! MyModified() "{{{
         return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-    endfunction
+    endfunction "}}}
 
-    function! MyTime()
+    function! MyTime() "{{{
         return winwidth('.') > 110 ? strftime("%Y/%m/%d %H:%M:%S", localtime()) : (winwidth('.') > 90 ? strftime("%Y/%m/%d", localtime()) : '')
-    endfunction
+    endfunction "}}}
 
-    function! MyReadonly()
+    function! MyReadonly() "{{{
         return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '-' : ''
-    endfunction
+    endfunction "}}}
 
-    function! MyFilename()
+    function! MyFilename() "{{{
         return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
             \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
             \  &ft == 'unite' ? unite#get_status_string() :
             \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
             \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
             \ ('' != MyModified() ? ' ' . MyModified() : '')
-    endfunction
+    endfunction "}}}
 
-    function! MyFugitive()
+    function! MyFugitive() "{{{
         try
             if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
                 let _ = fugitive#head()
@@ -355,25 +355,25 @@ hook_add = '''
         catch
         endtry
         return ''
-    endfunction
+    endfunction "}}}
 
-    function! MyFileformat()
+    function! MyFileformat() "{{{
         return winwidth('.') > 70 ? &fileformat : ''
-    endfunction
+    endfunction "}}}
 
-    function! MyFiletype()
+    function! MyFiletype() "{{{
         return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-    endfunction
+    endfunction "}}}
 
-    function! MyFileencoding()
+    function! MyFileencoding() "{{{
         return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-    endfunction
+    endfunction "}}}
 
-    function! MyMode()
+    function! MyMode() "{{{
         return winwidth('.') > 60 ? lightline#mode() : ''
-    endfunction
+    endfunction "}}}
 
-    function! MyGitGutter()
+    function! MyGitGutter() "{{{
         if ! exists('*GitGutterGetHunkSummary')
             \ || ! get(g:, 'gitgutter_enabled', 0)
             \ || winwidth('.') <= 90
@@ -392,10 +392,10 @@ hook_add = '''
             endif
         endfor
         return join(ret, ' ')
-    endfunction
+    endfunction "}}}
 
+    function! MyCharCode() "{{{
     " https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
-    function! MyCharCode()
         if winwidth('.') <= 70
             return ''
         endif
@@ -428,7 +428,7 @@ hook_add = '''
         let nr = printf(nrformat, nr)
 
         return "'". char ."' ". nr
-    endfunction
+    endfunction "}}}
 
 '''
 # }}}
@@ -657,7 +657,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'osyo-manga/vim-over' # {{{
-if = '''0'''
+if = '''1'''
 hook_add = '''
 
     " key_mappings {{{
