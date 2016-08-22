@@ -11,7 +11,6 @@ if has('vim_starting')
     if !isdirectory(s:dein_repo_dir)
         call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
     endif
-
     let &runtimepath = s:dein_repo_dir .",". &runtimepath
     let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
     let s:toml_file = expand('~/.config/nvim/dein.toml')
@@ -22,7 +21,6 @@ if has('vim_starting')
         call dein#end()
         call dein#save_state()
     endif
-
     if dein#check_install()
         call dein#install()
     endif
@@ -59,7 +57,6 @@ function! s:transparancy_up() abort "{{{
     endif
 endfunction
 "}}}
-command! -nargs=0 MyTransparancyUp call s:transparancy_up()
 
 function! s:transparancy_down() abort "{{{
     if has('gui_running')
@@ -79,7 +76,6 @@ function! s:transparancy_down() abort "{{{
     endif
 endfunction
 "}}}
-command! -nargs=0 MyTransparancyDown call s:transparancy_down()
 
 function! s:fullscreen() abort "{{{
     if !!has('gui_running')
@@ -92,7 +88,6 @@ function! s:fullscreen() abort "{{{
     endif
 endfunction
 "}}}
-command! -nargs=0 MyFullscreen call s:fullscreen()
 
 function! s:toggleopt(optname) abort "{{{
     try
@@ -105,7 +100,7 @@ endfunction
 "}}}
 command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>)
 
-function! s:closewindow(force) abort "{{{
+function! s:close_window() abort "{{{
     let a:bufname = expand('%:p')
     if len(a:bufname) == 0
         let a:bufname = '[No name]'
@@ -118,8 +113,7 @@ function! s:closewindow(force) abort "{{{
     echo '"' . a:bufname . '" closed'
 endfunction
 "}}}
-command! -nargs=0 CloseWindow call s:closewindow(0)
-command! -nargs=0 CloseWindowForce call s:closewindow(1)
+command! -nargs=0 YCloseWindow call s:close_window()
 
 function! s:rm_swp() abort "{{{
     let a:currentfile = fnamemodify(expand('%'), ":t")
@@ -127,13 +121,47 @@ function! s:rm_swp() abort "{{{
     echo a:directory
     exec '!rm ' . a:directory . '/' . a:currentfile . '.sw*'
 endfunction "}}}
-command! -nargs=0 RmSwp call s:rm_swp()
+command! -nargs=0 YRmSwp call s:rm_swp()
 
 function! s:set_indent_options(num) "{{{
     exec('setlocal tabstop=' . a:num)
     exec('setlocal softtabstop=' . a:num)
     exec('setlocal shiftwidth=' . a:num)
 endfun "}}}
+
+function! s:anoremap(lhs, rhs) "{{{
+    exec( 'noremap '  . a:lhs . ' ' . a:rhs )
+    exec( 'noremap! ' . a:lhs . ' ' . a:rhs )
+    exec( 'lnoremap ' . a:lhs . ' ' . a:rhs )
+endfun "}}}
+
+function! s:swap_num_key() "{{{
+    let g:ynoca_swap_keys = exists('g:ynoca_swap_keys') ? !g:ynoca_swap_keys : 1
+    let a:keys = [
+        \    ['1', "!"],
+        \    ['2', "@"],
+        \    ['3', "#"],
+        \    ['4', "$"],
+        \    ['5', "%"],
+        \    ['6', "^"],
+        \    ['7', "&"],
+        \    ['8', "*"],
+        \    ['9', "("],
+        \    ['0', ")"]
+        \    ]
+    if g:ynoca_swap_keys
+        for a:k in a:keys
+            call s:anoremap(a:k[0], a:k[1])
+            call s:anoremap(a:k[1], a:k[0])
+        endfor
+    else
+        for a:k in a:keys
+            call s:anoremap(a:k[0], a:k[0])
+            call s:anoremap(a:k[1], a:k[1])
+        endfor
+    endif
+endfun "}}}
+command! -nargs=0 YSwap call s:swap_num_key()
 
 "}}}
 
@@ -217,8 +245,7 @@ nnoremap <S-Left>             <C-w><<CR>
 nnoremap <S-Right>            <C-w>><CR>
 nnoremap <S-Up>               <C-w>-<CR>
 nnoremap <S-Down>             <C-w>+<CR>
-nnoremap <silent><BS>         :<C-u>CloseWindow<CR>
-nnoremap <silent><S-BS>       :<C-u>CloseWindowForce<CR>
+nnoremap <silent><BS>         :<C-u>YCloseWindow<CR>
 
 " tab
 nnoremap <TAB>                gt
@@ -330,7 +357,6 @@ set number                    " Show line number
 set ruler                     " Show current line number
 set title                     " Show title of the file
 
-" set showmatch                 " Show matching bracket
 set noshowmatch
 set matchtime     =1          " Time of matching paren
 set virtualedit  +=block      " Expand bounds in visual mode
@@ -351,7 +377,7 @@ set updatetime    =250
 
 " edit
 set switchbuf =useopen   " use an existing buffer instaed of creating a new one
-set iminsert  =0
+set iminsert  =1
 set imsearch  =-1
 
 " searching
@@ -468,3 +494,4 @@ autocmd vimrc BufNewFile,BufRead *.rb         call s:set_indent_options(2)
 " autocmd vimrc BufWritePre *                   %s/\s\+$//ge
 
 " }}}
+
