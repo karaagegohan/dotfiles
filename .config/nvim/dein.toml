@@ -133,10 +133,10 @@ hook_add = '''
     " key_mappings {{{
     nnoremap <SID>[shell] <Nop>
     nmap     <SID>[plugin]s <SID>[shell]
-    nnoremap <SID>[shell]s  :<C-u>set<space>noautochdir<CR>:<C-u>VimShell<CR>
-    nnoremap <SID>[shell]n  :<C-u>set<space>noautochdir<CR>:<C-u>VimShellPop<CR>
-    nnoremap <SID>[shell]p  :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive python<CR>
-    nnoremap <SID>[shell]r  :<C-u>set<space>noautochdir<CR>:<C-u>VimShellInteractive irb<CR>
+    nnoremap <SID>[shell]s  :<C-e><C-u>set<space>noautochdir<CR>:<C-e><C-u>VimShell<CR>
+    nnoremap <SID>[shell]n  :<C-e><C-u>set<space>noautochdir<CR>:<C-e><C-u>VimShellPop<CR>
+    nnoremap <SID>[shell]p  :<C-e><C-u>set<space>noautochdir<CR>:<C-e><C-u>VimShellInteractive python<CR>
+    nnoremap <SID>[shell]r  :<C-e><C-u>set<space>noautochdir<CR>:<C-e><C-u>VimShellInteractive irb<CR>
     "}}}
 
 '''
@@ -445,7 +445,7 @@ hook_add = '''
         \}
 
     " key_mappings {{{
-    nnoremap <SID>[plugin]r :<C-u>QuickRun -runner vimproc<CR>
+    nnoremap <SID>[plugin]r :<C-e><C-u>QuickRun -runner vimproc<CR>
     "}}}
 
 '''
@@ -497,18 +497,22 @@ hook_add = '''
     " key_mappings {{{
     nnoremap <SID>[git] <Nop>
     nmap     <SID>[plugin]g <SID>[git]
-    nnoremap <SID>[git]ad :<C-u>Gwrite<CR>
-    nnoremap <SID>[git]di :<C-u>Gdiff<CR>
-    nnoremap <SID>[git]bl :<C-u>Gblame<CR>
-    nnoremap <SID>[git]cm :<C-u>Gcommit -m ""<LEFT>
-    nnoremap <SID>[git]co :<C-u>Gcommit<CR>
-    nnoremap <SID>[git]st :<C-u>Gstatus<CR>
-    nnoremap <SID>[git]ps :<C-u>Git push<CR>
-    nnoremap <SID>[git]pl :<C-u>Git pull<CR>
-    nnoremap <SID>[git]sh :<C-u>Git stash<CR>
-    nnoremap <SID>[git]ch :<C-u>Git checkout<Space>
-    nnoremap <SID>[git]me :<C-u>Git merge<Space>
-    nnoremap <SID>[git]br :<C-u>Git branch<Space>
+    nnoremap <SID>[git]ad :<C-e><C-u>Gwrite<CR>
+    nnoremap <SID>[git]bl :<C-e><C-u>Gblame<CR>
+    nnoremap <SID>[git]br :<C-e><C-u>Git branch<Space>
+    nnoremap <SID>[git]ch :<C-e><C-u>Git checkout<Space>
+    nnoremap <SID>[git]cm :<C-e><C-u>Gcommit -m ""<LEFT>
+    nnoremap <SID>[git]ca :<C-e><C-u>Gcommit -m "add: "<LEFT>
+    nnoremap <SID>[git]cr :<C-e><C-u>Gcommit -m "remove: "<LEFT>
+    nnoremap <SID>[git]cf :<C-e><C-u>Gcommit -m "fix: "<LEFT>
+    nnoremap <SID>[git]cc :<C-e><C-u>Gcommit -m "change: "<LEFT>
+    nnoremap <SID>[git]co :<C-e><C-u>Gcommit<CR>
+    nnoremap <SID>[git]di :<C-e><C-u>Gdiff<CR>
+    nnoremap <SID>[git]me :<C-e><C-u>Git merge<Space>
+    nnoremap <SID>[git]pl :<C-e><C-u>Git pull<CR>
+    nnoremap <SID>[git]ps :<C-e><C-u>Git push<CR>
+    nnoremap <SID>[git]sh :<C-e><C-u>Git stash<CR>
+    nnoremap <SID>[git]st :<C-e><C-u>Gstatus<CR>
     "}}}
 
 '''
@@ -584,7 +588,7 @@ repo = 'AndrewRadev/switch.vim' # {{{
 hook_add = '''
 
     " key_mappings {{{
-    nnoremap <silent>- :<C-u>Switch<CR>
+    nnoremap <silent>- :<C-e><C-u>Switch<CR>
     "}}}
 
 '''
@@ -616,14 +620,14 @@ hook_add = '''
     let g:gitgutter_sign_modified_removed   = '✘➜'
 
     " key_mappings {{{
-    nnoremap <silent><SID>[git]gt   :<C-u>GitGutterToggle<CR>
-    nnoremap <silent><SID>[git]gh   :<C-u>GitGutterLineHighlightsToggle<CR>
-    nnoremap <silent><SID>[git]hn   :<C-u>GitGutterNextHunk<CR>
-    nnoremap <silent><SID>[git]hp   :<C-u>GitGutterPrevHunk<CR>
-    nnoremap <silent><SID>[git]ha   :<C-u>GitGutterStageHunk<CR>
-    nnoremap <silent><SID>[git]hh   :<C-u>GitGutterRevertHunk<CR>
-    nnoremap <silent><SID>[git]hp   :<C-u>GitGutterPrevHunk<CR>
-    nnoremap <silent><SID>[git]hn   :<C-u>GitGutterNextHunk<CR>
+    nnoremap <silent><SID>[git]gt   :<C-e><C-u>GitGutterToggle<CR>
+    nnoremap <silent><SID>[git]gh   :<C-e><C-u>GitGutterLineHighlightsToggle<CR>
+    nnoremap <silent><SID>[git]hn   :<C-e><C-u>GitGutterNextHunk<CR>
+    nnoremap <silent><SID>[git]hp   :<C-e><C-u>GitGutterPrevHunk<CR>
+    nnoremap <silent><SID>[git]ha   :<C-e><C-u>GitGutterStageHunk<CR>
+    nnoremap <silent><SID>[git]hh   :<C-e><C-u>GitGutterRevertHunk<CR>
+    nnoremap <silent><SID>[git]hp   :<C-e><C-u>GitGutterPrevHunk<CR>
+    nnoremap <silent><SID>[git]hn   :<C-e><C-u>GitGutterNextHunk<CR>
     "}}}
 
 '''
@@ -661,7 +665,7 @@ if = '''1'''
 hook_add = '''
 
     " key_mappings {{{
-    nnoremap <SID>[plugin]/ :<C-u>OverCommandLine<CR>%s/
+    nnoremap <SID>[plugin]/ :<C-e><C-u>OverCommandLine<CR>%s/
     "}}}
 
 '''
@@ -684,7 +688,7 @@ hook_add = '''
     " key_mappings {{{
     nnoremap <SID>[undotr] <Nop>
     nmap     <SID>[plugin]U <SID>[undotr]
-    nnoremap <SID>[undotr]  :<C-u>UndotreeToggle<CR>
+    nnoremap <SID>[undotr]  :<C-e><C-u>UndotreeToggle<CR>
     "}}}
 
 '''
@@ -697,8 +701,8 @@ hook_add = '''
     " key_mappings {{{
     nnoremap <SID>[vinarise] <Nop>
     nmap     <SID>[plugin]v <SID>[vinarise]
-    nnoremap <SID>[vinarise]v :<C-u>Vinarise<CR>
-    nnoremap <SID>[vinarise]b :<C-u>VinarisePluginBitmapView<CR>
+    nnoremap <SID>[vinarise]v :<C-e><C-u>Vinarise<CR>
+    nnoremap <SID>[vinarise]b :<C-e><C-u>VinarisePluginBitmapView<CR>
     "}}}
 
 '''
@@ -712,7 +716,7 @@ hook_add = '''
     nnoremap <SID>[vim-ref] <Nop>
     nmap     <SID>[plugin]d <SID>[vim-ref]
     nmap     <SID>[vim-ref]d <Plug>(ref-keyword)
-    nnoremap <SID>[vim-ref]h :<C-u>help
+    nnoremap <SID>[vim-ref]h :<C-e><C-u>help
     "}}}
 
 '''
@@ -865,8 +869,8 @@ hook_add = '''
 
     nnoremap <SID>[spjoin]  <Nop>
     nmap     <SID>[plugin]s <SID>[spjoin]
-    nnoremap <SID>[spjoin]s :<C-u>SplitjoinSplit<CR>
-    nnoremap <SID>[spjoin]j :<C-u>SplitjoinJoin<CR>
+    nnoremap <SID>[spjoin]s :<C-e><C-u>SplitjoinSplit<CR>
+    nnoremap <SID>[spjoin]j :<C-e><C-u>SplitjoinJoin<CR>
 
 '''
 # }}}
@@ -964,21 +968,21 @@ hook_add = '''
     " key_mappings {{{
     nnoremap <SID>[unite] <Nop>
     nmap     <SID>[plugin]u <SID>[unite]
-    nnoremap <SID>[unite]u  :<C-u>Unite<CR>
-    nnoremap <SID>[unite]s  :<C-u>Unite source<CR>
-    nnoremap <SID>[unite]hy :<C-u>Unite history/yank<CR>
-    nnoremap <SID>[unite]he :<C-u>Unite help<CR>
-    nnoremap <SID>[unite]hf :<C-u>Unite file_mru buffer<CR>
-    nnoremap <SID>[unite]b  :<C-u>Unite buffer<CR>
-    nnoremap <SID>[unite]re :<C-u>Unite -buffer-name=register register<CR>
-    nnoremap <SID>[unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-    nnoremap <SID>[unite]qf :<C-u>Unite -no-quit -direction=botright quickfix<CR>
-    nnoremap <SID>[unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
-    nnoremap <SID>[unite]pf :<C-u>Unite -auto-preview font<CR>
-    nnoremap <SID>[unite]pt :<C-u>Unite -auto-preview transparency<CR>
-    nnoremap <SID>[unite]yr :<C-u>Unite yankround<CR>
-    nnoremap <SID>[unite]nb :<C-u>Unite dein<CR>
-    nnoremap <SID>[unite]co :<C-u>Unite command<CR>
+    nnoremap <SID>[unite]u  :<C-e><C-u>Unite<CR>
+    nnoremap <SID>[unite]s  :<C-e><C-u>Unite source<CR>
+    nnoremap <SID>[unite]hy :<C-e><C-u>Unite history/yank<CR>
+    nnoremap <SID>[unite]he :<C-e><C-u>Unite help<CR>
+    nnoremap <SID>[unite]hf :<C-e><C-u>Unite file_mru buffer<CR>
+    nnoremap <SID>[unite]b  :<C-e><C-u>Unite buffer<CR>
+    nnoremap <SID>[unite]re :<C-e><C-u>Unite -buffer-name=register register<CR>
+    nnoremap <SID>[unite]f  :<C-e><C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    nnoremap <SID>[unite]qf :<C-e><C-u>Unite -no-quit -direction=botright quickfix<CR>
+    nnoremap <SID>[unite]pc :<C-e><C-u>Unite -auto-preview colorscheme<CR>
+    nnoremap <SID>[unite]pf :<C-e><C-u>Unite -auto-preview font<CR>
+    nnoremap <SID>[unite]pt :<C-e><C-u>Unite -auto-preview transparency<CR>
+    nnoremap <SID>[unite]yr :<C-e><C-u>Unite yankround<CR>
+    nnoremap <SID>[unite]nb :<C-e><C-u>Unite dein<CR>
+    nnoremap <SID>[unite]co :<C-e><C-u>Unite command<CR>
     "}}}
 
 '''
@@ -1041,14 +1045,16 @@ depends = ['Shougo/unite.vim']
 
 [[plugins]]
 repo = 'kmnk/vim-unite-giti' # {{{
-if = '''0'''
+if = '''1'''
 depends = ['Shougo/unite.vim']
 hook_add = '''
 
     let g:unite_split_rule = 'botright'
 
     " key_mappings {{{
-    nnoremap <SID>[unite]gs :<C-u>Unite giti/status<CR>
+    nnoremap <SID>[unite-git] <Nop>
+    nmap     <SID>[unite]g    <SID>[unite-git]
+    nnoremap <SID>[unite-git]g :<C-e><C-u>Unite giti<CR>
     " }}}
 
 '''
@@ -1074,7 +1080,7 @@ hook_add = '''
     if has('nvim')
         autocmd vimrc BufWritePost * Neomake
     else
-        nnoremap <SID>[plugin]n :<C-u>Neomake<CR>
+        nnoremap <SID>[plugin]n :<C-e><C-u>Neomake<CR>
     end
     let g:neomake_warning_sign = {
         \ 'text': '!',
@@ -1175,7 +1181,7 @@ hook_add = '''
     let g:unite_source_ruby_require_cmd = expand('$HOME/.rbenv/shims/ruby')
 
     " key_mappings {{{
-    nnoremap <SID>[unite]rb  :<C-u>Unite<CR>
+    nnoremap <SID>[unite]rb  :<C-e><C-u>Unite<CR>
     "}}}
 
 '''

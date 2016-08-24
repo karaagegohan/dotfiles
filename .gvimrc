@@ -78,7 +78,7 @@ set cmdheight  =2        " height of commandline
 
 " colorscheme
 " colorscheme Tomorrow-Night-Eighties
-colorscheme onedark
+colorscheme gruvbox
 set background =dark
 " highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 " highlight CursorLine gui=underline guifg=NONE guibg=NONE
