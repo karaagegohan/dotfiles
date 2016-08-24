@@ -16,33 +16,34 @@
 	branch = auto
 
 [alias]
-    gr = log --pretty='medium-reverse' --graph --name-status
-    sh = stash
-    di = diff
-    st = status
     ad = add
     ap = add -p
-    cm = commit -m
-    co = commit
-    ps = push
-    pm = push origin master
-    pl = pull
-    ch = checkout
-    cb = checkout -B
-    br = branch
+    ba = branch -a
     bd = branch -d
     bf = branch -f
-    ba = branch -a
-    me = merge
+    br = branch
+    cb = checkout -B
+    ch = checkout
+    cm = commit -m
+    co = commit
+    di = diff
     fe = fetch
-    rs = reset
-    rb = rebase
-    rm = rm --cached
+    gr = log --pretty='medium-reverse' --graph --name-status
     lo = log --reverse --decorate
     ma = checkout master
+    me = merge
+    pl = pull
+    pm = push origin master
+    ps = push
+    pf = push -f
+    rb = rebase
+    rm = rm --cached
+    rs = reset
+    sh = stash
+    st = status
     ud = reset --hard HEAD^
 
-    today = "!f () {\
+    td = "!f () {\
                  git log --oneline --reverse --branches \
                  --since=midnight --date=iso \
                  --author=\"$(git config user.name)\" \
