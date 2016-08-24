@@ -188,122 +188,122 @@ command! -nargs=0 YSwap call s:swap_num_key()
 "  }}}
 
 " prefixes
-nnoremap <SID>[func]          <Nop>
-nmap     ,                    <SID>[func]
+nnoremap <SID>[command]          <Nop>
+nmap     ,                       <SID>[command]
 
 " basic
-noremap  ;                    :
-lnoremap ;                    :
-noremap  :                    ;
-lnoremap :                    ;
-noremap  <C-c>                <Esc>
-lnoremap <C-c>                <Esc>
-nnoremap <CR>                 :<C-u>write<CR>
-nnoremap <S-CR>               :<C-u>write!<CR>
-nnoremap U                    <C-r>
-cnoremap <C-c>                :<C-u>echo ""<CR>
-nnoremap <silent><C-c><C-c>   :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
-inoremap jj                   <Esc>
-inoremap kk                   <CR>
-nnoremap <C-h>                <Nop>
-nnoremap <C-j>                <Nop>
-nnoremap <C-k>                <Nop>
-nnoremap <C-l>                <Nop>
+noremap  ;                       :
+lnoremap ;                       :
+noremap  :                       ;
+lnoremap :                       ;
+noremap  <C-c>                   <Esc>
+lnoremap <C-c>                   <Esc>
+nnoremap <CR>                    :<C-u>write<CR>
+nnoremap <S-CR>                  :<C-u>write!<CR>
+nnoremap U                       <C-r>
+cnoremap <C-c>                   :<C-u>echo ""<CR>
+nnoremap <silent><C-c><C-c>      :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
+inoremap jj                      <Esc>
+inoremap kk                      <CR>
+nnoremap <C-h>                   <Nop>
+nnoremap <C-j>                   <Nop>
+nnoremap <C-k>                   <Nop>
+nnoremap <C-l>                   <Nop>
 
 " edit
-nnoremap Y                    y$
-nnoremap R                    J
-nnoremap x                    "_x
-nnoremap X                    x
+nnoremap Y                       y$
+nnoremap R                       J
+nnoremap x                       "_x
+nnoremap X                       x
 
 " cursor
-nnoremap j                    gj
-nnoremap k                    gk
-vnoremap j                    gj
-vnoremap k                    gk
-noremap  H                    ^
-noremap  J                    }
-noremap  K                    {
-noremap  L                    $
+nnoremap j                       gj
+nnoremap k                       gk
+vnoremap j                       gj
+vnoremap k                       gk
+noremap  H                       ^
+noremap  J                       }
+noremap  K                       {
+noremap  L                       $
 
 " searching
-nnoremap n                    nzO
-nnoremap N                    NzO
-nnoremap '                    *NzO
-nnoremap "                    #NzO
+nnoremap n                       nzO
+nnoremap N                       NzO
+nnoremap '                       *NzO
+nnoremap "                       #NzO
 
 " window
-nnoremap gh                   <C-w>h
-nnoremap gj                   <C-w>j
-nnoremap gk                   <C-w>k
-nnoremap gl                   <C-w>l
-nnoremap <silent><SID>[func]n :<C-u>new<CR>
-nnoremap <silent><SID>[func]v :<C-u>vnew<CR>
-nnoremap <silent><SID>[func]N :<C-u>split<CR>
-nnoremap <silent><SID>[func]V :<C-u>vsplit<CR>
-nnoremap <S-Left>             <C-w><<CR>
-nnoremap <S-Right>            <C-w>><CR>
-nnoremap <S-Up>               <C-w>-<CR>
-nnoremap <S-Down>             <C-w>+<CR>
-nnoremap <silent><BS>         :<C-u>YCloseWindow<CR>
+nnoremap gh                      <C-w>h
+nnoremap gj                      <C-w>j
+nnoremap gk                      <C-w>k
+nnoremap gl                      <C-w>l
+nnoremap <silent><SID>[command]n :<C-u>new<CR>
+nnoremap <silent><SID>[command]v :<C-u>vnew<CR>
+nnoremap <silent><SID>[command]N :<C-u>split<CR>
+nnoremap <silent><SID>[command]V :<C-u>vsplit<CR>
+nnoremap <S-Left>                <C-w><<CR>
+nnoremap <S-Right>               <C-w>><CR>
+nnoremap <S-Up>                  <C-w>-<CR>
+nnoremap <S-Down>                <C-w>+<CR>
+nnoremap <silent><BS>            :<C-u>YCloseWindow<CR>
 
 " tab
-nnoremap <TAB>                gt
-nnoremap <S-TAB>              gT
-nnoremap <SID>[func]t         :<C-u>tabnew<CR>
+nnoremap <TAB>                   gt
+nnoremap <S-TAB>                 gT
+nnoremap <SID>[command]t         :<C-u>tabnew<CR>
 
 " buffer
-nnoremap (                    :<C-u>bprevious<CR>
-nnoremap )                    :<C-u>bnext<CR>
+nnoremap (                       :<C-u>bprevious<CR>
+nnoremap )                       :<C-u>bnext<CR>
 
 " command mode
-cnoremap <C-n>                <DOWN>
-cnoremap <C-p>                <UP>
+cnoremap <C-n>                   <DOWN>
+cnoremap <C-p>                   <UP>
 
 " fold
-nnoremap zz                   za
+nnoremap zz                      za
 
 " toggle
-nnoremap <silent><SID>[func]1 :<C-u>ToggleOpt number<CR>
-nnoremap <silent><SID>[func]2 :<C-u>ToggleOpt relativenumber<CR>
-nnoremap <silent><SID>[func]3 :<C-u>ToggleOpt autochdir<CR>
-nnoremap <silent><SID>[func]4 :<C-u>ToggleOpt list<CR>
-nnoremap <silent><SID>[func]5 :<C-u>ToggleOpt foldenable<CR>
-nnoremap <silent><SID>[func]6 <Nop>
-nnoremap <silent><SID>[func]7 <Nop>
-nnoremap <silent><SID>[func]8 <Nop>
-nnoremap <silent><SID>[func]9 <Nop>
+nnoremap <silent><SID>[command]1 :<C-u>ToggleOpt number<CR>
+nnoremap <silent><SID>[command]2 :<C-u>ToggleOpt relativenumber<CR>
+nnoremap <silent><SID>[command]3 :<C-u>ToggleOpt autochdir<CR>
+nnoremap <silent><SID>[command]4 :<C-u>ToggleOpt list<CR>
+nnoremap <silent><SID>[command]5 :<C-u>ToggleOpt foldenable<CR>
+nnoremap <silent><SID>[command]6 <Nop>
+nnoremap <silent><SID>[command]7 <Nop>
+nnoremap <silent><SID>[command]8 <Nop>
+nnoremap <silent><SID>[command]9 <Nop>
 
 " function keys
-nnoremap <silent><F1>         <Nop>
-nnoremap <silent><F2>         <Nop>
-nnoremap <silent><F3>         <Nop>
-nnoremap <silent><F4>         <Nop>
-nnoremap <silent><F5>         <Nop>
-nnoremap <silent><F6>         <Nop>
-nnoremap <silent><F7>         <Nop>
-nnoremap <silent><F8>         <Nop>
-nnoremap <silent><F9>         <Nop>
-nnoremap <silent><F10>        <Nop>
-nnoremap <silent><F11>        <Nop>
-nnoremap <silent><F12>        <Nop>
+nnoremap <silent><F1>            <Nop>
+nnoremap <silent><F2>            <Nop>
+nnoremap <silent><F3>            <Nop>
+nnoremap <silent><F4>            <Nop>
+nnoremap <silent><F5>            <Nop>
+nnoremap <silent><F6>            <Nop>
+nnoremap <silent><F7>            <Nop>
+nnoremap <silent><F8>            <Nop>
+nnoremap <silent><F9>            <Nop>
+nnoremap <silent><F10>           <Nop>
+nnoremap <silent><F11>           <Nop>
+nnoremap <silent><F12>           <Nop>
 
 " other
-nnoremap <silent><SID>[func]. :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent><SID>[func], :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
-nnoremap <silent><SID>[func]r :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand("%:p") . "\" " . "Reloaded"<CR>
-nnoremap <silent><SID>[func]h :<C-u>help <C-r><C-w><CR>
-nnoremap <silent><SID>[func]e :<C-u>edit<CR>
-nnoremap <silent><SID>[func]c q:
-nnoremap <silent><SID>[func]x :<C-u>exit<CR>
-nnoremap <SID>[func]sa        :<C-u>%s///g<LEFT><LEFT>
-nnoremap <SID>[func]sc        :<C-u>%s///gc<LEFT><LEFT><LEFT>
+nnoremap <silent><SID>[command]. :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent><SID>[command], :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
+nnoremap <silent><SID>[command]r :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded"<CR>
+nnoremap <silent><SID>[command]h :<C-u>help <C-r><C-w><CR>
+nnoremap <silent><SID>[command]e :<C-u>edit<CR>
+nnoremap <silent><SID>[command]c q:
+nnoremap <silent><SID>[command]x :<C-u>exit<CR>
+nnoremap <SID>[command]sa        :<C-u>%s///g<LEFT><LEFT>
+nnoremap <SID>[command]sp        :<C-u>%s///gc<LEFT><LEFT><LEFT>
 
 " terminal for nvim
 if has('nvim')
     tnoremap <silent>jj    <C-\><C-n>
-    nnoremap <SID>[func]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
-    nnoremap <SID>[func]zn :<C-u>new<CR>:<C-u>terminal<CR>
+    nnoremap <SID>[command]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
+    nnoremap <SID>[command]zn :<C-u>new<CR>:<C-u>terminal<CR>
 endif
 
 "}}}
