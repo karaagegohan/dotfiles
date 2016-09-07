@@ -18,7 +18,7 @@ nyagos.prompt = function(this)
 end
 
 set{
-    PROMPT="\x1b[31m[$P]\x1b[0m"
+    PROMPT="$_\x1b[40m[$P]\x1b[0m$_\x1b[39m$$\x1b[0m$s"
 }
 
 nyagos.bindkey("C_R",
