@@ -163,42 +163,68 @@ function! s:swap_num_key() "{{{
 endfun "}}}
 command! -nargs=0 YSwap call s:swap_num_key()
 
-    function! s:char_code() "{{{
-        if winwidth('.') <= 70
-            echo  ''
-        endif
+function! s:char_code() "{{{
+    if winwidth('.') <= 70
+        echo  ''
+    endif
 
-        " Get the output of :ascii
-        redir => ascii
-        silent! ascii
-        redir END
+    " Get the output of :ascii
+    redir => ascii
+    silent! ascii
+    redir END
 
-        if match(ascii, 'NUL') != -1
-            echo  'NUL'
-        endif
+    if match(ascii, 'NUL') != -1
+        echo  'NUL'
+    endif
 
-        " Zero pad hex values
-        let nrformat = '0x%02x'
+    " Zero pad hex values
+    let s:nrformat = '0x%02x'
 
-        let encoding = (&fenc == '' ? &enc : &fenc)
+    let encoding = (&fenc == '' ? &enc : &fenc)
 
-        if encoding == 'utf-8'
-            " Zero pad with 4 zeroes in unicode files
-            let nrformat = '0x%04x'
-        endif
+    if encoding == 'utf-8'
+        " Zero pad with 4 zeroes in unicode files
+        let s:nrformat = '0x%04x'
+    endif
 
-        " Get the character and the numeric value from the echo  value of :ascii
-        " This matches the two first pieces of the echo  value, e.g.
-        " "<F>  70" => char: 'F', nr: '70'
-        let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
+    " Get the character and the numeric value from the echo  value of :ascii
+    " This matches the two first pieces of the echo  value, e.g.
+    " "<F>  70" => char: 'F', nr: '70'
+    let [s:str, s:char, s:nr; s:rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
 
-        " Format the numeric value
-        let nr = printf(nrformat, nr)
+    " Format the numeric value
+    let nr = printf(s:nrformat, s:nr)
 
-        echo  "'". char ."' ". nr
-    endfunction "}}}
+    echo  "'". s:char ."' ". s:nr
+endfunction "}}}
 command! -nargs=0 CC call s:char_code()
 
+function! s:bnext_name() "{{{
+    redir => ls
+    silent! ls
+    redir END
+    let s:buffers = split(ls, '\n')
+    let s:cnt = 0
+    for s:buffer in s:buffers
+        if match(s:buffer, '%a') == -1
+            let s:cnt = s:cnt + 1
+            break
+        endif
+    endfor
+    let s:max_index = len(s:buffers) - 1
+    let s:nex_index = s:cnt + 1
+    if s:nex_index == s:max_index + 1
+        let s:nex_index = 0
+    endif
+    let s:pre_index = s:cnt - 1
+    if s:pre_index ==  - 1
+        let s:nex_index = s:max_index
+    endif
+    echo s:buffers[s:nex_index]
+    echo matchstr(s:buffers[s:nex_index], '\v.*[\/].*"')
+
+endfunction "}}}
+command! -nargs=0 BN call s:bnext_name()
 "}}}
 
 " key mappings {{{
