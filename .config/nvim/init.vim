@@ -199,32 +199,40 @@ function! s:char_code() "{{{
 endfunction "}}}
 command! -nargs=0 CC call s:char_code()
 
-function! s:bnext_name() "{{{
+function! s:next_buffer_name() "{{{
     redir => ls
     silent! ls
     redir END
+    let s:cur_index = 0
     let s:buffers = split(ls, '\n')
-    let s:cnt = 0
     for s:buffer in s:buffers
-        if match(s:buffer, '%a') == -1
-            let s:cnt = s:cnt + 1
+        if match(s:buffer, '%a') != -1
             break
         endif
+        let s:cur_index = s:cur_index + 1
     endfor
     let s:max_index = len(s:buffers) - 1
-    let s:nex_index = s:cnt + 1
+    let s:nex_index = s:cur_index + 1
     if s:nex_index == s:max_index + 1
         let s:nex_index = 0
     endif
-    let s:pre_index = s:cnt - 1
-    if s:pre_index ==  - 1
-        let s:nex_index = s:max_index
+    let s:pre_index = s:cur_index - 1
+    if s:pre_index == -1
+        let s:pre_index = s:max_index
     endif
-    echo s:buffers[s:nex_index]
-    echo matchstr(s:buffers[s:nex_index], '\v.*[\/].*"')
-
+    let s:pre_name = matchstr(s:buffers[s:pre_index], '"\zs.*\ze"')
+    let s:after_slash = matchstr(s:pre_name, '.*\\\zs.*\ze') 
+    if s:after_slash != ''
+        let s:pre_name = s:after_slash
+    endif
+    let s:nex_name = matchstr(s:buffers[s:nex_index], '"\zs.*\ze"')
+    let s:after_slash = matchstr(s:nex_name, '.*\\\zs.*\ze') 
+    if s:after_slash != ''
+        let s:nex_name = s:after_slash
+    endif
+    echo '( ' . s:pre_name . ' <=|=> ' . s:nex_name . ' )'
 endfunction "}}}
-command! -nargs=0 BN call s:bnext_name()
+command! -nargs=0 BN call s:next_buffer_name()
 "}}}
 
 " key mappings {{{
@@ -263,11 +271,11 @@ noremap! :                       ;
 noremap  <C-c>                   <Esc>
 noremap! <C-c>                   <Esc>
 lnoremap <C-c>                   <Esc>
-nnoremap <CR>                    :<C-e><C-u>write<CR>
-nnoremap <S-CR>                  :<C-e><C-u>write!<CR>
+nnoremap <CR>                    :<C-u>write<CR>
+nnoremap <S-CR>                  :<C-u>write!<CR>
 nnoremap U                       <C-r>
-cnoremap <C-c>                   :<C-e><C-u>echo ""<CR>
-nnoremap <silent><C-c><C-c>      :<C-e><C-u>nohlsearch<CR>:<C-e><C-u>echo ""<CR>
+cnoremap <C-c>                   :<C-u>echo ""<CR>
+nnoremap <silent><C-c><C-c>      :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
 inoremap jj                      <Esc>
 inoremap kk                      <CR>
 nnoremap <C-h>                   <Nop>
@@ -302,24 +310,24 @@ nnoremap gh                      <C-w>h
 nnoremap gj                      <C-w>j
 nnoremap gk                      <C-w>k
 nnoremap gl                      <C-w>l
-nnoremap <silent><SID>[command]n :<C-e><C-u>new<CR>
-nnoremap <silent><SID>[command]v :<C-e><C-u>vnew<CR>
-nnoremap <silent><SID>[command]N :<C-e><C-u>split<CR>
-nnoremap <silent><SID>[command]V :<C-e><C-u>vsplit<CR>
+nnoremap <silent><SID>[command]n :<C-u>new<CR>
+nnoremap <silent><SID>[command]v :<C-u>vnew<CR>
+nnoremap <silent><SID>[command]N :<C-u>split<CR>
+nnoremap <silent><SID>[command]V :<C-u>vsplit<CR>
 nnoremap <S-Left>                <C-w><<CR>
 nnoremap <S-Right>               <C-w>><CR>
 nnoremap <S-Up>                  <C-w>-<CR>
 nnoremap <S-Down>                <C-w>+<CR>
-nnoremap <silent><BS>            :<C-e><C-u>bdelete<CR>
+nnoremap <silent><BS>            :<C-u>bdelete<CR>
 
 " tab
 nnoremap <TAB>                   gt
 nnoremap <S-TAB>                 gT
-nnoremap <SID>[command]t         :<C-e><C-u>tabnew<CR>
+nnoremap <SID>[command]t         :<C-u>tabnew<CR>
 
 " buffer
-nnoremap (                       :<C-e><C-u>bprevious<CR>
-nnoremap )                       :<C-e><C-u>bnext<CR>
+nnoremap <silent>(               :<C-u>bprevious<CR>
+nnoremap <silent>)               :<C-u>bnext<CR>
 
 " command mode
 cnoremap <C-n>                   <DOWN>
@@ -329,11 +337,11 @@ cnoremap <C-p>                   <UP>
 nnoremap zz                      za
 
 " toggle
-nnoremap <silent><SID>[command]1 :<C-e><C-u>ToggleOpt number<CR>
-nnoremap <silent><SID>[command]2 :<C-e><C-u>ToggleOpt relativenumber<CR>
-nnoremap <silent><SID>[command]3 :<C-e><C-u>ToggleOpt autochdir<CR>
-nnoremap <silent><SID>[command]4 :<C-e><C-u>ToggleOpt list<CR>
-nnoremap <silent><SID>[command]5 :<C-e><C-u>ToggleOpt foldenable<CR>
+nnoremap <silent><SID>[command]1 :<C-u>ToggleOpt number<CR>
+nnoremap <silent><SID>[command]2 :<C-u>ToggleOpt relativenumber<CR>
+nnoremap <silent><SID>[command]3 :<C-u>ToggleOpt autochdir<CR>
+nnoremap <silent><SID>[command]4 :<C-u>ToggleOpt list<CR>
+nnoremap <silent><SID>[command]5 :<C-u>ToggleOpt foldenable<CR>
 nnoremap <silent><SID>[command]6 <Nop>
 nnoremap <silent><SID>[command]7 <Nop>
 nnoremap <silent><SID>[command]8 <Nop>
@@ -354,21 +362,21 @@ nnoremap <silent><F11>           <Nop>
 nnoremap <silent><F12>           <Nop>
 
 " other
-nnoremap <silent><SID>[command]. :<C-e><C-u>edit $MYVIMRC<CR>
-nnoremap <silent><SID>[command], :<C-e><C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
-nnoremap <silent><SID>[command]r :<C-e><C-u>source $MYVIMRC<CR>:<C-e><C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded"<CR>
-nnoremap <silent><SID>[command]h :<C-e><C-u>help <C-r><C-w><CR>
-nnoremap <silent><SID>[command]e :<C-e><C-u>edit<CR>
+nnoremap <silent><SID>[command]. :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent><SID>[command], :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
+nnoremap <silent><SID>[command]r :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded"<CR>
+nnoremap <silent><SID>[command]h :<C-u>help <C-r><C-w><CR>
+nnoremap <silent><SID>[command]e :<C-u>edit<CR>
 nnoremap <silent><SID>[command]c q:
-nnoremap <silent><SID>[command]x :<C-e><C-u>exit<CR>
-nnoremap <SID>[command]sa        :<C-e><C-u>%s///g<LEFT><LEFT>
-nnoremap <SID>[command]sp        :<C-e><C-u>%s///gc<LEFT><LEFT><LEFT>
+nnoremap <silent><SID>[command]x :<C-u>exit<CR>
+nnoremap <SID>[command]sa        :<C-u>%s///g<LEFT><LEFT>
+nnoremap <SID>[command]sp        :<C-u>%s///gc<LEFT><LEFT><LEFT>
 
 " terminal for nvim
 if has('nvim')
     tnoremap <silent>jj    <C-\><C-n>
-    nnoremap <SID>[command]zv :<C-e><C-u>vnew<CR>:<C-e><C-u>terminal<CR>
-    nnoremap <SID>[command]zn :<C-e><C-u>new<CR>:<C-e><C-u>terminal<CR>
+    nnoremap <SID>[command]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
+    nnoremap <SID>[command]zn :<C-u>new<CR>:<C-u>terminal<CR>
 endif
 
 "}}}

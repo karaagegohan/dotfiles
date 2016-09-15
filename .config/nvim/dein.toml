@@ -303,7 +303,7 @@ hook_add = '''
         \   'right': [
         \     ['lineinfo'],
         \     ['percent'],
-        \     ['fileformat', 'fileencoding', 'filetype'],
+        \     ['nextbuffername', 'fileformat', 'fileencoding', 'filetype'],
         \   ]
         \ },
         \ 'component_function': {
@@ -319,6 +319,7 @@ hook_add = '''
         \   'syntastic': 'SyntasticStatuslineFlag',
         \   'charcode': 'MyCharCode',
         \   'gitgutter': 'MyGitGutter',
+        \   'nextbuffername': 'MyNextBufferName',
         \ },
         \ 'separator': {'left': '', 'right': ''},
         \ 'subseparator': {'left': '|', 'right': '|'}
@@ -428,6 +429,41 @@ hook_add = '''
         let nr = printf(nrformat, nr)
 
         return "'". char ."' ". nr
+    endfunction "}}}
+
+    function! MyNextBufferName() "{{{
+        redir => ls
+        silent! ls
+        redir END
+        let s:cur_index = 0
+        let s:buffers = split(ls, '\n')
+        for s:buffer in s:buffers
+            if match(s:buffer, '%a') != -1
+                break
+            endif
+            let s:cur_index = s:cur_index + 1
+        endfor
+        let s:max_index = len(s:buffers) - 1
+        let s:nex_index = s:cur_index + 1
+        if s:nex_index == s:max_index + 1
+            let s:nex_index = 0
+        endif
+        let s:pre_index = s:cur_index - 1
+        if s:pre_index == -1
+            let s:pre_index = s:max_index
+        endif
+        let s:pre_name = matchstr(s:buffers[s:pre_index], '"\zs.*\ze"')
+        let s:after_slash = matchstr(s:pre_name, '.*\\\zs.*\ze') 
+        if s:after_slash != ''
+            let s:pre_name = s:after_slash
+        endif
+        let s:nex_name = matchstr(s:buffers[s:nex_index], '"\zs.*\ze"')
+        let s:after_slash = matchstr(s:nex_name, '.*\\\zs.*\ze') 
+        if s:after_slash != ''
+            let s:nex_name = s:after_slash
+        endif
+        let s:str_length = 10
+        return '( ' . s:pre_name[0:s:str_length] . ' <=|=> ' . s:nex_name[0:s:str_length] . ' )'
     endfunction "}}}
 
 '''
