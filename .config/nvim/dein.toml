@@ -431,39 +431,36 @@ hook_add = '''
         return "'". char ."' ". nr
     endfunction "}}}
 
-    function! MyNextBufferName() "{{{
-        redir => ls
-        silent! ls
-        redir END
-        let s:cur_index = 0
-        let s:buffers = split(ls, '\n')
-        for s:buffer in s:buffers
-            if match(s:buffer, '%a') != -1
-                break
+    function! MyNextBufferName() abort "{{{
+        try
+            redir => ls
+            silent! ls
+            redir END
+            let s:cur_index = 0
+            let s:buffers = split(ls, '\n')
+            for s:buffer in s:buffers
+                if match(s:buffer, '%a') != -1
+                    break
+                endif
+                let s:cur_index = s:cur_index + 1
+            endfor
+            let s:max_index = len(s:buffers) - 1
+            let s:nex_index = s:cur_index + 1
+            if s:nex_index == s:max_index + 1
+                let s:nex_index = 0
             endif
-            let s:cur_index = s:cur_index + 1
-        endfor
-        let s:max_index = len(s:buffers) - 1
-        let s:nex_index = s:cur_index + 1
-        if s:nex_index == s:max_index + 1
-            let s:nex_index = 0
-        endif
-        let s:pre_index = s:cur_index - 1
-        if s:pre_index == -1
-            let s:pre_index = s:max_index
-        endif
-        let s:pre_name = matchstr(s:buffers[s:pre_index], '"\zs.*\ze"')
-        let s:after_slash = matchstr(s:pre_name, '.*\\\zs.*\ze') 
-        if s:after_slash != ''
-            let s:pre_name = s:after_slash
-        endif
-        let s:nex_name = matchstr(s:buffers[s:nex_index], '"\zs.*\ze"')
-        let s:after_slash = matchstr(s:nex_name, '.*\\\zs.*\ze') 
-        if s:after_slash != ''
-            let s:nex_name = s:after_slash
-        endif
-        let s:str_length = 10
-        return '( ' . s:pre_name[0:s:str_length] . ' <=|=> ' . s:nex_name[0:s:str_length] . ' )'
+            let s:pre_index = s:cur_index - 1
+            if s:pre_index == -1
+                let s:pre_index = s:max_index
+            endif
+            let s:pre_name = matchstr(s:buffers[s:pre_index], '"\zs.*\ze"')
+            let s:pre_name = fnamemodify(s:pre_name, ":t")
+            let s:nex_name = matchstr(s:buffers[s:nex_index], '"\zs.*\ze"')
+            let s:nex_name = fnamemodify(s:nex_name, ":t")
+            let s:str_length = 10
+            return '( ' . s:pre_name[0:s:str_length] . ' <=|=> ' . s:nex_name[0:s:str_length] . ' )'
+        catch
+        endtry
     endfunction "}}}
 
 '''
@@ -1418,7 +1415,7 @@ repo = 'whatyouhide/vim-gotham' # {{{
 
 [[plugins]]
 repo = 'joshdick/onedark.vim' # {{{
-if = '''0'''
+if = '''1'''
 hook_add = '''
   set background=dark
   autocmd vimrc VimEnter * nested colorscheme onedark
@@ -1427,7 +1424,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'rakr/vim-one' # {{{
-if = '''1'''
+if = '''0'''
 hook_add = '''
   set background=dark
   autocmd vimrc VimEnter * nested colorscheme one
