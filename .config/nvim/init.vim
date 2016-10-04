@@ -575,7 +575,7 @@ endif "}}}
 autocmd vimrc BufRead, FileType               help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk       setlocal fileencoding=sjis
 autocmd vimrc BufRead, BufNewFile *.xm        setlocal filetype=objc
-autocmd vimrc BufRead, BufNewFile*.rb         call s:set_indent_options(2)
+autocmd vimrc BufRead, BufNewFile *.rb        call s:set_indent_options(2)
 " autocmd vimrc VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
 " autocmd vimrc VimEnter,WinEnter *             match TrailingSpaces /\s\+$/
 " autocmd vimrc BufWritePre *                   %s/\s\+$//ge
