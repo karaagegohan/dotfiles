@@ -232,7 +232,13 @@ function! s:next_buffer_name() "{{{
     endif
     echo '( ' . s:pre_name . ' <=|=> ' . s:nex_name . ' )'
 endfunction "}}}
-command! -nargs=0 BN call s:next_buffer_name()
+
+function! s:save_with_date() "{{{
+    let s:filename = strftime("%Y%m%d") . '.txt'
+    exec ( 'write ' . s:filename )
+endfunction "}}}
+command! -nargs=0 W call s:save_with_date()
+
 "}}}
 
 " key mappings {{{
@@ -364,7 +370,7 @@ nnoremap <silent><F12>           <Nop>
 " other
 nnoremap <silent><SID>[command]. :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent><SID>[command], :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
-nnoremap <silent><SID>[command]r :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded"<CR>
+nnoremap <silent><SID>[command]r :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded."<CR>
 nnoremap <silent><SID>[command]h :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[command]e :<C-u>edit<CR>
 nnoremap <silent><SID>[command]c q:
@@ -386,6 +392,7 @@ nnoremap <silent><SID>[sfiletype]r :<C-u>setlocal filetype=ruby<CR>
 nnoremap <silent><SID>[sfiletype]g :<C-u>setlocal filetype=go<CR>
 nnoremap <silent><SID>[sfiletype]v :<C-u>setlocal filetype=vim<CR>
 nnoremap         <SID>[sfiletype]f :<C-u>setlocal filetype=
+
 "}}}
 
 " options {{{
