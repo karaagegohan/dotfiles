@@ -379,6 +379,13 @@ if has('nvim')
     nnoremap <SID>[command]zn :<C-u>new<CR>:<C-u>terminal<CR>
 endif
 
+" set filetypes
+nnoremap <SID>[sfiletype] <Nop>
+nmap     <SID>[command]sf <SID>[sfiletype]
+nnoremap <silent><SID>[sfiletype]r :<C-u>setlocal filetype=ruby<CR>
+nnoremap <silent><SID>[sfiletype]g :<C-u>setlocal filetype=go<CR>
+nnoremap <silent><SID>[sfiletype]v :<C-u>setlocal filetype=vim<CR>
+nnoremap         <SID>[sfiletype]f :<C-u>setlocal filetype=
 "}}}
 
 " options {{{
