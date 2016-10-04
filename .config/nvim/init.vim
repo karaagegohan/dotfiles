@@ -368,15 +368,15 @@ nnoremap <silent><F11>           <Nop>
 nnoremap <silent><F12>           <Nop>
 
 " other
-nnoremap <silent><SID>[command]. :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent><SID>[command], :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
-nnoremap <silent><SID>[command]r :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded."<CR>
-nnoremap <silent><SID>[command]h :<C-u>help <C-r><C-w><CR>
-nnoremap <silent><SID>[command]e :<C-u>edit<CR>
-nnoremap <silent><SID>[command]c q:
-nnoremap <silent><SID>[command]x :<C-u>exit<CR>
-nnoremap <SID>[command]sa        :<C-u>%s///g<LEFT><LEFT>
-nnoremap <SID>[command]sp        :<C-u>%s///gc<LEFT><LEFT><LEFT>
+nnoremap <silent><SID>[command].  :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent><SID>[command],  :<C-u>edit ~/dotfiles/.config/nvim/dein.toml<CR>
+nnoremap <silent><SID>[command]r  :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded."<CR>
+nnoremap <silent><SID>[command]h  :<C-u>help <C-r><C-w><CR>
+nnoremap <silent><SID>[command]e  :<C-u>edit<CR>
+nnoremap <silent><SID>[command]c  q:
+nnoremap <silent><SID>[command]x  :<C-u>exit<CR>
+nnoremap         <SID>[command]sa :<C-u>%s///g<LEFT><LEFT>
+nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
 
 " terminal for nvim
 if has('nvim')
