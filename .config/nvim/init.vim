@@ -461,6 +461,7 @@ set hidden
 set nocursorline
 set ambiwidth     =single
 set updatetime    =250
+set shortmess    +=I
 
 " edit
 set switchbuf =useopen   " use an existing buffer instaed of creating a new one
