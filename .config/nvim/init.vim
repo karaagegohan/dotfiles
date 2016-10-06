@@ -418,9 +418,9 @@ filetype plugin  on
 set backspace         =indent,eol,start    " More powerful backspacing
 set smartindent                            " Indent automatically
 set autoindent                             " Indent automatically
-set shiftwidth        =4                   " Width of indent for autoindent
-set tabstop           =4                   " Width of TAB
-set softtabstop       =4
+set shiftwidth        =2                   " Width of indent for autoindent
+set tabstop           =2                   " Width of TAB
+set softtabstop       =2
 set expandtab                              " Change TAB to space
 set textwidth         =0                   " Text width
 set whichwrap         =b,s,h,l,<,>,[,]     " Release limit of cursor
