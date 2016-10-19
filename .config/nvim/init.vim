@@ -4,6 +4,7 @@ augroup vimrc
 augroup END
 
 if has('vim_starting')
+    let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
     " dein settings
     let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
     let s:dein_dir = s:cache_home . '/dein'
@@ -193,7 +194,7 @@ function! s:char_code() "{{{
     let [s:str, s:char, s:nr; s:rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
 
     " Format the numeric value
-    let nr = printf(s:nrformat, s:nr)
+    let s:nr = printf(s:nrformat, s:nr)
 
     echo  "'". s:char ."' ". s:nr
 endfunction "}}}
@@ -380,7 +381,8 @@ nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
 
 " terminal for nvim
 if has('nvim')
-    tnoremap <silent>jj    <C-\><C-n>
+    tnoremap <silent>jj       <C-\><C-n>
+    nnoremap <SID>[command]zz :<C-u>terminal<CR>
     nnoremap <SID>[command]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
     nnoremap <SID>[command]zn :<C-u>new<CR>:<C-u>terminal<CR>
 endif
