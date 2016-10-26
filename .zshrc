@@ -1,4 +1,4 @@
-# functions# {{{
+# functions {{{
 
 function prompt-git-current-branch { # {{{
         local name st color
@@ -54,7 +54,7 @@ function git_commit_automatically() { # {{{
 
 # }}}
 
-# path# {{{
+# path {{{
 export PGDATA=/usr/local/var/postgres
 export PATH=$PATH:$HOME/bin
 export TERM=xterm-256color
@@ -84,7 +84,7 @@ fi
 
 # }}}
 
-# history# {{{
+# history {{{
 setopt HIST_IGNORE_DUPS     # 前と重複する行は記録しない
 setopt HIST_IGNORE_ALL_DUPS # 履歴中の重複行をファイル記録前に無くす
 setopt HIST_IGNORE_SPACE    # 行頭がスペースのコマンドは記録しない
@@ -98,19 +98,38 @@ SAVEHIST=1000000
 setopt share_history 
 # }}}
 
-# promot# {{{
+# promot {{{
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' max-exports 3
+zstyle ':vcs_info:*' formats '%s:%b ' '%r' '%R'
 setopt prompt_subst
+
+function precmd () {
+  LANG=en_US.UTF-8 vcs_info
+  psvar=()
+  [[ -n ${vcs_info_msg_0_} ]] && psvar[1]="$vcs_info_msg_0_"
+
+  if [[ -z ${vcs_info_msg_1_} ]] || [[ -z ${vcs_info_msg_2_} ]]; then
+    psvar[2]=$PWD
+  else
+    psvar[2]=`echo $vcs_info_msg_2_|sed -e "s#$vcs_info_msg_1_\\$##g"`
+    psvar[3]="$vcs_info_msg_1_"
+    psvar[4]=`echo $PWD|sed -e "s#^$vcs_info_msg_2_##g"`
+  fi
+}
+
 PROMPT='
-%F{cyan}[%m@%n]%f %d `prompt-git-current-branch`
+%F{cyan}[%m@%n]%f %{${fg[yellow]}%}%2v%U%3v%u%4v%{${reset_color}%} `prompt-git-current-branch`
 %(!.# .$ )'
+
 # }}}
 
-# completion# {{{
+# completion {{{
 autoload -U compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 # }}}
 
-# alias # {{{
+# alias {{{
 
 alias ll='ls -l'
 alias la='ls -a'
@@ -133,7 +152,7 @@ alias mkdiri='(){ mkdir $1; cd $1 }'
 
 # }}}
 
-# bindkey # {{{
+# bindkey {{{
 
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
