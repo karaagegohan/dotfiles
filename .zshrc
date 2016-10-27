@@ -1,30 +1,10 @@
 # functions {{{
 
-function prompt-git-current-branch { # {{{
-        local name st color
- 
-        name=`git symbolic-ref HEAD 2> /dev/null`
-        if [[ -z $name ]]
-        then
-                return
-        fi
-        name=`basename $name`
- 
-        st=`git status`
-        if [[ -n `echo $st | grep "^nothing to"` ]]
-        then
-                color="red"
-        else
-                color="green"
-        fi
- 
-        echo "%F{$color}[$name]%f"
-} # }}}
 
 function peco-history-selection() { # {{{
-    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
-    CURSOR=$#BUFFER
-    zle reset-prompt
+  BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+  CURSOR=$#BUFFER
+  zle reset-prompt
 } # }}}
 
 function git_commit_automatically_loop() { # {{{
@@ -99,12 +79,48 @@ setopt share_history
 # }}}
 
 # promot {{{
+
+#####################################################
+# %M      host name         localhost.localdomain   #
+# %m      host name         localhost               #
+# %n      user name         root                    #
+# %#      state of user     #(root) %(not root)     #
+# %y, %i  terminal name     pts/0                   #
+# %?, %h  return value of   0                       #
+#         latest command                            #
+# %!      the number of     1                       #
+#         history                                   #
+# %d, %/  current directory /root/currentdir        #
+# %~      current directory ~/currentdir            #
+# %C      current directory currentdir              #
+# %c, %.  current directory currentdir              #
+# %D      date              yy-mm-dd                #
+# %W      date              mm/dd/yy                #
+# %w      date              day dd                  #
+# %*      time              hh:mm:ss                #
+# %T      time              hh:mm                   #
+# %t, %@  time              hh:mm(am/pm format)     #
+#####################################################
+
+#####################################################
+# %s system name                git, svn, hg        #
+# %b branch name	                                  #
+# %i revision ID                                    #
+# %r repository name                                #
+# %R root directory (absolute)                      #
+# %S directory (relative)                           #
+# %a action                                         #
+# %c stagedstr                                      #
+# %u unstagedstr                                    #
+# %m others	$hook_com[misc]                         #
+#####################################################
+
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' max-exports 3
 zstyle ':vcs_info:*' formats '%s:%b ' '%r' '%R'
 setopt prompt_subst
 
-function precmd () {
+function precmd () { # {{{
   LANG=en_US.UTF-8 vcs_info
   psvar=()
   [[ -n ${vcs_info_msg_0_} ]] && psvar[1]="$vcs_info_msg_0_"
@@ -116,11 +132,46 @@ function precmd () {
     psvar[3]="$vcs_info_msg_1_"
     psvar[4]=`echo $PWD|sed -e "s#^$vcs_info_msg_2_##g"`
   fi
-}
+} # }}}
+
+function prompt-git-root-directory { # {{{
+  echo "in %{${fg[$1]}%}%2v%U%3v%u%4v%{${reset_color}%}"
+} # }}}
+
+function prompt-git-current-branch { # {{{
+  local name
+  local st
+  local plus
+
+  name=`git symbolic-ref HEAD 2> /dev/null`
+  if [[ -z $name ]]
+  then
+    return
+  fi
+  name=`basename $name`
+
+  st=`git status`
+  if [[ -n `echo $st | grep "^nothing to"` ]]
+  then
+    plus=""
+  else
+    plus="+"
+  fi
+
+  echo "on $fg[$1]$name$plus%f"
+} # }}}
+
+function prompt-username() { # {{{
+  echo "$fg[$1]%n%{$reset_color%}"
+} # }}}
+
+function prompt-hostname() { # {{{
+  echo "at $fg[$1]%m%{$reset_color%}"
+} # }}}
 
 PROMPT='
-%F{cyan}[%m@%n]%f %{${fg[yellow]}%}%2v%U%3v%u%4v%{${reset_color}%} `prompt-git-current-branch`
-%(!.# .$ )'
+%# `prompt-username cyan` `prompt-hostname green` `prompt-git-root-directory yellow` `prompt-git-current-branch blue`
+→ '
 
 # }}}
 
@@ -164,6 +215,7 @@ source ~/.zplug/init.zsh
 
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "mollifier/anyframe", at:4c23cb60
+zplug "zsh-users/zsh-syntax-highlighting"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
