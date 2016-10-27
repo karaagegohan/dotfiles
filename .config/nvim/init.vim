@@ -515,9 +515,9 @@ endif
 " swap file
 set noswapfile
 if &swapfile
-    let s:swapdir = expand('~/.vim/swp')
-    call s:mkdir(s:swapdir)
-    let &directory = s:swapdir
+  let s:swapdir = expand('~/.vim/swp')
+  call s:mkdir(s:swapdir)
+  let &directory = s:swapdir
 endif
 
 " mouse
@@ -568,6 +568,8 @@ end "}}}
 " nvim
 if has('nvim') "{{{
     autocmd vimrc WinEnter * if &buftype == 'terminal' | startinsert | endif
+    autocmd vimrc WinEnter * if &buftype == 'terminal' | nnoremap <buffer><BS> <Nop> | endif
+    autocmd vimrc WinEnter * if &buftype == 'terminal' | nnoremap <silent><buffer><BS> :<C-u>quit!<CR> | endif
 endif "}}}
 
 "}}}
