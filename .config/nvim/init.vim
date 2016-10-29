@@ -1,32 +1,32 @@
 " initialization {{{
 augroup vimrc
-    autocmd!
+  autocmd!
 augroup END
 
 if has('vim_starting')
-    let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
-    " dein settings
-    let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
-    let s:dein_dir = s:cache_home . '/dein'
-    let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-    if !isdirectory(s:dein_repo_dir)
-        call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
-    endif
-    let &runtimepath = s:dein_repo_dir .",". &runtimepath
-    let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
-    let s:toml_file = expand('~/.config/nvim/dein.toml')
-    let g:ynoca_toml_file = s:toml_file
-    if dein#load_state(s:dein_dir)
-        call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
-        call dein#load_toml(s:toml_file)
-        call dein#end()
-        call dein#save_state()
-    endif
-    if dein#check_install()
-        call dein#install()
-    endif
+  let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
+  " dein settings
+  let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+  let s:dein_dir = s:cache_home . '/dein'
+  let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+  endif
+  let &runtimepath = s:dein_repo_dir .",". &runtimepath
+  let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
+  let s:toml_file = expand('~/.config/nvim/dein.toml')
+  let g:ynoca_toml_file = s:toml_file
+  if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
+    call dein#load_toml(s:toml_file)
+    call dein#end()
+    call dein#save_state()
+  endif
+  if dein#check_install()
+    call dein#install()
+  endif
 
-    set encoding =utf-8           " Character code for .vimrc
+  set encoding =utf-8           " Character code for .vimrc
 endif
 
 " }}}
@@ -34,209 +34,209 @@ endif
 " functions {{{
 
 function! s:mkdir(name) abort "{{{
-    if !isdirectory(expand(a:name))
-        call mkdir(expand(a:name))
-    endif
+  if !isdirectory(expand(a:name))
+    call mkdir(expand(a:name))
+  endif
 endfunction
 "}}}
 
 function! s:transparancy_up() abort "{{{
-    if has('gui_running')
-        if has('mac')
-            if &transparency - 5 > 1
-                set transparency-=5
-            else
-                set transparency =0
-            endif
-        elseif has('win32') || has('win64')
-            if &transparency - 5 > 1
-                set transparency-=5
-            else
-                set transparency =1
-            endif
-        endif
+  if has('gui_running')
+    if has('mac')
+      if &transparency - 5 > 1
+        set transparency-=5
+      else
+        set transparency =0
+      endif
+    elseif has('win32') || has('win64')
+      if &transparency - 5 > 1
+        set transparency-=5
+      else
+        set transparency =1
+      endif
     endif
+  endif
 endfunction
 "}}}
 
 function! s:transparancy_down() abort "{{{
-    if has('gui_running')
-        if has('mac')
-            if &transparency + 5 < 100
-                set transparency+=5
-            else
-                set transparency =100
-            endif
-        elseif has('win32') || has('win64')
-            if &transparency + 5 < 255
-                set transparency+=5
-            else
-                set transparency =255
-            endif
-        endif
+  if has('gui_running')
+    if has('mac')
+      if &transparency + 5 < 100
+        set transparency+=5
+      else
+        set transparency =100
+      endif
+    elseif has('win32') || has('win64')
+      if &transparency + 5 < 255
+        set transparency+=5
+      else
+        set transparency =255
+      endif
     endif
+  endif
 endfunction
 "}}}
 
 function! s:fullscreen() abort "{{{
-    if !!has('gui_running')
-        if has('mac')
-            set fullscreen!
-        else
-            set columns =999
-            set lines   =999
-        endif
+  if !!has('gui_running')
+    if has('mac')
+      set fullscreen!
+    else
+      set columns =999
+      set lines   =999
     endif
+  endif
 endfunction
 "}}}
 
 function! s:toggleopt(optname) abort "{{{
-    try
-        exec( 'set ' . a:optname . '!')
-        exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==1 ? "on" : "off"')
-    catch
-        echo a:optname . " does not exist."
-    endtry
+  try
+    exec( 'set ' . a:optname . '!')
+    exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==1 ? "on" : "off"')
+  catch
+    echo a:optname . " does not exist."
+  endtry
 endfunction
 "}}}
 command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>)
 
 function! s:close_window() abort "{{{
-    let a:bufname = expand('%:p')
-    if len(a:bufname) == 0
-        let a:bufname = '[No name]'
-    endif
-    if winnr('$') == 1 && tabpagenr('$') == 1
-        :enew
-    else
-        :quit
-    endif
-    echo '"' . a:bufname . '" closed'
+  let a:bufname = expand('%:p')
+  if len(a:bufname) == 0
+    let a:bufname = '[No name]'
+  endif
+  if winnr('$') == 1 && tabpagenr('$') == 1
+    :enew
+  else
+    :quit
+  endif
+  echo '"' . a:bufname . '" closed'
 endfunction
 "}}}
 command! -nargs=0 YCloseWindow call s:close_window()
 
 function! s:rm_swp() abort "{{{
-    let a:currentfile = fnamemodify(expand('%'), ":t")
-    let a:directory = &directory
-    echo a:directory
-    exec '!rm ' . a:directory . '/' . a:currentfile . '.sw*'
+  let a:currentfile = fnamemodify(expand('%'), ":t")
+  let a:directory = &directory
+  echo a:directory
+  exec '!rm ' . a:directory . '/' . a:currentfile . '.sw*'
 endfunction "}}}
 command! -nargs=0 YRmSwp call s:rm_swp()
 
 function! s:set_indent_options(num) "{{{
-    exec('setlocal tabstop=' . a:num)
-    exec('setlocal softtabstop=' . a:num)
-    exec('setlocal shiftwidth=' . a:num)
+  exec('setlocal tabstop=' . a:num)
+  exec('setlocal softtabstop=' . a:num)
+  exec('setlocal shiftwidth=' . a:num)
 endfun "}}}
 
 function! s:anoremap(lhs, rhs) "{{{
-    exec( 'noremap '  . a:lhs . ' ' . a:rhs )
-    exec( 'noremap! ' . a:lhs . ' ' . a:rhs )
-    exec( 'lnoremap ' . a:lhs . ' ' . a:rhs )
+  exec( 'noremap '  . a:lhs . ' ' . a:rhs )
+  exec( 'noremap! ' . a:lhs . ' ' . a:rhs )
+  exec( 'lnoremap ' . a:lhs . ' ' . a:rhs )
 endfun "}}}
 
 function! s:swap_num_key() "{{{
-    let g:ynoca_swap_keys = exists('g:ynoca_swap_keys') ? !g:ynoca_swap_keys : 1
-    let a:keys = [
-        \    ['1', "!"],
-        \    ['2', "@"],
-        \    ['3', "#"],
-        \    ['4', "$"],
-        \    ['5', "%"],
-        \    ['6', "^"],
-        \    ['7', "&"],
-        \    ['8', "*"],
-        \    ['9', "("],
-        \    ['0', ")"]
-        \    ]
-    if g:ynoca_swap_keys
-        for a:k in a:keys
-            call s:anoremap(a:k[0], a:k[1])
-            call s:anoremap(a:k[1], a:k[0])
-        endfor
-    else
-        for a:k in a:keys
-            call s:anoremap(a:k[0], a:k[0])
-            call s:anoremap(a:k[1], a:k[1])
-        endfor
-    endif
+  let g:ynoca_swap_keys = exists('g:ynoca_swap_keys') ? !g:ynoca_swap_keys : 1
+  let a:keys = [
+      \    ['1', "!"],
+      \    ['2', "@"],
+      \    ['3', "#"],
+      \    ['4', "$"],
+      \    ['5', "%"],
+      \    ['6', "^"],
+      \    ['7', "&"],
+      \    ['8', "*"],
+      \    ['9', "("],
+      \    ['0', ")"]
+      \    ]
+  if g:ynoca_swap_keys
+    for a:k in a:keys
+      call s:anoremap(a:k[0], a:k[1])
+      call s:anoremap(a:k[1], a:k[0])
+    endfor
+  else
+    for a:k in a:keys
+      call s:anoremap(a:k[0], a:k[0])
+      call s:anoremap(a:k[1], a:k[1])
+    endfor
+  endif
 endfun "}}}
 command! -nargs=0 YSwap call s:swap_num_key()
 
 function! s:char_code() "{{{
-    if winwidth('.') <= 70
-        echo  ''
-    endif
+  if winwidth('.') <= 70
+    echo  ''
+  endif
 
-    " Get the output of :ascii
-    redir => ascii
-    silent! ascii
-    redir END
+  " Get the output of :ascii
+  redir => ascii
+  silent! ascii
+  redir END
 
-    if match(ascii, 'NUL') != -1
-        echo  'NUL'
-    endif
+  if match(ascii, 'NUL') != -1
+    echo  'NUL'
+  endif
 
-    " Zero pad hex values
-    let s:nrformat = '0x%02x'
+  " Zero pad hex values
+  let s:nrformat = '0x%02x'
 
-    let encoding = (&fenc == '' ? &enc : &fenc)
+  let encoding = (&fenc == '' ? &enc : &fenc)
 
-    if encoding == 'utf-8'
-        " Zero pad with 4 zeroes in unicode files
-        let s:nrformat = '0x%04x'
-    endif
+  if encoding == 'utf-8'
+    " Zero pad with 4 zeroes in unicode files
+    let s:nrformat = '0x%04x'
+  endif
 
-    " Get the character and the numeric value from the echo  value of :ascii
-    " This matches the two first pieces of the echo  value, e.g.
-    " "<F>  70" => char: 'F', nr: '70'
-    let [s:str, s:char, s:nr; s:rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
+  " Get the character and the numeric value from the echo  value of :ascii
+  " This matches the two first pieces of the echo  value, e.g.
+  " "<F>  70" => char: 'F', nr: '70'
+  let [s:str, s:char, s:nr; s:rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
 
-    " Format the numeric value
-    let s:nr = printf(s:nrformat, s:nr)
+  " Format the numeric value
+  let s:nr = printf(s:nrformat, s:nr)
 
-    echo  "'". s:char ."' ". s:nr
+  echo  "'". s:char ."' ". s:nr
 endfunction "}}}
 command! -nargs=0 CC call s:char_code()
 
 function! s:next_buffer_name() "{{{
-    redir => ls
-    silent! ls
-    redir END
-    let s:cur_index = 0
-    let s:buffers = split(ls, '\n')
-    for s:buffer in s:buffers
-        if match(s:buffer, '%a') != -1
-            break
-        endif
-        let s:cur_index = s:cur_index + 1
-    endfor
-    let s:max_index = len(s:buffers) - 1
-    let s:nex_index = s:cur_index + 1
-    if s:nex_index == s:max_index + 1
-        let s:nex_index = 0
+  redir => ls
+  silent! ls
+  redir END
+  let s:cur_index = 0
+  let s:buffers = split(ls, '\n')
+  for s:buffer in s:buffers
+    if match(s:buffer, '%a') != -1
+      break
     endif
-    let s:pre_index = s:cur_index - 1
-    if s:pre_index == -1
-        let s:pre_index = s:max_index
-    endif
-    let s:pre_name = matchstr(s:buffers[s:pre_index], '"\zs.*\ze"')
-    let s:after_slash = matchstr(s:pre_name, '.*\\\zs.*\ze') 
-    if s:after_slash != ''
-        let s:pre_name = s:after_slash
-    endif
-    let s:nex_name = matchstr(s:buffers[s:nex_index], '"\zs.*\ze"')
-    let s:after_slash = matchstr(s:nex_name, '.*\\\zs.*\ze') 
-    if s:after_slash != ''
-        let s:nex_name = s:after_slash
-    endif
-    echo '( ' . s:pre_name . ' <=|=> ' . s:nex_name . ' )'
+    let s:cur_index = s:cur_index + 1
+  endfor
+  let s:max_index = len(s:buffers) - 1
+  let s:nex_index = s:cur_index + 1
+  if s:nex_index == s:max_index + 1
+    let s:nex_index = 0
+  endif
+  let s:pre_index = s:cur_index - 1
+  if s:pre_index == -1
+    let s:pre_index = s:max_index
+  endif
+  let s:pre_name = matchstr(s:buffers[s:pre_index], '"\zs.*\ze"')
+  let s:after_slash = matchstr(s:pre_name, '.*\\\zs.*\ze') 
+  if s:after_slash != ''
+    let s:pre_name = s:after_slash
+  endif
+  let s:nex_name = matchstr(s:buffers[s:nex_index], '"\zs.*\ze"')
+  let s:after_slash = matchstr(s:nex_name, '.*\\\zs.*\ze') 
+  if s:after_slash != ''
+    let s:nex_name = s:after_slash
+  endif
+  echo '( ' . s:pre_name . ' <=|=> ' . s:nex_name . ' )'
 endfunction "}}}
 
 function! s:save_with_date() "{{{
-    let s:filename = strftime("%Y%m%d") . '.txt'
-    exec ( 'write ' . s:filename )
+  let s:filename = strftime("%Y%m%d") . '.txt'
+  exec ( 'write ' . s:filename )
 endfunction "}}}
 command! -nargs=0 W call s:save_with_date()
 
@@ -381,10 +381,10 @@ nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
 
 " terminal for nvim
 if has('nvim')
-    tnoremap <silent>jj       <C-\><C-n>
-    nnoremap <SID>[command]zz :<C-u>terminal<CR>
-    nnoremap <SID>[command]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
-    nnoremap <SID>[command]zn :<C-u>new<CR>:<C-u>terminal<CR>
+  tnoremap <silent>jj       <C-\><C-n>
+  nnoremap <SID>[command]zz :<C-u>terminal<CR>
+  nnoremap <SID>[command]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
+  nnoremap <SID>[command]zn :<C-u>new<CR>:<C-u>terminal<CR>
 endif
 
 " set filetypes
@@ -411,7 +411,7 @@ set fileencodings  +=euc-jp          " Character code to read file
 set fileencodings  +=cp932           " Character code to read file
 set fileformats     =unix,dos,mac    " Newline character
 if has('win32') || has('win64')
-    let &termencoding = &encoding
+  let &termencoding = &encoding
 endif
 
 " indent
@@ -499,17 +499,17 @@ set browsedir  =current
 " backup file
 set backup
 if &backup
-    let s:backupdir = expand('~/.vim/bak')
-    call s:mkdir(s:backupdir)
-    let &backupdir = s:backupdir
+  let s:backupdir = expand('~/.vim/bak')
+  call s:mkdir(s:backupdir)
+  let &backupdir = s:backupdir
 endif
 
 " undo file
 set undofile
 if &undofile
-    let s:undodir = expand('~/.vim/undo')
-    call s:mkdir(s:undodir)
-    let &undodir = s:undodir
+  let s:undodir = expand('~/.vim/undo')
+  call s:mkdir(s:undodir)
+  let &undodir = s:undodir
 endif
 
 " swap file
@@ -528,48 +528,48 @@ set mousehide
 " gui
 if has('gui_running') "{{{
 
-    if has('vim_starting')
+  if has('vim_starting')
 
-        " window
-        set columns    =999   " width of window
-        set lines      =999   " height of window
+    " window
+    set columns    =999   " width of window
+    set lines      =999   " height of window
 
-        " font
-        if has('win32')
-            set guifont        =Inconsolata:h13:cANSI
-            set guifontwide    =Ricty_Diminished:h13:cSHIFTJIS
-            set linespace      =1
-            if has('kaoriya')
-                set ambiwidth  =auto
-            endif
-        elseif has('mac')
-            set guifont        =Osaka-Mono:h13
-        elseif has('xfontset')
-            set guifontset     =a13,r13,k13
-        endif
-
+    " font
+    if has('win32')
+      set guifont        =Inconsolata:h13:cANSI
+      set guifontwide    =Ricty_Diminished:h13:cSHIFTJIS
+      set linespace      =1
+      if has('kaoriya')
+        set ambiwidth  =auto
+      endif
+    elseif has('mac')
+      set guifont        =Osaka-Mono:h13
+    elseif has('xfontset')
+      set guifontset     =a13,r13,k13
     endif
 
-    " window settings
-    set guioptions =         " disable GUI options
-    set cmdheight  =2        " height of commandline
+  endif
 
-    " colorscheme
-    if has('multi_byte_ime')
-        highlight Cursor guifg=NONE guibg=White
-        highlight CursorIM guifg=NONE guibg=Purple
-    endif
+  " window settings
+  set guioptions =         " disable GUI options
+  set cmdheight  =2        " height of commandline
 
-    " cursol
-    set guicursor=n-v-c:hor10-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+  " colorscheme
+  if has('multi_byte_ime')
+    highlight Cursor guifg=NONE guibg=White
+    highlight CursorIM guifg=NONE guibg=Purple
+  endif
+
+  " cursol
+  set guicursor=n-v-c:hor10-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
 
 end "}}}
 
 " nvim
 if has('nvim') "{{{
-    autocmd vimrc WinEnter * if &buftype == 'terminal' | startinsert | endif
-    autocmd vimrc WinEnter * if &buftype == 'terminal' | nnoremap <buffer><BS> <Nop> | endif
-    autocmd vimrc WinEnter * if &buftype == 'terminal' | nnoremap <silent><buffer><BS> :<C-u>quit!<CR> | endif
+  autocmd vimrc WinEnter * if &buftype == 'terminal' | startinsert | endif
+  autocmd vimrc WinEnter * if &buftype == 'terminal' | nnoremap <buffer><BS> <Nop> | endif
+  autocmd vimrc WinEnter * if &buftype == 'terminal' | nnoremap <silent><buffer><BS> :<C-u>quit!<CR> | endif
 endif "}}}
 
 "}}}
