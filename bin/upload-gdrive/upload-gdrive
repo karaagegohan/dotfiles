@@ -8,32 +8,35 @@ if ARGV.empty?
   exit
 end
 
-# information about uploading file
-file        = File.expand_path(ARGV[0])
-basename    = File.basename(file)
-folder_name = File.extname(file).delete('.')
-folder_name = 'others' if folder_name == ''
-
 # authentication
 json_file = File.expand_path(Dir.glob('*.json').to_s)
 session = GoogleDrive::Session.from_config(json_file)
 
-# list of folder name
-folders = session.files.select { |f| f.class.to_s == 'GoogleDrive::Collection' }
-folders.map!(&:title)
+ARGV.each do |arg|
+  # information about uploading file
+  file        = File.expand_path(arg)
+  basename    = File.basename(file)
+  folder_name = File.extname(file).delete('.').upcase
+  folder_name = 'others' if folder_name == ''
 
-# Creat a folder if it doesn't exist.
-if folders.include?(folder_name)
-else
-  session.root_collection.create_subcollection(folder_name)
+  # list of folder name
+  folders = session.files.select { |f| f.class.to_s == 'GoogleDrive::Collection' }
+  folders.map!(&:title)
+
+  # Creat a folder if it doesn't exist.
+  if folders.include?(folder_name)
+  else
+    session.root_collection.create_subcollection(folder_name)
+  end
+
+  # Uploads a local file.
+  session.upload_from_file(file, basename, convert: false)
+  g_file = session.file_by_title(basename)
+  g_folder = session.file_by_title(folder_name)
+  g_folder.add(g_file)
+  session.root_collection.remove(g_file)
+  puts file + ' has been uploaded.'
+
+  trash = File.expand_path('~/.Trash/')
+  FileUtils.mv(file, trash)
 end
-
-# Uploads a local file.
-session.upload_from_file(file, basename, convert: false)
-g_file = session.file_by_title(basename)
-g_folder = session.file_by_title(folder_name)
-g_folder.add(g_file)
-session.root_collection.remove(g_file)
-
-trash = File.expand_path('~/.Trash/')
-FileUtils.mv(file, trash)
