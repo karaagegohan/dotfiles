@@ -229,6 +229,7 @@ alias lx='latexmk -pdfdvi'
 
 alias mkdiri='(){ mkdir $1; cd $1 }'
 
+alias ugd='upload-googledrive'
 
 # }}}
 
