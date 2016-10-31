@@ -36,7 +36,7 @@ function git_commit_automatically() { # {{{
 # path {{{
 export PGDATA=/usr/local/var/postgres
 export PATH=$PATH:$HOME/bin
-export PATH=$PATH:$HOME/bin/upload-gdrive
+export PATH=$PATH:$HOME/script/upload-gdrive
 export TERM=xterm-256color
 export PATH=$PATH:/opt/vagrant/bin
 
