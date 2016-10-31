@@ -1,16 +1,14 @@
 #!/usr/bin/env ruby
 
-require "google_drive"
+require 'google_drive'
 
 # display usage
-if ARGV.length == 0
+if ARGV.empty?
   puts 'Usage: ' + File.basename(__FILE__) + ' filename'
   exit
 end
 
-if ARGV[0] == 'GoogleDrive'
-  exit
-end
+exit if ARGV[0] == 'GoogleDrive'
 
 # information about uploading file
 file        = File.expand_path(ARGV[0])
@@ -19,26 +17,25 @@ folder_name = File.extname(file).delete('.')
 folder_name = 'others' if folder_name == ''
 
 # authentication
-jsonFile = File.expand_path(Dir.glob("*.json").to_s)
-session = GoogleDrive::Session.from_config(jsonFile)
+json_file = File.expand_path(Dir.glob('*.json').to_s)
+session = GoogleDrive::Session.from_config(json_file)
 
 # list of folder name
-folders = session.files.select {|file| file.class.to_s == 'GoogleDrive::Collection'}
+folders = session.files.select { |f| f.class.to_s == 'GoogleDrive::Collection' }
 folders.map!(&:title)
 
 # Creat a folder if it doesn't exist.
-if folders.include?(folder_name) 
+if folders.include?(folder_name)
 else
   session.root_collection.create_subcollection(folder_name)
 end
 
 # Uploads a local file.
 session.upload_from_file(file, basename, convert: false)
-gFile = session.file_by_title(basename)
-gFolder = session.file_by_title(folder_name)
-gFolder.add(gFile)
-session.root_collection.remove(gFile)
+g_file = session.file_by_title(basename)
+g_folder = session.file_by_title(folder_name)
+g_folder.add(g_file)
+session.root_collection.remove(g_file)
 
-trash = File.expand_path("~/.Trash/")
+trash = File.expand_path('~/.Trash/')
 FileUtils.mv(file, trash)
-
