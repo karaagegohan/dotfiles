@@ -79,40 +79,55 @@ setopt share_history
 
 # promot {{{
 
-#####################################################
-# %M      host name         localhost.localdomain   #
-# %m      host name         localhost               #
-# %n      user name         root                    #
-# %#      state of user     #(root) %(not root)     #
-# %y, %i  terminal name     pts/0                   #
-# %?, %h  return value of   0                       #
-#         latest command                            #
-# %!      the number of     1                       #
-#         history                                   #
-# %d, %/  current directory /root/currentdir        #
-# %~      current directory ~/currentdir            #
-# %C      current directory currentdir              #
-# %c, %.  current directory currentdir              #
-# %D      date              yy-mm-dd                #
-# %W      date              mm/dd/yy                #
-# %w      date              day dd                  #
-# %*      time              hh:mm:ss                #
-# %T      time              hh:mm                   #
-# %t, %@  time              hh:mm(am/pm format)     #
-#####################################################
+# standard variables 
+# --------------------------------------------------------
+# | variable | value             | example               |
+# |:--------:|:-----------------:|:---------------------:|
+# | %M       | host name         | localhost.localdomain |
+# | %m       | host name         | localhost             |
+# |:--------:|:-----------------:|:---------------------:|
+# | %n       | user name         | root                  |
+# |:--------:|:-----------------:|:---------------------:|
+# | %#       | state of user     | #(root) %(not root)   |
+# |:--------:|:-----------------:|:---------------------:|
+# | %y, %i   | terminal name     | pts/0                 |
+# |:--------:|:-----------------:|:---------------------:|
+# | %?, %h   | return value of   | 0                     |
+# |          | latest command    |                       |
+# |:--------:|:-----------------:|:---------------------:|
+# | %!       | the number of     | 1                     |
+# |          | history           |                       |
+# |:--------:|:-----------------:|:---------------------:|
+# | %d, %/   | current directory | /root/currentdir      |
+# | %~       | current directory | ~/currentdir          |
+# | %C       | current directory | currentdir            |
+# | %c, %.   | current directory | currentdir            |
+# |:--------:|:-----------------:|:---------------------:|
+# | %D       | date              | yy-mm-dd              |
+# | %W       | date              | mm/dd/yy              |
+# | %w       | date              | day dd                |
+# |:--------:|:-----------------:|:---------------------:|
+# | %*       | time              | hh:mm:ss              |
+# | %T       | time              | hh:mm                 |
+# | %t, %@   | time              | hh:mm(am/pm format)   |
+# --------------------------------------------------------
 
-#####################################################
-# %s system name                git, svn, hg        #
-# %b branch name	                                  #
-# %i revision ID                                    #
-# %r repository name                                #
-# %R root directory (absolute)                      #
-# %S directory (relative)                           #
-# %a action                                         #
-# %c stagedstr                                      #
-# %u unstagedstr                                    #
-# %m others	$hook_com[misc]                         #
-#####################################################
+# variables can be used in vcs_info 
+# ----------------------------------------
+# | variable | value                     |
+# |:--------:|:-------------------------:|
+# | %s       | system name               |
+# | %b       | branch name	             |
+# | %i       | revision ID               |
+# | %r       | repository name           |
+# | %R       | root directory (absolute) |
+# | %S       | directory (relative)      |
+# | %a       | action                    |
+# | %c       | stagedstr                 |
+# | %u       | unstagedstr               |
+# | %m       | others	$hook_com[misc]    |
+# ----------------------------------------
+
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' max-exports 3
