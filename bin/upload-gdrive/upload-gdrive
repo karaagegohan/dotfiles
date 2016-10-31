@@ -8,8 +8,6 @@ if ARGV.empty?
   exit
 end
 
-exit if ARGV[0] == 'GoogleDrive'
-
 # information about uploading file
 file        = File.expand_path(ARGV[0])
 basename    = File.basename(file)
