@@ -36,7 +36,6 @@ function git_commit_automatically() { # {{{
 # path {{{
 export PGDATA=/usr/local/var/postgres
 export PATH=$PATH:$HOME/bin
-export PATH=$PATH:$HOME/script/upload-gdrive
 export TERM=xterm-256color
 export PATH=$PATH:/opt/vagrant/bin
 
@@ -61,6 +60,8 @@ then
     export PYTHONPATH=/usr/local/Cellar/opencv/2.4.13/lib/python2.7/site-packages:PYTHONPATH
 
 fi
+
+export PATH=$PATH:$HOME/script/upload-googledrive
 
 # }}}
 
