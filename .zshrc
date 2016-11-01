@@ -226,6 +226,7 @@ alias guu='git add . && git commit -m "update" && git push'
 alias vlc='open /Applications/VLC.app -n'
 alias yd='youtube-dl'
 alias lx='latexmk -pdfdvi'
+alias rc='source ~/.zshrc'
 
 alias mkdiri='(){ mkdir $1; cd $1 }'
 
@@ -246,13 +247,19 @@ source ~/.zplug/init.zsh
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "mollifier/anyframe", at:4c23cb60
 zplug "zsh-users/zsh-syntax-highlighting"
+# zplug "hchbaw/auto-fu.zsh", hook-build:"source auto-fu.zsh"
+# function zle-line-init(){
+#   auto-fu-init
+# }
+# zle -N zle-line-init
+# zstyle ':completion:*' completer _oldlist _complete
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
 fi
 
 # Then, source plugins and add commands to $PATH
