@@ -9,7 +9,7 @@ if ARGV.empty?
 end
 
 # authentication
-json_file = File.expand_path(Dir.glob('*.json').to_s)
+json_file = File.expand_path(Dir.glob(File.expand_path(File.dirname(__FILE__)) + '/*.json')[0])
 session = GoogleDrive::Session.from_config(json_file)
 
 ARGV.each do |arg|
