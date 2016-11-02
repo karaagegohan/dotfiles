@@ -33,37 +33,6 @@ function git_commit_automatically() { # {{{
 
 # }}}
 
-# path {{{
-export PGDATA=/usr/local/var/postgres
-export PATH=$PATH:$HOME/bin
-export TERM=xterm-256color
-export PATH=$PATH:/opt/vagrant/bin
-
-export PATH=$PATH:/opt/theos/bin
-export THEOS=/opt/theos
-export THEOS_MAKE_FILE=/opt/theos
-
-export LC_ALL='en_US.UTF-8' 
-
-if which pyenv > /dev/null 2>&1;
-then
-    export PYENV_ROOT=$HOME/.pyenv
-    export PATH=$PYENV_ROOT/bin:$PATH
-    eval "$(pyenv init -)"
-fi
-
-if which rbenv > /dev/null 2>&1;
-then
-    export RBENV_ROOT="$HOME/.rbenv"
-    export PATH=$RBENV_ROOT/shims:$PATH
-    eval "$(rbenv init -)"
-    export PYTHONPATH=/usr/local/Cellar/opencv/2.4.13/lib/python2.7/site-packages:PYTHONPATH
-
-fi
-
-export PATH=$PATH:$HOME/script/upload-googledrive
-
-# }}}
 
 # history {{{
 setopt HIST_IGNORE_DUPS     # 前と重複する行は記録しない
@@ -248,20 +217,44 @@ zplug "b4b4r07/enhancd", use:init.sh
 zplug "mollifier/anyframe", at:4c23cb60
 zplug "zsh-users/zsh-syntax-highlighting"
 # zplug "hchbaw/auto-fu.zsh", hook-build:"source auto-fu.zsh"
-# function zle-line-init(){
-#   auto-fu-init
-# }
-# zle -N zle-line-init
-# zstyle ':completion:*' completer _oldlist _complete
+# zplug "zsh-users/zsh-autosuggestions", hook-build:"source zsh-autosuggestions.zsh"
 
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
+# return whether the plugin is installed
+function zplug-installed() { # {{{
+  local plugins
+  plugins=$(zplug list)
+  if [[ `echo $plugins | grep $1` ]];
+  then 
+    return 0;
+  else
+    return 1;
+  fi
+} # }}}
+
+# install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then # {{{
   printf "Install? [y/N]: "
   if read -q; then
     echo; zplug install
   fi
 fi
-
-# Then, source plugins and add commands to $PATH
 zplug load --verbose
+# }}}
+
+# preferences for each plugin
+
+if zplug-installed "hchbaw/auto-fu.zsh"; # {{{
+then
+  function zle-line-init(){
+    auto-fu-init
+  }
+  zle -N zle-line-init
+  # zstyle ':auto-fu:highlight' input bold
+  # zstyle ':auto-fu:highlight' completion fg=black,bold
+  # zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
+  # zstyle ':auto-fu:var' postdisplay $''
+  # zstyle ':auto-fu:var' track-keymap-skip opp
+  # zstyle ':auto-fu:var' disable magic-space
+fi # }}}
+
 # }}}
