@@ -1329,7 +1329,7 @@ repo = 'elixir-lang/vim-elixir' # {{{
 
 # }}}
 
-# Vim script {{{
+# vim script {{{
 
 [[plugins]]
 repo = 'mopp/layoutplugin.vim' # {{{
