@@ -33,7 +33,7 @@ function git_commit_automatically() { # {{{
 
 # }}}
 
-#aas path {{{
+# path {{{
 export PGDATA=/usr/local/var/postgres
 export PATH=$PATH:$HOME/bin
 export TERM=xterm-256color
@@ -293,3 +293,4 @@ then
 fi # }}}
 
 # }}}
+
