@@ -33,6 +33,22 @@ endif
 
 " functions {{{
 
+" *** NOTE[variable scope] *** {{{
+" --------------------------------------------------
+" | prefix      | scope                            |
+" |:-----------:|:--------------------------------:|
+" | let l:var1  | function local                   |
+" | let a:var2  | function local (for parameters)  |
+" | let s:var3  | script local                     |
+" | let b:var4  | buffer local                     |
+" | let w:var5  | window local                     |
+" | let t:var6  | tab local                        |
+" | let g:var7  | global                           |
+" | let var8    | global                           |
+" | let v:var9  | global (defined by vim)          |
+" --------------------------------------------------
+" }}}
+
 function! s:mkdir(name) abort "{{{
   if !isdirectory(expand(a:name))
     call mkdir(expand(a:name))
@@ -244,7 +260,7 @@ command! -nargs=0 W call s:save_with_date()
 
 " key mappings {{{
 
-" ***NOTE*** {{{
+" *** NOTE[map command] *** {{{
 " --------------------------------------------------------------------------------------------
 " |      | normal    | insert    | command   | visual    | select    | waiting   | Lang-Arg  |
 " |------------------------------------------------------------------------------|-----------|
