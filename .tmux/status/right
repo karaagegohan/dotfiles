@@ -1,0 +1,17 @@
+#!/bin/bash
+
+delimiter=' #[fg=colour244]⮂#[default] ' 
+DISPLAY=''
+
+add-content()
+{
+  DISPLAY="$DISPLAY $delimiter $1　$2"
+}
+
+add-content "🔊" "$(volume)"
+add-content "📡" "$(wifi -t -f '%a in %i [%r]')"
+add-content "🔋" "$(battery -t -r)" 
+add-content "🕐" "$(date '+%a %b %-d %H:%M:%S')"
+
+echo $DISPLAY
+

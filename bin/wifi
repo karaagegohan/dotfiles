@@ -21,8 +21,8 @@ airport_path="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Cu
 
 # Check if airport is available
 if [[ ! -x $airport_path ]]; then
-    echo "$airport_path: not found" 1>&2
-    exit 1
+  echo "$airport_path: not found" 1>&2
+  exit 1
 fi
 
 # The Unicode Block Elements
@@ -51,8 +51,8 @@ signals=(▂ ▅ ▇)
 # Get the wifi information and then set it to an info array
 info=( $(eval "$airport_path" --getinfo | grep -E "^ *(agrCtlRSSI|state|lastTxRate|SSID):" | awk '{print $2}') )
 if [[ ${#info[@]} -eq 0 ]]; then
-    echo "offline"
-    exit 1
+  echo "offline"
+  exit 1
 fi
 
 # cut out a needed information from the info
@@ -66,38 +66,50 @@ ssid="${info[3]}"   # wifi ssid name
 signal=""
 for ((j = 0; j < "${#signals[@]}"; j++))
 do
-    # reference of strength (rssi)
-    #  -20　Excellent
-    #  -30　Excellent
-    #  -40　Excellent
-    #  -50　Excellent
-    #  -60　better
-    #  -70　good
-    #  -80　not good
-    #  -90　bad
-    # -100　bad
-    if ((  $j == 0 && $rssi > -100 )) ||
-        (( $j == 1 && $rssi > -80  )) ||
-        (( $j == 2 && $rssi > -60  )); then
-        # make signal
-        signal="${signal}${signals[$j]} "
-    else
-        signal="${signal}  "
-    fi
+  # reference of strength (rssi)
+  #  -20　Excellent
+  #  -30　Excellent
+  #  -40　Excellent
+  #  -50　Excellent
+  #  -60　better
+  #  -70　good
+  #  -80　not good
+  #  -90　bad
+  # -100　bad
+  if ((  $j == 0 && $rssi > -100 )) ||
+    (( $j == 1 && $rssi > -80  )) ||
+    (( $j == 2 && $rssi > -60  )); then
+  # make signal
+  signal="${signal}${signals[$j]} "
+else
+  signal="${signal}"
+fi
 done
+
+ipaddress=$(\
+  ifconfig \
+  | grep inet[^6] \
+  | sed 's/.*inet[^6][^0-9]*\([0-9.]*\)[^0-9]*.*/\1/' \
+  | grep -v '^127\.' \
+  | grep -v '^10\.' \
+  | grep -v '^172\.\(1[6-9]\|2[0-9]\|3[01]\)\.' \
+  | grep -v '^169\.254\.' \
+  )
 
 # If the wifi rate (wifi bandwidth) is unavailable,
 if [ "$rate" = 0 ]; then
-    echo "no_wifi"
-    exit 1
+  echo "no_wifi"
+  exit 1
 fi
 
 DISPLAY=""
-for i in "$@"
+tmux_out=0
+argv=("$@")
+for i in `seq 1 $#`
 do
-  case "$i" in
+  case "${argv[$i-1]}" in
     "-h")
-      echo "usage: wifi [-i ssid][-r rate][-s signal]" 1>&2
+      echo "usage: wifi [-i ssid][-r rate][-s signal] [-a ipaddress] [-f format]" 1>&2
       exit
       ;;
     "-i")
@@ -109,6 +121,19 @@ do
     "-s")
       DISPLAY="${DISPLAY} ${signal}"
       ;;
+    "-a")
+      DISPLAY="${DISPLAY} ${ipaddress}"
+      ;;
+    "-t")
+      tmux_out=1
+      ;;
+    "-f")
+      DISPLAY=${argv[$i]}
+      DISPLAY=${DISPLAY//'%i'/${ssid}}
+      DISPLAY=${DISPLAY//'%r'/${rate}Mbps}
+      DISPLAY=${DISPLAY//'%s'/${signal}}
+      DISPLAY=${DISPLAY//'%a'/${ipaddress}}
+      ;;
     -*)
       echo "$i: unknown option" 1>&2
       exit 1
@@ -116,7 +141,16 @@ do
   esac
 done
 
+if [ "$tmux_out" = 1 ]; then
+  if (( $rssi > -60 )); then
+    DISPLAY="#[fg=blue]${DISPLAY}#[default]"
+  elif (( $rssi > -80  )); then
+    DISPLAY="#[fg=yellow]${DISPLAY}#[default]"
+  else
+    DISPLAY="#[fg=red]${DISPLAY}#[default]"
+  fi
+fi
+
 # Outputs wifi
-#   example: "fun-wifi 351Mbps ▂ ▅   "
-# echo -e "${ssid} ${rate}Mbps ${signal}"
 echo $DISPLAY
+

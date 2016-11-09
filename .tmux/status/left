@@ -1,0 +1,15 @@
+#!/bin/bash
+
+delimiter=' #[fg=colour244]⮀#[default] ' 
+DISPLAY=''
+
+add-content()
+{
+  DISPLAY="$DISPLAY $1　$2 $delimiter"
+}
+
+add-content "🗑" "$(trash-info -n) / $(trash-info -s)" 
+add-content "📋" "$(osascript -e 'get the clipboard')" 
+
+echo $DISPLAY
+
