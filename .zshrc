@@ -33,7 +33,7 @@ function git_commit_automatically() { # {{{
 
 # }}}
 
-# path {{{
+#aas path {{{
 export PGDATA=/usr/local/var/postgres
 export PATH=$PATH:$HOME/bin
 export TERM=xterm-256color
@@ -231,6 +231,10 @@ alias rc='source ~/.zshrc'
 alias mkdiri='(){ mkdir $1; cd $1 }'
 
 alias ugd='upload-googledrive'
+
+alias p='python'
+alias r='ruby'
+
 
 # }}}
 
