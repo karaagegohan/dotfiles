@@ -27,14 +27,11 @@ if has('vim_starting')
   endif
 
   set encoding =utf-8           " Character code for .vimrc
-endif
 
-if has('vim_starting')
   let g:env#mac = has('mac')
   let g:env#win = has('win32') || has('win64')
   let g:env#gui = has('gui_running')
 endif
-
 " }}}
 
 " functions {{{
