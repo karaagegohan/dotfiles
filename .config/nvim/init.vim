@@ -29,6 +29,12 @@ if has('vim_starting')
   set encoding =utf-8           " Character code for .vimrc
 endif
 
+if has('vim_starting')
+  let g:env#mac = has('mac')
+  let g:env#win = has('win32') || has('win64')
+  let g:env#gui = has('gui_running')
+endif
+
 " }}}
 
 " functions {{{
@@ -57,14 +63,14 @@ endfunction
 "}}}
 
 function! s:transparancy_up() abort "{{{
-  if has('gui_running')
-    if has('mac')
+  if g:env#gui
+    if g:env#mac
       if &transparency - 5 > 1
         set transparency-=5
       else
         set transparency =0
       endif
-    elseif has('win32') || has('win64')
+    elseif g:env#win
       if &transparency - 5 > 1
         set transparency-=5
       else
@@ -76,14 +82,14 @@ endfunction
 "}}}
 
 function! s:transparancy_down() abort "{{{
-  if has('gui_running')
-    if has('mac')
+  if g:env#gui
+    if g:env#mac
       if &transparency + 5 < 100
         set transparency+=5
       else
         set transparency =100
       endif
-    elseif has('win32') || has('win64')
+    elseif g:env#win
       if &transparency + 5 < 255
         set transparency+=5
       else
@@ -95,8 +101,8 @@ endfunction
 "}}}
 
 function! s:fullscreen() abort "{{{
-  if !!has('gui_running')
-    if has('mac')
+  if g:env#gui
+    if g:env#mac
       set fullscreen!
     else
       set columns =999
