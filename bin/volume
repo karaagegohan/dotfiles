@@ -1,16 +1,29 @@
 #!/bin/bash
 vol=$(osascript -e "(get volume settings)'s output volume")
 
-if (( $vol == 0 )); then
-  DISPLAY="#[fg=white]${vol}%"
-elif (( $vol < 33 )); then
-  DISPLAY="#[fg=blue]${vol}%"
-elif (( $vol < 67  )); then
-  DISPLAY="#[fg=green]${vol}%"
-elif (( $vol < 100  )); then
-  DISPLAY="#[fg=yellow]${vol}%"
-else
-  DISPLAY="#[fg=red]${vol}%"
-fi
+DISPLAY="${vol}%"
+
+for i in "$@"
+do
+  case "$i" in
+    "-t")
+      if (( $vol == 0 )); then
+        DISPLAY="#[fg=white]${DISPLAY}#[default]"
+      elif (( $vol < 33 )); then
+        DISPLAY="#[fg=blue]${DISPLAY}#[default]"
+      elif (( $vol < 67  )); then
+        DISPLAY="#[fg=green]${DISPLAY}#[default]"
+      elif (( $vol < 100  )); then
+        DISPLAY="#[fg=yellow]${DISPLAY}#[default]"
+      else
+        DISPLAY="#[fg=red]${DISPLAY}#[default]"
+      fi
+      ;;
+    -*)
+      echo "$i: unknown option" 1>&2
+      exit 1
+      ;;
+  esac
+done
 
 echo $DISPLAY
