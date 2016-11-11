@@ -9,7 +9,8 @@ add-content()
 }
 
 add-content "🗑" "$(trash-info -n) / $(trash-info -s)" 
-add-content "📋" "$(osascript -e 'get the clipboard')" 
+# add-content "📋" "$(osascript -e 'get the clipboard')" 
+add-content "📀" "$(disk-usage -f '%a [%c]' -t)" 
 
 echo $DISPLAY
 

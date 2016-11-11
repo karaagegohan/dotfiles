@@ -227,6 +227,7 @@ alias vlc='open /Applications/VLC.app -n'
 alias yd='youtube-dl'
 alias lx='latexmk -pdfdvi'
 alias rc='source ~/.zshrc'
+alias ikill='pkill -f Japanese'
 
 alias mkdiri='(){ mkdir $1; cd $1 }'
 
