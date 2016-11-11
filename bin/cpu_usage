@@ -5,15 +5,16 @@ cpu=$(\
   | tail -n 1 \
   )
 
-if [[ $cpu -gt 0.0 ]]; then
-  DISPLAY="#[fg=white]${cpu}%"
-elif (( $cpu < 33.0 )); then
-  DISPLAY="#[fg=blue]${cpu}%"
-elif (( $cpu < 67.0  )); then
-  DISPLAY="#[fg=green]${cpu}%"
-elif (( $cpu < 100.0  )); then
-  DISPLAY="#[fg=yellow]${cpu}%"
-else
-  DISPLAY="#[fg=red]${vol}%"
-fi
-echo "${DISPLAY}"
+echo $cpu
+# if [[ $cpu -gt 0.0 ]]; then
+#   DISPLAY="#[fg=white]${cpu}%"
+# elif (( $cpu < 33.0 )); then
+#   DISPLAY="#[fg=blue]${cpu}%"
+# elif (( $cpu < 67.0  )); then
+#   DISPLAY="#[fg=green]${cpu}%"
+# elif (( $cpu < 100.0  )); then
+#   DISPLAY="#[fg=yellow]${cpu}%"
+# else
+#   DISPLAY="#[fg=red]${vol}%"
+# fi
+# echo "${DISPLAY}"
