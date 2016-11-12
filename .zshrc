@@ -130,7 +130,6 @@ setopt share_history
 # | %m       | others	$hook_com[misc]    |
 # ----------------------------------------
 
-
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' max-exports 3
 zstyle ':vcs_info:*' formats '%s:%b ' '%r' '%R'
@@ -147,6 +146,8 @@ function precmd () { # {{{
     psvar[2]=`echo $vcs_info_msg_2_|sed -e "s#$vcs_info_msg_1_\\$##g"`
     psvar[3]="$vcs_info_msg_1_"
     psvar[4]=`echo $PWD|sed -e "s#^$vcs_info_msg_2_##g"`
+    psvar[5]=`echo $vcs_info_msg_3_`
+    echo $vcs_info_msg_3_
   fi
 } # }}}
 
@@ -185,8 +186,38 @@ function prompt-hostname() { # {{{
   echo "at $fg[$1]%m%{$reset_color%}"
 } # }}}
 
+function prompt-git-modified-file() { # {{{
+  if test -z $(git rev-parse --git-dir 2> /dev/null); then 
+    echo ""
+  else
+    out=$( \
+      git ls-files -m \
+      | tr '\r' ' ' \
+      | tr '\n' ' ' \
+      )
+    if [ -n "$out" ]; then
+      echo "$fg[$1] M: $out%{$reset_color%}"
+    fi
+  fi
+} # }}}
+
+function prompt-git-deleted-file() { # {{{
+  if test -z $(git rev-parse --git-dir 2> /dev/null); then 
+    echo ""
+  else
+    out=$( \
+      git ls-files -d \
+      | tr '\r' ' ' \
+      | tr '\n' ' ' \
+      )
+    if [ -n "$out" ]; then
+      echo "$fg[$1] D: $out%{$reset_color%}"
+    fi
+  fi
+} # }}}
+
 PROMPT='
-%# `prompt-username cyan` `prompt-hostname green` `prompt-git-root-directory yellow` `prompt-git-current-branch blue`
+%# `prompt-username cyan` `prompt-hostname green` `prompt-git-root-directory yellow` `prompt-git-current-branch blue`  `prompt-git-modified-file magenta`  `prompt-git-deleted-file red`
 → '
 
 # }}}
