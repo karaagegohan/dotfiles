@@ -37,13 +37,13 @@ do
       DISPLAY="$DISPLAY$avail GB"
       ;;
     "-c")
-      DISPLAY="$DISPLAY$capa%"
+      DISPLAY="$DISPLAY$capa"
       ;;
     "-f")
       DISPLAY="${DISPLAY}${argv[$i+1]}"
       DISPLAY="${DISPLAY//'%u'/${used} GB}"
       DISPLAY="${DISPLAY//'%a'/${avail} GB}"
-      DISPLAY="${DISPLAY//'%c'/${capa}%}"
+      DISPLAY="${DISPLAY//'%c'/${capa}}"
       ;;
     "-t")
       tmux_out=1
