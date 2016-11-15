@@ -261,12 +261,12 @@ alias rc='source ~/.zshrc'
 alias ikill='pkill -f Japanese'
 
 alias mkdiri='(){ mkdir $1; cd $1 }'
+alias cdr='() { if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then cd `pwd`/`git rev-parse --show-cdup`; fi }'
 
 alias ugd='upload-googledrive'
 
 alias p='python'
 alias r='ruby'
-
 
 # }}}
 
@@ -283,6 +283,7 @@ source ~/.zplug/init.zsh
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "mollifier/anyframe", at:4c23cb60
 zplug "zsh-users/zsh-syntax-highlighting"
+# zplug "b4b4r07/emoji-cli"
 # zplug "hchbaw/auto-fu.zsh", hook-build:"source auto-fu.zsh"
 # zplug "zsh-users/zsh-autosuggestions", hook-build:"source zsh-autosuggestions.zsh"
 
@@ -309,7 +310,6 @@ zplug load --verbose
 # }}}
 
 # preferences for each plugin
-
 if zplug-installed "hchbaw/auto-fu.zsh"; # {{{
 then
   function zle-line-init(){
