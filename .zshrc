@@ -242,14 +242,12 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 
 # alias {{{
 
-alias ll='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
+alias ls='ls -l'
+alias la='ls -la'
 alias cdd='cd ~'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ,='cd ~'
-# alias v='vim'
 alias v='nvim'
 alias g='git'
 alias e='exit'
