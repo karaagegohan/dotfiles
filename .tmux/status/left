@@ -8,7 +8,7 @@ add-content()
   DISPLAY="$DISPLAY $1　$2 $delimiter"
 }
 
-add-content "🗑" "$(trash-info -n) / $(trash-info -s)" 
+add-content "🗑" "$(trash-info -s) / $(trash-info -n)" 
 # add-content "📋" "$(osascript -e 'get the clipboard')" 
 add-content "📀" "$(disk-usage -f '%a [%c]' -t)" 
 
