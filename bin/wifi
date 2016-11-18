@@ -130,7 +130,7 @@ do
     "-f")
       DISPLAY=${argv[$i]}
       DISPLAY=${DISPLAY//'%i'/${ssid}}
-      DISPLAY=${DISPLAY//'%r'/${rate}Mbps}
+      DISPLAY=${DISPLAY//'%r'/${rate} Mbps}
       DISPLAY=${DISPLAY//'%s'/${signal}}
       DISPLAY=${DISPLAY//'%a'/${ipaddress}}
       ;;
