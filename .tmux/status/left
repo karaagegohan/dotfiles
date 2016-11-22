@@ -1,16 +1,28 @@
 #!/bin/bash
 
-delimiter=' #[fg=colour244]⮀#[default] ' 
-DISPLAY=''
+display=''
+colors=(55 62 69 88)
+cnt=0
 
 add-content()
 {
-  DISPLAY="$DISPLAY $1　$2 $delimiter"
+  space="#[bg=colour${colors[$cnt]}] #[default]" 
+  delimiter="#[fg=colour${colors[$cnt]},bg=colour${colors[$cnt+1]}]⮀#[default]" 
+  icon="#[bg=colour${colors[$cnt]}]$1 #[default]" 
+  message="#[bg=colour${colors[$cnt]}]$2#[default]" 
+  content="$space$icon$space$message$space"
+  display="$display$content$delimiter"
+  cnt=$cnt+1
 }
 
 add-content "🗑" "$(trash-info -s) / $(trash-info -n)" 
 # add-content "📋" "$(osascript -e 'get the clipboard')" 
-add-content "📀" "$(disk-usage -f '%a [%c]' -t)" 
+add-content "📀" "$(disk-usage -f '%a [%c]')" 
 
-echo $DISPLAY
+display=$( \
+  echo $display \
+  | sed -e "s/,bg=colour${colors[$cnt]}//g" \
+  )
+
+echo $display
 

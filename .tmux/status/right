@@ -1,17 +1,29 @@
 #!/bin/bash
 
-delimiter=' #[fg=colour244]⮂#[default] ' 
-DISPLAY=''
+display=''
+colors=(130 137 144 152 159)
+cnt=0
 
 add-content()
 {
-  DISPLAY="$DISPLAY $delimiter $1　$2"
+  space="#[bg=colour${colors[$cnt]}] #[default]" 
+  delimiter="#[fg=colour${colors[$cnt]},bg=colour${colors[$cnt+1]}]⮂#[default]" 
+  icon="#[bg=colour${colors[$cnt]}]$1 #[default]" 
+  message="#[bg=colour${colors[$cnt]}]$2#[default]" 
+  content="$space$icon$space$message$space"
+  display="$delimiter$content$display"
+  cnt=$cnt+1
 }
 
-add-content "🔊" "$(volume -t)"
-add-content "📡" "$(wifi -t -f '%a in %i [%r]')"
-add-content "🔋" "$(battery -t -r)" 
 add-content "🕐" "$(date '+%a %b %-d %H:%M:%S')"
+add-content "🔋" "$(battery -t -r)" 
+add-content "📡" "$(wifi -t -f '%a in %i [%r]')"
+add-content "🔊" "$(volume -t)"
 
-echo $DISPLAY
+display=$( \
+  echo $display \
+  | sed -e "s/,bg=colour${colors[$cnt]}//g" \
+  )
+
+echo $display
 
