@@ -1,28 +1,30 @@
 #!/bin/bash
 
-display=''
-colors=(55 62 69 88)
+# https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
+DISPLAY=''
+colors=(
+  44 0
+  158 0
+) 
 cnt=0
+size=${#colors[*]}
 
 add-content()
 {
-  space="#[bg=colour${colors[$cnt]}] #[default]" 
-  delimiter="#[fg=colour${colors[$cnt]},bg=colour${colors[$cnt+1]}]⮀#[default]" 
-  icon="#[bg=colour${colors[$cnt]}]$1 #[default]" 
-  message="#[bg=colour${colors[$cnt]}]$2#[default]" 
+  index=`expr $cnt % $size`
+  DISPLAY=$( echo $DISPLAY | sed -e "s/<__BG__>/,bg=colour${colors[$index]}/g" )
+  space="#[bg=colour${colors[$index]}] #[default]" 
+  delimiter="#[fg=colour${colors[$index]}<__BG__>]⮀#[default]" 
+  icon="#[bg=colour${colors[$index]}]$1 #[default]" 
+  message="#[bg=colour${colors[$index]},fg=colour${colors[${index+1}]}]$2#[default]" 
   content="$space$icon$space$message$space"
-  display="$display$content$delimiter"
-  cnt=$cnt+1
+  DISPLAY="$DISPLAY$content$delimiter"
+  cnt=`expr $cnt + 2`
 }
 
 add-content "🗑" "$(trash-info -s) / $(trash-info -n)" 
-# add-content "📋" "$(osascript -e 'get the clipboard')" 
 add-content "📀" "$(disk-usage -f '%a [%c]')" 
+DISPLAY=$( echo $DISPLAY  | sed -e "s/<__BG__>//g" )
 
-display=$( \
-  echo $display \
-  | sed -e "s/,bg=colour${colors[$cnt]}//g" \
-  )
-
-echo $display
+echo $DISPLAY
 

@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'net/http'
+require 'uri'
+require 'json'
+
+class Weather
+  attr_reader :telop, :text
+  def initialize(id)
+    uri = URI.parse('http://weather.livedoor.com/forecast/webservice/json/v1?city=' + id)
+    res = Net::HTTP.get_response(uri)
+    json = JSON.parse(res.body)
+    @telop = json['forecasts'][0]['telop']
+    @text = json['description']['text']
+  end
+end
+
+if ARGV.empty?
+  puts 'Usage: weather [id]'
+else
+  weather = Weather.new(ARGV[0])
+  puts weather.telop
+  puts weather.text
+end

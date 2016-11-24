@@ -9,9 +9,7 @@ trash_size=$( \
   du -h -c -m $HOME/.Trash \
   | echo `grep 'total'` \
   | sed -e 's/ .*//g' \
-  | sed -e 's/M//g' \
-  | sed -e 's/B//g' \
-  | sed -e 's/K//g' \
+  | sed -e 's/[MBK]//g' \
   )
 
 DISPLAY=''

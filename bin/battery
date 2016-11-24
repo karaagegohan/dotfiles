@@ -65,11 +65,12 @@ function display() {
         echo -e "#[fg=blue]${display}#[default]"
       fi
     fi
+  else
+    echo -e "${display}"
   fi
 }
 
-
-MODE="shell"
+MODE="default"
 PERCENTAGE="$(pmset -g ps | egrep -o '[0-9]+%' | tr -d %)"
 DISPLAY="${PERCENTAGE}%"
 
@@ -83,6 +84,9 @@ do
     "-t")
       MODE="tmux"
       ;;
+    "-s")
+      MODE="shell"
+      ;;
     "-m")
       DISPLAY="${DISPLAY} $(get_meter $PERCENTAGE)"
       ;;
@@ -95,4 +99,5 @@ do
       ;;
   esac
 done
+
 display $MODE $PERCENTAGE "$DISPLAY"

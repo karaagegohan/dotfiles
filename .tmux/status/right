@@ -1,29 +1,33 @@
 #!/bin/bash
 
-display=''
-colors=(130 137 144 152 159)
+DISPLAY=''
+colors=(
+  208 0
+  190 0
+  226 0
+) 
 cnt=0
+size=${#colors[*]}
 
 add-content()
 {
-  space="#[bg=colour${colors[$cnt]}] #[default]" 
-  delimiter="#[fg=colour${colors[$cnt]},bg=colour${colors[$cnt+1]}]⮂#[default]" 
-  icon="#[bg=colour${colors[$cnt]}]$1 #[default]" 
-  message="#[bg=colour${colors[$cnt]}]$2#[default]" 
+
+  index=`expr $cnt % $size`
+  DISPLAY=$( echo $DISPLAY | sed -e "s/<__BG__>/,bg=colour${colors[$index]}/g" )
+  space="#[bg=colour${colors[$index]}] #[default]" 
+  delimiter="#[fg=colour${colors[$index]}<__BG__>]⮂#[default]" 
+  icon="#[bg=colour${colors[$index]}]$1 #[default]" 
+  message="#[bg=colour${colors[$index]},fg=colour${colors[${index+1}]}]$2#[default]" 
   content="$space$icon$space$message$space"
-  display="$delimiter$content$display"
-  cnt=$cnt+1
+  DISPLAY="$delimiter$content$DISPLAY"
+  cnt=`expr $cnt + 2`
 }
 
 add-content "🕐" "$(date '+%a %b %-d %H:%M:%S')"
-add-content "🔋" "$(battery -t -r)" 
-add-content "📡" "$(wifi -t -f '%a in %i [%r]')"
-add-content "🔊" "$(volume -t)"
+add-content "🔋" "$(battery -r)" 
+add-content "📡" "$(wifi -f '%a in %i [%r]')"
+add-content "🔊" "$(volume)"
+DISPLAY=$( echo $DISPLAY  | sed -e "s/<__BG__>//g" )
 
-display=$( \
-  echo $display \
-  | sed -e "s/,bg=colour${colors[$cnt]}//g" \
-  )
-
-echo $display
+echo $DISPLAY
 
