@@ -314,6 +314,8 @@ nnoremap Y                       y$
 nnoremap R                       J
 nnoremap x                       "_x
 nnoremap X                       x
+vnoremap >                       >gv
+vnoremap <                       <gv
 
 " cursor
 nnoremap j                       gj
