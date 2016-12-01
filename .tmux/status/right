@@ -2,9 +2,8 @@
 
 DISPLAY=''
 colors=(
-  208 0
-  190 0
-  226 0
+  114 0
+  156 0
 ) 
 cnt=0
 size=${#colors[*]}

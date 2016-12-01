@@ -1382,6 +1382,7 @@ repo = 'altercation/vim-colors-solarized' # {{{
 
 [[plugins]]
 repo = 'morhetz/gruvbox' # {{{
+if = '''1'''
 hook_add = '''
   " set background=dark
   " autocmd vimrc VimEnter * nested colorscheme gruvbox
@@ -1430,7 +1431,6 @@ repo = 'whatyouhide/vim-gotham' # {{{
 
 [[plugins]]
 repo = 'joshdick/onedark.vim' # {{{
-if = '''1'''
 hook_add = '''
   set background=dark
   autocmd vimrc VimEnter * nested colorscheme onedark
