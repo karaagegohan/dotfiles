@@ -5,7 +5,8 @@ function peco-history-selection() { # {{{
   CURSOR=$#BUFFER
   zle reset-prompt
 } # }}}
-function peco-select-history() {
+
+function peco-select-history() {# {{{
     local tac
     if which tac > /dev/null; then
         tac="tac"
@@ -17,7 +18,8 @@ function peco-select-history() {
         peco --query "$LBUFFER")
     CURSOR=$#BUFFER
     zle clear-screen
-}
+}# }}}
+
 function git_commit_automatically_loop() { # {{{
   local action message
   while read line; do
