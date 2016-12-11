@@ -106,6 +106,15 @@ hook_post_update = '''
 ''' # }}}
 
 [[plugins]]
+repo = 'Shougo/deol.nvim' # {{{
+if = '''has('nvim')'''
+hook_add = '''
+
+'''
+# }}}
+
+
+[[plugins]]
 repo = 'Shougo/neosnippet' # {{{
 hook_add = '''
 
@@ -1343,6 +1352,12 @@ repo = 'mopp/layoutplugin.vim' # {{{
 repo = 'vim-scripts/applescript.vim' # {{{
 on_ft = 'applescript'
 # }}}
+
+[[plugins]]
+repo = 'dearrrfish/vim-applescript' # {{{
+on_ft = 'applescript'
+# }}}
+
 
 # }}}
 

@@ -1,49 +1,50 @@
 # functions {{{
 
-function peco-history-selection() { # {{{
-  BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
-  CURSOR=$#BUFFER
-  zle reset-prompt
-} # }}}
+if which tac > /dev/null; then
+  tac="tac"
+else
+  tac="tail -r"
+fi
+
 
 function peco-select-history() {# {{{
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(history -n 1 | \
-        eval $tac | \
-        peco --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle clear-screen
+  BUFFER=$( \
+    history -n 1 \
+    | eval $tac \
+    | peco --query "$LBUFFER" \
+    )
+  CURSOR=$#BUFFER
+  zle clear-screen
 }# }}}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
 
-function git_commit_automatically_loop() { # {{{
-  local action message
-  while read line; do
-    action=$(echo $line | awk '{print $1}' | sed "s/://")
-    case $action in
-      "new" ) added_changes="[add] $(echo $line | awk '{print $3}')" ;;
-      "deleted" ) added_changes="[remove] $(echo $line | awk '{print $2}')" ;;
-      "renamed" ) added_changes="[rename] $(echo $line | awk '{print $2 $3 $4}')" ;;
-      "modified" ) added_changes="[improve] $(echo $line | awk '{print $2}')" ;;
-    esac
-    message="$message $added_changes"
-  done
-  echo $message
+function is-git-repository() { # {{{
+	local info 
+	if test -z $(git rev-parse --git-dir 2> /dev/null); then 
+    return 1;
+	else 
+    return 0;
+	fi
 } # }}}
 
-function git_commit_automatically() { # {{{
-  commit_message=$( git status \
-    | sed '1,/Changes to be committed/ d' \
-    | sed '1,/^$/ d' \
-    | sed '/^$/,$ d' \
-    | git_commit_automatically_loop
-  )
-  git commit -m "$commit_message | $*"
+function peco-select-git-add() { # {{{
+  if is-git-repository; then 
+    local files=$( \
+      git ls-files -m --others --exclude-standard \
+      | peco --query "$LBUFFER" \
+      | awk -F ' ' '{print $NF}' \
+      )
+    if [ -n "$files" ]; then
+      BUFFER="git add $(echo "$files" | tr '\n' ' ')"
+      CURSOR=$#BUFFER
+    fi
+    zle accept-line
+    zle clear-screen
+  fi
 } # }}}
+zle -N peco-select-git-add
+bindkey "^g^a" peco-select-git-add
 
 # }}}
 
@@ -80,12 +81,12 @@ export PATH=$PATH:$HOME/script/upload-googledrive
 # }}}
 
 # history {{{
-setopt HIST_IGNORE_DUPS     # 前と重複する行は記録しない
-setopt HIST_IGNORE_ALL_DUPS # 履歴中の重複行をファイル記録前に無くす
-setopt HIST_IGNORE_SPACE    # 行頭がスペースのコマンドは記録しない
-setopt HIST_FIND_NO_DUPS          # 履歴検索中、(連続してなくとも)重複を飛ばす
-setopt HIST_REDUCE_BLANKS         # 余分な空白は詰めて記録
-setopt HIST_NO_STORE              # histroyコマンドは記録しない
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_NO_STORE
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -279,13 +280,6 @@ alias ugd='upload-googledrive'
 
 alias p='python'
 alias r='ruby'
-
-# }}}
-
-# bindkey {{{
-
-zle -N peco-history-selection
-bindkey '^R' peco-history-selection
 
 # }}}
 

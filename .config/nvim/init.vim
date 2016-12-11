@@ -356,6 +356,7 @@ nnoremap <SID>[command]t         :<C-u>tabnew<CR>
 " buffer
 nnoremap <silent>(               :<C-u>bprevious<CR>
 nnoremap <silent>)               :<C-u>bnext<CR>
+nnoremap <silent><SID>[command]b :<C-u>enew<CR>
 
 " command mode
 cnoremap <C-n>                   <DOWN>
@@ -597,10 +598,13 @@ endif "}}}
 
 " autocmds {{{
 
+
 " filetype
 autocmd vimrc BufRead, FileType               help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk       setlocal fileencoding=sjis
 autocmd vimrc BufRead, BufNewFile *.xm        setlocal filetype=objc
+autocmd Filetype python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd bufnewfile,bufread *.scpt,*.applescript :setl filetype=applescript
 " autocmd vimrc VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
 " autocmd vimrc VimEnter,WinEnter *             match TrailingSpaces /\s\+$/
 " autocmd vimrc BufWritePre *                   %s/\s\+$//ge
