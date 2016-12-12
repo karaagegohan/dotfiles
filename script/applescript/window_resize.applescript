@@ -38,7 +38,6 @@ on run argv
             set topWindow to window 1
             set position of topWindow to fixPosition
             set size of topWindow to fixSize
-
         end tell
     end tell
 end run

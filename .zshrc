@@ -6,7 +6,6 @@ else
   tac="tail -r"
 fi
 
-
 function peco-select-history() {# {{{
   BUFFER=$( \
     history -n 1 \
@@ -28,6 +27,8 @@ function is-git-repository() { # {{{
 	fi
 } # }}}
 
+git_prefix_key='^g'
+
 function peco-select-git-add() { # {{{
   if is-git-repository; then 
     local files=$( \
@@ -44,7 +45,7 @@ function peco-select-git-add() { # {{{
   fi
 } # }}}
 zle -N peco-select-git-add
-bindkey "^g^a" peco-select-git-add
+bindkey "$git_prefix_key^a" peco-select-git-add
 
 # }}}
 
