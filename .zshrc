@@ -1,24 +1,8 @@
 # functions {{{
 
-if which tac > /dev/null; then
-  tac="tac"
-else
-  tac="tail -r"
-fi
+tac=${commands[tac]:-"tail -r"}
 
-function peco-select-history() {# {{{
-  BUFFER=$( \
-    history -n 1 \
-    | eval $tac \
-    | peco --query "$LBUFFER" \
-    )
-  CURSOR=$#BUFFER
-  zle clear-screen
-}# }}}
-zle -N peco-select-history
-bindkey '^r' peco-select-history
-
-function is-git-repository() { # {{{
+function is_git_repository() { # {{{
 	local info 
 	if test -z $(git rev-parse --git-dir 2> /dev/null); then 
     return 1;
@@ -27,10 +11,20 @@ function is-git-repository() { # {{{
 	fi
 } # }}}
 
-git_prefix_key='^g'
+function peco_select_history() {# {{{
+  BUFFER=$( \
+    history -n 1 \
+    | eval $tac \
+    | peco --query "$LBUFFER" \
+    )
+  CURSOR=$#BUFFER
+  zle clear-screen
+}# }}}
+zle -N peco_select_history
+bindkey '^r' peco_select_history
 
-function peco-select-git-add() { # {{{
-  if is-git-repository; then 
+function peco_select_git_add() { # {{{
+  if is_git_repository; then 
     local files=$( \
       git ls-files -m --others --exclude-standard \
       | peco --query "$LBUFFER" \
@@ -44,8 +38,8 @@ function peco-select-git-add() { # {{{
     zle clear-screen
   fi
 } # }}}
-zle -N peco-select-git-add
-bindkey "$git_prefix_key^a" peco-select-git-add
+zle -N peco_select_git_add
+bindkey "^g^a" peco_select_git_add
 
 # }}}
 
@@ -167,11 +161,11 @@ function precmd () { # {{{
   fi
 } # }}}
 
-function prompt-git-root-directory { # {{{
+function prompt_git_root_directory { # {{{
   echo "in %{${fg[$1]}%}%2v%U%3v%u%4v%{${reset_color}%}"
 } # }}}
 
-function prompt-git-current-branch { # {{{
+function prompt_git_current_branch { # {{{
   local name
   local st
   local plus
@@ -194,15 +188,15 @@ function prompt-git-current-branch { # {{{
   echo "on $fg[$1]$name$plus%f"
 } # }}}
 
-function prompt-username() { # {{{
+function prompt_username() { # {{{
   echo "$fg[$1]%n%{$reset_color%}"
 } # }}}
 
-function prompt-hostname() { # {{{
+function prompt_hostname() { # {{{
   echo "at $fg[$1]%m%{$reset_color%}"
 } # }}}
 
-function prompt-git-modified-file() { # {{{
+function prompt_git_modified_file() { # {{{
   if test -z $(git rev-parse --git-dir 2> /dev/null); then 
     echo ""
   else
@@ -217,7 +211,7 @@ function prompt-git-modified-file() { # {{{
   fi
 } # }}}
 
-function prompt-git-deleted-file() { # {{{
+function prompt_git_deleted_file() { # {{{
   if test -z $(git rev-parse --git-dir 2> /dev/null); then 
     echo ""
   else
@@ -233,7 +227,7 @@ function prompt-git-deleted-file() { # {{{
 } # }}}
 
 PROMPT='
-%# `prompt-username cyan` `prompt-hostname green` `prompt-git-root-directory yellow` `prompt-git-current-branch blue`  `prompt-git-modified-file magenta`  `prompt-git-deleted-file red`
+%# `prompt_username cyan` `prompt_hostname green` `prompt_git_root_directory yellow` `prompt_git_current_branch blue`  `prompt_git_modified_file magenta`  `prompt_git_deleted_file red`
 → '
 
 # }}}
@@ -295,7 +289,7 @@ zplug "zsh-users/zsh-syntax-highlighting"
 # zplug "zsh-users/zsh-autosuggestions", hook-build:"source zsh-autosuggestions.zsh"
 
 # return whether the plugin is installed
-function zplug-installed() { # {{{
+function zplug_installed() { # {{{
   local plugins
   plugins=$(zplug list)
   if [[ `echo $plugins | grep $1` ]];
@@ -317,12 +311,12 @@ zplug load --verbose
 # }}}
 
 # preferences for each plugin
-if zplug-installed "hchbaw/auto-fu.zsh"; # {{{
+if zplug_installed "hchbaw/auto-fu.zsh"; # {{{
 then
-  function zle-line-init(){
+  function zle_line_init(){
     auto-fu-init
   }
-  zle -N zle-line-init
+  zle -N zle_line_init
   # zstyle ':auto-fu:highlight' input bold
   # zstyle ':auto-fu:highlight' completion fg=black,bold
   # zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
