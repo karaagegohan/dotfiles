@@ -1,49 +1,48 @@
-#!/usr/bin/ruby
+#! /bin/bash
 
-def width(word)
-    return word.chars.map{|c|  c.ascii_only? ? 1 : 2 }.inject(0, &:+)
-end
+function usage() {
+  local _script_name
+  _script_name=$(basename $0)
+cat <<_EOT_
+Usage:
+  $_script_name [-a] [-b]
 
-s = `ithief information`
-if md = s.match(/playing "(.+?)" by/)
-    name = md[1]
-    playing = true
+Description:
+  Get information about the music playing now.
+
+Options:
+  -a    artist
+  -t    title
+_EOT_
+exit 1
+}
+
+DISPLAY=""
+if [ $# -eq 0 ]; then
+  DISPLAY=$DISPLAY osascript -e 'tell application "iTunes" to if player state is playing then name of current track & " - " & artist of current track'
 else
-    name = '-----'
-    playing = false
-end
-if md = s.match(/by (.+?) in/)
-    artist = md[1]
-else
-    artist = '-----'
-end
-s = (name + ' ／ ' + artist)
+  if [ "$OPTIND" = 1 ]; then
+    while getopts :abth OPT
+    do
+      case $OPT in
+        a)
+          DISPLAY=$DISPLAY osascript -e 'tell application "iTunes" to if player state is playing then name of current track'
+          ;;
+        t)
+          DISPLAY=$DISPLAY osascript -e 'tell application "iTunes" to if player state is playing then artist of current track'
+          ;;
+        b)
+          DISPLAY=$DISPLAY osascript -e 'tell application "iTunes" to if player state is playing then "1"'
+          ;;
+        h)
+          usage
+          ;;
+        *)
+          usage
+          ;;
+      esac
+    done
+  fi
+fi
 
-w = 35
-str = ''
-if width(s) > w
-    s += ' ' * 10
-    for i in 0 .. s.length * 2
-        str += s[( ( Time.now.sec + Time.now.min * 60 ) * 1 + i ) % s.length]
-        if width(str) > w - 3
-            break
-        end
-    end
-    s = str
-end
-space_num = w - width(s) >= 0 ? w - width(s) : 0
-s = s + ' ' * ( space_num )
-
-colors = [
-    'colour40',
-    'colour41',
-    'colour42',
-    'colour43',
-    'colour44',
-    'colour45',
-]
-colors += colors.reverse[1..colors.length-2]
-
-ret = '#[bg=dark]' + '#[fg=' + colors[playing ? Time.now.sec % colors.length : 0] + ']' + '♪ ' + s + ' #[default]'
-puts ret 
-
+echo $DISPLAY

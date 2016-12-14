@@ -11,19 +11,22 @@ size=${#colors[*]}
 
 add-content()
 {
-  index=`expr $cnt % $size`
-  DISPLAY=$( echo $DISPLAY | sed -e "s/<__BG__>/,bg=colour${colors[$index]}/g" )
-  space="#[bg=colour${colors[$index]}] #[default]" 
-  delimiter="#[fg=colour${colors[$index]}<__BG__>]⮀#[default]" 
-  icon="#[bg=colour${colors[$index]}]$1 #[default]" 
-  message="#[bg=colour${colors[$index]},fg=colour${colors[${index+1}]}]$2#[default]" 
-  content="$space$icon$space$message$space"
-  DISPLAY="$DISPLAY$content$delimiter"
-  cnt=`expr $cnt + 2`
+  if [ $3 -eq 1 ]; then
+    index=`expr $cnt % $size`
+    DISPLAY=$( echo $DISPLAY | sed -e "s/<__BG__>/,bg=colour${colors[$index]}/g" )
+    space="#[bg=colour${colors[$index]}] #[default]" 
+    delimiter="#[fg=colour${colors[$index]}<__BG__>]⮀#[default]" 
+    icon="#[bg=colour${colors[$index]}]$1 #[default]" 
+    message="#[bg=colour${colors[$index]},fg=colour${colors[${index+1}]}]$2#[default]" 
+    content="$space$icon$space$message$space"
+    DISPLAY="$DISPLAY$content$delimiter"
+    cnt=`expr $cnt + 2`
+  fi
 }
 
-add-content "🗑" "$(trash-info -s) / $(trash-info -n)" 
-add-content "📀" "$(disk-usage -f '%a [%c]')" 
+add-content "🗑" "$($HOME/bin/usage_trash  -s) / $($HOME/bin/usage_trash -n)" 1
+add-content "📀" "$($HOME/bin/usage_disk   -f '%a [%c]')"                     1
+add-content "🎹" "$($HOME/bin/nowplaying)" "$($HOME/bin/nowplaying -b)"
 DISPLAY=$( echo $DISPLAY  | sed -e "s/<__BG__>//g" )
 
 echo $DISPLAY

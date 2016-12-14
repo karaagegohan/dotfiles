@@ -1477,5 +1477,10 @@ repo = 'ujihisa/neco-look' # {{{
 repo = 'mitsuse/kompl' # {{{
 # }}}
 
+[[plugins]]
+repo = 'junegunn/vim-emoji' # {{{
 # }}}
+
+# }}}
+
 

@@ -346,6 +346,11 @@ nnoremap <S-Left>                <C-w><<CR>
 nnoremap <S-Right>               <C-w>><CR>
 nnoremap <S-Up>                  <C-w>-<CR>
 nnoremap <S-Down>                <C-w>+<CR>
+nnoremap <Left>                  <C-w>L<CR>
+nnoremap <Right>                 <C-w>H<CR>
+nnoremap <Up>                    <C-w>-<CR>
+nnoremap <Down>                  <C-w>+<CR>
+nnoremap <silent><BS>            :<C-u>bdelete<CR>
 nnoremap <silent><BS>            :<C-u>bdelete<CR>
 
 " tab

@@ -1,0 +1,62 @@
+#!/bin/bash
+
+function usage() {
+  local _script_name
+  _cmd_name=$(basename $0)
+cat <<_EOT_
+Usage:
+  $_cmd_name [-n] [-s]
+
+Description:
+  # TODO
+
+Options:
+  -n
+  -s
+_EOT_
+exit 1
+}
+
+function get_num_of_files() {
+  echo $( \
+    ls -U1 $HOME/.Trash \
+    | wc -l \
+    )
+}
+
+function get_garbage_size() {
+  echo $( \
+    du -h -c -m $HOME/.Trash \
+    | echo `grep 'total'` \
+    | awk '{print $1}' \
+    | sed -e 's/[MBK]//g' \
+    )
+}
+
+DISPLAY=''
+if [ $# -eq 0 ]; then
+  :
+else
+  if [ "$OPTIND" = 1 ]; then
+    while getopts :hns OPT
+    do
+      case $OPT in
+        h)
+          usage
+          ;;
+        n)
+          DISPLAY="${DISPLAY} $(get_num_of_files) file(s)"
+          ;;
+        s)
+          DISPLAY="${DISPLAY} $(get_garbage_size) MB"
+          ;;
+        *)
+          usage
+          ;;
+      esac
+    done
+  fi
+fi
+
+echo $DISPLAY
+

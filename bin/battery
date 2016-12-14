@@ -1,7 +1,11 @@
 #!/bin/bash
 
 function get_percentage() {
-  echo "$(pmset -g ps | egrep -o '[0-9]+%' | tr -d %)"
+  echo "$( \
+    pmset -g ps \
+    | egrep -o '[0-9]+%' \
+    | tr -d % \
+    )"
 }
 
 function is_charging() {
@@ -34,7 +38,10 @@ function get_meter() {
 
 function get_remain() {
   local time_remain
-  time_remain="$(pmset -g ps | grep -o '[0-9]\+:[0-9]\+')"
+  time_remain=$( \
+    pmset -g ps \
+    | grep -o '[0-9]\+:[0-9]\+' \
+    )
   if [ -z "$time_remain" ]; then
     time_remain="no estimate"
   fi

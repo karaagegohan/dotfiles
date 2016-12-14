@@ -2,7 +2,7 @@
 
 tac=${commands[tac]:-"tail -r"}
 
-function is_git_repository() { # {{{
+is_git_repository() { # {{{
 	local info 
 	if test -z $(git rev-parse --git-dir 2> /dev/null); then 
     return 1;
@@ -11,7 +11,7 @@ function is_git_repository() { # {{{
 	fi
 } # }}}
 
-function peco_select_history() {# {{{
+peco_select_history() {# {{{
   BUFFER=$( \
     history -n 1 \
     | eval $tac \
@@ -23,7 +23,7 @@ function peco_select_history() {# {{{
 zle -N peco_select_history
 bindkey '^r' peco_select_history
 
-function peco_select_git_add() { # {{{
+peco_select_git_add() { # {{{
   if is_git_repository; then 
     local files=$( \
       git ls-files -m --others --exclude-standard \
@@ -72,6 +72,9 @@ then
 fi
 
 export PATH=$PATH:$HOME/script/upload-googledrive
+
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 
 # }}}
 
@@ -145,7 +148,7 @@ zstyle ':vcs_info:*' max-exports 3
 zstyle ':vcs_info:*' formats '%s:%b ' '%r' '%R'
 setopt prompt_subst
 
-function precmd () { # {{{
+precmd () { # {{{
   LANG=en_US.UTF-8 vcs_info
   psvar=()
   [[ -n ${vcs_info_msg_0_} ]] && psvar[1]="$vcs_info_msg_0_"
@@ -161,11 +164,11 @@ function precmd () { # {{{
   fi
 } # }}}
 
-function prompt_git_root_directory { # {{{
+prompt_git_root_directory() { # {{{
   echo "in %{${fg[$1]}%}%2v%U%3v%u%4v%{${reset_color}%}"
 } # }}}
 
-function prompt_git_current_branch { # {{{
+prompt_git_current_branch() { # {{{
   local name
   local st
   local plus
@@ -188,15 +191,15 @@ function prompt_git_current_branch { # {{{
   echo "on $fg[$1]$name$plus%f"
 } # }}}
 
-function prompt_username() { # {{{
+prompt_username() { # {{{
   echo "$fg[$1]%n%{$reset_color%}"
 } # }}}
 
-function prompt_hostname() { # {{{
+prompt_hostname() { # {{{
   echo "at $fg[$1]%m%{$reset_color%}"
 } # }}}
 
-function prompt_git_modified_file() { # {{{
+prompt_git_modified_file() { # {{{
   if test -z $(git rev-parse --git-dir 2> /dev/null); then 
     echo ""
   else
@@ -211,7 +214,7 @@ function prompt_git_modified_file() { # {{{
   fi
 } # }}}
 
-function prompt_git_deleted_file() { # {{{
+prompt_git_deleted_file() { # {{{
   if test -z $(git rev-parse --git-dir 2> /dev/null); then 
     echo ""
   else
@@ -289,7 +292,7 @@ zplug "zsh-users/zsh-syntax-highlighting"
 # zplug "zsh-users/zsh-autosuggestions", hook-build:"source zsh-autosuggestions.zsh"
 
 # return whether the plugin is installed
-function zplug_installed() { # {{{
+zplug_installed() { # {{{
   local plugins
   plugins=$(zplug list)
   if [[ `echo $plugins | grep $1` ]];
@@ -313,7 +316,7 @@ zplug load --verbose
 # preferences for each plugin
 if zplug_installed "hchbaw/auto-fu.zsh"; # {{{
 then
-  function zle_line_init(){
+  zle_line_init(){
     auto-fu-init
   }
   zle -N zle_line_init
