@@ -1,32 +1,43 @@
 #!/bin/bash
 
-DISPLAY=''
-colors=(
+CONTENTS=(
+  "🕐" "$(date '+%a %b %-d %H:%M:%S')"
+  "🔋" "$(battery -r)" 
+  "📡" "$(wifi -f '%a in %i [%r]')"
+  "🔊" "$(volume)"
+)
+
+CONTENT_SIZE=$(( ${#CONTENTS[*]} ))
+
+# https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
+COLORS=(
   114 0
-  156 0
+  222 0
 ) 
-cnt=0
-size=${#colors[*]}
+COLORS_SIZE=$(( ${#COLORS[*]} ))
 
-add-content()
-{
-
-  index=`expr $cnt % $size`
-  DISPLAY=$( echo $DISPLAY | sed -e "s/<__BG__>/,bg=colour${colors[$index]}/g" )
-  space="#[bg=colour${colors[$index]}] #[default]" 
-  delimiter="#[fg=colour${colors[$index]}<__BG__>]⮂#[default]" 
-  icon="#[bg=colour${colors[$index]}]$1 #[default]" 
-  message="#[bg=colour${colors[$index]},fg=colour${colors[${index+1}]}]$2#[default]" 
-  content="$space$icon$space$message$space"
-  DISPLAY="$delimiter$content$DISPLAY"
-  cnt=`expr $cnt + 2`
-}
-
-add-content "🕐" "$(date '+%a %b %-d %H:%M:%S')"
-add-content "🔋" "$(battery -r)" 
-add-content "📶" "$(wifi -f '%a in %i [%r]')"
-add-content "🔊" "$(volume)"
-DISPLAY=$( echo $DISPLAY  | sed -e "s/<__BG__>//g" )
+CNT=0
+DISPLAY=''
+for i in `seq 0 2 $CONTENT_SIZE`
+do
+  if [ "${CONTENTS[$((i+1))]}" != "" ]; then
+    DISPLAY=$( \
+      echo "<DELIMITER><CONTENT>$DISPLAY" \
+      | sed -e "s/<COLOR_NEXT>/,bg=colour${COLORS[$CNT]}/g"\
+      | sed -e "s/<DELIMITER>/#[fg=colour<COLOR><COLOR_NEXT>]⮂#[default]/g" \
+      | sed -e "s/<CONTENT>/<SPACE><ICON><SPACE><SPACE><MESSAGE><SPACE>/g" \
+      | sed -e "s/<SPACE>/#[bg=colour<COLOR>] #[default]/g" \
+      | sed -e "s/<ICON>/#[bg=colour<COLOR>]${CONTENTS[$((i))]}#[default]/g" \
+      | sed -e "s?<MESSAGE>?#[bg=colour${COLORS[$CNT]},fg=colour${COLORS[$((CNT+1))]}]${CONTENTS[$((i+1))]}#[default]?g" \
+      | sed -e "s/<COLOR>/${COLORS[$CNT]}/g" \
+      )
+    CNT=$(((CNT+2)%COLORS_SIZE))
+  fi
+done
+DISPLAY=$( \
+  echo $DISPLAY \
+  | sed -e "s/<COLOR_NEXT>//g" \
+  )
 
 echo $DISPLAY
 
