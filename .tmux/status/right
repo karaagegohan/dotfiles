@@ -24,7 +24,7 @@ add-content()
 
 add-content "🕐" "$(date '+%a %b %-d %H:%M:%S')"
 add-content "🔋" "$(battery -r)" 
-add-content "📡" "$(wifi -f '%a in %i [%r]')"
+add-content "📶" "$(wifi -f '%a in %i [%r]')"
 add-content "🔊" "$(volume)"
 DISPLAY=$( echo $DISPLAY  | sed -e "s/<__BG__>//g" )
 

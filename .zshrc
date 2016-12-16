@@ -209,7 +209,7 @@ prompt_git_modified_file() { # {{{
       | tr '\n' ' ' \
       )
     if [ -n "$out" ]; then
-      echo "$fg[$1] M: $out%{$reset_color%}"
+      echo "$fg[$1]M: $out%{$reset_color%}"
     fi
   fi
 } # }}}
@@ -224,13 +224,28 @@ prompt_git_deleted_file() { # {{{
       | tr '\n' ' ' \
       )
     if [ -n "$out" ]; then
-      echo "$fg[$1] D: $out%{$reset_color%}"
+      echo "$fg[$1]D: $out%{$reset_color%}"
+    fi
+  fi
+} # }}}
+
+prompt_git_untracked_file() { # {{{
+  if test -z $(git rev-parse --git-dir 2> /dev/null); then 
+    echo ""
+  else
+    out=$( \
+      git ls-files --others --exclude-standard \
+      | tr '\r' ' ' \
+      | tr '\n' ' ' \
+      )
+    if [ -n "$out" ]; then
+      echo "$fg[$1]U: $out%{$reset_color%}"
     fi
   fi
 } # }}}
 
 PROMPT='
-%# `prompt_username cyan` `prompt_hostname green` `prompt_git_root_directory yellow` `prompt_git_current_branch blue`  `prompt_git_modified_file magenta`  `prompt_git_deleted_file red`
+%# `prompt_username cyan` `prompt_hostname green` `prompt_git_root_directory yellow` `prompt_git_current_branch blue`
 → '
 
 # }}}
@@ -255,8 +270,8 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 
 # alias {{{
 
-alias ls='ls -l'
-alias la='ls -la'
+alias ls='ls -GF -l'
+alias la='ls -GF -la'
 alias cdd='cd ~'
 alias ..='cd ../'
 alias ...='cd ../../'

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DISPLAY=$( \
+  curl -s http://www.gaitameonline.com/rateaj/getrate \
+  | jq ".quotes[] | select(.currencyPairCode == \"$1\") | .bid" \
+  | tr -d '"' \
+  )
+
+echo $DISPLAY
+
