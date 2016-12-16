@@ -1,54 +1,50 @@
 [core]
-    editor = nvim
-	quotepath = false
-
-[user]
-	name = ynoca
-	email = usahillbanana@gmail.com
+  editor = nvim
+  quotepath = false
 
 [push]
-	default = simple
+  default = simple
 
 [color]
-    ui = true
-	diff = auto
-	status = auto
-	branch = auto
+  ui = true
+  diff = auto
+  status = auto
+  branch = auto
 
 [alias]
-    ad = add
-    ap = add -p
-    ba = branch -a
-    bd = branch -d
-    bf = branch -f
-    br = branch
-    cb = checkout -B
-    ch = checkout
-    cm = commit -m
-    co = commit
-    di = diff
-    fe = fetch
-    gr = log --pretty='medium-reverse' --graph --name-status
-    lo = log --reverse --decorate
-    ma = checkout master
-    me = merge
-    pl = pull
-    pm = push origin master
-    ps = push
-    pf = push -f
-    rb = rebase
-    rm = rm --cached
-    rs = reset
-    sh = stash
-    st = status
-    ud = reset --hard HEAD^
+  ad = add
+  ap = add -p
+  ba = branch -a
+  bd = branch -d
+  bf = branch -f
+  br = branch
+  cb = checkout -B
+  ch = checkout
+  cm = commit -m
+  co = commit
+  di = diff
+  fe = fetch
+  gr = log --pretty='medium-reverse' --graph --name-status
+  lo = log --reverse --decorate
+  ma = checkout master
+  me = merge
+  pl = pull
+  pm = push origin master
+  ps = push
+  pf = push -f
+  rb = rebase
+  rm = rm --cached
+  rs = reset
+  sh = stash
+  st = status
+  ud = reset --hard HEAD^
 
-    td = "!f () {\
-                 git log --oneline --reverse --branches \
-                 --since=midnight --date=iso \
-                 --author=\"$(git config user.name)\" \
-                 --format=\" - %C(auto)%h%Creset : %s %C(green)(%ad)%Creset\";\
-             };f"
+  td = "!f () {\
+    git log --oneline --reverse --branches \
+    --since=midnight --date=iso \
+    --author=\"$(git config user.name)\" \
+    --format=\" - %C(auto)%h%Creset : %s %C(green)(%ad)%Creset\";\
+    };f"
 
 [pretty]
-	medium-reverse = format:%C(white reverse) %h %Creset %C(cyan reverse) %ar %Creset %C(green reverse) %an %Creset %C(white)｡o( %s ) %Creset %C(red reverse)%d%Creset%n 
+  medium-reverse = format:%C(white reverse) %h %Creset %C(cyan reverse) %ar %Creset %C(green reverse) %an %Creset %C(white)｡o( %s ) %Creset %C(red reverse)%d%Creset%n 
