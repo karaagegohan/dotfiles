@@ -1,4 +1,5 @@
 .bash_history
+.gitconfig
 /.config
 !/.config/nvim
 /script/upload-googledrive/*.json
