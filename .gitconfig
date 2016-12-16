@@ -48,3 +48,6 @@
 
 [pretty]
   medium-reverse = format:%C(white reverse) %h %Creset %C(cyan reverse) %ar %Creset %C(green reverse) %an %Creset %C(white)｡o( %s ) %Creset %C(red reverse)%d%Creset%n 
+[user]
+	name = ynoca
+	email = usahillbanana@gmail.com
