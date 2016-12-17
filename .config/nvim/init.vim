@@ -4,6 +4,11 @@ augroup vimrc
 augroup END
 
 if has('vim_starting')
+
+  let g:env#mac = has('mac')
+  let g:env#win = has('win32') || has('win64')
+  let g:env#gui = has('gui_running')
+
   let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
   " dein settings
   let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
@@ -28,9 +33,6 @@ if has('vim_starting')
 
   set encoding =utf-8           " Character code for .vimrc
 
-  let g:env#mac = has('mac')
-  let g:env#win = has('win32') || has('win64')
-  let g:env#gui = has('gui_running')
 endif
 " }}}
 

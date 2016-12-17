@@ -303,6 +303,7 @@ repo = 'itchyny/lightline.vim' # {{{
 hook_add = '''
 
     let g:lightline = {
+        \ 'colorscheme': 'wombat',
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [
@@ -333,6 +334,10 @@ hook_add = '''
         \ 'separator': {'left': '', 'right': ''},
         \ 'subseparator': {'left': '|', 'right': '|'}
         \ }
+    if g:env#mac
+      let g:lightline['separator'] = {'left': '⮀', 'right': '⮂'}
+      let g:lightline['subseparator'] = {'left': '⮁', 'right': '⮃'}
+    endif
 
     function! MyModified() "{{{
         return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -1438,6 +1443,11 @@ repo = 'vim-scripts/newspaper.vim' # {{{
 
 [[plugins]]
 repo = 'chriskempson/vim-tomorrow-theme' # {{{
+if = '''1'''
+hook_add = '''
+  set background=dark
+  autocmd vimrc VimEnter * nested colorscheme Tomorrow-Night
+'''
 # }}}
 
 [[plugins]]
@@ -1446,6 +1456,7 @@ repo = 'whatyouhide/vim-gotham' # {{{
 
 [[plugins]]
 repo = 'joshdick/onedark.vim' # {{{
+if = '''0'''
 hook_add = '''
   set background=dark
   autocmd vimrc VimEnter * nested colorscheme onedark
@@ -1460,6 +1471,25 @@ hook_add = '''
   autocmd vimrc VimEnter * nested colorscheme one
 '''
 # }}}
+
+[[plugins]]
+repo = 'AlessandroYorba/Alduin' # {{{
+if = '''1'''
+hook_add = '''
+  " set background=dark
+  " autocmd vimrc VimEnter * nested colorscheme one
+'''
+# }}}
+
+[[plugins]]
+repo = 'jeetsukumaran/vim-nefertiti' # {{{
+if = '''1'''
+hook_add = '''
+  " set background=dark
+  " autocmd vimrc VimEnter * nested colorscheme one
+'''
+# }}}
+
 
 # }}}
 
