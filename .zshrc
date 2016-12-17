@@ -288,6 +288,7 @@ alias ikill='pkill -f Japanese'
 
 alias mkdiri='(){ mkdir $1; cd $1 }'
 alias cdr='() { if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then cd `pwd`/`git rev-parse --show-cdup`; fi }'
+alias rn='() {for f in *.$1 ; do ; mv $f ${f/$2/$3} ; done }'
 
 alias ugd='upload-googledrive'
 
