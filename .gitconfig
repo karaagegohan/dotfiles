@@ -38,6 +38,7 @@
   sh = stash
   st = status
   ud = reset --hard HEAD^
+  uu = !git add . && git commit -m "update" && git push
 
   td = "!f () {\
     git log --oneline --reverse --branches \
