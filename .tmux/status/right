@@ -1,9 +1,9 @@
 #!/bin/bash
 
 CONTENTS=(
-  "🕐" "$(date '+%a %b %-d %H:%M:%S')"
+  "🕐" "$(date '+%a %b %-d %H:%M')"
   "🔋" "$(battery -r)" 
-  "📡" "$(wifi -f '%a in %i [%r]')"
+  "📡" "$(wifi -f '%a in %i')"
   "🔊" "$(volume)"
 )
 
@@ -11,8 +11,12 @@ CONTENT_SIZE=$(( ${#CONTENTS[*]} ))
 
 # https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 COLORS=(
-  114 0
-  222 0
+  236 180 
+  238 180 
+  240 180 
+  242 180 
+  244 180
+  245 180
 ) 
 COLORS_SIZE=$(( ${#COLORS[*]} ))
 

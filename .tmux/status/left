@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CONTENTS=(
-  "🗑" "$($HOME/bin/usage_trash -s) / $($HOME/bin/usage_trash -n)"
+  "🗑" "$($HOME/bin/usage_trash -f '%s MB / %n file(s)')"
   "📀" "$($HOME/bin/usage_disk -f '%a [%c]')"                     
   "🎹" "$($HOME/bin/nowplaying)"                                  
 )
@@ -10,8 +10,12 @@ CONTENT_SIZE=$(( ${#CONTENTS[*]} ))
 
 # https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 COLORS=(
-  12 0
-  45 0
+  236 180 
+  238 180 
+  240 180 
+  242 180 
+  244 180
+  245 180
 ) 
 COLORS_SIZE=$(( ${#COLORS[*]} ))
 
