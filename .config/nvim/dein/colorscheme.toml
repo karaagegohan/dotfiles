@@ -57,7 +57,6 @@ repo = 'vim-scripts/newspaper.vim' # {{{
 
 [[plugins]]
 repo = 'chriskempson/vim-tomorrow-theme' # {{{
-if = '''1'''
 hook_add = '''
   set background=dark
   autocmd vimrc VimEnter * nested colorscheme Tomorrow-Night
@@ -70,37 +69,17 @@ repo = 'whatyouhide/vim-gotham' # {{{
 
 [[plugins]]
 repo = 'joshdick/onedark.vim' # {{{
-if = '''0'''
-hook_add = '''
-  set background=dark
-  autocmd vimrc VimEnter * nested colorscheme onedark
-'''
 # }}}
 
 [[plugins]]
 repo = 'rakr/vim-one' # {{{
-if = '''0'''
-hook_add = '''
-  set background=dark
-  autocmd vimrc VimEnter * nested colorscheme one
-'''
 # }}}
 
 [[plugins]]
 repo = 'AlessandroYorba/Alduin' # {{{
-if = '''1'''
-hook_add = '''
-  " set background=dark
-  " autocmd vimrc VimEnter * nested colorscheme one
-'''
 # }}}
 
 [[plugins]]
 repo = 'jeetsukumaran/vim-nefertiti' # {{{
-if = '''1'''
-hook_add = '''
-  " set background=dark
-  " autocmd vimrc VimEnter * nested colorscheme one
-'''
 # }}}
 
