@@ -1,0 +1,4 @@
+[[plugins]]
+repo = 'xuhdev/vim-latex-live-preview' # {{{
+# }}}
+

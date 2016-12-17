@@ -1,0 +1,30 @@
+[[plugins]]
+repo = 'kana/vim-textobj-user' # {{{
+depends = ['kana/vim-textobj-user']
+# }}}
+
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter' # {{{
+depends = ['kana/vim-textobj-user']
+# }}}
+
+[[plugins]]
+repo = 'kana/vim-textobj-indent' # {{{
+depends = ['kana/vim-textobj-user']
+# }}}
+
+[[plugins]]
+repo = 'kana/vim-textobj-fold' # {{{
+depends = ['kana/vim-textobj-user']
+# }}}
+
+[[plugins]]
+repo = 'kana/vim-textobj-underscore' # {{{
+depends = ['kana/vim-textobj-user']
+# }}}
+
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multiblock' # {{{
+depends = ['kana/vim-textobj-user']
+# }}}
+

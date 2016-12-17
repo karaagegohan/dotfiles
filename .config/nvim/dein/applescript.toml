@@ -1,0 +1,10 @@
+[[plugins]]
+repo = 'vim-scripts/applescript.vim' # {{{
+on_ft = 'applescript'
+# }}}
+
+[[plugins]]
+repo = 'dearrrfish/vim-applescript' # {{{
+on_ft = 'applescript'
+# }}}
+

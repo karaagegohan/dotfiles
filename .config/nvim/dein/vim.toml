@@ -1,0 +1,4 @@
+[[plugins]]
+repo = 'mopp/layoutplugin.vim' # {{{
+# }}}
+

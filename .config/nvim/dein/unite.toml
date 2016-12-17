@@ -1,0 +1,106 @@
+[[plugins]]
+repo = 'Shougo/unite.vim'# {{{
+hook_add = '''
+
+    let g:unite_source_history_yank_enable      = 1     " Enable history yank
+    let g:unite_source_file_mru_limit           = 200   " Maximum number of mru list
+    let g:unite_source_file_mru_filename_format = ''    " Maximum number of mru list
+    let g:unite_enable_start_insert             = 1     " Start in insert mode
+    let g:unite_source_history_yank_enable      = 1
+
+    " key_mappings {{{
+    nnoremap <SID>[unite]   <Nop>
+    nmap     <SID>[plugin]u <SID>[unite]
+    nnoremap <SID>[unite]bu :<C-u>Unite buffer<CR>
+    nnoremap <SID>[unite]co :<C-u>Unite command<CR>
+    nnoremap <SID>[unite]de :<C-u>Unite dein<CR>
+    nnoremap <SID>[unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    nnoremap <SID>[unite]he :<C-u>Unite help<CR>
+    nnoremap <SID>[unite]hf :<C-u>Unite file_mru buffer<CR>
+    nnoremap <SID>[unite]hy :<C-u>Unite history/yank<CR>
+    nnoremap <SID>[unite]nb :<C-u>Unite dein<CR>
+    nnoremap <SID>[unite]pc :<C-u>Unite -auto-preview colorscheme<CR>
+    nnoremap <SID>[unite]pf :<C-u>Unite -auto-preview font<CR>
+    nnoremap <SID>[unite]pt :<C-u>Unite -auto-preview transparency<CR>
+    nnoremap <SID>[unite]qf :<C-u>Unite -no-quit -direction=botright quickfix<CR>
+    nnoremap <SID>[unite]re :<C-u>Unite -buffer-name=register register<CR>
+    nnoremap <SID>[unite]so :<C-u>Unite source<CR>
+    nnoremap <SID>[unite]u  :<C-u>Unite<CR>
+    nnoremap <SID>[unite]yr :<C-u>Unite yankround<CR>
+    "}}}
+
+'''
+# }}}
+
+[[plugins]]
+repo = 'Shougo/neomru.vim' # {{{
+depends = ['Shougo/unite.vim']
+# }}}
+
+[[plugins]]
+repo = 'Shougo/unite-outline' # {{{
+depends = ['Shougo/unite.vim']
+hook_add = '''
+
+    let g:unite_split_rule = 'botright'
+
+'''
+# }}}
+
+[[plugins]]
+repo = 'kmnk/vim-unite-giti.git'# {{{
+depends = ['Shougo/unite.vim']
+# }}}
+
+[[plugins]]
+repo = 'ujihisa/unite-colorscheme' # {{{
+depends = ['Shougo/unite.vim']
+# }}}
+
+[[plugins]]
+repo = 'ujihisa/unite-font' # {{{
+depends = ['Shougo/unite.vim']
+# }}}
+
+[[plugins]]
+repo = 'ujihisa/unite-help' # {{{
+depends = ['Shougo/unite.vim']
+# }}}
+
+[[plugins]]
+repo = 'todashuta/unite-transparency' # {{{
+depends = ['Shougo/unite.vim']
+# }}}
+
+[[plugins]]
+repo = 'osyo-manga/unite-quickfix.git' # {{{
+depends = ['Shougo/unite.vim']
+# }}}
+
+[[plugins]]
+repo = 'LeafCage/unite-gvimrgb' # {{{
+depends = ['Shougo/unite.vim']
+# }}}
+
+[[plugins]]
+repo = 'LeafCage/unite-recording' # {{{
+depends = ['Shougo/unite.vim']
+# }}}
+
+[[plugins]]
+repo = 'kmnk/vim-unite-giti' # {{{
+if = '''1'''
+depends = ['Shougo/unite.vim']
+hook_add = '''
+
+    let g:unite_split_rule = 'botright'
+
+    " key_mappings {{{
+    nnoremap <SID>[unite-git] <Nop>
+    nmap     <SID>[unite]g    <SID>[unite-git]
+    nnoremap <SID>[unite-git]g :<C-u>Unite giti<CR>
+    " }}}
+
+'''
+# }}}
+

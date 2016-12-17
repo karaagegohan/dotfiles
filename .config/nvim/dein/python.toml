@@ -1,0 +1,25 @@
+# [[plugins]]
+repo = 'davidhalter/jedi-vim'# {{{
+on_ft = 'python'
+hook_add = '''
+    let g:jedi#goto_command             = ""
+    let g:jedi#goto_assignments_command = ""
+    let g:jedi#goto_definitions_command = ""
+    let g:jedi#documentation_command    = "<SID>[command]d"
+    let g:jedi#usages_command           = ""
+    let g:jedi#rename_command           = ""
+'''
+# }}}
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi' #{{{
+on_ft = 'python'
+hook_add = '''
+
+let g:jedi#auto_initialization = 1
+let g:jedi#rename_command      = ""
+let g:jedi#popup_on_dot        = 1
+
+'''
+# }}}
+

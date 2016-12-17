@@ -1,0 +1,5 @@
+[[plugins]]
+repo = 'keith/swift.vim' # {{{
+on_ft = 'swift'
+# }}}
+

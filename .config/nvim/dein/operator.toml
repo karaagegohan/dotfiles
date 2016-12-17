@@ -1,0 +1,33 @@
+[[plugins]]
+repo = 'kana/vim-operator-user' # {{{
+# }}}
+
+[[plugins]]
+repo = 'rhysd/vim-operator-surround' # {{{
+hook_add = '''
+
+    " key_mappings {{{
+    nmap <silent>ys <Plug>(operator-surround-append)
+    nmap <silent>ds <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+    nmap <silent>cs <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+    "}}}
+
+'''
+# }}}
+
+[[plugins]]
+repo = 'tpope/vim-surround' # {{{
+# }}}
+
+[[plugins]]
+repo = 'kana/vim-operator-replace' # {{{
+hook_add = '''
+
+    " key_mappings {{{
+    nmap s <Plug>(operator-replace)
+    nmap S <Plug>(operator-replace)$
+    "}}}
+
+'''
+# }}}
+

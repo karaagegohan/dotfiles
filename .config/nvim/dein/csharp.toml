@@ -1,0 +1,15 @@
+[[plugins]]
+repo = 'tpope/vim-dispatch' # {{{
+on_ft = 'cpp'
+# }}}
+
+[[plugins]]
+repo = 'OrangeT/vim-csharp' # {{{
+on_ft = 'cpp'
+# }}}
+
+[[plugins]]
+repo = 'osyo-manga/vim-stargate' # {{{
+on_ft = 'cpp'
+# }}}
+

@@ -1,0 +1,106 @@
+[[plugins]]
+repo = 'rhysd/try-colorscheme.vim' # {{{
+# }}}
+
+[[plugins]]
+repo = 'w0ng/vim-hybrid' # {{{
+# }}}
+
+[[plugins]]
+repo = 'nanotech/jellybeans.vim' # {{{
+# }}}
+
+[[plugins]]
+repo = 'altercation/vim-colors-solarized' # {{{
+# }}}
+
+[[plugins]]
+repo = 'morhetz/gruvbox' # {{{
+if = '''1'''
+hook_add = '''
+  " set background=dark
+  " autocmd vimrc VimEnter * nested colorscheme gruvbox
+'''
+# }}}
+
+[[plugins]]
+repo = 'buttercream.vim' # {{{
+# }}}
+
+[[plugins]]
+repo = 'tomasr/molokai' # {{{
+# }}}
+
+[[plugins]]
+repo = 'vim-scripts/twilight' # {{{
+# }}}
+
+[[plugins]]
+repo = 'jonathanfilip/vim-lucius' # {{{
+# }}}
+
+[[plugins]]
+repo = 'jpo/vim-railscasts-theme' # {{{
+# }}}
+
+[[plugins]]
+repo = 'vim-scripts/Wombat' # {{{
+# }}}
+
+[[plugins]]
+repo = 'vim-scripts/rdark' # {{{
+# }}}
+
+[[plugins]]
+repo = 'vim-scripts/newspaper.vim' # {{{
+# }}}
+
+[[plugins]]
+repo = 'chriskempson/vim-tomorrow-theme' # {{{
+if = '''1'''
+hook_add = '''
+  set background=dark
+  autocmd vimrc VimEnter * nested colorscheme Tomorrow-Night
+'''
+# }}}
+
+[[plugins]]
+repo = 'whatyouhide/vim-gotham' # {{{
+# }}}
+
+[[plugins]]
+repo = 'joshdick/onedark.vim' # {{{
+if = '''0'''
+hook_add = '''
+  set background=dark
+  autocmd vimrc VimEnter * nested colorscheme onedark
+'''
+# }}}
+
+[[plugins]]
+repo = 'rakr/vim-one' # {{{
+if = '''0'''
+hook_add = '''
+  set background=dark
+  autocmd vimrc VimEnter * nested colorscheme one
+'''
+# }}}
+
+[[plugins]]
+repo = 'AlessandroYorba/Alduin' # {{{
+if = '''1'''
+hook_add = '''
+  " set background=dark
+  " autocmd vimrc VimEnter * nested colorscheme one
+'''
+# }}}
+
+[[plugins]]
+repo = 'jeetsukumaran/vim-nefertiti' # {{{
+if = '''1'''
+hook_add = '''
+  " set background=dark
+  " autocmd vimrc VimEnter * nested colorscheme one
+'''
+# }}}
+

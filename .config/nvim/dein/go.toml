@@ -1,0 +1,21 @@
+[[plugins]]
+repo = 'fatih/vim-go' # {{{
+if = '''0'''
+on_ft = 'go'
+hook_add = '''
+
+
+    let g:go_def_mapping_enabled = 0
+    let g:go_doc_keywordprg_enabled = 0
+
+    " key_mappings {{{
+    autocmd vimrc filetype go nnoremap <SID>[go] <Nop>
+    autocmd vimrc filetype go nmap     <SID>[plugin]g <SID>[go]
+    autocmd vimrc filetype go nmap     <SID>[go]r      <Plug>(go-run)
+    autocmd vimrc FileType go nmap     <SID>[go]b      <Plug>(go-build)
+    autocmd vimrc FileType go nmap     <SID>[go]t      <Plug>(go-test)
+    autocmd vimrc FileType go nmap     <SID>[go]c      <Plug>(go-coverage)
+    "}}}
+
+'''# }}}
+

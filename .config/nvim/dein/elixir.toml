@@ -1,0 +1,11 @@
+[[plugins]]
+repo = 'liquidz/vivi.vim' # {{{
+on_ft = 'exs'
+hook_add = '''
+'''
+# }}}
+
+[[plugins]]
+repo = 'elixir-lang/vim-elixir' # {{{
+# }}}
+

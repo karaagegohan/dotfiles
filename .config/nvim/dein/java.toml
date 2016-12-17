@@ -1,0 +1,26 @@
+[[plugins]]
+repo = 'vim-scripts/javacomplete' # {{{
+on_ft = 'java'
+# }}}
+
+[[plugins]]
+repo = 'moznion/java_getset.vim' # {{{
+on_ft = 'java'
+hook_add = '''
+
+    let b:javagetset_enable_K_and_R = 1   " K$R style
+    let b:javagetset_add_this       = 1   " add this.
+
+    " key_mappings {{{
+    autocmd vimrc Filetype java nnoremap <SID>[plugin]j <SID>[getset]
+    autocmd vimrc Filetype java nmap     <buffer><SID>[getset]g <Plug>JavagetsetInsertGetterOnly
+    autocmd vimrc Filetype java nmap     <buffer><SID>[getset]s <Plug>JavagetsetInsertSetterOnly
+    autocmd vimrc Filetype java nmap     <buffer><SID>[getset]b <Plug>JavagetsetInsertBothGetterSetter
+    autocmd vimrc Filetype java vmap     <buffer><SID>[getset]g <Plug>JavagetsetInsertGetterOnly
+    autocmd vimrc Filetype java vmap     <buffer><SID>[getset]s <Plug>JavagetsetInsertSetterOnly
+    autocmd vimrc Filetype java vmap     <buffer><SID>[getset]b <Plug>JavagetsetInsertBothGetterSetter
+    "}}}
+
+'''
+# }}}
+
