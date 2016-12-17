@@ -5,7 +5,7 @@ function usage() {
   _cmd_name=$(basename $0)
 cat <<_EOT_
 Usage:
-  $_cmd_name [-n] [-s]
+  $_cmd_name [-n] [-s] [-f format]
 
 Description:
   # TODO
@@ -13,18 +13,19 @@ Description:
 Options:
   -n
   -s
+  -f
 _EOT_
 exit 1
 }
 
-function get_num_of_files() {
+function num_of_files() {
   echo $( \
     ls -U1 $HOME/.Trash \
     | wc -l \
     )
 }
 
-function get_garbage_size() {
+function garbage_size() {
   echo $( \
     du -h -c -m $HOME/.Trash \
     | echo `grep 'total'` \
@@ -38,17 +39,24 @@ if [ $# -eq 0 ]; then
   :
 else
   if [ "$OPTIND" = 1 ]; then
-    while getopts :hns OPT
+    while getopts :hnsf: OPT
     do
       case $OPT in
         h)
           usage
           ;;
         n)
-          DISPLAY="${DISPLAY} $(get_num_of_files) file(s)"
+          DISPLAY="${DISPLAY} $(num_of_files)"
           ;;
         s)
-          DISPLAY="${DISPLAY} $(get_garbage_size) MB"
+          DISPLAY="${DISPLAY} $(garbage_size)"
+          ;;
+        f)
+          DISPLAY=$( \
+            echo ${OPTARG} \
+            | sed -e s/%n/$(num_of_files)/g \
+            | sed -e s/%s/$(garbage_size)/g \
+            )
           ;;
         *)
           usage
@@ -57,6 +65,7 @@ else
     done
   fi
 fi
+shift `expr ${OPTIND} - 1`
 
 echo $DISPLAY
 
