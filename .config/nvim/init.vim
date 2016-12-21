@@ -8,6 +8,7 @@ if has('vim_starting')
   let g:env#mac = has('mac')
   let g:env#win = has('win32') || has('win64')
   let g:env#gui = has('gui_running')
+  let g:env#nvim = has('nvim')
 
   let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
   " dein settings
@@ -402,6 +403,7 @@ nnoremap <silent><F12>           <Nop>
 nnoremap <silent><SID>[command].  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent><SID>[command],  :<C-u>edit ~/dotfiles/.config/nvim/dein/basic.toml<CR>
 nnoremap <silent><SID>[command]r  :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded."<CR>
+nnoremap <silent><SID>[command]f  :<C-u>source %<CR>:<C-u>echo expand("%") . " has loaded."<CR>
 nnoremap <silent><SID>[command]h  :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[command]e  :<C-u>edit<CR>
 nnoremap <silent><SID>[command]c  q:
@@ -410,7 +412,7 @@ nnoremap         <SID>[command]sa :<C-u>%s///g<LEFT><LEFT>
 nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
 
 " terminal for nvim
-if has('nvim')
+if g:env#nvim
   tnoremap <silent>jj       <C-\><C-n>
   nnoremap <SID>[command]zz :<C-u>terminal<CR>
   nnoremap <SID>[command]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
@@ -440,7 +442,7 @@ set fileencodings  +=euc-jisx0213    " Character code to read file
 set fileencodings  +=euc-jp          " Character code to read file
 set fileencodings  +=cp932           " Character code to read file
 set fileformats     =unix,dos,mac    " Newline character
-if has('win32') || has('win64')
+if g:env#win
   let &termencoding = &encoding
 endif
 
@@ -556,7 +558,7 @@ set nomousefocus
 set mousehide
 
 " gui
-if has('gui_running') "{{{
+if g:env#gui "{{{
 
   if has('vim_starting')
 
@@ -565,7 +567,7 @@ if has('gui_running') "{{{
     set lines      =999   " height of window
 
     " font
-    if has('win32')
+    if g:env#win
       set guifont        =Inconsolata:h13:cANSI
       set guifontwide    =Ricty_Diminished:h13:cSHIFTJIS
       set linespace      =1
@@ -606,7 +608,6 @@ endif "}}}
 
 " autocmds {{{
 
-
 " filetype
 autocmd vimrc BufRead, FileType               help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk       setlocal fileencoding=sjis
@@ -618,5 +619,4 @@ autocmd bufnewfile,bufread *.scpt,*.applescript :setl filetype=applescript
 " autocmd vimrc BufWritePre *                   %s/\s\+$//ge
 
 " }}}
-
 

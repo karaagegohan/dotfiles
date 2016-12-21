@@ -498,6 +498,7 @@ NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
 
 NeoBundle 'vim-scripts/applescript.vim'
+NeoBundle 'ynoca/restorer.vim'
 
 call neobundle#end()
 
