@@ -5,12 +5,13 @@ augroup END
 
 if has('vim_starting')
 
-  let g:env#mac = has('mac')
-  let g:env#win = has('win32') || has('win64')
-  let g:env#gui = has('gui_running')
-  let g:env#nvim = has('nvim')
+  let env#mac  = has('mac')
+  let env#win  = has('win32') || has('win64')
+  let env#gui  = has('gui_running')
+  let env#nvim = has('nvim')
 
   let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
+
   " dein settings
   let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
   let s:dein_dir = s:cache_home . '/dein'
@@ -64,14 +65,14 @@ endfunction
 "}}}
 
 function! s:transparancy_up() abort "{{{
-  if g:env#gui
-    if g:env#mac
+  if env#gui
+    if env#mac
       if &transparency - 5 > 1
         set transparency-=5
       else
         set transparency =0
       endif
-    elseif g:env#win
+    elseif env#win
       if &transparency - 5 > 1
         set transparency-=5
       else
@@ -83,14 +84,14 @@ endfunction
 "}}}
 
 function! s:transparancy_down() abort "{{{
-  if g:env#gui
-    if g:env#mac
+  if env#gui
+    if env#mac
       if &transparency + 5 < 100
         set transparency+=5
       else
         set transparency =100
       endif
-    elseif g:env#win
+    elseif env#win
       if &transparency + 5 < 255
         set transparency+=5
       else
@@ -102,8 +103,8 @@ endfunction
 "}}}
 
 function! s:fullscreen() abort "{{{
-  if g:env#gui
-    if g:env#mac
+  if env#gui
+    if env#mac
       set fullscreen!
     else
       set columns =999
@@ -122,7 +123,6 @@ function! s:toggleopt(optname) abort "{{{
   endtry
 endfunction
 "}}}
-command! -nargs=1 ToggleOpt call s:toggleopt(<f-args>)
 
 function! s:close_window() abort "{{{
   let a:bufname = expand('%:p')
@@ -137,7 +137,6 @@ function! s:close_window() abort "{{{
   echo '"' . a:bufname . '" closed'
 endfunction
 "}}}
-command! -nargs=0 YCloseWindow call s:close_window()
 
 function! s:rm_swp() abort "{{{
   let a:currentfile = fnamemodify(expand('%'), ":t")
@@ -145,7 +144,6 @@ function! s:rm_swp() abort "{{{
   echo a:directory
   exec '!rm ' . a:directory . '/' . a:currentfile . '.sw*'
 endfunction "}}}
-command! -nargs=0 YRmSwp call s:rm_swp()
 
 function! s:set_indent_options(num) "{{{
   exec('setlocal tabstop=' . a:num)
@@ -185,7 +183,6 @@ function! s:swap_num_key() "{{{
     endfor
   endif
 endfun "}}}
-command! -nargs=0 YSwap call s:swap_num_key()
 
 function! s:char_code() "{{{
   if winwidth('.') <= 70
@@ -221,47 +218,34 @@ function! s:char_code() "{{{
 
   echo  "'". s:char ."' ". s:nr
 endfunction "}}}
-command! -nargs=0 CC call s:char_code()
-
-function! s:next_buffer_name() "{{{
-  redir => ls
-  silent! ls
-  redir END
-  let s:cur_index = 0
-  let s:buffers = split(ls, '\n')
-  for s:buffer in s:buffers
-    if match(s:buffer, '%a') != -1
-      break
-    endif
-    let s:cur_index = s:cur_index + 1
-  endfor
-  let s:max_index = len(s:buffers) - 1
-  let s:nex_index = s:cur_index + 1
-  if s:nex_index == s:max_index + 1
-    let s:nex_index = 0
-  endif
-  let s:pre_index = s:cur_index - 1
-  if s:pre_index == -1
-    let s:pre_index = s:max_index
-  endif
-  let s:pre_name = matchstr(s:buffers[s:pre_index], '"\zs.*\ze"')
-  let s:after_slash = matchstr(s:pre_name, '.*\\\zs.*\ze') 
-  if s:after_slash != ''
-    let s:pre_name = s:after_slash
-  endif
-  let s:nex_name = matchstr(s:buffers[s:nex_index], '"\zs.*\ze"')
-  let s:after_slash = matchstr(s:nex_name, '.*\\\zs.*\ze') 
-  if s:after_slash != ''
-    let s:nex_name = s:after_slash
-  endif
-  echo '( ' . s:pre_name . ' <=|=> ' . s:nex_name . ' )'
-endfunction "}}}
 
 function! s:save_with_date() "{{{
   let s:filename = strftime("%Y%m%d") . '.txt'
   exec ( 'write ' . s:filename )
 endfunction "}}}
-command! -nargs=0 W call s:save_with_date()
+
+function! init#open_next_file(next) "{{{
+  function! s:file_pass_filter(files)
+    let l:ret = []
+    for l:file  in a:files
+      if !isdirectory(l:file)
+        call add(l:ret, l:file)
+      endif
+    endfor
+    return l:ret
+  endfunction
+  let l:current_file = expand('%:p') 
+  let l:files = s:file_pass_filter(split(glob(expand('%:p:h') . "/*"), "\n"))
+  if len(l:files) <= 2
+    return
+  endif
+  let l:cnt = match(l:files, l:current_file)
+  if a:next == "next"
+    execute("edit " . l:files[(l:cnt + 1) % len(l:files)])
+  elseif a:next == "prev"
+    execute("edit " . l:files[(l:cnt - 1) % len(l:files)])
+  endif
+endfunction "}}}
 
 "}}}
 
@@ -363,8 +347,8 @@ nnoremap <S-TAB>                 gT
 nnoremap <SID>[command]t         :<C-u>tabnew<CR>
 
 " buffer
-nnoremap <silent>(               :<C-u>bprevious<CR>
-nnoremap <silent>)               :<C-u>bnext<CR>
+nnoremap <silent>(               :<C-u>call init#open_next_file("next")<CR>
+nnoremap <silent>)               :<C-u>call init#open_next_file("prev")<CR>
 nnoremap <silent><SID>[command]b :<C-u>enew<CR>
 
 " command mode
@@ -412,7 +396,7 @@ nnoremap         <SID>[command]sa :<C-u>%s///g<LEFT><LEFT>
 nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
 
 " terminal for nvim
-if g:env#nvim
+if env#nvim
   tnoremap <silent>jj       <C-\><C-n>
   nnoremap <SID>[command]zz :<C-u>terminal<CR>
   nnoremap <SID>[command]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
@@ -442,7 +426,7 @@ set fileencodings  +=euc-jisx0213    " Character code to read file
 set fileencodings  +=euc-jp          " Character code to read file
 set fileencodings  +=cp932           " Character code to read file
 set fileformats     =unix,dos,mac    " Newline character
-if g:env#win
+if env#win
   let &termencoding = &encoding
 endif
 
@@ -558,7 +542,7 @@ set nomousefocus
 set mousehide
 
 " gui
-if g:env#gui "{{{
+if env#gui "{{{
 
   if has('vim_starting')
 
@@ -567,7 +551,7 @@ if g:env#gui "{{{
     set lines      =999   " height of window
 
     " font
-    if g:env#win
+    if env#win
       set guifont        =Inconsolata:h13:cANSI
       set guifontwide    =Ricty_Diminished:h13:cSHIFTJIS
       set linespace      =1
@@ -598,7 +582,7 @@ if g:env#gui "{{{
 end "}}}
 
 " nvim
-if has('nvim') "{{{
+if env#nvim "{{{
   autocmd vimrc BufEnter * if &buftype == 'terminal' | startinsert | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <buffer><BS> <Nop> | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <silent><buffer><BS> :<C-u>quit!<CR> | endif
@@ -613,10 +597,6 @@ autocmd vimrc BufRead, FileType               help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk       setlocal fileencoding=sjis
 autocmd vimrc BufRead, BufNewFile *.xm        setlocal filetype=objc
 autocmd Filetype python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
-autocmd bufnewfile,bufread *.scpt,*.applescript :setl filetype=applescript
-" autocmd vimrc VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
-" autocmd vimrc VimEnter,WinEnter *             match TrailingSpaces /\s\+$/
-" autocmd vimrc BufWritePre *                   %s/\s\+$//ge
 
 " }}}
 

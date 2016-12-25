@@ -1,0 +1,59 @@
+#!/usr/bin/osascript
+
+on front_win()
+    tell application "System Events"
+        set pList to name of every process whose frontmost is true
+        set appName to item 1 of pList
+    end tell
+end front_win
+
+on wins()
+  tell application "System Events"
+    set allWindows to name of window of processes whose visible is true
+  end tell
+  item 1 of allWindows
+end wins
+
+on resize(win, div_x, div_y, x, y)
+    tell application "Finder"
+        set displayBounds to bounds of window of desktop
+    end tell
+    set displayX to {item 1 of displayBounds}
+    set displayY to {item 2 of displayBounds}
+    set displayW to {item 3 of displayBounds}
+    set displayH to {item 4 of displayBounds}
+
+    set winX to displayW / div_x * x + displayX
+    set winY to displayH / div_y * y + displayY
+    set winW to displayW / div_x
+    set winH to displayH / div_y
+
+    set winPos to {winX, winY}
+    set winSize  to {winW, winH}
+
+    set appName to front_win()
+    tell application "System Events"
+        tell process appName			
+            set topWindow to window 1
+            set position of topWindow to winPos
+            set size of topWindow to winsize
+        end tell
+    end tell
+    appName
+end resize
+
+on usage()
+  set message to "Usage: "
+end usage
+
+on run argv
+  set win to front_win()
+  set div_x to item 1 of argv
+  set div_y to item 2 of argv
+  set x     to item 3 of argv
+  set y     to item 4 of argv
+  # wins()
+  resize(win, div_x, div_y, x, y)
+
+end run
+

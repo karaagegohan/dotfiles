@@ -1,0 +1,67 @@
+[[plugins]]
+repo = 'tpope/vim-fugitive' # {{{
+hook_add = '''
+
+    " key_mappings {{{
+    nnoremap <SID>[git] <Nop>
+    nmap     <SID>[plugin]g <SID>[git]
+    nnoremap <SID>[git]ad :<C-u>Gwrite<CR>
+    nnoremap <SID>[git]bl :<C-u>Gblame<CR>
+    nnoremap <SID>[git]br :<C-u>Git branch<Space>
+    nnoremap <SID>[git]ch :<C-u>Git checkout<Space>
+    nnoremap <SID>[git]cm :<C-u>Gcommit -m ""<LEFT>
+    nnoremap <SID>[git]cu :<C-u>Gcommit -m "update"<LEFT>
+    nnoremap <SID>[git]ca :<C-u>Gcommit -m "add: "<LEFT>
+    nnoremap <SID>[git]cr :<C-u>Gcommit -m "remove: "<LEFT>
+    nnoremap <SID>[git]cf :<C-u>Gcommit -m "fix: "<LEFT>
+    nnoremap <SID>[git]cc :<C-u>Gcommit -m "change: "<LEFT>
+    nnoremap <SID>[git]co :<C-u>Gcommit<CR>
+    nnoremap <SID>[git]di :<C-u>Gdiff<CR>
+    nnoremap <SID>[git]me :<C-u>Git merge<Space>
+    nnoremap <SID>[git]pl :<C-u>Git pull<CR>
+    nnoremap <SID>[git]ps :<C-u>Git push<CR>
+    nnoremap <SID>[git]sh :<C-u>Git stash<CR>
+    nnoremap <SID>[git]st :<C-u>Gstatus<CR>
+    "}}}
+
+'''
+# }}}
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter' # {{{
+hook_add = '''
+
+    let g:gitgutter_map_keys                = 0
+    if has('win32') || has('win64')
+        let g:gitgutter_sign_added              = '+ '
+
+       let g:gitgutter_sign_modified           = '> '
+        let g:gitgutter_sign_removed            = '* '
+        let g:gitgutter_sign_removed_first_line = '* '
+        let g:gitgutter_sign_modified_removed   = '*>'
+    else
+        let g:gitgutter_sign_added              = '✚ '
+        let g:gitgutter_sign_modified           = '➜ '
+        let g:gitgutter_sign_removed            = '✘ '
+        let g:gitgutter_sign_removed_first_line = '✘ '
+        let g:gitgutter_sign_modified_removed   = '✘➜'
+    endif
+
+    " key_mappings {{{
+    nnoremap <silent><SID>[git]gt   :<C-u>GitGutterToggle<CR>
+    nnoremap <silent><SID>[git]gh   :<C-u>GitGutterLineHighlightsToggle<CR>
+    nnoremap <silent><SID>[git]hn   :<C-u>GitGutterNextHunk<CR>
+    nnoremap <silent><SID>[git]hp   :<C-u>GitGutterPrevHunk<CR>
+    nnoremap <silent><SID>[git]ha   :<C-u>GitGutterStageHunk<CR>
+    nnoremap <silent><SID>[git]hh   :<C-u>GitGutterRevertHunk<CR>
+    nnoremap <silent><SID>[git]hp   :<C-u>GitGutterPrevHunk<CR>
+    nnoremap <silent><SID>[git]hn   :<C-u>GitGutterNextHunk<CR>
+    "}}}
+
+'''
+# }}}
+
+[[plugins]]
+repo = 'rhysd/committia.vim'# {{{
+# }}}
+

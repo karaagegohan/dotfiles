@@ -2,8 +2,9 @@
 
 CONTENTS=(
   "🕐" "$(date '+%a %b %-d %H:%M')"
+  "$(inputmethod -i)" "$(inputmethod )"
   "🔋" "$(battery -r)" 
-  "📡" "$(wifi -f '%a in %i')"
+  "📡" "$(wifi -f '%i')"
   "🔊" "$(volume)"
 )
 
@@ -12,11 +13,11 @@ CONTENT_SIZE=$(( ${#CONTENTS[*]} ))
 # https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 COLORS=(
   236 180 
+  237 180 
   238 180 
-  240 180 
-  242 180 
-  244 180
-  245 180
+  239 180 
+  240 180
+  241 180
 ) 
 COLORS_SIZE=$(( ${#COLORS[*]} ))
 

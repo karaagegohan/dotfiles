@@ -1,5 +1,9 @@
 #!/bin/bash
 vol=$(osascript -e "(get volume settings)'s output volume")
+mute=$(osascript -e "(get volume settings)'s output muted")
+if [ $mute = "true" ] ;then 
+  vol=0
+fi
 
 DISPLAY="${vol}%"
 

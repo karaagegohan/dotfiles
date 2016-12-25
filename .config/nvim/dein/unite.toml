@@ -104,3 +104,7 @@ hook_add = '''
 '''
 # }}}
 
+[[plugins]]
+repo = 'ringogirl/unite-w3m'# {{{
+# }}}
+

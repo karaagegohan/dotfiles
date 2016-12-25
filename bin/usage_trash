@@ -35,35 +35,30 @@ function garbage_size() {
 }
 
 DISPLAY=''
-if [ $# -eq 0 ]; then
-  :
-else
-  if [ "$OPTIND" = 1 ]; then
-    while getopts :hnsf: OPT
-    do
-      case $OPT in
-        h)
-          usage
-          ;;
-        n)
-          DISPLAY="${DISPLAY} $(num_of_files)"
-          ;;
-        s)
-          DISPLAY="${DISPLAY} $(garbage_size)"
-          ;;
-        f)
-          DISPLAY=$( \
-            echo ${OPTARG} \
-            | sed -e s/%n/$(num_of_files)/g \
-            | sed -e s/%s/$(garbage_size)/g \
-            )
-          ;;
-        *)
-          usage
-          ;;
-      esac
-    done
-  fi
+if [ "$OPTIND" = 1 ]; then
+  while getopts :hnsf: OPT
+  do
+    case $OPT in
+      h)
+        usage
+        ;;
+      n)
+        DISPLAY="${DISPLAY} $(num_of_files)"
+        ;;
+      s)
+        DISPLAY="${DISPLAY} $(garbage_size)"
+        ;;
+      f)
+        DISPLAY=$( \
+          echo ${OPTARG} \
+          | sed -e s/%n/$(num_of_files)/g \
+          | sed -e s/%s/$(garbage_size)/g \
+          )
+        ;;
+      *)
+        ;;
+    esac
+  done
 fi
 shift `expr ${OPTIND} - 1`
 

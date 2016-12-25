@@ -1,5 +1,3 @@
-# basic {{{
-
 [[plugins]]
 repo = 'Shougo/dein.vim'# {{{
 hook_add = '''
@@ -306,188 +304,6 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'itchyny/lightline.vim' # {{{
-hook_add = '''
-
-    let g:lightline = {
-        \ 'colorscheme': 'wombat',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [
-        \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'filename'],
-        \   ],
-        \   'right': [
-        \     ['lineinfo'],
-        \     ['percent'],
-        \     ['nextbuffername', 'fileformat', 'fileencoding', 'filetype'],
-        \   ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'time': 'MyTime',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode',
-        \   'syntastic': 'SyntasticStatuslineFlag',
-        \   'charcode': 'MyCharCode',
-        \   'gitgutter': 'MyGitGutter',
-        \   'nextbuffername': 'MyNextBufferName',
-        \ },
-        \ 'separator': {'left': '', 'right': ''},
-        \ 'subseparator': {'left': '|', 'right': '|'}
-        \ }
-    if g:env#mac
-      let g:lightline['separator'] = {'left': '⮀', 'right': '⮂'}
-      let g:lightline['subseparator'] = {'left': '⮁', 'right': '⮃'}
-    endif
-
-    function! MyModified() "{{{
-        return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-    endfunction "}}}
-
-    function! MyTime() "{{{
-        return winwidth('.') > 110 ? strftime("%Y/%m/%d %H:%M:%S", localtime()) : (winwidth('.') > 90 ? strftime("%Y/%m/%d", localtime()) : '')
-    endfunction "}}}
-
-    function! MyReadonly() "{{{
-        return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '-' : ''
-    endfunction "}}}
-
-    function! MyFilename() "{{{
-        return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-            \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-            \  &ft == 'unite' ? unite#get_status_string() :
-            \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
-            \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-            \ ('' != MyModified() ? ' ' . MyModified() : '')
-    endfunction "}}}
-
-    function! MyFugitive() "{{{
-        try
-            if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-                let _ = fugitive#head()
-                return strlen(_) ? _ : ''
-            endif
-
-        catch
-        endtry
-        return ''
-    endfunction "}}}
-
-    function! MyFileformat() "{{{
-        return winwidth('.') > 70 ? &fileformat : ''
-    endfunction "}}}
-
-    function! MyFiletype() "{{{
-        return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-    endfunction "}}}
-
-    function! MyFileencoding() "{{{
-        return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-    endfunction "}}}
-
-    function! MyMode() "{{{
-        return winwidth('.') > 60 ? lightline#mode() : ''
-    endfunction "}}}
-
-    function! MyGitGutter() "{{{
-        if ! exists('*GitGutterGetHunkSummary')
-            \ || ! get(g:, 'gitgutter_enabled', 0)
-            \ || winwidth('.') <= 90
-            return ''
-        endif
-        let symbols = [
-            \  g:gitgutter_sign_added,
-            \  g:gitgutter_sign_modified,
-            \  g:gitgutter_sign_removed
-            \ ]
-        let hunks = GitGutterGetHunkSummary()
-        let ret = []
-        for i in [0, 1, 2]
-            if hunks[i] > 0
-                call add(ret, symbols[i] . hunks[i])
-            endif
-        endfor
-        return join(ret, ' ')
-    endfunction "}}}
-
-    function! MyCharCode() "{{{
-    " https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
-        if winwidth('.') <= 70
-            return ''
-        endif
-
-        " Get the output of :ascii
-        redir => ascii
-        silent! ascii
-        redir END
-
-        if match(ascii, 'NUL') != -1
-            return 'NUL'
-        endif
-
-        " Zero pad hex values
-        let nrformat = '0x%02x'
-
-        let encoding = (&fenc == '' ? &enc : &fenc)
-
-        if encoding == 'utf-8'
-            " Zero pad with 4 zeroes in unicode files
-            let nrformat = '0x%04x'
-        endif
-
-        " Get the character and the numeric value from the return value of :ascii
-        " This matches the two first pieces of the return value, e.g.
-        " "<F>  70" => char: 'F', nr: '70'
-        let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
-
-        " Format the numeric value
-        let nr = printf(nrformat, nr)
-
-        return "'". char ."' ". nr
-    endfunction "}}}
-
-    function! MyNextBufferName() abort "{{{
-        try
-            redir => ls
-            silent! ls
-            redir END
-            let s:cur_index = 0
-            let s:buffers = split(ls, '\n')
-            for s:buffer in s:buffers
-                if match(s:buffer, '%a') != -1
-                    break
-                endif
-                let s:cur_index = s:cur_index + 1
-            endfor
-            let s:max_index = len(s:buffers) - 1
-            let s:nex_index = s:cur_index + 1
-            if s:nex_index == s:max_index + 1
-                let s:nex_index = 0
-            endif
-            let s:pre_index = s:cur_index - 1
-            if s:pre_index == -1
-                let s:pre_index = s:max_index
-            endif
-            let s:pre_name = matchstr(s:buffers[s:pre_index], '"\zs.*\ze"')
-            let s:pre_name = fnamemodify(s:pre_name, ":t")
-            let s:nex_name = matchstr(s:buffers[s:nex_index], '"\zs.*\ze"')
-            let s:nex_name = fnamemodify(s:nex_name, ":t")
-            let s:str_length = 10
-            return '( ' . s:pre_name[0:s:str_length] . ' <=|=> ' . s:nex_name[0:s:str_length] . ' )'
-        catch
-        endtry
-    endfunction "}}}
-
-'''
-# }}}
-
-[[plugins]]
 repo = 'thinca/vim-quickrun' # {{{
 hook_add = '''
 
@@ -545,71 +361,6 @@ repo = 'tpope/vim-repeat' # {{{
 # }}}
 
 [[plugins]]
-repo = 'tpope/vim-fugitive' # {{{
-hook_add = '''
-
-    " key_mappings {{{
-    nnoremap <SID>[git] <Nop>
-    nmap     <SID>[plugin]g <SID>[git]
-    nnoremap <SID>[git]ad :<C-u>Gwrite<CR>
-    nnoremap <SID>[git]bl :<C-u>Gblame<CR>
-    nnoremap <SID>[git]br :<C-u>Git branch<Space>
-    nnoremap <SID>[git]ch :<C-u>Git checkout<Space>
-    nnoremap <SID>[git]cm :<C-u>Gcommit -m ""<LEFT>
-    nnoremap <SID>[git]cu :<C-u>Gcommit -m "update"<LEFT>
-    nnoremap <SID>[git]ca :<C-u>Gcommit -m "add: "<LEFT>
-    nnoremap <SID>[git]cr :<C-u>Gcommit -m "remove: "<LEFT>
-    nnoremap <SID>[git]cf :<C-u>Gcommit -m "fix: "<LEFT>
-    nnoremap <SID>[git]cc :<C-u>Gcommit -m "change: "<LEFT>
-    nnoremap <SID>[git]co :<C-u>Gcommit<CR>
-    nnoremap <SID>[git]di :<C-u>Gdiff<CR>
-    nnoremap <SID>[git]me :<C-u>Git merge<Space>
-    nnoremap <SID>[git]pl :<C-u>Git pull<CR>
-    nnoremap <SID>[git]ps :<C-u>Git push<CR>
-    nnoremap <SID>[git]sh :<C-u>Git stash<CR>
-    nnoremap <SID>[git]st :<C-u>Gstatus<CR>
-    "}}}
-
-'''
-# }}}
-
-[[plugins]]
-repo = 'kien/rainbow_parentheses.vim' # {{{
-hook_add = '''
-
-    " color
-    let g:rbpt_colorpairs = [
-        \ ['brown',       'RoyalBlue3'],
-        \ ['Darkblue',    'SeaGreen3'],
-        \ ['darkgray',    'DarkOrchid3'],
-        \ ['darkgreen',   'firebrick3'],
-        \ ['darkcyan',    'RoyalBlue3'],
-        \ ['darkred',     'SeaGreen3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['brown',       'firebrick3'],
-        \ ['gray',        'RoyalBlue3'],
-        \ ['black',       'SeaGreen3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['Darkblue',    'firebrick3'],
-        \ ['darkgreen',   'RoyalBlue3'],
-        \ ['darkcyan',    'SeaGreen3'],
-        \ ['darkred',     'DarkOrchid3'],
-        \ ['red',         'firebrick3'],
-        \ ]
-
-    let g:rbpt_max            = 16
-    let g:rbpt_loadcmd_toggle = 0
-
-    autocmd vimrc ColorScheme * RainbowParenthesesToggle
-    autocmd vimrc ColorScheme * RainbowParenthesesLoadRound
-    autocmd vimrc ColorScheme * RainbowParenthesesLoadSquare
-    autocmd vimrc ColorScheme * RainbowParenthesesLoadBraces
-    autocmd vimrc ColorScheme * RainbowParenthesesLoadChevrons
-
-'''
-# }}}
-
-[[plugins]]
 repo = 'LeafCage/yankround.vim' # {{{
 hook_add = '''
 
@@ -620,19 +371,6 @@ hook_add = '''
     nmap P     <Plug>(yankround-P)
     nmap <C-p> <Plug>(yankround-prev)
     nmap <C-n> <Plug>(yankround-next)
-    "}}}
-
-'''
-# }}}
-
-[[plugins]]
-repo = 'thinca/vim-fontzoom' # {{{
-if = '''has('gui')'''
-hook_add = '''
-
-    " key_mappings {{{
-    nmap <RIGHT> <Plug>(fontzoom-larger)
-    nmap <LEFT>  <Plug>(fontzoom-smaller)
     "}}}
 
 '''
@@ -650,82 +388,11 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 't9md/vim-quickhl' # {{{
-hook_add = '''
-
-    " key_mappings {{{
-    nmap { <Plug>(quickhl-manual-this)
-    xmap { <Plug>(quickhl-manual-this)
-    nmap } <Plug>(quickhl-manual-reset)
-    xmap } <Plug>(quickhl-manual-reset)
-    "}}}
-
-'''
-# }}}
-
-[[plugins]]
-repo = 'airblade/vim-gitgutter' # {{{
-hook_add = '''
-
-    let g:gitgutter_map_keys                = 0
-    if has('win32') || has('win64')
-        let g:gitgutter_sign_added              = '+ '
-
-       let g:gitgutter_sign_modified           = '> '
-        let g:gitgutter_sign_removed            = '* '
-        let g:gitgutter_sign_removed_first_line = '* '
-        let g:gitgutter_sign_modified_removed   = '*>'
-    else
-        let g:gitgutter_sign_added              = '✚ '
-        let g:gitgutter_sign_modified           = '➜ '
-        let g:gitgutter_sign_removed            = '✘ '
-        let g:gitgutter_sign_removed_first_line = '✘ '
-        let g:gitgutter_sign_modified_removed   = '✘➜'
-    endif
-
-    " key_mappings {{{
-    nnoremap <silent><SID>[git]gt   :<C-u>GitGutterToggle<CR>
-    nnoremap <silent><SID>[git]gh   :<C-u>GitGutterLineHighlightsToggle<CR>
-    nnoremap <silent><SID>[git]hn   :<C-u>GitGutterNextHunk<CR>
-    nnoremap <silent><SID>[git]hp   :<C-u>GitGutterPrevHunk<CR>
-    nnoremap <silent><SID>[git]ha   :<C-u>GitGutterStageHunk<CR>
-    nnoremap <silent><SID>[git]hh   :<C-u>GitGutterRevertHunk<CR>
-    nnoremap <silent><SID>[git]hp   :<C-u>GitGutterPrevHunk<CR>
-    nnoremap <silent><SID>[git]hn   :<C-u>GitGutterNextHunk<CR>
-    "}}}
-
-'''
-# }}}
-
-[[plugins]]
-repo = 'supermomonga/shaberu.vim'# {{{
-# }}}
-
-[[plugins]]
-repo = 'mattn/unite-advent_calendar'# {{{
-# }}}
-
-[[plugins]]
 repo = 'tyru/open-browser.vim'# {{{
 # }}}
 
 [[plugins]]
-repo = 'osyo-manga/vim-anzu' # {{{
-if = '''0'''
-hook_add = '''
-"
-    let g:anzu_enable_CursorMoved_AnzuUpdateSearchStatus = 1
-    nmap n <Plug>(anzu-mode-n)
-    nmap N <Plug>(anzu-mode-N)
-    nnoremap <expr> n anzu#mode#mapexpr("n", "", "zzzv")
-    nnoremap <expr> N anzu#mode#mapexpr("N", "", "zzzv")
-
-'''
-# }}}
-
-[[plugins]]
 repo = 'osyo-manga/vim-over' # {{{
-if = '''1'''
 hook_add = '''
 
     " key_mappings {{{
@@ -751,7 +418,7 @@ hook_add = '''
 
     " key_mappings {{{
     nnoremap <SID>[undotr] <Nop>
-    nmap     <SID>[plugin]U <SID>[undotr]
+    nmap     <SID>[plugin]t <SID>[undotr]
     nnoremap <SID>[undotr]  :<C-u>UndotreeToggle<CR>
     "}}}
 
@@ -787,20 +454,6 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'ringogirl/unite-w3m'# {{{
-if = '''0'''
-# }}}
-
-[[plugins]]
-repo = 'rhysd/committia.vim'# {{{
-# }}}
-
-[[plugins]]
-repo = 'thinca/vim-splash'# {{{
-if = '''0'''
-# }}}
-
-[[plugins]]
 repo = 'LeafCage/foldCC.vim' # {{{
 hook_add = '''
 
@@ -817,7 +470,6 @@ hook_add = '''
 repo = 'easymotion/vim-easymotion' # {{{
 hook_add = '''
 
-    " let g:EasyMotion_keys       = 'jfurmvhgytnbkdieclsowxapqzJFURMVHGYTNBKDIECLSOWXAPQZ'
     let g:EasyMotion_keys       = 'asdfghjkl'
     let g:EasyMotion_grouping   = 1
 
@@ -866,26 +518,6 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'scrooloose/syntastic.git' # {{{
-if = '''0'''
-hook_add = '''
-
-    " let g:syntastic_enable_signs=1
-    " let g:syntastic_auto_loc_list=2
-    " let g:syntastic_mode_map = {'mode': 'passive'}
-    " augroup AutoSyntastic
-    "     autocmd!
-    "     autocmd InsertLeave,TextChanged * call s:syntastic()
-    " augroup END
-    " function! s:syntastic()
-    "     w
-    "     SyntasticCheck
-    " endfunction
-
-'''
-# }}}
-
-[[plugins]]
 repo = 'itchyny/dictionary.vim'# {{{
 hook_add = '''
     function! s:dic_under() abort "{{{
@@ -906,28 +538,6 @@ repo = 'Shougo/context_filetype.vim'# {{{
 # }}}
 
 [[plugins]]
-repo = 'Yggdroot/indentLine'# {{{
-hook_add = '''
-
-    " for tab
-    set list listchars=tab:\¦\ 
-
-    " color for vim
-    let g:indentLine_color_term = 239
-
-    " color for Gvim
-    let g:indentLine_color_gui = '#A4E57E'
-
-    " none X terminal
-    let g:indentLine_color_tty_light = 7 " (default: 4)
-    let g:indentLine_color_dark = 1 " (default: 2)
-
-    " let g:indentLine_char = 'c'
-
-'''
-# }}}
-
-[[plugins]]
 repo = 'AndrewRadev/splitjoin.vim' # {{{
 hook_add = '''
 
@@ -943,10 +553,6 @@ hook_add = '''
 repo = 'kassio/neoterm' # {{{
 if = '''has('nvim')'''
 # }}}
-
-# }}}
-
-# All languages {{{
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim' # {{{
@@ -978,10 +584,6 @@ hook_add = '''
 
 # }}}
 
-# }}}
-
-# tools {{{
-
 [[plugins]]
 repo = 'mattn/webapi-vim' # {{{
 # }}}
@@ -1003,7 +605,5 @@ repo = 'ynoca/restorer.vim' # {{{
 hook_source= '''
   let g:restorer#tag = 'null'
 '''
-# }}}
-
 # }}}
 
