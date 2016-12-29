@@ -1,11 +1,11 @@
 #!/bin/bash
 
 CONTENTS=(
-  "🕐" "$(date '+%a %b %-d %H:%M')"
-  "$(inputmethod -i)" "$(inputmethod )"
-  "🔋" "$(battery -r)" 
-  "📡" "$(wifi -f '%i')"
-  "🔊" "$(volume)"
+  "$($HOME/bin/dates   -f '%icon　%dates')"
+  "$($HOME/bin/ime     -f '%icon　%name')"
+  "$($HOME/bin/battery -f '%icon　%percentage% (%remain)')" 
+  "$($HOME/bin/wifi    -f '%icon　%ssid')"
+  "$($HOME/bin/volume  -f '%icon　%volume%')"
 )
 
 CONTENT_SIZE=$(( ${#CONTENTS[*]} ))
@@ -23,17 +23,16 @@ COLORS_SIZE=$(( ${#COLORS[*]} ))
 
 CNT=0
 DISPLAY=''
-for i in `seq 0 2 $CONTENT_SIZE`
+for i in `seq 0 $CONTENT_SIZE`
 do
-  if [ "${CONTENTS[$((i+1))]}" != "" ]; then
+  if [ "${CONTENTS[$i]}" != "" ]; then
     DISPLAY=$( \
       echo "<DELIMITER><CONTENT>$DISPLAY" \
       | sed -e "s/<COLOR_NEXT>/,bg=colour${COLORS[$CNT]}/g"\
       | sed -e "s/<DELIMITER>/#[fg=colour<COLOR><COLOR_NEXT>]⮂#[default]/g" \
-      | sed -e "s/<CONTENT>/<SPACE><ICON><SPACE><SPACE><MESSAGE><SPACE>/g" \
+      | sed -e "s/<CONTENT>/<SPACE><MESSAGE><SPACE>/g" \
       | sed -e "s/<SPACE>/#[bg=colour<COLOR>] #[default]/g" \
-      | sed -e "s/<ICON>/#[bg=colour<COLOR>]${CONTENTS[$((i))]}#[default]/g" \
-      | sed -e "s?<MESSAGE>?#[bg=colour${COLORS[$CNT]},fg=colour${COLORS[$((CNT+1))]}]${CONTENTS[$((i+1))]}#[default]?g" \
+      | sed -e "s?<MESSAGE>?#[bg=colour${COLORS[$CNT]},fg=colour${COLORS[$((CNT+1))]}]${CONTENTS[$((i))]}#[default]?g" \
       | sed -e "s/<COLOR>/${COLORS[$CNT]}/g" \
       )
     CNT=$(((CNT+2)%COLORS_SIZE))

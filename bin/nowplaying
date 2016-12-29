@@ -1,11 +1,8 @@
 #! /bin/bash
 
 function usage() {
-  local _script_name
-  _script_name=$(basename $0)
-cat <<_EOT_
 Usage:
-  $_script_name [-a] [-b]
+  $(basename $0) [-a] [-b]
 
 Description:
   Get information about the music playing now.
@@ -17,32 +14,54 @@ _EOT_
 exit 1
 }
 
+function title() {
+  echo $(osascript -e 'tell application "iTunes" to if player state is playing then name of current track')
+}
+
+function artist() {
+  echo $(osascript -e 'tell application "iTunes" to if player state is playing then artist of current track')
+}
+
+function icon(){
+  echo 🎹
+}
+
 DISPLAY=""
-if [ $# -eq 0 ]; then
-  DISPLAY=$DISPLAY osascript -e 'tell application "iTunes" to if player state is playing then name of current track & " - " & artist of current track'
-else
-  if [ "$OPTIND" = 1 ]; then
-    while getopts :abth OPT
-    do
-      case $OPT in
-        a)
-          DISPLAY=$DISPLAY osascript -e 'tell application "iTunes" to if player state is playing then name of current track'
-          ;;
-        t)
-          DISPLAY=$DISPLAY osascript -e 'tell application "iTunes" to if player state is playing then artist of current track'
-          ;;
-        b)
-          DISPLAY=$DISPLAY osascript -e 'tell application "iTunes" to if player state is playing then "1"'
-          ;;
-        h)
-          usage
-          ;;
-        *)
-          usage
-          ;;
-      esac
-    done
-  fi
+
+if [ "$(title)" = "" ]; then
+  exit 1
+fi
+
+if [ "$OPTIND" = 1 ]; then
+  while getopts :atpf: OPT
+  do
+    case $OPT in
+      a)
+        DISPLAY=$DISPLAY artist
+        ;;
+      t)
+        DISPLAY=$DISPLAY title
+        ;;
+      p)
+        DISPLAY=$DISPLAY playing
+        ;;
+      f)
+        DISPLAY=$( \
+          echo ${OPTARG} \
+          | sed -e "s/%artist/$(artist)/g" \
+          | sed -e "s/%title/$(title)/g" \
+          | sed -e "s/%icon/$(icon)/g" \
+          )
+        ;;
+      h)
+        usage
+        ;;
+      *)
+        usage
+        ;;
+    esac
+  done
 fi
 
 echo $DISPLAY
+

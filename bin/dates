@@ -1,15 +1,11 @@
 #!/bin/bash
 
-function volume() {
-  echo $(osascript -e "(get volume settings)'s output volume")
+function dates() {
+  echo $(date '+%a %b %-d %H:%M')
 }
 
 function icon() {
-  echo $( \
-    osascript -e "(get volume settings)'s output muted" \
-    | sed -e "s/false/🔊/g" \
-    | sed -e "s/true/🔇/g" \
-    )
+  echo 🕐
 }
 
 DISPLAY=''
@@ -21,13 +17,13 @@ if [ "$OPTIND" = 1 ]; then
         ;;
       v)
         DISPLAY=$( \
-          echo $DISPLAY ${vol} \
+          echo $DISPLAY ${date} \
           )
         ;;
       f)
         DISPLAY=$( \
           echo ${OPTARG} \
-          | sed -e "s/%volume/$(volume)/g" \
+          | sed -e "s/%dates/$(dates)/g" \
           | sed -e "s/%icon/$(icon)/g" \
           )
         ;;

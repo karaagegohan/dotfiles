@@ -18,20 +18,24 @@ _EOT_
 exit 1
 }
 
-function num_of_files() {
+function num() {
   echo $( \
     ls -U1 $HOME/.Trash \
     | wc -l \
     )
 }
 
-function garbage_size() {
+function size() {
   echo $( \
     du -h -c -m $HOME/.Trash \
     | echo `grep 'total'` \
     | awk '{print $1}' \
     | sed -e 's/[MBK]//g' \
     )
+}
+
+function icon() {
+  echo 🗑
 }
 
 DISPLAY=''
@@ -51,8 +55,10 @@ if [ "$OPTIND" = 1 ]; then
       f)
         DISPLAY=$( \
           echo ${OPTARG} \
-          | sed -e s/%n/$(num_of_files)/g \
-          | sed -e s/%s/$(garbage_size)/g \
+          | sed -e "s/%num/$(num)/g" \
+          | sed -e "s/%size/$(size)/g" \
+          | sed -e "s/%icon/$(icon)/g" \
+
           )
         ;;
       *)
