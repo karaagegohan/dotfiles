@@ -49,17 +49,22 @@ if [[ ! -x $airport_path ]]; then
 fi
 
 # Get the wifi information and then set it to an info array
-info=($( eval "$airport_path" --getinfo | grep -E "^ *(agrCtlRSSI|state|lastTxRate|SSID):" | awk '{print $2}'))
-if [[ ${#info[@]} -eq 0 ]]; then
+INFO=($( eval "$airport_path" --getinfo | grep -E "^ *(agrCtlRSSI|state|lastTxRate|SSID):" | awk '{print $2}'))
+if [[ ${#INFO[@]} -eq 0 ]]; then
   exit 1
 fi
 
 # cut out a needed information from the info
 # reference: http://osxdaily.com/2007/01/18/airport-the-little-known-command-line-wireless-utility/
-rssi="${info[0]}"   # strength of wifi wave
-stat="${info[1]}"   # whether wifi is available
-rate="${info[2]}"   # bandwidth of wifi wave
-ssid="${info[3]}"   # wifi ssid name
+rssi="${INFO[0]}"   # strength of wifi wave
+stat="${INFO[1]}"   # whether wifi is available
+rate="${INFO[2]}"   # bandwidth of wifi wave
+ssid="${INFO[3]}"   # wifi ssid name
+
+# If the wifi rate (wifi bandwidth) is unavailable,
+if [ "$rate" = 0 ]; then
+  exit 1
+fi
 
 ipaddress=$( \
   ifconfig \
@@ -68,16 +73,11 @@ ipaddress=$( \
   | grep -v '0\.[01]$' \
   )
 
-# If the wifi rate (wifi bandwidth) is unavailable,
-if [ "$rate" = 0 ]; then
-  exit 1
-fi
+icon=📡
 
 DISPLAY=""
-tmux_out=0
 
 if [ "$OPTIND" = 1 ]; then
-
   while getopts :hirsaf: OPT
   do
     case $OPT in
@@ -95,13 +95,11 @@ if [ "$OPTIND" = 1 ]; then
       f)
         DISPLAY=$( \
           echo ${OPTARG} \
-          | sed -e s/%i/${ssid}/g \
-          | sed -e "s/%r/${rate} Mbps/g" \
-          | sed -e s/%a/${ipaddress}/g \
+          | sed -e "s/%ssid/${ssid}/g" \
+          | sed -e "s/%rate/${rate} Mbps/g" \
+          | sed -e "s/%ipaddress/${ipaddress}/g" \
+          | sed -e "s/%icon/${icon}/g" \
           )
-        ;;
-      t)
-        tmux_out=1
         ;;
       *)
         ;;
@@ -109,17 +107,5 @@ if [ "$OPTIND" = 1 ]; then
   done
 fi
 
-
-if [ $tmux_out -eq 1 ]; then
-  if (( $rssi > -60 )); then
-    DISPLAY="#[fg=blue]${DISPLAY}#[default]"
-  elif (( $rssi > -80  )); then
-    DISPLAY="#[fg=yellow]${DISPLAY}#[default]"
-  else
-    DISPLAY="#[fg=red]${DISPLAY}#[default]"
-  fi
-fi
-
-# Outputs wifi
 echo $DISPLAY
 

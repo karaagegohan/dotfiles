@@ -236,7 +236,7 @@ function! init#open_next_file(next) "{{{
   endfunction
   let l:current_file = expand('%:p') 
   let l:files = s:file_pass_filter(split(glob(expand('%:p:h') . "/*"), "\n"))
-  if len(l:files) <= 2
+  if len(l:files) <= 1
     return
   endif
   let l:cnt = match(l:files, l:current_file)

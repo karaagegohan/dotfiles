@@ -1,0 +1,55 @@
+#!/bin/bash
+
+
+MODE="US"
+MODE=$( \
+  defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleSelectedInputSources \
+  | grep -oE "Japanese|US" \
+  )
+MODE=${MODE:?"US"}
+
+function name() {
+  echo $( \
+    echo $MODE \
+    | sed -e s/US/ABC\ Extended/g \
+    | sed -e s/Japanese/Hiragana/ \
+    )
+}
+
+function icon() {
+  echo $( \
+    echo $MODE \
+    | sed -e "s/US/🇺🇸/g" \
+    | sed -e "s/Japanese/🇯🇵/" \
+    )
+}
+
+
+DISPLAY=""
+if [ "$OPTIND" = 1 ]; then
+  while getopts :nif: OPT
+  do
+    case $OPT in
+      n)
+        DISPLAY=$DISPLAY name
+        ;;
+      i)
+        DISPLAY=$DISPLAY icon
+        ;;
+      f)
+        DISPLAY=$( \
+          echo ${OPTARG} \
+          | sed -e "s/%name/$(name)/g" \
+          | sed -e "s/%icon/$(icon)/g" \
+          )
+        ;;
+      *)
+        usage
+        ;;
+    esac
+  done
+fi
+
+shift `expr ${OPTIND} - 1`
+
+echo $DISPLAY

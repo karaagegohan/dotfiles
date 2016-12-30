@@ -1,9 +1,7 @@
 #!/bin/bash
 
-s=$( \
+echo $( \
   osascript -e "get the clipboard" \
   | tr  -d '\r\n'
   )
-
-echo $s
 

@@ -3,66 +3,65 @@
 # output of df -g 
 # Filesystem    1G-blocks Used Available Capacity  iused   ifree %iused  Mounted on
 # /dev/disk1          232  208        23    90% 54703915 6277331   90%   /
-disk=$( \
+DISK=$( \
   df -g \
   | grep 'disk1' \
   | awk '{print $3,$4,$5}' \
   )
 
-used=$( \
-  echo $disk \
-  | awk '{print $1}'\
-  )
+function used() {
+  echo $( \
+    echo $DISK \
+    | awk '{print $1}'\
+    )
+}
 
-avail=$( \
-  echo $disk \
-  | awk '{print $2}'\
-  )
+function available() {
+  echo $( \
+    echo $DISK \
+    | awk '{print $2}'\
+    )
+}
 
-capa=$( \
-  echo $disk \
-  | awk '{print $3}'\
-  )
+function capacity() {
+  echo $( \
+    echo $DISK \
+    | awk '{print $3}'\
+    | grep -oE '[0-9]*'\
+    )
+}
+
+function icon() {
+  echo 📀
+}
 
 DISPLAY=""
-tmux_out=0
-argv=("$@")
-for i in `seq 0 $#`
-do
-  case "${argv[$i]}" in
-    "-u")
-      DISPLAY="$DISPLAY$used GB"
-      ;;
-    "-a")
-      DISPLAY="$DISPLAY$avail GB"
-      ;;
-    "-c")
-      DISPLAY="$DISPLAY$capa"
-      ;;
-    "-f")
-      DISPLAY="${DISPLAY}${argv[$i+1]}"
-      DISPLAY="${DISPLAY//'%u'/${used} GB}"
-      DISPLAY="${DISPLAY//'%a'/${avail} GB}"
-      DISPLAY="${DISPLAY//'%c'/${capa}}"
-      ;;
-    "-t")
-      tmux_out=1
-      ;;
-    -*)
-      echo "$i: unknown option" 1>&2
-      exit 1
-      ;;
-  esac
-done
-
-if [ "$tmux_out" = 1 ]; then
-  if (( $capa < 20 )); then
-    DISPLAY="#[fg=blue]${DISPLAY}#[default]"
-  elif (( $capa < 50  )); then
-    DISPLAY="#[fg=yellow]${DISPLAY}#[default]"
-  else
-    DISPLAY="#[fg=red]${DISPLAY}#[default]"
-  fi
+if [ "$OPTIND" = 1 ]; then
+  while getopts :uacf: OPT
+  do
+    case $OPT in
+      a)
+        DISPLAY=$DISPLAY ${available}
+        ;;
+      u)
+        DISPLAY=$DISPLAY ${used}
+        ;;
+      c)
+        DISPLAY=$DISPLAY ${capacity}
+        ;;
+      f)
+        DISPLAY=$( \
+          echo ${OPTARG} \
+          | sed -e "s/%available/$(available)/g" \
+          | sed -e "s/%used/$(used)/g" \
+          | sed -e "s/%capacity/$(capacity)/g" \
+          | sed -e "s/%icon/$(icon)/g" \
+          )
+        ;;
+      *)
+        usage
+        ;;
+    esac
+  done
 fi
-
 echo $DISPLAY
