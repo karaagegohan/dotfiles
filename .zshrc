@@ -244,8 +244,11 @@ prompt_git_untracked_file() { # {{{
   fi
 } # }}}
 
-PROMPT='
-%# `prompt_username cyan` `prompt_hostname green` `prompt_git_root_directory yellow` `prompt_git_current_branch blue`
+prompt_mode() { # {{{
+  echo "$fg[$1]%#$out%{$reset_color%}"
+} # }}}
+
+PROMPT='`prompt_mode white` `prompt_username cyan` `prompt_hostname green` `prompt_git_root_directory yellow` `prompt_git_current_branch blue`
 → '
 
 # }}}
@@ -288,6 +291,7 @@ alias ikill='pkill -f Japanese'
 alias mkdiri='(){ mkdir $1; cd $1 }'
 alias cdr='() { if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then cd `pwd`/`git rev-parse --show-cdup`; fi }'
 alias rn='() {for f in *.$1 ; do ; mv $f ${f/$2/$3} ; done }'
+alias rst='exec $SHELL -l'
 
 alias ugd='upload-googledrive'
 

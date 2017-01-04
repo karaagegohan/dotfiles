@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-MODE="US"
 MODE=$( \
   defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleSelectedInputSources \
   | grep -oE "Japanese|US" \

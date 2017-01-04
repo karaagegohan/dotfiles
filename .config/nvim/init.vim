@@ -288,8 +288,8 @@ lnoremap <C-c>                   <Esc>
 nnoremap <CR>                    :<C-u>write<CR>
 nnoremap <S-CR>                  :<C-u>write!<CR>
 nnoremap U                       <C-r>
-cnoremap <C-c>                   :<C-u>echo ""<CR>
-nnoremap <silent><C-c><C-c>      :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
+cnoremap <C-c>                   :<C-u><Esc>
+nnoremap <silent><C-c><C-c>      :<C-u>nohlsearch<CR>
 inoremap jj                      <Esc>
 inoremap kk                      <CR>
 nnoremap <C-h>                   <Nop>

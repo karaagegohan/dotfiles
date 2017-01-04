@@ -156,152 +156,152 @@ hook_add = '''
 '''
 # }}}
 
-[[plugins]]
-repo = 'kana/vim-smartchr' # {{{
-hook_add = '''
+# [[plugins]]
+# repo = 'kana/vim-smartchr' # {{{
+# depends = ['thinca/vim-submode', 'kana/vim-smartinput']
+# hook_add = '''
+#
+#         let filetype = [
+#             \    'vim',
+#             \    'ruby',
+#             \    'python',
+#             \    'c',
+#             \    'cpp',
+#             \    'cs',
+#             \    'toml',
+#             \    ]
+#         "for all languages {{{
+#         let lst = [
+#             \    ['<',     "smartchr#loop(' < ', ' << ', '<')"],
+#             \    ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
+#             \    ['+',     "smartchr#loop(' + ', ' ++ ', '+')"],
+#             \    ['-',     "smartchr#loop(' - ', ' -- ', '-')"],
+#             \    ['/',     "smartchr#loop(' / ', ' // ', '/')"],
+#             \    ['&',     "smartchr#loop(' & ', ' && ', '&')"],
+#             \    ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
+#             \    ['%',     "smartchr#loop(' % ', '%'        )"],
+#             \    ['*',     "smartchr#loop(' * ', '*'        )"],
+#             \    [',',     "smartchr#loop(', ' , ','        )"]
+#             \    ]
+#
+#         call submode#enter_with('default', 'i', '', '<C-z>', '<Nop>')
+#         for i in lst
+#             call submode#map('default', 'i', '', i[0], i[0])
+#             call smartinput#map_to_trigger('i', i[0], i[0], i[0])
+#             call smartinput#define_rule({
+#                 \    'char' : i[0],
+#                 \    'at'   : '\%#',
+#                 \    'input': '<C-R>=' . i[1] . '<CR>',
+#                 \    'filetype' : filetype,
+#                 \    })
+#
+#             call smartinput#define_rule({
+#                 \    'char' : i[0],
+#                 \    'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',
+#                 \    'input' : i[0],
+#                 \    'filetype' : filetype,
+#                 \    })
+#
+#             call smartinput#define_rule({
+#                 \    'char' : i[0],
+#                 \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',
+#                 \    'input' : i[0],
+#                 \    'filetype' : filetype,
+#                 \    })
+#         endfor
+#
+#         call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
+#         call smartinput#define_rule({
+#             \   'at'    : '(\%#)',
+#             \   'char'  : '<Space>',
+#             \   'input' : '<Space><Space><Left>',
+#             \    'filetype' : filetype,
+#             \   })
+#
+#         call smartinput#define_rule({
+#             \   'at'    : '( \%# )',
+#             \   'char'  : '<BS>',
+#             \   'input' : '<Del><BS>',
+#             \   'filetype' : filetype,
+#             \   })
+#
+#         call smartinput#define_rule({
+#             \   'at': '\s\+\%#',
+#             \   'char': '<CR>',
+#             \   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+#             \   'filetype' : filetype,
+#             \   })
+#
+#         call smartinput#map_to_trigger('i', '=', '=', '=')
+#         call smartinput#define_rule({
+#             \    'char' : '=',
+#             \    'at' : '\%#',
+#             \    'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>",
+#             \    'filetype' : filetype,
+#             \    })
+#         call smartinput#define_rule({
+#             \    'char' : '=',
+#             \    'at' : '[&+-/<>|] \%#',
+#             \    'input' : '<BS>= ',
+#             \    'filetype' : filetype,
+#             \    })
+#         call smartinput#define_rule({
+#             \    'char' : '=',
+#             \    'at' : '!\%#',
+#             \    'input' : '= ',
+#             \    'filetype' : filetype,
+#             \    })
+#         call smartinput#define_rule({
+#             \    'char' : '=',
+#             \    'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',
+#             \    'input' : '=',
+#             \    'filetype' : filetype,
+#             \    })
+#         call smartinput#define_rule({
+#             \    'char' : '=',
+#             \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',
+#             \    'input' : '=',
+#             \    'filetype' : filetype,
+#             \    })
+#
+#         for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
+#             call smartinput#define_rule({
+#                 \    'char' : '<BS>',
+#                 \    'at' : ' ' . op . ' \%#',
+#                 \    'input' : '<BS><BS><BS>',
+#                 \    'filetype' : filetype,
+#                 \    })
+#         endfor
+#
+#         " }}}
+#
+#         let filetype = [
+#             \    'ruby',
+#             \    ]
+#         " for ruby {{{
+#         for i in lst
+#             call smartinput#define_rule({
+#                 \    'char' : i[0],
+#                 \    'at' : '^\([^\\]*\\[^\\]*\\\)*[^\\]*\\[^\\]*\%#',
+#                 \    'input' : i[0],
+#                 \    'filetype' : filetype
+#                 \    })
+#         endfor
+#         " }}}
+#
+#
+# '''
+# # }}}
 
-        let filetype = [
-            \    'vim',
-            \    'ruby',
-            \    'python',
-            \    'c',
-            \    'cpp',
-            \    'cs',
-            \    'toml',
-            \    ]
-        "for all languages {{{
-        let lst = [
-            \    ['<',     "smartchr#loop(' < ', ' << ', '<')"],
-            \    ['>',     "smartchr#loop(' > ', ' >> ', '>')"],
-            \    ['+',     "smartchr#loop(' + ', ' ++ ', '+')"],
-            \    ['-',     "smartchr#loop(' - ', ' -- ', '-')"],
-            \    ['/',     "smartchr#loop(' / ', ' // ', '/')"],
-            \    ['&',     "smartchr#loop(' & ', ' && ', '&')"],
-            \    ['<Bar>', "smartchr#loop(' | ', ' || ', '|')"],
-            \    ['%',     "smartchr#loop(' % ', '%'        )"],
-            \    ['*',     "smartchr#loop(' * ', '*'        )"],
-            \    [',',     "smartchr#loop(', ' , ','        )"]
-            \    ]
+# [[plugins]]
+# repo = 'kana/vim-smartinput'# {{{
+# # }}}
 
-        call submode#enter_with('default', 'i', '', '<C-z>', '<Nop>')
-        for i in lst
-            call submode#map('default', 'i', '', i[0], i[0])
-            call smartinput#map_to_trigger('i', i[0], i[0], i[0])
-            call smartinput#define_rule({
-                \    'char' : i[0],
-                \    'at'   : '\%#',
-                \    'input': '<C-R>=' . i[1] . '<CR>',
-                \    'filetype' : filetype,
-                \    })
-
-            call smartinput#define_rule({
-                \    'char' : i[0],
-                \    'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',
-                \    'input' : i[0],
-                \    'filetype' : filetype,
-                \    })
-
-            call smartinput#define_rule({
-                \    'char' : i[0],
-                \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',
-                \    'input' : i[0],
-                \    'filetype' : filetype,
-                \    })
-        endfor
-
-        call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
-        call smartinput#define_rule({
-            \   'at'    : '(\%#)',
-            \   'char'  : '<Space>',
-            \   'input' : '<Space><Space><Left>',
-            \    'filetype' : filetype,
-            \   })
-
-        call smartinput#define_rule({
-            \   'at'    : '( \%# )',
-            \   'char'  : '<BS>',
-            \   'input' : '<Del><BS>',
-            \   'filetype' : filetype,
-            \   })
-
-        call smartinput#define_rule({
-            \   'at': '\s\+\%#',
-            \   'char': '<CR>',
-            \   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
-            \   'filetype' : filetype,
-            \   })
-
-        call smartinput#map_to_trigger('i', '=', '=', '=')
-        call smartinput#define_rule({
-            \    'char' : '=',
-            \    'at' : '\%#',
-            \    'input' : "<C-R>=smartchr#loop(' = ', ' == ', '=')<CR>",
-            \    'filetype' : filetype,
-            \    })
-        call smartinput#define_rule({
-            \    'char' : '=',
-            \    'at' : '[&+-/<>|] \%#',
-            \    'input' : '<BS>= ',
-            \    'filetype' : filetype,
-            \    })
-        call smartinput#define_rule({
-            \    'char' : '=',
-            \    'at' : '!\%#',
-            \    'input' : '= ',
-            \    'filetype' : filetype,
-            \    })
-        call smartinput#define_rule({
-            \    'char' : '=',
-            \    'at' : '^\([^"]*"[^"]*"\)*[^"]*"[^"]*\%#',
-            \    'input' : '=',
-            \    'filetype' : filetype,
-            \    })
-        call smartinput#define_rule({
-            \    'char' : '=',
-            \    'at' : '^\([^'']*''[^'']*''\)*[^'']*''[^'']*\%#',
-            \    'input' : '=',
-            \    'filetype' : filetype,
-            \    })
-
-        for op in ['<', '>', '+', '-', '/', '&', '%', '\*', '|']
-            call smartinput#define_rule({
-                \    'char' : '<BS>',
-                \    'at' : ' ' . op . ' \%#',
-                \    'input' : '<BS><BS><BS>',
-                \    'filetype' : filetype,
-                \    })
-        endfor
-
-        " }}}
-
-        let filetype = [
-            \    'ruby',
-            \    ]
-        " for ruby {{{
-        for i in lst
-            call smartinput#define_rule({
-                \    'char' : i[0],
-                \    'at' : '^\([^\\]*\\[^\\]*\\\)*[^\\]*\\[^\\]*\%#',
-                \    'input' : i[0],
-                \    'filetype' : filetype
-                \    })
-        endfor
-        " }}}
-
-
-'''
-# }}}
-
-[[plugins]]
-repo = 'kana/vim-smartinput'# {{{
-# }}}
-
-[[plugins]]
-repo = 'thinca/vim-submode' # {{{
-hook_add = '''
-    let g:submode_timeout = 0
-'''
-# }}}
+# [[plugins]]
+# repo = 'thinca/vim-submode' # {{{
+# hook_add = '''
+# '''
+# # }}}
 
 [[plugins]]
 repo = 'thinca/vim-quickrun' # {{{
