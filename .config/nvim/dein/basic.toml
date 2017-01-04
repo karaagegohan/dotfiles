@@ -470,7 +470,7 @@ hook_add = '''
 repo = 'easymotion/vim-easymotion' # {{{
 hook_add = '''
 
-    let g:EasyMotion_keys       = 'asdfghjkl'
+    let g:EasyMotion_keys       = 'jfkdlsa'
     let g:EasyMotion_grouping   = 1
 
     " key_mappings {{{

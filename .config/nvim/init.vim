@@ -25,7 +25,7 @@ if has('vim_starting')
     call dein#begin(s:dein_dir)
     let s:tomls = split(glob(s:toml_dir . "/*.toml"), "\n")
     for s:toml in s:tomls
-      call dein#load_toml(s:toml)
+      call dein#load_toml(s:toml,{'lazy': 0})
     endfor
     call dein#end()
     call dein#save_state()
@@ -386,7 +386,7 @@ nnoremap <silent><F12>           <Nop>
 " other
 nnoremap <silent><SID>[command].  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent><SID>[command],  :<C-u>edit ~/dotfiles/.config/nvim/dein/basic.toml<CR>
-nnoremap <silent><SID>[command]r  :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded."<CR>
+nnoremap <silent><SID>[command]r  :<C-u>source $MYVIMRC<CR>:<C-u>echo expand($MYVIMRC) . " has loaded."<CR>
 nnoremap <silent><SID>[command]f  :<C-u>source %<CR>:<C-u>echo expand("%") . " has loaded."<CR>
 nnoremap <silent><SID>[command]h  :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[command]e  :<C-u>edit<CR>
