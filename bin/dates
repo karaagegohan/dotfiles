@@ -34,3 +34,4 @@ if [ "$OPTIND" = 1 ]; then
 fi
 
 echo $DISPLAY
+

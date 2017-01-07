@@ -14,14 +14,26 @@ end pop
 on next()
   tell application "Google Chrome"
       set frontIndex to active tab index of front window
-      set active tab index of front window to frontIndex + 1
+      set numOfTabs to count of tab of front window 
+      set nextIndex to (frontIndex + 1)
+      if numOfTabs < nextIndex then
+        set active tab index of front window to 1
+      else
+        set active tab index of front window to nextIndex
+      end
   end tell
 end next
 
 on prev()
   tell application "Google Chrome"
       set frontIndex to active tab index of front window
-      set active tab index of front window to frontIndex - 1
+      set numOfTabs  to count of tab of front window
+      set nextIndex to (frontIndex - 1) mod numOfTabs
+      if 1 > nextIndex then
+        set active tab index of front window to numOfTabs
+      else
+        set active tab index of front window to nextIndex
+      end
   end tell
 end prev
 

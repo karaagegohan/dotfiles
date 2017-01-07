@@ -33,7 +33,6 @@ function icon() {
   echo 🔋
 }
 
-DISPLAY=''
 if [ "$OPTIND" = 1 ]; then
   while getopts :hprf: OPT
   do

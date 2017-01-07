@@ -34,6 +34,10 @@ hook_add = '''
         \ 'separator': {'left': '', 'right': ''},
         \ 'subseparator': {'left': '|', 'right': '|'}
         \ }
+    if g:env#mac
+      let g:lightline['separator'] = {'left': '⮀', 'right': '⮂'}
+      let g:lightline['subseparator'] = {'left': '⮁', 'right': '⮃'}
+    endif
 
     function! MyModified() "{{{
         return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
