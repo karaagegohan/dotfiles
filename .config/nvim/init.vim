@@ -31,13 +31,13 @@ if has('vim_starting')
     \ 'textobject.toml',
     \ 'operator.toml',
     \ 'filetype.toml',
+    \ 'git.toml',
     \ ]
 
     let s:tomls_lazy = [
     \ 'applescript.toml',
     \ 'csharp.toml',
     \ 'elixir.toml',
-    \ 'git.toml',
     \ 'go.toml',
     \ 'java.toml',
     \ 'markdown.toml',
@@ -46,7 +46,6 @@ if has('vim_starting')
     \ 'swift.toml',
     \ 'tex.toml',
     \ 'toml.toml',
-    \ 'tool.toml',
     \ ]
     for s:toml in s:tomls
       call dein#load_toml(s:toml_dir . '/' .s:toml, {'lazy': 0 })
