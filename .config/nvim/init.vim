@@ -23,9 +23,36 @@ if has('vim_starting')
   let s:toml_dir = expand('$HOME/.config/nvim/dein')
   if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
-    let s:tomls = split(glob(s:toml_dir . "/*.toml"), "\n")
+    let s:tomls = [
+    \ 'basic.toml',
+    \ 'colorscheme.toml',
+    \ 'unite.toml',
+    \ 'view.toml',
+    \ 'textobject.toml',
+    \ 'operator.toml',
+    \ 'filetype.toml',
+    \ ]
+
+    let s:tomls_lazy = [
+    \ 'applescript.toml',
+    \ 'csharp.toml',
+    \ 'elixir.toml',
+    \ 'git.toml',
+    \ 'go.toml',
+    \ 'java.toml',
+    \ 'markdown.toml',
+    \ 'python.toml',
+    \ 'ruby.toml',
+    \ 'swift.toml',
+    \ 'tex.toml',
+    \ 'toml.toml',
+    \ 'tool.toml',
+    \ ]
     for s:toml in s:tomls
-      call dein#load_toml(s:toml)
+      call dein#load_toml(s:toml_dir . '/' .s:toml, {'lazy': 0 })
+    endfor
+    for s:toml in s:tomls_lazy
+      call dein#load_toml(s:toml_dir . '/' .s:toml, {'lazy': 1 })
     endfor
     call dein#end()
     call dein#save_state()
@@ -37,6 +64,7 @@ if has('vim_starting')
   set encoding =utf-8           " Character code for .vimrc
 
 endif
+
 " }}}
 
 " functions {{{
