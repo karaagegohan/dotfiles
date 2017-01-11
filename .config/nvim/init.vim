@@ -5,11 +5,11 @@ augroup END
 
 if has('vim_starting')
 
+  " global variables
   let env#mac  = has('mac')
   let env#win  = has('win32') || has('win64')
   let env#gui  = has('gui_running')
   let env#nvim = has('nvim')
-
   let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
 
   " dein settings
@@ -20,7 +20,10 @@ if has('vim_starting')
     call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
   endif
   let &runtimepath = s:dein_repo_dir .",". &runtimepath
+
+  " load plugins
   let s:toml_dir = expand('$HOME/.config/nvim/dein')
+  execute('set path+=' . s:toml_dir)
   if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
     let s:tomls = [
@@ -32,6 +35,7 @@ if has('vim_starting')
     \ 'operator.toml',
     \ 'filetype.toml',
     \ 'git.toml',
+    \ 'tool.toml',
     \ ]
 
     let s:tomls_lazy = [
@@ -421,6 +425,7 @@ nnoremap <silent><SID>[command]c  q:
 nnoremap <silent><SID>[command]x  :<C-u>exit<CR>
 nnoremap         <SID>[command]sa :<C-u>%s///g<LEFT><LEFT>
 nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
+nnoremap         <SID>[command]o  gf
 
 " terminal for nvim
 if env#nvim
@@ -567,6 +572,24 @@ endif
 set mouse=
 set nomousefocus
 set mousehide
+
+" globals
+let g:loaded_gzip               = 0
+let g:loaded_tar                = 0
+let g:loaded_tarPlugin          = 0
+let g:loaded_zip                = 0
+let g:loaded_zipPlugin          = 0
+let g:loaded_2html_plugin       = 0
+let g:loaded_vimball            = 0
+let g:loaded_vimballPlugin      = 0
+let g:loaded_getscript          = 0
+let g:loaded_getscriptPlugin    = 0
+let g:loaded_logipat            = 0
+let g:loaded_rrhelper           = 0
+let g:loaded_netrw              = 1
+let g:loaded_netrwPlugin        = 1
+let g:loaded_netrwSettings      = 1
+let g:loaded_netrwFileHandlers  = 1
 
 " gui
 if env#gui "{{{

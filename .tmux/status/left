@@ -3,7 +3,7 @@
 CONTENTS=(
   "$($HOME/bin/usage_trash -f '%icon　%size MB / %num file(s)')"
   "$($HOME/bin/usage_disk  -f '%icon　%available GB (%capacity%)')"
-  "$($HOME/bin/nowplaying  -f '%icon　%title by %artist')"
+  "$($HOME/bin/nowplaying  -f '%icon　%title by %artist [%position]')"
 )
 
 CONTENT_SIZE=$(( ${#CONTENTS[*]} ))
