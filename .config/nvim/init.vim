@@ -5,11 +5,11 @@ augroup END
 
 if has('vim_starting')
 
+  " global variables
   let env#mac  = has('mac')
   let env#win  = has('win32') || has('win64')
   let env#gui  = has('gui_running')
   let env#nvim = has('nvim')
-
   let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
 
   " dein settings
@@ -20,12 +20,42 @@ if has('vim_starting')
     call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
   endif
   let &runtimepath = s:dein_repo_dir .",". &runtimepath
+
+  " load plugins
   let s:toml_dir = expand('$HOME/.config/nvim/dein')
+  execute('set path+=' . s:toml_dir)
   if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
-    let s:tomls = split(glob(s:toml_dir . "/*.toml"), "\n")
+    let s:tomls = [
+    \ 'basic.toml',
+    \ 'colorscheme.toml',
+    \ 'unite.toml',
+    \ 'view.toml',
+    \ 'textobject.toml',
+    \ 'operator.toml',
+    \ 'filetype.toml',
+    \ 'git.toml',
+    \ 'tool.toml',
+    \ ]
+
+    let s:tomls_lazy = [
+    \ 'applescript.toml',
+    \ 'csharp.toml',
+    \ 'elixir.toml',
+    \ 'go.toml',
+    \ 'java.toml',
+    \ 'markdown.toml',
+    \ 'python.toml',
+    \ 'ruby.toml',
+    \ 'swift.toml',
+    \ 'tex.toml',
+    \ 'toml.toml',
+    \ ]
     for s:toml in s:tomls
-      call dein#load_toml(s:toml)
+      call dein#load_toml(s:toml_dir . '/' .s:toml, {'lazy': 0 })
+    endfor
+    for s:toml in s:tomls_lazy
+      call dein#load_toml(s:toml_dir . '/' .s:toml, {'lazy': 1 })
     endfor
     call dein#end()
     call dein#save_state()
@@ -37,6 +67,7 @@ if has('vim_starting')
   set encoding =utf-8           " Character code for .vimrc
 
 endif
+
 " }}}
 
 " functions {{{
@@ -288,8 +319,8 @@ lnoremap <C-c>                   <Esc>
 nnoremap <CR>                    :<C-u>write<CR>
 nnoremap <S-CR>                  :<C-u>write!<CR>
 nnoremap U                       <C-r>
-cnoremap <C-c>                   :<C-u>echo ""<CR>
-nnoremap <silent><C-c><C-c>      :<C-u>nohlsearch<CR>:<C-u>echo ""<CR>
+cnoremap <C-c>                   :<C-u><Esc>
+nnoremap <silent><C-c><C-c>      :<C-u>nohlsearch<CR>
 inoremap jj                      <Esc>
 inoremap kk                      <CR>
 nnoremap <C-h>                   <Nop>
@@ -394,6 +425,7 @@ nnoremap <silent><SID>[command]c  q:
 nnoremap <silent><SID>[command]x  :<C-u>exit<CR>
 nnoremap         <SID>[command]sa :<C-u>%s///g<LEFT><LEFT>
 nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
+nnoremap         <SID>[command]o  gf
 
 " terminal for nvim
 if env#nvim
@@ -540,6 +572,24 @@ endif
 set mouse=
 set nomousefocus
 set mousehide
+
+" globals
+let g:loaded_gzip               = 0
+let g:loaded_tar                = 0
+let g:loaded_tarPlugin          = 0
+let g:loaded_zip                = 0
+let g:loaded_zipPlugin          = 0
+let g:loaded_2html_plugin       = 0
+let g:loaded_vimball            = 0
+let g:loaded_vimballPlugin      = 0
+let g:loaded_getscript          = 0
+let g:loaded_getscriptPlugin    = 0
+let g:loaded_logipat            = 0
+let g:loaded_rrhelper           = 0
+let g:loaded_netrw              = 1
+let g:loaded_netrwPlugin        = 1
+let g:loaded_netrwSettings      = 1
+let g:loaded_netrwFileHandlers  = 1
 
 " gui
 if env#gui "{{{

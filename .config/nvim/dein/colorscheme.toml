@@ -16,11 +16,6 @@ repo = 'altercation/vim-colors-solarized' # {{{
 
 [[plugins]]
 repo = 'morhetz/gruvbox' # {{{
-if = '''1'''
-hook_add = '''
-  " set background=dark
-  " autocmd vimrc VimEnter * nested colorscheme gruvbox
-'''
 # }}}
 
 [[plugins]]
@@ -57,7 +52,7 @@ repo = 'vim-scripts/newspaper.vim' # {{{
 
 [[plugins]]
 repo = 'chriskempson/vim-tomorrow-theme' # {{{
-hook_add = '''
+hook_add= '''
   set background=dark
   autocmd vimrc VimEnter * nested colorscheme Tomorrow-Night
 '''

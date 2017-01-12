@@ -1,5 +1,1 @@
-[[plugins]]
-repo = 'ynoca/applescript.vim' # {{{
-on_ft = 'applescript'
-# }}}
 

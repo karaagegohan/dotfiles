@@ -157,7 +157,18 @@ hook_add = '''
 # }}}
 
 [[plugins]]
+repo = 'kana/vim-smartinput'# {{{
+# }}}
+
+[[plugins]]
+repo = 'thinca/vim-submode' # {{{
+hook_add = '''
+'''
+# }}}
+
+[[plugins]]
 repo = 'kana/vim-smartchr' # {{{
+depends = ['thinca/vim-submode', 'kana/vim-smartinput']
 hook_add = '''
 
         let filetype = [
@@ -289,17 +300,6 @@ hook_add = '''
         " }}}
 
 
-'''
-# }}}
-
-[[plugins]]
-repo = 'kana/vim-smartinput'# {{{
-# }}}
-
-[[plugins]]
-repo = 'thinca/vim-submode' # {{{
-hook_add = '''
-    let g:submode_timeout = 0
 '''
 # }}}
 

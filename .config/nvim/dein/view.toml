@@ -34,10 +34,6 @@ hook_add = '''
         \ 'separator': {'left': '', 'right': ''},
         \ 'subseparator': {'left': '|', 'right': '|'}
         \ }
-    if g:env#mac
-      let g:lightline['separator'] = {'left': '⮀', 'right': '⮂'}
-      let g:lightline['subseparator'] = {'left': '⮁', 'right': '⮃'}
-    endif
 
     function! MyModified() "{{{
         return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -202,42 +198,6 @@ hook_add = '''
 # }}}
 
 [[plugins]]
-repo = 'kien/rainbow_parentheses.vim' # {{{
-hook_add = '''
-
-    " color
-    let g:rbpt_colorpairs = [
-        \ ['brown',       'RoyalBlue3'],
-        \ ['Darkblue',    'SeaGreen3'],
-        \ ['darkgray',    'DarkOrchid3'],
-        \ ['darkgreen',   'firebrick3'],
-        \ ['darkcyan',    'RoyalBlue3'],
-        \ ['darkred',     'SeaGreen3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['brown',       'firebrick3'],
-        \ ['gray',        'RoyalBlue3'],
-        \ ['black',       'SeaGreen3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['Darkblue',    'firebrick3'],
-        \ ['darkgreen',   'RoyalBlue3'],
-        \ ['darkcyan',    'SeaGreen3'],
-        \ ['darkred',     'DarkOrchid3'],
-        \ ['red',         'firebrick3'],
-        \ ]
-
-    let g:rbpt_max            = 16
-    let g:rbpt_loadcmd_toggle = 0
-
-    autocmd vimrc ColorScheme * RainbowParenthesesToggle
-    autocmd vimrc ColorScheme * RainbowParenthesesLoadRound
-    autocmd vimrc ColorScheme * RainbowParenthesesLoadSquare
-    autocmd vimrc ColorScheme * RainbowParenthesesLoadBraces
-    autocmd vimrc ColorScheme * RainbowParenthesesLoadChevrons
-
-'''
-# }}}
-
-[[plugins]]
 repo = 'thinca/vim-fontzoom' # {{{
 if = '''has('gui')'''
 hook_add = '''
@@ -248,11 +208,6 @@ hook_add = '''
     "}}}
 
 '''
-# }}}
-
-[[plugins]]
-repo = 'thinca/vim-splash'# {{{
-if = '''0'''
 # }}}
 
 [[plugins]]
