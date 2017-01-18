@@ -37,7 +37,6 @@ if has('vim_starting')
     \ 'git.toml',
     \ 'tool.toml',
     \ ]
-
     let s:tomls_lazy = [
     \ 'applescript.toml',
     \ 'csharp.toml',
@@ -65,7 +64,6 @@ if has('vim_starting')
   endif
 
   set encoding =utf-8           " Character code for .vimrc
-
 endif
 
 " }}}
@@ -317,7 +315,6 @@ noremap  <C-c>                   <Esc>
 noremap! <C-c>                   <Esc>
 lnoremap <C-c>                   <Esc>
 nnoremap <CR>                    :<C-u>write<CR>
-nnoremap <S-CR>                  :<C-u>write!<CR>
 nnoremap U                       <C-r>
 cnoremap <C-c>                   :<C-u><Esc>
 nnoremap <silent><C-c><C-c>      :<C-u>nohlsearch<CR>
@@ -646,7 +643,7 @@ endif "}}}
 autocmd vimrc BufRead, FileType               help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk       setlocal fileencoding=sjis
 autocmd vimrc BufRead, BufNewFile *.xm        setlocal filetype=objc
-autocmd Filetype python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd Filetype python                       setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 " }}}
 

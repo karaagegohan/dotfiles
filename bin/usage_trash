@@ -58,7 +58,6 @@ if [ "$OPTIND" = 1 ]; then
           | sed -e "s/%num/$(num)/g" \
           | sed -e "s/%size/$(size)/g" \
           | sed -e "s/%icon/$(icon)/g" \
-
           )
         ;;
       *)

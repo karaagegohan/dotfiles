@@ -37,6 +37,13 @@ on prev()
   end tell
 end prev
 
+on title()
+  tell application "Google Chrome"
+      set _name to name of active tab of front window
+      set _url  to url of active tab of front window
+  end tell
+end prev
+
 on run argv
   set command to item 1 of argv
   if command = "pop" then
@@ -45,5 +52,7 @@ on run argv
     next()
   else if command = "prev" then
     prev()
+  else if command = "title" then
+    title()
   end if
 end run
