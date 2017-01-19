@@ -71,7 +71,7 @@ then
 
 fi
 
-export PATH=$PATH:$HOME/script/upload-googledrive
+export PATH=$PATH:$HOME/script/gdrive
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
