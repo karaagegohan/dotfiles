@@ -52,3 +52,5 @@
 [user]
 	name = ynoca
 	email = usahillbanana@gmail.com
+[url "https://"]
+	insteadOf = git://

@@ -75,6 +75,8 @@ export PATH=$PATH:$HOME/script/upload-googledrive
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/Applications/Julia-0.5.app/Contents/Resources/julia/bin
+
 
 # }}}
 
@@ -253,7 +255,8 @@ prompt_time() { # {{{
   echo " at $fg[$1]%w %*%{$reset_color%}"
 } # }}}
 
-PROMPT='`prompt_mode white``prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`
+PROMPT='
+`prompt_mode white``prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`
 → '
 
 # }}}

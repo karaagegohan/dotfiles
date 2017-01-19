@@ -37,7 +37,6 @@ if has('vim_starting')
     \ 'git.toml',
     \ 'tool.toml',
     \ ]
-
     let s:tomls_lazy = [
     \ 'applescript.toml',
     \ 'csharp.toml',
@@ -65,7 +64,6 @@ if has('vim_starting')
   endif
 
   set encoding =utf-8           " Character code for .vimrc
-
 endif
 
 " }}}
@@ -88,14 +86,14 @@ endif
 " --------------------------------------------------
 " }}}
 
-function! s:mkdir(name) abort "{{{
+function! init#mkdir(name) abort "{{{
   if !isdirectory(expand(a:name))
     call mkdir(expand(a:name))
   endif
 endfunction
 "}}}
 
-function! s:transparancy_up() abort "{{{
+function! init#transparancy_up() abort "{{{
   if env#gui
     if env#mac
       if &transparency - 5 > 1
@@ -114,7 +112,7 @@ function! s:transparancy_up() abort "{{{
 endfunction
 "}}}
 
-function! s:transparancy_down() abort "{{{
+function! init#transparancy_down() abort "{{{
   if env#gui
     if env#mac
       if &transparency + 5 < 100
@@ -133,7 +131,7 @@ function! s:transparancy_down() abort "{{{
 endfunction
 "}}}
 
-function! s:fullscreen() abort "{{{
+function! init#fullscreen() abort "{{{
   if env#gui
     if env#mac
       set fullscreen!
@@ -145,7 +143,7 @@ function! s:fullscreen() abort "{{{
 endfunction
 "}}}
 
-function! s:toggleopt(optname) abort "{{{
+function! init#toggleopt(optname) abort "{{{
   try
     exec( 'set ' . a:optname . '!')
     exec( 'echo  "[' . a:optname . ']" ' . '&' . a:optname . '==1 ? "on" : "off"')
@@ -155,7 +153,7 @@ function! s:toggleopt(optname) abort "{{{
 endfunction
 "}}}
 
-function! s:close_window() abort "{{{
+function! init#close_window() abort "{{{
   let a:bufname = expand('%:p')
   if len(a:bufname) == 0
     let a:bufname = '[No name]'
@@ -169,53 +167,14 @@ function! s:close_window() abort "{{{
 endfunction
 "}}}
 
-function! s:rm_swp() abort "{{{
+function! init#rm_swp() abort "{{{
   let a:currentfile = fnamemodify(expand('%'), ":t")
   let a:directory = &directory
   echo a:directory
   exec '!rm ' . a:directory . '/' . a:currentfile . '.sw*'
 endfunction "}}}
 
-function! s:set_indent_options(num) "{{{
-  exec('setlocal tabstop=' . a:num)
-  exec('setlocal softtabstop=' . a:num)
-  exec('setlocal shiftwidth=' . a:num)
-endfun "}}}
-
-function! s:anoremap(lhs, rhs) "{{{
-  exec( 'noremap '  . a:lhs . ' ' . a:rhs )
-  exec( 'noremap! ' . a:lhs . ' ' . a:rhs )
-  exec( 'lnoremap ' . a:lhs . ' ' . a:rhs )
-endfun "}}}
-
-function! s:swap_num_key() "{{{
-  let g:ynoca_swap_keys = exists('g:ynoca_swap_keys') ? !g:ynoca_swap_keys : 1
-  let a:keys = [
-      \    ['1', "!"],
-      \    ['2', "@"],
-      \    ['3', "#"],
-      \    ['4', "$"],
-      \    ['5', "%"],
-      \    ['6', "^"],
-      \    ['7', "&"],
-      \    ['8', "*"],
-      \    ['9', "("],
-      \    ['0', ")"]
-      \    ]
-  if g:ynoca_swap_keys
-    for a:k in a:keys
-      call s:anoremap(a:k[0], a:k[1])
-      call s:anoremap(a:k[1], a:k[0])
-    endfor
-  else
-    for a:k in a:keys
-      call s:anoremap(a:k[0], a:k[0])
-      call s:anoremap(a:k[1], a:k[1])
-    endfor
-  endif
-endfun "}}}
-
-function! s:char_code() "{{{
+function! init#char_code() abort "{{{
   if winwidth('.') <= 70
     echo  ''
   endif
@@ -250,12 +209,12 @@ function! s:char_code() "{{{
   echo  "'". s:char ."' ". s:nr
 endfunction "}}}
 
-function! s:save_with_date() "{{{
+function! init#save_with_date() abort "{{{
   let s:filename = strftime("%Y%m%d") . '.txt'
   exec ( 'write ' . s:filename )
 endfunction "}}}
 
-function! init#open_next_file(next) "{{{
+function! init#open_next_file(next) abort "{{{
   function! s:file_pass_filter(files)
     let l:ret = []
     for l:file  in a:files
@@ -317,7 +276,6 @@ noremap  <C-c>                   <Esc>
 noremap! <C-c>                   <Esc>
 lnoremap <C-c>                   <Esc>
 nnoremap <CR>                    :<C-u>write<CR>
-nnoremap <S-CR>                  :<C-u>write!<CR>
 nnoremap U                       <C-r>
 cnoremap <C-c>                   :<C-u><Esc>
 nnoremap <silent><C-c><C-c>      :<C-u>nohlsearch<CR>
@@ -365,10 +323,6 @@ nnoremap <S-Left>                <C-w><<CR>
 nnoremap <S-Right>               <C-w>><CR>
 nnoremap <S-Up>                  <C-w>-<CR>
 nnoremap <S-Down>                <C-w>+<CR>
-nnoremap <Left>                  <C-w>L<CR>
-nnoremap <Right>                 <C-w>H<CR>
-nnoremap <Up>                    <C-w>-<CR>
-nnoremap <Down>                  <C-w>+<CR>
 nnoremap <silent><BS>            :<C-u>bdelete<CR>
 nnoremap <silent><BS>            :<C-u>bdelete<CR>
 
@@ -390,12 +344,12 @@ cnoremap <C-p>                   <UP>
 nnoremap zz                      za
 
 " toggle
-nnoremap <silent><SID>[command]1 :<C-u>ToggleOpt number<CR>
-nnoremap <silent><SID>[command]2 :<C-u>ToggleOpt relativenumber<CR>
-nnoremap <silent><SID>[command]3 :<C-u>ToggleOpt autochdir<CR>
-nnoremap <silent><SID>[command]4 :<C-u>ToggleOpt list<CR>
-nnoremap <silent><SID>[command]5 :<C-u>ToggleOpt foldenable<CR>
-nnoremap <silent><SID>[command]6 <Nop>
+nnoremap <silent><SID>[command]1 :<C-u>call init#toggleopt(number)<CR>
+nnoremap <silent><SID>[command]2 :<C-u>call init#toggleopt(relativenumber)<CR>
+nnoremap <silent><SID>[command]3 :<C-u>call init#toggleopt(autochdir)<CR>
+nnoremap <silent><SID>[command]4 :<C-u>call init#toggleopt(list)<CR>
+nnoremap <silent><SID>[command]5 :<C-u>call init#toggleopt(foldenable)<CR>
+nnoremap <silent><SID>[command]6 <Nop> 
 nnoremap <silent><SID>[command]7 <Nop>
 nnoremap <silent><SID>[command]8 <Nop>
 nnoremap <silent><SID>[command]9 <Nop>
@@ -548,7 +502,7 @@ set browsedir  =current
 set backup
 if &backup
   let s:backupdir = expand('~/.vim/bak')
-  call s:mkdir(s:backupdir)
+  call init#mkdir(s:backupdir)
   let &backupdir = s:backupdir
 endif
 
@@ -556,7 +510,7 @@ endif
 set undofile
 if &undofile
   let s:undodir = expand('~/.vim/undo')
-  call s:mkdir(s:undodir)
+  call init#mkdir(s:undodir)
   let &undodir = s:undodir
 endif
 
@@ -564,7 +518,7 @@ endif
 set noswapfile
 if &swapfile
   let s:swapdir = expand('~/.vim/swp')
-  call s:mkdir(s:swapdir)
+  call init#mkdir(s:swapdir)
   let &directory = s:swapdir
 endif
 
@@ -645,8 +599,7 @@ endif "}}}
 " filetype
 autocmd vimrc BufRead, FileType               help  setlocal nofoldenable
 autocmd vimrc BufRead, BufNewFile *.ahk       setlocal fileencoding=sjis
-autocmd vimrc BufRead, BufNewFile *.xm        setlocal filetype=objc
-autocmd Filetype python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd Filetype python                       setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 " }}}
 
