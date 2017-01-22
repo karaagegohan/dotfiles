@@ -344,11 +344,11 @@ cnoremap <C-p>                   <UP>
 nnoremap zz                      za
 
 " toggle
-nnoremap <silent><SID>[command]1 :<C-u>call init#toggleopt(number)<CR>
-nnoremap <silent><SID>[command]2 :<C-u>call init#toggleopt(relativenumber)<CR>
-nnoremap <silent><SID>[command]3 :<C-u>call init#toggleopt(autochdir)<CR>
-nnoremap <silent><SID>[command]4 :<C-u>call init#toggleopt(list)<CR>
-nnoremap <silent><SID>[command]5 :<C-u>call init#toggleopt(foldenable)<CR>
+nnoremap <silent><SID>[command]1 :<C-u>call init#toggleopt("number")<CR>
+nnoremap <silent><SID>[command]2 :<C-u>call init#toggleopt("relativenumber")<CR>
+nnoremap <silent><SID>[command]3 :<C-u>call init#toggleopt("autochdir")<CR>
+nnoremap <silent><SID>[command]4 :<C-u>call init#toggleopt("list")<CR>
+nnoremap <silent><SID>[command]5 :<C-u>call init#toggleopt("foldenable")<CR>
 nnoremap <silent><SID>[command]6 <Nop> 
 nnoremap <silent><SID>[command]7 <Nop>
 nnoremap <silent><SID>[command]8 <Nop>
@@ -372,7 +372,6 @@ nnoremap <silent><F12>           <Nop>
 nnoremap <silent><SID>[command].  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent><SID>[command],  :<C-u>edit ~/dotfiles/.config/nvim/dein/basic.toml<CR>
 nnoremap <silent><SID>[command]r  :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded."<CR>
-nnoremap <silent><SID>[command]f  :<C-u>source %<CR>:<C-u>echo expand("%") . " has loaded."<CR>
 nnoremap <silent><SID>[command]h  :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[command]e  :<C-u>edit<CR>
 nnoremap <silent><SID>[command]c  q:
@@ -391,7 +390,7 @@ endif
 
 " set filetypes
 nnoremap <SID>[setft] <Nop>
-nmap     <SID>[command]sf <SID>[setft]
+nmap     <SID>[command]f <SID>[setft]
 nnoremap <silent><SID>[setft]r :<C-u>setlocal filetype=ruby<CR>
 nnoremap <silent><SID>[setft]g :<C-u>setlocal filetype=go<CR>
 nnoremap <silent><SID>[setft]v :<C-u>setlocal filetype=vim<CR>

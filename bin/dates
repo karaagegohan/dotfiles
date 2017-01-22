@@ -5,7 +5,16 @@ function dates() {
 }
 
 function icon() {
-  echo 🕐
+  icons=🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦
+  hour=$(date '+%H')
+  hour=$(echo `expr $hour % 12`)
+  hour=$(echo `expr $hour \* 2`)
+  hour=$(echo `expr $hour + 1`)
+  min=$(date '+%M')
+  min=$(echo `expr $min / 30`)
+  idx=$(echo `expr $min + $hour`)
+  echo $(echo $icons | cut -c $idx)
+  # echo $hour
 }
 
 DISPLAY=''
