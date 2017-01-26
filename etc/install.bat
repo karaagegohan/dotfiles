@@ -1,5 +1,5 @@
 @echo off
-for /d %%a in (../*) do (
+for /d %%a in (../.*) do (
     rm -rf %HOME%\%%a 
     mklink /d %HOME%\%%a %HOME%\dotfiles\%%a
 )
