@@ -29,4 +29,11 @@ nyagos.bindkey("C_R",
         return result
     end)
 
+alias{
+    lua_e=function(args) assert(load(args[1]))() end,
+    ["for"]='%COMSPEC% /c "@set PROMPT=$G & @for $*"',
+    g='git',
+    v='gvim $1 &',
+}
+
 -- vim:set ft=lua: --
