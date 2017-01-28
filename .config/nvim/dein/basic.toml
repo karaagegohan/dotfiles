@@ -564,22 +564,14 @@ repo = 'tpope/vim-endwise' # {{{
 # }}}
 
 [[plugins]]
-repo = 'neomake/neomake'# {{{
+repo = 'w0rp/ale'# {{{
 hook_add = '''
-
-    if has('nvim')
-        autocmd vimrc BufWritePost * Neomake
-    else
-        nnoremap <SID>[plugin]n :<C-u>Neomake<CR>
-    end
-    let g:neomake_warning_sign = {
-        \ 'text': '!',
-        \ 'texthl': 'WarningMsg',
-        \ }
-    let g:neomake_error_sign = {
-        \ 'text': '>',
-        \ 'texthl': 'ErrorMsg',
-        \ }
+  let g:ale_statusline_format = ['⨉ %d', '! %d', '']
+  let g:ale_sign_error = '⨉'
+  let g:ale_sign_warning = '!'
+  let g:ale_echo_msg_error_str = 'E'
+  let g:ale_echo_msg_warning_str = 'W'
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 '''
 
 # }}}

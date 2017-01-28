@@ -8,7 +8,7 @@ hook_add = '''
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'filename'],
+        \     ['fugitive', 'gitgutter', 'ale', 'filename'],
         \   ],
         \   'right': [
         \     ['lineinfo'],
@@ -30,6 +30,7 @@ hook_add = '''
         \   'charcode': 'MyCharCode',
         \   'gitgutter': 'MyGitGutter',
         \   'nextbuffername': 'MyNextBufferName',
+        \   'ale': 'MyALEGetStatusLine',
         \ },
         \ 'separator': {'left': '', 'right': ''},
         \ 'subseparator': {'left': '|', 'right': '|'}
@@ -60,7 +61,7 @@ hook_add = '''
         try
             if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
                 let _ = fugitive#head()
-                return strlen(_) ? _ : ''
+                return strlen(_) ? '' . _ : ''
             endif
 
         catch
@@ -192,6 +193,10 @@ hook_add = '''
       let l:next = fnamemodify(l:files[(l:cnt + 1) % len(l:files)], ":t")
       let l:prev = fnamemodify(l:files[(l:cnt - 1) % len(l:files)], ":t")
       return l:next . " : " . l:prev"
+    endfunction "}}}
+
+    function! MyALEGetStatusLine() "{{{
+      return ALEGetStatusLine()
     endfunction "}}}
 
 '''
