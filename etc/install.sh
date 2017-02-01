@@ -1,7 +1,7 @@
 DOTPATH=$HOME/dotfiles
 GITHUB_URL=https://github.com/ynoca/dotfiles
 
-# use git if you has it
+# use git if you have it
 echo [git] Cloning $GITHUB_URL.
 if [ `which git` ]; then
     if [ -d $DOTPATH ]; then

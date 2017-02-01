@@ -6,10 +6,10 @@ augroup END
 if has('vim_starting')
 
   " global variables
-  let env#mac  = has('mac')
-  let env#win  = has('win32') || has('win64')
-  let env#gui  = has('gui_running')
-  let env#nvim = has('nvim')
+  let init#mac  = has('mac')
+  let init#win  = has('win32') || has('win64')
+  let init#gui  = has('gui_running')
+  let init#nvim = has('nvim')
   let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
 
   " dein settings
@@ -94,14 +94,14 @@ endfunction
 "}}}
 
 function! init#transparancy_up() abort "{{{
-  if env#gui
-    if env#mac
+  if init#gui
+    if init#mac
       if &transparency - 5 > 1
         set transparency-=5
       else
         set transparency =0
       endif
-    elseif env#win
+    elseif init#win
       if &transparency - 5 > 1
         set transparency-=5
       else
@@ -113,14 +113,14 @@ endfunction
 "}}}
 
 function! init#transparancy_down() abort "{{{
-  if env#gui
-    if env#mac
+  if init#gui
+    if init#mac
       if &transparency + 5 < 100
         set transparency+=5
       else
         set transparency =100
       endif
-    elseif env#win
+    elseif init#win
       if &transparency + 5 < 255
         set transparency+=5
       else
@@ -132,8 +132,8 @@ endfunction
 "}}}
 
 function! init#fullscreen() abort "{{{
-  if env#gui
-    if env#mac
+  if init#gui
+    if init#mac
       set fullscreen!
     else
       set columns =999
@@ -381,7 +381,7 @@ nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
 nnoremap         <SID>[command]o  gf
 
 " terminal for nvim
-if env#nvim
+if init#nvim
   tnoremap <silent>jj       <C-\><C-n>
   nnoremap <SID>[command]zz :<C-u>terminal<CR>
   nnoremap <SID>[command]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
@@ -411,7 +411,7 @@ set fileencodings  +=euc-jisx0213    " Character code to read file
 set fileencodings  +=euc-jp          " Character code to read file
 set fileencodings  +=cp932           " Character code to read file
 set fileformats     =unix,dos,mac    " Newline character
-if env#win
+if init#win
   let &termencoding = &encoding
 endif
 
@@ -545,7 +545,7 @@ let g:loaded_netrwSettings      = 1
 let g:loaded_netrwFileHandlers  = 1
 
 " gui
-if env#gui "{{{
+if init#gui "{{{
 
   if has('vim_starting')
 
@@ -554,7 +554,7 @@ if env#gui "{{{
     set lines      =999   " height of window
 
     " font
-    if env#win
+    if init#win
       set guifont        =Inconsolata:h13:cANSI
       set guifontwide    =Ricty_Diminished:h13:cSHIFTJIS
       set linespace      =1
@@ -585,7 +585,7 @@ if env#gui "{{{
 end "}}}
 
 " nvim
-if env#nvim "{{{
+if init#nvim "{{{
   autocmd vimrc BufEnter * if &buftype == 'terminal' | startinsert | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <buffer><BS> <Nop> | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <silent><buffer><BS> :<C-u>quit!<CR> | endif
