@@ -29,7 +29,6 @@ zplug load --verbose
 # preferences for each plugin
 if zplug_installed "hchbaw/auto-fu.zsh"; # {{{
 then
-  echo asdf
   zle_line_init(){
     auto-fu-init
   }

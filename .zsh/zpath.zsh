@@ -1,5 +1,6 @@
 # for global
 export PATH=$PATH:$HOME/bin
+export PATH=$PATH:/usr/local/bin
 export TERM=xterm-256color
 export LC_ALL='en_US.UTF-8' 
 export PATH=$PATH:$HOME/script/gdrive

@@ -1,11 +1,9 @@
 #!/bin/bash
 
 CONTENTS=(
-  "$($HOME/bin/dates   -f '%icon　%dates')"
-  "$($HOME/bin/ime     -f '%icon　%name')"
-  "$($HOME/bin/battery -f '%icon　%percentage% (%remain)')" 
-  "$($HOME/bin/wifi    -f '%icon　%ssid')"
-  "$($HOME/bin/volume  -f '%icon　%volume%')"
+  "$($HOME/.tmux/bin/usage_trash -f '%icon　%size MB / %num file(s)')"
+  "$($HOME/.tmux/bin/usage_disk  -f '%icon　%available GB (%capacity%)')"
+  "$($HOME/.tmux/bin/nowplaying  -f '%icon　%title by %artist [%position]')"
 )
 
 CONTENT_SIZE=$(( ${#CONTENTS[*]} ))
@@ -27,12 +25,12 @@ for i in `seq 0 $CONTENT_SIZE`
 do
   if [ "${CONTENTS[$i]}" != "" ]; then
     DISPLAY=$( \
-      echo "<DELIMITER><CONTENT>$DISPLAY" \
+      echo "$DISPLAY<CONTENT><DELIMITER>" \
       | sed -e "s/<COLOR_NEXT>/,bg=colour${COLORS[$CNT]}/g"\
-      | sed -e "s/<DELIMITER>/#[fg=colour<COLOR><COLOR_NEXT>]⮂#[default]/g" \
+      | sed -e "s/<DELIMITER>/#[fg=colour<COLOR><COLOR_NEXT>]⮀#[default]/g" \
       | sed -e "s/<CONTENT>/<SPACE><MESSAGE><SPACE>/g" \
       | sed -e "s/<SPACE>/#[bg=colour<COLOR>] #[default]/g" \
-      | sed -e "s?<MESSAGE>?#[bg=colour${COLORS[$CNT]},fg=colour${COLORS[$((CNT+1))]}]${CONTENTS[$((i))]}#[default]?g" \
+      | sed -e "s?<MESSAGE>?#[bg=colour${COLORS[$CNT]},fg=colour${COLORS[$((CNT+1))]}]${CONTENTS[$i]}#[default]?g" \
       | sed -e "s/<COLOR>/${COLORS[$CNT]}/g" \
       )
     CNT=$(((CNT+2)%COLORS_SIZE))

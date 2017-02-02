@@ -1,4 +1,4 @@
-# promot {{{
+# promot 
 
 # standard variables 
 # --------------------------------------------------------
@@ -70,99 +70,103 @@ precmd () { # {{{
   fi
 } # }}}
 
-prompt_git_root_directory() { # {{{
-  echo " in %{${fg[$1]}%}%2v%U%3v%u%4v%{${reset_color}%}"
-} # }}}
+prompt_simple () {
+  prompt_git_root_directory() { # {{{
+    echo "in %{${fg[$1]}%}%2v%U%3v%u%4v%{${reset_color}%} "
+  } # }}}
 
-prompt_git_current_branch() { # {{{
-  local name
-  local st
-  local plus
+  prompt_git_current_branch() { # {{{
+    local name
+    local st
+    local plus
 
-  name=`git symbolic-ref HEAD 2> /dev/null`
-  if [[ -z $name ]]
-  then
-    return
-  fi
-  name=`basename $name`
-
-  st=`git status`
-  if [[ -n `echo $st | grep "^nothing to"` ]]
-  then
-    plus=""
-  else
-    plus="+"
-  fi
-
-  echo " on $fg[$1]$name$plus%f"
-} # }}}
-
-prompt_username() { # {{{
-  echo " $fg[$1]%n%{$reset_color%}"
-} # }}}
-
-prompt_hostname() { # {{{
-  echo " at $fg[$1]%m%{$reset_color%}"
-} # }}}
-
-prompt_git_modified_file() { # {{{
-  if test -z $(git rev-parse --git-dir 2> /dev/null); then 
-    echo ""
-  else
-    out=$( \
-      git ls-files -m \
-      | tr '\r' ' ' \
-      | tr '\n' ' ' \
-      )
-    if [ -n "$out" ]; then
-      echo " $fg[$1]M: $out%{$reset_color%}"
+    name=`git symbolic-ref HEAD 2> /dev/null`
+    if [[ -z $name ]]
+    then
+      return
     fi
-  fi
-} # }}}
+    name=`basename $name`
 
-prompt_git_deleted_file() { # {{{
-  if test -z $(git rev-parse --git-dir 2> /dev/null); then 
-    echo ""
-  else
-    out=$( \
-      git ls-files -d \
-      | tr '\r' ' ' \
-      | tr '\n' ' ' \
-      )
-    if [ -n "$out" ]; then
-      echo " $fg[$1]D: $out%{$reset_color%}"
+    st=`git status`
+    if [[ -n `echo $st | grep "^nothing to"` ]]
+    then
+      color=blue
+    else
+      color=red
     fi
-  fi
-} # }}}
 
-prompt_git_untracked_file() { # {{{
-  if test -z $(git rev-parse --git-dir 2> /dev/null); then 
-    echo ""
-  else
-    out=$( \
-      git ls-files --others --exclude-standard \
-      | tr '\r' ' ' \
-      | tr '\n' ' ' \
-      )
-    if [ -n "$out" ]; then
-      echo " $fg[$1]U: $out%{$reset_color%}"
+    echo "on $fg[$color]$name%f "
+  } # }}}
+
+  prompt_username() { # {{{
+    echo "$fg[$1]%n%#%{$reset_color%} "
+  } # }}}
+
+  prompt_hostname() { # {{{
+    echo "at $fg[$1]%m%{$reset_color%} "
+  } # }}}
+
+  prompt_git_modified_file() { # {{{
+    if test -z $(git rev-parse --git-dir 2> /dev/null); then 
+      echo ""
+    else
+      out=$( \
+        git ls-files -m \
+        | tr '\r' ' ' \
+        | tr '\n' ' ' \
+        )
+      if [ -n "$out" ]; then
+        echo "$fg[$1]M: $out%{$reset_color%} "
+      fi
     fi
-  fi
-} # }}}
+  } # }}}
 
-prompt_mode() { # {{{
-  echo "$fg[$1]%#$out%{$reset_color%}"
-} # }}}
+  prompt_git_deleted_file() { # {{{
+    if test -z $(git rev-parse --git-dir 2> /dev/null); then 
+      echo ""
+    else
+      out=$( \
+        git ls-files -d \
+        | tr '\r' ' ' \
+        | tr '\n' ' ' \
+        )
+      if [ -n "$out" ]; then
+        echo "$fg[$1]D: $out%{$reset_color%} "
+      fi
+    fi
+  } # }}}
 
-prompt_time() { # {{{
-  echo " at $fg[$1]%w %*%{$reset_color%}"
-} # }}}
+  prompt_git_untracked_file() { # {{{
+    if test -z $(git rev-parse --git-dir 2> /dev/null); then 
+      echo ""
+    else
+      out=$( \
+        git ls-files --others --exclude-standard \
+        | tr '\r' ' ' \
+        | tr '\n' ' ' \
+        )
+      if [ -n "$out" ]; then
+        echo "$fg[$1]U: $out%{$reset_color%} "
+      fi
+    fi
+  } # }}}
 
-PROMPT='
-`prompt_mode white``prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`
-→ '
+  prompt_mode() { # {{{
+    echo "%{${fg[yellow]}%}❰%#❱%{${reset_color}%} "
+  } # }}}
 
-# }}}
+  prompt_time() { # {{{
+    echo "at $fg[$1]%w %*%{$reset_color%} "
+  } # }}}
+
+  prompt_input() { # {{{
+    echo "%{${fg[cyan]}%}❱%{${reset_color}%}%{${fg[green]}%}❱%{${reset_color}%}%{${fg[yellow]}%}❱%{${reset_color}%} "
+  } # }}}
+
+  echo -e  \
+    "`prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`\n`prompt_input`" 
+}
+PROMPT='`prompt_simple`'
 
 # vim: set filetype=zsh:
 

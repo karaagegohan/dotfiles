@@ -377,7 +377,7 @@ nnoremap <silent><SID>[command]c  q:
 nnoremap <silent><SID>[command]x  :<C-u>exit<CR>
 nnoremap         <SID>[command]sa :<C-u>%s///g<LEFT><LEFT>
 nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
-nnoremap         <SID>[command]o  gf
+nnoremap         <SID>[command]f  gf
 
 " terminal for nvim
 if init#nvim
@@ -588,6 +588,7 @@ if init#nvim "{{{
   autocmd vimrc BufEnter * if &buftype == 'terminal' | startinsert | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <buffer><BS> <Nop> | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <silent><buffer><BS> :<C-u>quit!<CR> | endif
+  set inccommand=nosplit
 endif "}}}
 
 "}}}

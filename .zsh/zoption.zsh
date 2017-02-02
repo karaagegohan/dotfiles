@@ -9,6 +9,7 @@ setopt extended_history
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
+autoload -Uz zmv
 
 # vim: set filetype=zsh:
 
