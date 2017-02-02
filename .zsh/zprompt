@@ -160,7 +160,8 @@ prompt_simple () {
   } # }}}
 
   prompt_input() { # {{{
-    echo "$fg[white]➜%{$reset_color%} "
+    # echo "$fg[red]❱%{$reset_color%}$fg[green]❱%{$reset_color%}$fg[blue]❱%{$reset_color%} "
+    echo "$fg[white]❱%{$reset_color%} "
   } # }}}
 
   echo -e  \
