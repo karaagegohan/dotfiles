@@ -1,2 +1,2 @@
-source $HOME/.zsh/zpath
-source $HOME/.zsh/zalias
+source $HOME/.zsh/zpath.zsh
+source $HOME/.zsh/zalias.zsh
