@@ -324,7 +324,6 @@ nnoremap <S-Right>               <C-w>><CR>
 nnoremap <S-Up>                  <C-w>-<CR>
 nnoremap <S-Down>                <C-w>+<CR>
 nnoremap <silent><BS>            :<C-u>bdelete<CR>
-nnoremap <silent><BS>            :<C-u>bdelete<CR>
 
 " tab
 nnoremap <TAB>                   gt

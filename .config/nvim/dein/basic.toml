@@ -576,6 +576,7 @@ repo = 'tpope/vim-endwise' # {{{
 
 [[plugins]]
 repo = 'w0rp/ale'# {{{
+if = '''has('nvim')'''
 hook_add = '''
   let g:ale_statusline_format = ['⨉ %d', '! %d', '']
   let g:ale_sign_error = '⨉'

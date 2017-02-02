@@ -196,7 +196,7 @@ hook_add = '''
     endfunction "}}}
 
     function! MyALEGetStatusLine() "{{{
-      return ALEGetStatusLine()
+      return has('nvim') ? ALEGetStatusLine() : ''
     endfunction "}}}
 
 '''

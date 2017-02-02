@@ -34,6 +34,8 @@ alias{
     ["for"]='%COMSPEC% /c "@set PROMPT=$G & @for $*"',
     g='git',
     v='gvim $1 &',
+    ls='ls -l',
+    la='ls -la',
 }
 
 -- vim:set ft=lua: --
