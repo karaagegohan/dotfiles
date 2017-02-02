@@ -11,13 +11,13 @@ local MAGENTA=$fg[magenta]
 local WHITE=$fg[white]
 
 setopt correct
-setopt list_types 
+# setopt list_types 
 
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
-zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*:default' menu select=2
 
 

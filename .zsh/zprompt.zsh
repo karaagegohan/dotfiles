@@ -72,7 +72,7 @@ precmd () { # {{{
 
 prompt_simple () {
   prompt_git_root_directory() { # {{{
-    echo " in %{${fg[$1]}%}%2v%U%3v%u%4v%{${reset_color}%}"
+    echo "in %{${fg[$1]}%}%2v%U%3v%u%4v%{${reset_color}%} "
   } # }}}
 
   prompt_git_current_branch() { # {{{
@@ -95,15 +95,15 @@ prompt_simple () {
       color=red
     fi
 
-    echo " on $fg[$color]$name%f"
+    echo "on $fg[$color]$name%f "
   } # }}}
 
   prompt_username() { # {{{
-    echo " $fg[$1]%n%{$reset_color%}"
+    echo "$fg[$1]%n%#%{$reset_color%} "
   } # }}}
 
   prompt_hostname() { # {{{
-    echo " at $fg[$1]%m%{$reset_color%}"
+    echo "at $fg[$1]%m%{$reset_color%} "
   } # }}}
 
   prompt_git_modified_file() { # {{{
@@ -116,7 +116,7 @@ prompt_simple () {
         | tr '\n' ' ' \
         )
       if [ -n "$out" ]; then
-        echo " $fg[$1]M: $out%{$reset_color%}"
+        echo "$fg[$1]M: $out%{$reset_color%} "
       fi
     fi
   } # }}}
@@ -131,7 +131,7 @@ prompt_simple () {
         | tr '\n' ' ' \
         )
       if [ -n "$out" ]; then
-        echo " $fg[$1]D: $out%{$reset_color%}"
+        echo "$fg[$1]D: $out%{$reset_color%} "
       fi
     fi
   } # }}}
@@ -146,26 +146,25 @@ prompt_simple () {
         | tr '\n' ' ' \
         )
       if [ -n "$out" ]; then
-        echo " $fg[$1]U: $out%{$reset_color%}"
+        echo "$fg[$1]U: $out%{$reset_color%} "
       fi
     fi
   } # }}}
 
   prompt_mode() { # {{{
-    echo "$fg[$1]%#$out%{$reset_color%}"
+    echo "%{${fg[yellow]}%}❰%#❱%{${reset_color}%} "
   } # }}}
 
   prompt_time() { # {{{
-    echo " at $fg[$1]%w %*%{$reset_color%}"
+    echo "at $fg[$1]%w %*%{$reset_color%} "
   } # }}}
 
   prompt_input() { # {{{
-    # echo "$fg[red]❱%{$reset_color%}$fg[green]❱%{$reset_color%}$fg[blue]❱%{$reset_color%} "
-    echo "$fg[white]❱%{$reset_color%} "
+    echo "%{${fg[cyan]}%}❱%{${reset_color}%}%{${fg[green]}%}❱%{${reset_color}%}%{${fg[red]}%}❱%{${reset_color}%} "
   } # }}}
 
   echo -e  \
-    "`prompt_mode white``prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`\n`prompt_input`" 
+    "`prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`\n`prompt_input`" 
 }
 PROMPT='`prompt_simple`'
 
