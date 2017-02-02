@@ -1,4 +1,4 @@
-# promot {{{
+# promot 
 
 # standard variables 
 # --------------------------------------------------------
@@ -89,12 +89,12 @@ prompt_git_current_branch() { # {{{
   st=`git status`
   if [[ -n `echo $st | grep "^nothing to"` ]]
   then
-    plus=""
+    color=blue
   else
-    plus="+"
+    color=red
   fi
 
-  echo " on $fg[$1]$name$plus%f"
+  echo " on $fg[$color]$name%f"
 } # }}}
 
 prompt_username() { # {{{
@@ -161,8 +161,6 @@ prompt_time() { # {{{
 PROMPT='
 `prompt_mode white``prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`
 → '
-
-# }}}
 
 # vim: set filetype=zsh:
 

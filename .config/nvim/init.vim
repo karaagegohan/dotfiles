@@ -589,6 +589,7 @@ if init#nvim "{{{
   autocmd vimrc BufEnter * if &buftype == 'terminal' | startinsert | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <buffer><BS> <Nop> | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <silent><buffer><BS> :<C-u>quit!<CR> | endif
+  set inccommand=nosplit
 endif "}}}
 
 "}}}
