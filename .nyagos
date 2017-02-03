@@ -25,6 +25,7 @@ alias {
   ls = "ls -l",
   la = "ls -la",
   g = "git",
+  v = "gvim $1 &",
 }
 
 nyagos.bindkey("C_R",
