@@ -21,6 +21,12 @@ set{
     PROMPT="$_\x1b[40m[$P]\x1b[0m$_\x1b[39m$$\x1b[0m$s"
 }
 
+alias {
+  ls = "ls -l",
+  la = "ls -la",
+  g = "git",
+}
+
 nyagos.bindkey("C_R",
     function(this)
         local path = nyagos.getenv("APPDATA") .. '\\NYAOS_ORG\\nyagos.history'
