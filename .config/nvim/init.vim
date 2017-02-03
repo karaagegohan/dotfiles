@@ -6,10 +6,14 @@ augroup END
 if has('vim_starting')
 
   " global variables
-  let init#mac  = has('mac')
-  let init#win  = has('win32') || has('win64')
-  let init#gui  = has('gui_running')
-  let init#nvim = has('nvim')
+  let init#env#mac  = has('mac')
+  let init#env#win  = has('win32') || has('win64')
+  let init#env#gui  = has('gui_running')
+  let init#env#nvim = has('nvim')
+
+  let init#dir#conf = expand('$HOME/.config/nvim/')
+
+  " python3 settings
   let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
 
   " dein settings
@@ -22,7 +26,7 @@ if has('vim_starting')
   let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
   " load plugins
-  let s:toml_dir = expand('$HOME/.config/nvim/dein')
+  let s:toml_dir = init#dir#conf . '/dein'
   execute('set path+=' . s:toml_dir)
   if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
@@ -94,14 +98,14 @@ endfunction
 "}}}
 
 function! init#transparancy_up() abort "{{{
-  if init#gui
-    if init#mac
+  if init#env#gui
+    if init#env#mac
       if &transparency - 5 > 1
         set transparency-=5
       else
         set transparency =0
       endif
-    elseif init#win
+    elseif init#env#win
       if &transparency - 5 > 1
         set transparency-=5
       else
@@ -113,14 +117,14 @@ endfunction
 "}}}
 
 function! init#transparancy_down() abort "{{{
-  if init#gui
-    if init#mac
+  if init#env#gui
+    if init#env#mac
       if &transparency + 5 < 100
         set transparency+=5
       else
         set transparency =100
       endif
-    elseif init#win
+    elseif init#env#win
       if &transparency + 5 < 255
         set transparency+=5
       else
@@ -132,8 +136,8 @@ endfunction
 "}}}
 
 function! init#fullscreen() abort "{{{
-  if init#gui
-    if init#mac
+  if init#env#gui
+    if init#env#mac
       set fullscreen!
     else
       set columns =999
@@ -368,8 +372,8 @@ nnoremap <silent><F11>           <Nop>
 nnoremap <silent><F12>           <Nop>
 
 " other
-nnoremap <silent><SID>[command].  :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent><SID>[command],  :<C-u>edit ~/dotfiles/.config/nvim/dein/basic.toml<CR>
+nnoremap <silent><SID>[command].  :<C-u>exec('edit ' . init#dir#conf . 'init.vim')<CR>
+nnoremap <silent><SID>[command],  :<C-u>exec('edit ' . init#dir#conf . 'dein/basic.toml')<CR>
 nnoremap <silent><SID>[command]r  :<C-u>source $MYVIMRC<CR>:<C-u>echo "\"" . expand($MYVIMRC) . "\" " . "Reloaded."<CR>
 nnoremap <silent><SID>[command]h  :<C-u>help <C-r><C-w><CR>
 nnoremap <silent><SID>[command]e  :<C-u>edit<CR>
@@ -377,10 +381,10 @@ nnoremap <silent><SID>[command]c  q:
 nnoremap <silent><SID>[command]x  :<C-u>exit<CR>
 nnoremap         <SID>[command]sa :<C-u>%s///g<LEFT><LEFT>
 nnoremap         <SID>[command]sp :<C-u>%s///gc<LEFT><LEFT><LEFT>
-nnoremap         <SID>[command]f  gf
+nnoremap         <SID>[command]d  gf
 
 " terminal for nvim
-if init#nvim
+if init#env#nvim
   tnoremap <silent>jj       <C-\><C-n>
   nnoremap <SID>[command]zz :<C-u>terminal<CR>
   nnoremap <SID>[command]zv :<C-u>vnew<CR>:<C-u>terminal<CR>
@@ -410,7 +414,7 @@ set fileencodings  +=euc-jisx0213    " Character code to read file
 set fileencodings  +=euc-jp          " Character code to read file
 set fileencodings  +=cp932           " Character code to read file
 set fileformats     =unix,dos,mac    " Newline character
-if init#win
+if init#env#win
   let &termencoding = &encoding
 endif
 
@@ -544,7 +548,7 @@ let g:loaded_netrwSettings      = 1
 let g:loaded_netrwFileHandlers  = 1
 
 " gui
-if init#gui "{{{
+if init#env#gui "{{{
 
   if has('vim_starting')
 
@@ -553,7 +557,7 @@ if init#gui "{{{
     set lines      =999   " height of window
 
     " font
-    if init#win
+    if init#env#win
       set guifont        =Inconsolata:h13:cANSI
       set guifontwide    =Ricty_Diminished:h13:cSHIFTJIS
       set linespace      =1
@@ -584,7 +588,7 @@ if init#gui "{{{
 end "}}}
 
 " nvim
-if init#nvim "{{{
+if init#env#nvim "{{{
   autocmd vimrc BufEnter * if &buftype == 'terminal' | startinsert | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <buffer><BS> <Nop> | endif
   autocmd vimrc BufEnter * if &buftype == 'terminal' | nnoremap <silent><buffer><BS> :<C-u>quit!<CR> | endif
