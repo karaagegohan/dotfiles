@@ -163,8 +163,7 @@ prompt_simple () {
     echo "%{${fg[cyan]}%}❱%{${reset_color}%}%{${fg[green]}%}❱%{${reset_color}%}%{${fg[yellow]}%}❱%{${reset_color}%} "
   } # }}}
 
-  echo -e  \
-    "`prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`\n`prompt_input`" 
+  echo -e "`prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`\n`prompt_input`" 
 }
 PROMPT='`prompt_simple`'
 
