@@ -15,11 +15,7 @@ function name() {
 }
 
 function icon() {
-  echo $( \
-    echo $MODE \
-    | sed -e "s/US/🇺🇸/g" \
-    | sed -e "s/Japanese/🇯🇵/" \
-    )
+  echo 📰
 }
 
 
