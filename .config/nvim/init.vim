@@ -5,12 +5,13 @@ augroup END
 
 if has('vim_starting')
 
-  " global variables
+  " global variables of environment
   let init#env#mac  = has('mac')
   let init#env#win  = has('win32') || has('win64')
   let init#env#gui  = has('gui_running')
   let init#env#nvim = has('nvim')
 
+  " global variables of directory
   let init#dir#conf = expand('$HOME/.config/nvim/')
 
   " python3 settings
