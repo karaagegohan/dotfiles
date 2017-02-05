@@ -1,6 +1,6 @@
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*) bin etc
-EXCLUSIONS := .DS_Store .git .gitmodules .travis.yml
+EXCLUSIONS := .DS_Store .git
 DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 .DEFAULT_GOAL := help
@@ -40,8 +40,3 @@ help: ## Self-documented Makefile
 		| sort \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-www:
-	@echo $(DOTPATH)    
-	@echo $(CANDIDATES)
-	@echo $(EXCLUSIONS) 
-	@echo $(DOTFILES)   

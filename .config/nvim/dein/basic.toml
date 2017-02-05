@@ -1,10 +1,8 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'# {{{
 hook_add = '''
-
     nnoremap <SID>[plugin]      <Nop>
     nmap     <Space>            <SID>[plugin]
-
 '''
 # }}}
 
@@ -106,9 +104,6 @@ hook_post_update = '''
 [[plugins]]
 repo = 'Shougo/deol.nvim' # {{{
 if = '''has('nvim')'''
-hook_add = '''
-
-'''
 # }}}
 
 [[plugins]]
