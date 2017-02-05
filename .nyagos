@@ -36,4 +36,6 @@ nyagos.bindkey("C_R",
         return result
     end)
 
+addpath "%USERPROFILE%\\.rbenv-win\\bin"
+
 -- vim:set ft=lua: --
