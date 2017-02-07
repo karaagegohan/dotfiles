@@ -36,6 +36,21 @@ nyagos.bindkey("C_R",
         return result
     end)
 
+nyagos.bindkey("C_E",
+    function(this)
+        local result =  nyagos.eval('rbenv versions | peco')
+        this:call("CLEAR_SCREEN")
+        return ('rbenv global ' .. result)
+    end)
+
+-- nyagos.bindkey("C_I",
+--     function(this)
+--         local result =  nyagos.eval('rbenv install -l | peco')
+--         this:call("CLEAR_SCREEN")
+--         return 'rbenv install ' .. result .. ' && rbenv rehash'
+--     end)
+
 addpath "%USERPROFILE%\\.rbenv-win\\bin"
+
 
 -- vim:set ft=lua: --
