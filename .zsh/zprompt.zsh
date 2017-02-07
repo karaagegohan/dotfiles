@@ -99,7 +99,7 @@ prompt_simple () {
   } # }}}
 
   prompt_username() { # {{{
-    echo "$fg[$1]%n%#%{$reset_color%} "
+    echo "$fg[$1]%#%n%{$reset_color%} "
   } # }}}
 
   prompt_hostname() { # {{{

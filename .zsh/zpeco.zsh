@@ -1,4 +1,4 @@
-is_git_repository() { # {{{
+_is_git_repository() { # {{{
 	local info 
 	if test -z $(git rev-parse --git-dir 2> /dev/null); then 
     return 1;
@@ -7,7 +7,7 @@ is_git_repository() { # {{{
 	fi
 } # }}}
 
-peco_select_history() {# {{{
+_peco_select_history() {# {{{
   tac=${commands[tac]:-"tail -r"}
   BUFFER=$( \
     history -n 1 \
@@ -17,11 +17,11 @@ peco_select_history() {# {{{
   CURSOR=$#BUFFER
   zle clear-screen
 }# }}}
-zle -N peco_select_history
-bindkey '^r' peco_select_history
+zle -N _peco_select_history
+bindkey '^r' _peco_select_history
 
-peco_select_git_add() { # {{{
-  if is_git_repository; then 
+_peco_select_git_add() { # {{{
+  if _is_git_repository; then 
     local files=$( \
       git ls-files -m --others --exclude-standard \
       | peco --query "$LBUFFER" \
@@ -35,8 +35,8 @@ peco_select_git_add() { # {{{
     zle clear-screen
   fi
 } # }}}
-zle -N peco_select_git_add
-bindkey "^g^a" peco_select_git_add
+zle -N _peco_select_git_add
+bindkey "^g^a" _peco_select_git_add
 
 # vim: set filetype=zsh:
 
