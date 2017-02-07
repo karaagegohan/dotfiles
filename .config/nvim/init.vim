@@ -15,7 +15,7 @@ if has('vim_starting')
   let init#dir#conf = expand('$HOME/.config/nvim/')
 
   " python3 settings
-  let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python'
+  let g:python3_host_prog = expand('$PYENV_ROOT') . '/shims/python'
 
   " dein settings
   let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME

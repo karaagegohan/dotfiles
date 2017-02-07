@@ -13,23 +13,16 @@ export PATH=$PATH:/opt/theos/bin
 export THEOS=/opt/theos
 export THEOS_MAKE_FILE=/opt/theos
 
-# for pyrnv
-if which pyenv > /dev/null 2>&1;
-then
-  export PYENV_ROOT=$HOME/.pyenv
-  export PATH=$PYENV_ROOT/bin:$PATH
-  eval "$(pyenv init -)"
+if [ -d $HOME/.anyenv ] ; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init -)"
+
+	for env in `ls $HOME/.anyenv/envs`
+	do
+		export PATH="$HOME/.anyenv/envs/$env/shims:$PATH"
+	done
 fi
 
-# for rbenv
-if which rbenv > /dev/null 2>&1;
-then
-  export RBENV_ROOT=$HOME/.rbenv
-  export PATH=$RBENV_ROOT/shims:$PATH
-  eval "$(rbenv init -)"
-  export PYTHONPATH=/usr/local/Cellar/opencv/2.4.13/lib/python2.7/site-packages:PYTHONPATH
-
-fi
 
 # for golang
 export GOPATH=$HOME/go
