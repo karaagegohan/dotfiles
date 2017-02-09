@@ -1,9 +1,13 @@
-# for global
+# path 
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:/usr/local/bin
-export TERM=xterm-256color
-export LC_ALL='en_US.UTF-8' 
 export PATH=$PATH:$HOME/script/gdrive
+
+# color
+export TERM=xterm-256color
+
+# language
+export LC_ALL='en_US.UTF-8' 
 
 # for postgress
 export PGDATA=/usr/local/var/postgres
@@ -13,16 +17,15 @@ export PATH=$PATH:/opt/theos/bin
 export THEOS=/opt/theos
 export THEOS_MAKE_FILE=/opt/theos
 
+# for anyenv
 if [ -d $HOME/.anyenv ] ; then
   export PATH="$HOME/.anyenv/bin:$PATH"
   eval "$(anyenv init -)"
-
 	for env in `ls $HOME/.anyenv/envs`
 	do
 		export PATH="$HOME/.anyenv/envs/$env/shims:$PATH"
 	done
 fi
-
 
 # for golang
 export GOPATH=$HOME/go
