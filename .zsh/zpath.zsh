@@ -2,6 +2,7 @@
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/script/gdrive
+export PATH=/usr/local/opt/openssl/bin:$PATH
 
 # color
 export TERM=xterm-256color
