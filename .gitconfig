@@ -21,10 +21,10 @@
   cb = checkout -B
   ch = checkout
   cm = commit -m
-  cmad = "!f () { git commit -m \":tada:     add    $1\"; };f"
-  cmch = "!f () { git commit -m \":recycle:  change $1\"; };f"
-  cmrm = "!f () { git commit -m \":shower:   remove $1\"; };f"
-  cmfx = "!f () { git commit -m \":bug:      fix    $1\"; };f"
+  cmad = "!f () { git commit -m \":tada: add $1\"; };f"
+  cmch = "!f () { git commit -m \":recycle: change $1\"; };f"
+  cmrm = "!f () { git commit -m \":shower: remove $1\"; };f"
+  cmfx = "!f () { git commit -m \":bug: fix $1\"; };f"
   cmup = "!f () { git commit -m \":sparkles: update $1\"; };f"
   co = commit
   di = diff
