@@ -242,6 +242,11 @@ function! init#open_next_file(next) abort "{{{
   endif
 endfunction "}}}
 
+function! init#replace() abort "{{{
+    let l:word = input("Replace " . expand('<cword>') . " with:") 
+    execute('bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/ge') 
+endfun "}}}
+
 "}}}
 
 " key mappings {{{
