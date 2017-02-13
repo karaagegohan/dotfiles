@@ -180,10 +180,6 @@ function! init#rm_swp() abort "{{{
 endfunction "}}}
 
 function! init#char_code() abort "{{{
-  if winwidth('.') <= 70
-    echo  ''
-  endif
-
   " Get the output of :ascii
   redir => ascii
   silent! ascii
