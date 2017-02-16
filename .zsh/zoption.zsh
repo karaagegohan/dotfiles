@@ -11,5 +11,6 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 autoload -Uz zmv
 
-# vim: set filetype=zsh:
+# enable comment symbol in command line
+setopt interactivecomments
 
