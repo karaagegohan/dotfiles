@@ -41,5 +41,3 @@ then
   # zstyle ':auto-fu:var' disable magic-space
 fi # }}}
 
-# vim: set filetype=zsh:
-

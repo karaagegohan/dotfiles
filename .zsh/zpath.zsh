@@ -35,5 +35,3 @@ export PATH=$PATH:$GOPATH/bin
 # for julia
 export PATH=$PATH:/Applications/Julia-0.5.app/Contents/Resources/julia/bin
 
-# vim: set filetype=zsh:
-
