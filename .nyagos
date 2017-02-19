@@ -1,43 +1,44 @@
--- This is a sample .nyagos written with Lua.
--- Edit and put it on %USERPROFILE%, %HOME% or the same folder with nyagos.exe
-
--- Simple Prompt for CMD.EXE
 nyagos.env.prompt =
 '$_'
-.. "\x1b[36;40m" .. nyagos.getenv('USERNAME') .. "\x1b[0m"
+..           "\x1b[35;40m" .. nyagos.getenv('USERNAME')     .. "\x1b[0m"
 .. ' on ' .. "\x1b[36;40m" .. nyagos.getenv('COMPUTERNAME') .. "\x1b[0m"
-.. ' at ' .. "\x1b[36;40m" .. '$P' .. "\x1b[0m"
+.. ' at ' .. "\x1b[32;40m" .. '$P'                          .. "\x1b[0m"
 .. '$_'
 .. '> '
 
-alias {
-  ls = "ls -l",
-  la = "ls -la",
-  g = "git",
-  v = "gvim $1 &",
-}
-
+-- search history of command line
 nyagos.bindkey("C_R",
-    function(this)
-        local path = nyagos.getenv("APPDATA") .. '\\NYAOS_ORG\\nyagos.history'
-        local result = nyagos.eval('type ' .. path .. ' | peco')
-        this:call("CLEAR_SCREEN")
-        return result
-    end)
+function(this)
+  local path = nyagos.getenv("APPDATA") .. '\\NYAOS_ORG\\nyagos.history'
+  local result = nyagos.eval('type ' .. path .. ' | peco')
+  this:call("CLEAR_SCREEN")
+  return result
+end
+)
 
+-- select ruby version in rbenv
 nyagos.bindkey("C_E",
-    function(this)
-        local result =  nyagos.eval('rbenv versions | peco')
-        this:call("CLEAR_SCREEN")
-        return ('rbenv global ' .. result)
-    end)
+function(this)
+  local result =  nyagos.eval('rbenv versions | peco')
+  this:call("CLEAR_SCREEN")
+  return ('rbenv global ' .. result)
+end
+)
 
+-- install new ruby version in rbenv
 -- nyagos.bindkey("C_I",
 --     function(this)
 --         local result =  nyagos.eval('rbenv install -l | peco')
 --         this:call("CLEAR_SCREEN")
 --         return 'rbenv install ' .. result .. ' && rbenv rehash'
 --     end)
+
+alias {
+  ls = "ls -l",
+  la = "ls -la",
+  g  = "git",
+  v  = "gvim $1 &",
+}
 
 -- vim:set ft=lua: --
 
