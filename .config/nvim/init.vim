@@ -399,6 +399,7 @@ nmap     <SID>[command]f <SID>[setft]
 nnoremap <silent><SID>[setft]r :<C-u>setlocal filetype=ruby<CR>
 nnoremap <silent><SID>[setft]g :<C-u>setlocal filetype=go<CR>
 nnoremap <silent><SID>[setft]v :<C-u>setlocal filetype=vim<CR>
+nnoremap <silent><SID>[setft]p :<C-u>setlocal filetype=python<CR>
 nnoremap         <SID>[setft]f :<C-u>setlocal filetype=
 
 "}}}

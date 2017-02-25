@@ -7,8 +7,9 @@ hook_add = '''
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [
-        \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'ale', 'filename'],
+        \     ['mode'],
+        \     ['filename'],
+        \     ['fugitive', 'gitgutter', 'ale'],
         \   ],
         \   'right': [
         \     ['lineinfo'],
@@ -17,75 +18,68 @@ hook_add = '''
         \   ]
         \ },
         \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'time': 'MyTime',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode',
-        \   'syntastic': 'SyntasticStatuslineFlag',
-        \   'charcode': 'MyCharCode',
-        \   'gitgutter': 'MyGitGutter',
-        \   'nextbuffername': 'MyNextBufferName',
-        \   'ale': 'MyALEGetStatusLine',
+        \   'modified'       : 'LightLineModified',
+        \   'readonly'       : 'LightLineReadonly',
+        \   'fugitive'       : 'LightLineFugitive',
+        \   'filename'       : 'LightLineFilename',
+        \   'fileformat'     : 'LightLineFileformat',
+        \   'filetype'       : 'LightLineFiletype',
+        \   'fileencoding'   : 'LightLineFileencoding',
+        \   'mode'           : 'LightLineMode',
+        \   'charcode'       : 'LightLineCharCode',
+        \   'gitgutter'      : 'LightLineGitGutter',
+        \   'nextbuffername' : 'LightLineNextBufferName',
+        \   'ale'            : 'LightLineALEGetStatusLine',
         \ },
         \ 'separator': {'left': '', 'right': ''},
         \ 'subseparator': {'left': '|', 'right': '|'}
         \ }
 
-    function! MyModified() "{{{
+    function! LightLineModified() abort "{{{
         return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
     endfunction "}}}
 
-    function! MyTime() "{{{
-        return winwidth('.') > 110 ? strftime("%Y/%m/%d %H:%M:%S", localtime()) : (winwidth('.') > 90 ? strftime("%Y/%m/%d", localtime()) : '')
-    endfunction "}}}
-
-    function! MyReadonly() "{{{
+    function! LightLineReadonly() abort "{{{
         return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '-' : ''
     endfunction "}}}
 
-    function! MyFilename() "{{{
-        return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+    function! LightLineFilename() abort "{{{
+        return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
             \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
             \  &ft == 'unite' ? unite#get_status_string() :
             \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
             \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-            \ ('' != MyModified() ? ' ' . MyModified() : '')
+            \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
     endfunction "}}}
 
-    function! MyFugitive() "{{{
+    function! LightLineFugitive() abort "{{{
         try
             if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
                 let _ = fugitive#head()
                 return strlen(_) ? '' . _ : ''
             endif
-
         catch
         endtry
         return ''
     endfunction "}}}
 
-    function! MyFileformat() "{{{
+    function! LightLineFileformat() abort "{{{
         return winwidth('.') > 70 ? &fileformat : ''
     endfunction "}}}
 
-    function! MyFiletype() "{{{
+    function! LightLineFiletype() abort "{{{
         return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
     endfunction "}}}
 
-    function! MyFileencoding() "{{{
+    function! LightLineFileencoding() abort "{{{
         return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
     endfunction "}}}
 
-    function! MyMode() "{{{
-        return winwidth('.') > 60 ? lightline#mode() : ''
+    function! LightLineMode() abort "{{{
+        return lightline#mode()
     endfunction "}}}
 
-    function! MyGitGutter() "{{{
+    function! LightLineGitGutter() abort "{{{
         if ! exists('*GitGutterGetHunkSummary')
             \ || ! get(g:, 'gitgutter_enabled', 0)
             \ || winwidth('.') <= 90
@@ -106,7 +100,7 @@ hook_add = '''
         return join(ret, ' ')
     endfunction "}}}
 
-    function! MyCharCode() "{{{
+    function! LightLineCharCode() abort "{{{
     " https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
         if winwidth('.') <= 70
             return ''
@@ -142,39 +136,7 @@ hook_add = '''
         return "'". char ."' ". nr
     endfunction "}}}
 
-    function! MyNextBufferName() abort "{{{
-        try
-            redir => ls
-            silent! ls
-            redir END
-            let s:cur_index = 0
-            let s:buffers = split(ls, '\n')
-            for s:buffer in s:buffers
-                if match(s:buffer, '%a') != -1
-                    break
-                endif
-                let s:cur_index = s:cur_index + 1
-            endfor
-            let s:max_index = len(s:buffers) - 1
-            let s:nex_index = s:cur_index + 1
-            if s:nex_index == s:max_index + 1
-                let s:nex_index = 0
-            endif
-            let s:pre_index = s:cur_index - 1
-            if s:pre_index == -1
-                let s:pre_index = s:max_index
-            endif
-            let s:pre_name = matchstr(s:buffers[s:pre_index], '"\zs.*\ze"')
-            let s:pre_name = fnamemodify(s:pre_name, ":t")
-            let s:nex_name = matchstr(s:buffers[s:nex_index], '"\zs.*\ze"')
-            let s:nex_name = fnamemodify(s:nex_name, ":t")
-            let s:str_length = 10
-            return '( ' . s:pre_name[0:s:str_length] . ' <=|=> ' . s:nex_name[0:s:str_length] . ' )'
-        catch
-        endtry
-    endfunction "}}}
-
-    function! MyNextBufferName() "{{{
+    function! LightLineNextBufferName() abort "{{{
       function! s:file_pass_filter(files)
         let l:ret = []
         for l:file  in a:files
@@ -192,11 +154,13 @@ hook_add = '''
       let l:cnt = match(l:files, l:current_file)
       let l:next = fnamemodify(l:files[(l:cnt + 1) % len(l:files)], ":t")
       let l:prev = fnamemodify(l:files[(l:cnt - 1) % len(l:files)], ":t")
-      return l:next . " : " . l:prev"
+      let l:return =  l:next . " : " . l:prev"
+      return winwidth('.') > 100 ? l:return : ''
     endfunction "}}}
 
-    function! MyALEGetStatusLine() "{{{
-      return has('nvim') ? ALEGetStatusLine() : ''
+    function! LightLineALEGetStatusLine() abort "{{{
+      let l:return = has('nvim') ? ALEGetStatusLine() : ''
+      return winwidth('.') > 70 ? l:return : ''
     endfunction "}}}
 
 '''
