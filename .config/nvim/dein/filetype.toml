@@ -11,3 +11,8 @@ on_ft = 'applescript'
 [[plugins]]
 repo = 'JuliaEditorSupport/julia-vim'
 on_ft = 'julia'
+
+[[plugins]]
+repo = 'zsh-users/zsh-syntax-highlighting'
+on_ft = 'zsh'
+

@@ -600,9 +600,8 @@ repo = 'junegunn/vim-emoji' # {{{
 # }}}
 
 [[plugins]]
-repo = 'ynoca/restorer.vim' # {{{
+repo = 'takac/vim-spotifysearch' # {{{
 hook_source= '''
-  let g:restorer#tag = 'null'
 '''
 # }}}
 

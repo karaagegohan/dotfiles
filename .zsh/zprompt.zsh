@@ -71,6 +71,15 @@ precmd () { # {{{
 } # }}}
 
 prompt_simple () {
+
+  prompt_username() { # {{{
+    echo "$fg[$1]%#%n%{$reset_color%} "
+  } # }}}
+
+  prompt_hostname() { # {{{
+    echo "at $fg[$1]%m%{$reset_color%} "
+  } # }}}
+
   prompt_git_root_directory() { # {{{
     echo "in %{${fg[$1]}%}%2v%U%3v%u%4v%{${reset_color}%} "
   } # }}}
@@ -98,55 +107,15 @@ prompt_simple () {
     echo "on $fg[$color]$name%f "
   } # }}}
 
-  prompt_username() { # {{{
-    echo "$fg[$1]%#%n%{$reset_color%} "
-  } # }}}
-
-  prompt_hostname() { # {{{
-    echo "at $fg[$1]%m%{$reset_color%} "
-  } # }}}
-
-  prompt_git_modified_file() { # {{{
+  prompt_git_files() { # {{{
     if test -z $(git rev-parse --git-dir 2> /dev/null); then 
       echo ""
     else
-      out=$( \
-        git ls-files -m \
-        | tr '\r' ' ' \
-        | tr '\n' ' ' \
-        )
-      if [ -n "$out" ]; then
-        echo "$fg[$1]M: $out%{$reset_color%} "
-      fi
-    fi
-  } # }}}
-
-  prompt_git_deleted_file() { # {{{
-    if test -z $(git rev-parse --git-dir 2> /dev/null); then 
-      echo ""
-    else
-      out=$( \
-        git ls-files -d \
-        | tr '\r' ' ' \
-        | tr '\n' ' ' \
-        )
-      if [ -n "$out" ]; then
-        echo "$fg[$1]D: $out%{$reset_color%} "
-      fi
-    fi
-  } # }}}
-
-  prompt_git_untracked_file() { # {{{
-    if test -z $(git rev-parse --git-dir 2> /dev/null); then 
-      echo ""
-    else
-      out=$( \
-        git ls-files --others --exclude-standard \
-        | tr '\r' ' ' \
-        | tr '\n' ' ' \
-        )
-      if [ -n "$out" ]; then
-        echo "$fg[$1]U: $out%{$reset_color%} "
+      staged=$(git diff --name-only --cached | grep -c '')
+      non_staged=$(git diff --name-only | grep -c '')
+      untracked=$(git ls-files --others --exclude-standard | grep -c '')
+      if [ -n "$staged" ]; then
+        echo "$fg[green]●$staged%{$reset_color%}$fg[red]✖$non_staged%{$reset_color%}$fg[blue]✖$untracked%{$reset_color%}"
       fi
     fi
   } # }}}
@@ -163,7 +132,7 @@ prompt_simple () {
     echo "%{${fg[cyan]}%}❱%{${reset_color}%}%{${fg[green]}%}❱%{${reset_color}%}%{${fg[yellow]}%}❱%{${reset_color}%} "
   } # }}}
 
-  echo -e "`prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue`\n`prompt_input`" 
+  echo -e "`prompt_username magenta``prompt_hostname green``prompt_git_root_directory yellow``prompt_git_current_branch blue``prompt_git_files green`\n`prompt_input`" 
 }
 PROMPT='`prompt_simple`'
 
