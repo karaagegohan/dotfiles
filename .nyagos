@@ -10,7 +10,7 @@ nyagos.env.prompt =
 nyagos.bindkey("C_R",
 function(this)
   local path = nyagos.getenv("APPDATA") .. '\\NYAOS_ORG\\nyagos.history'
-  local result = nyagos.eval('type ' .. path .. ' | peco')
+  local result = nyagos.eval('type ' .. path .. ' | tac | peco')
   this:call("CLEAR_SCREEN")
   return result
 end
@@ -21,7 +21,7 @@ nyagos.bindkey("C_E",
 function(this)
   local result =  nyagos.eval('rbenv versions | peco')
   this:call("CLEAR_SCREEN")
-  return ('rbenv global ' .. result)
+  nyagos.eval('rbenv global ' .. result )
 end
 )
 
@@ -32,12 +32,13 @@ end
 --         this:call("CLEAR_SCREEN")
 --         return 'rbenv install ' .. result .. ' && rbenv rehash'
 --     end)
+--
 
 alias {
   ls = "ls -l",
   la = "ls -la",
   g  = "git",
-  v  = "gvim $1 &",
+  v = function(args) if args[1] then nyagos.eval('gvim ' .. args[1] .. ' &') else nyagos.eval('gvim &') end end,
 }
 
 -- vim:set ft=lua: --
