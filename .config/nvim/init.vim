@@ -526,11 +526,6 @@ if &swapfile
   let &directory = s:swapdir
 endif
 
-" mouse
-set mouse=
-set nomousefocus
-set mousehide
-
 " globals
 let g:loaded_gzip               = 0
 let g:loaded_tar                = 0
