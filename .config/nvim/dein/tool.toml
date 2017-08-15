@@ -1,0 +1,6 @@
+[[plugins]]
+repo = 'yuratomo/w3m.vim' # {{{
+hook_add = '''
+  let g:w3m#lang = 'SJIS'
+'''
+# }}}
