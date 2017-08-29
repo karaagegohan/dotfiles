@@ -23,7 +23,7 @@ ARGV.each do |arg|
   folders = session.files.select { |f| f.class.to_s == 'GoogleDrive::Collection' }
   folders.map!(&:title)
 
-  # Creat a folder if it doesn't exist.
+  # Create a folder if it doesn't exist.
   if folders.include?(folder_name)
   else
     session.root_collection.create_subcollection(folder_name)
