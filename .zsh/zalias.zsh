@@ -19,5 +19,6 @@ alias rst='exec $SHELL -l'
 alias ugd='upload-googledrive'
 alias p='python'
 alias r='ruby'
+alias wg='w3m http://google.com'
 
 # vim: set filetype=zsh:
